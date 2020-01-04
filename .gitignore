@@ -1,0 +1,7 @@
+.nyc_output
+checkstyle-result.xml
+coverage
+node_modules
+redis.code-workspace
+dist
+doc

@@ -1,0 +1,8 @@
+--require source-map-support/register
+--require ts-node/register
+--full-trace
+--bail
+--timeout=2000
+test/**/*.test.ts test/*.test.ts
+
+
