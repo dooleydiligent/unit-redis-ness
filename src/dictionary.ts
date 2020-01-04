@@ -61,7 +61,7 @@ export class Dictionary<T> implements Iterable<any> {
    * @param key The key required
    * @returns
    */
-  public exists(key: any): boolean {
+  public exists(key: string): boolean {
     return !!this.items[key];
   }
   /**
@@ -69,14 +69,19 @@ export class Dictionary<T> implements Iterable<any> {
    * @param key The element key
    * @returns
    */
-  public get(key: any): any {
+  public get(key: string): any {
+    const item = this.items[key];
+    if (item && item.expiredAt && parseInt(item.expiredAt, 10)  < new Date().getTime()) {
+      this.remove(key);
+      return null;
+    }
     return this.items[key];
   }
   /**
    * The array of keys in the store
    * @returns
    */
-  public keys(): any[] {
+  public keys(): string[] {
     return Object.keys(this.items);
   }
   /**
@@ -86,7 +91,7 @@ export class Dictionary<T> implements Iterable<any> {
    * @param value The value - supports null
    * @returns
    */
-  public put(key: any, value: any): any {
+  public put(key: string, value: any): any {
     this.items[key] = value;
     return value;
   }
@@ -95,7 +100,7 @@ export class Dictionary<T> implements Iterable<any> {
    * @param key The key to remove
    * @returns
    */
-  public remove(key: any): any {
+  public remove(key: string): any {
     const item = this.items[key];
     if (item) {
       delete this.items[key];

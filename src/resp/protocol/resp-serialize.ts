@@ -32,7 +32,7 @@ export class RespSerialize {
           if (this.message.getValue() && this.message.getValue().length > 0) {
             this.value += `${RespSerialize.BULK_STRING}${this.message.getValue().length}${RespSerialize.DELIMITER}${this.message.getValue().toString()}`;
           } else {
-            this.value += `${RespSerialize.BULK_STRING}-1${RespSerialize.DELIMITER}`;
+            this.value += `${RespSerialize.BULK_STRING}-1`;
           }
           this.value += `${RespSerialize.DELIMITER}`;
           break;

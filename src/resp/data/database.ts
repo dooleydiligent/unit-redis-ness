@@ -1,7 +1,6 @@
 import { Dictionary } from '../../dictionary';
 import { Logger } from '../../logger';
 import { DataType } from './data-type';
-import { DatabaseKey } from './database-key';
 import { DatabaseValue } from './database-value';
 
 export class Database extends Dictionary<any> {
@@ -83,7 +82,7 @@ export class Database extends Dictionary<any> {
     return true;
   }
 
-  public rename(from: DatabaseKey, to: DatabaseKey): boolean {
+  public rename(from: string, to: string): boolean {
     const value = this.remove(from);
     if (value != null) {
       this.put(to, value);

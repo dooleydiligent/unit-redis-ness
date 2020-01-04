@@ -11,18 +11,32 @@ interface IParameters {
   ifNotExists: boolean;
   ttl: number | null;
 }
-// Set must have at least two parameters.  They are key and value.  Both are strings
-// Set can have one or two optional parameters
-// These are:
-// NX: Only set if it does not exist
-// XX: Only set if it DOES exist
-// EX <seconds> set ttl to <seconds>
-// PX <millis>  set ttl to millis
+/**
+ * Available (in this form) since v2.6.12
+ *
+ * Set key to hold the string value.
+ * If key already holds a value, it is overwritten,
+ * regardless of its type.
+ *
+ * Any previous time to live associated with the key is discarded on successful SET operation.
+ *
+ * EX seconds -- Set the specified expire time, in seconds.
+ * PX milliseconds -- Set the specified expire time, in milliseconds.
+ * NX -- Only set the key if it does not already exist.
+ * XX -- Only set the key if it already exist.
+ *
+ * RETURNS:
+ * Simple string reply:
+ * OK if SET was executed correctly.
+ * Null reply: a Null Bulk Reply is returned if the SET operation was not performed
+ * because the user specified the NX or XX option but the condition was not met.
+ *
+ * Note that XX or NX can be specified multiple times without change in behavior
+ */
 export class SetCommand implements IRespCommand {
   public minParams: number = 2;
   public maxParams: number = 4;
   public isRespCommand: boolean = false;
-  public paramLength: number = 2;
   public readOnly: boolean = false;
   public txIgnore: boolean = true;
   public pubSubAllowed: boolean = false;
@@ -36,8 +50,10 @@ export class SetCommand implements IRespCommand {
       const key: string = request.getParam(0).toString();
       const value: DatabaseValue = this.parseValue(request, parameters);
       const savedValue = this.saveValue(db, parameters, key, value);
-      return value.toString() === savedValue.toString() ? RedisToken.responseOk() : RedisToken.nullString();
+      return savedValue && savedValue.toString() === value.toString() ?
+        RedisToken.responseOk() : RedisToken.nullString();
     } catch (ex) {
+      this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
       return RedisToken.error(ex);
     }
   }
@@ -62,12 +78,12 @@ export class SetCommand implements IRespCommand {
           parameters.ttl = this.parseTtl(request, ++i);
         } else if (this.match('NX', option)) {
           if (parameters.ifExists) {
-            throw new Error('Syntax Exception - cannot set NX twice');
+            throw new Error('Syntax Exception - cannot set NX with XX');
           }
           parameters.ifNotExists = true;
         } else if (this.match('XX', option)) {
           if (parameters.ifNotExists) {
-            throw new Error('Syntax Exception - cannot set XX twice');
+            throw new Error('Syntax Exception - cannot set XX with NX');
           }
           parameters.ifExists = true;
         } else {
@@ -89,10 +105,10 @@ export class SetCommand implements IRespCommand {
     return value;
   }
   private parseValue(request: IRequest, parameters: IParameters): DatabaseValue {
-    let value: DatabaseValue = DatabaseValue.string(request.getParam(1).toString());
-    if (parameters.ttl != null) {
-      value = value.setExpiredAt(new Date().getTime() + parameters.ttl);
-    }
+    const value: DatabaseValue = new DatabaseValue(
+      DataType.STRING,
+      request.getParam(1).toString(),
+      parameters.ttl ? new Date().getTime() + parameters.ttl : undefined);
     return value;
   }
   private saveValue(db: Database, params: IParameters, key: string, value: DatabaseValue): DatabaseValue {
@@ -102,7 +118,9 @@ export class SetCommand implements IRespCommand {
     } else if (params.ifNotExists) {
       savedValue = db.putIfAbsent(key, value);
     } else {
+      this.logger.warn(`Setting ${JSON.stringify(key)} to ${JSON.stringify(value)}`);
       savedValue = db.put(key, value);
+      this.logger.warn(`Returning ${JSON.stringify(savedValue)}`);
     }
     return savedValue;
   }

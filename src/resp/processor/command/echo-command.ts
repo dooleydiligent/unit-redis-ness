@@ -16,11 +16,6 @@ export class EchoCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest): RedisToken {
     this.logger.debug(`execute(request, db)`, request.getParams());
-
-    const retval: string = request.getParam(0);
-    if (retval) {
-      return RedisToken.string(retval);
-    }
-    return RedisToken.nullString();
+    return RedisToken.string(request.getParam(0));
   }
 }

@@ -37,7 +37,11 @@ export class InfoCommand implements IRespCommand {
     this.logger.debug(`request is ${request.constructor.name}`, request);
     if (request.getParams().length > 0) {
       const section = request.getParam(0).toString();
-      sections[section] = this.section(section, request.getServerContext());
+      if (this.allSections().indexOf(section.toLowerCase()) > -1) {
+        sections[section] = this.section(section, request.getServerContext());
+      } else {
+        return RedisToken.string('');
+      }
     } else {
       for (const section of this.allSections()) {
         sections[section] = this.section(section, request.getServerContext());
@@ -54,13 +58,10 @@ export class InfoCommand implements IRespCommand {
     switch (section.toLowerCase()) {
       case InfoCommand.SECTION_SERVER:
         return this.server(ctx);
-        break;
       case InfoCommand.SECTION_CLIENTS:
         return this.clients(ctx);
-        break;
       case InfoCommand.SECTION_MEMORY:
         return this.memory(ctx);
-        break;
       case InfoCommand.SECTION_STATS:
       case InfoCommand.SECTION_CPU:
       case InfoCommand.SECTION_COMMANDSTATS:

@@ -33,4 +33,7 @@ export class RespServerContext implements IServerContext {
   public removeValue(key: string) {
     this.state.remove(key);
   }
+  public addClient(key: string): void {
+    this.clients.push(key);
+  }
 }

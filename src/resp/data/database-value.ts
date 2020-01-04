@@ -186,7 +186,8 @@ export class DatabaseValue {
   }
 
   public toString(): string {
-    return 'DatabaseValue [type=' + this.type + ', value=' + this.value + ']';
+    return 'DatabaseValue [type=' + this.type + ', value=' + this.value +
+      ', expireAt=' + this.expiredAt + ']';
   }
 
   private timeToLive(now: number): number {

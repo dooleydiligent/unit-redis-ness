@@ -16,7 +16,7 @@ export const sendCommand = (client: net.Socket, commands: string[]): Promise<str
   return new Promise((resolve) => {
     let response: string | null = null;
     client.on('data', (data) => {
-//    console.debug(`\n\n\nclient REPLY: ${data.toString().replace(/\r/g, '\\r').replace(/\n/g, '\\n')}`);
+    console.debug(`\n\n\nclient REPLY: ${data.toString().replace(/\r/g, '\\r').replace(/\n/g, '\\n')}`);
 
       expect(data.constructor.name).to.equal('Buffer');
       const parser = new Parser({
