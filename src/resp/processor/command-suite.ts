@@ -3,6 +3,7 @@ import { Logger } from '../../logger';
 import { CommandWrapperFactory } from './command-wrapper-factory';
 import { DelCommand } from './command/del-command';
 import { EchoCommand } from './command/echo-command';
+import { ExistsCommand } from './command/exists-command';
 import { GetCommand } from './command/get-command';
 import { InfoCommand } from './command/info-command';
 import { NullCommand } from './command/null-command';
@@ -27,6 +28,7 @@ export class CommandSuite {
     this.addCommand('quit', new QuitCommand());
     this.addCommand('time', new TimeCommand());
     this.addCommand('del', new DelCommand());
+    this.addCommand('exists', new ExistsCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

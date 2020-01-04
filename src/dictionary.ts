@@ -70,11 +70,6 @@ export class Dictionary<T> implements Iterable<any> {
    * @returns
    */
   public get(key: string): any {
-    const item = this.items[key];
-    if (item && item.expiredAt && parseInt(item.expiredAt, 10)  < new Date().getTime()) {
-      this.remove(key);
-      return null;
-    }
     return this.items[key];
   }
   /**

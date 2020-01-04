@@ -3,11 +3,24 @@ import { Logger } from '../../logger';
 import { DataType } from './data-type';
 import { DatabaseValue } from './database-value';
 
-export class Database extends Dictionary<any> {
+export class Database extends Dictionary<DatabaseValue> {
   protected logger: Logger = new Logger(module.id);
 
   public isEmpty(): boolean {
     return this.size() === 0;
+  }
+
+  public exists(key: string): boolean {
+    const item = this.get(key);
+    return (!!item);
+  }
+  public get(key: string): any {
+    const item = super.get(key);
+    if (item && item.expiredAt && parseInt(item.expiredAt, 10)  < new Date().getTime()) {
+      this.remove(key);
+      return null;
+    }
+    return item;
   }
 
   // public getString(key: string): string {
