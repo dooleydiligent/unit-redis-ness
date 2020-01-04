@@ -2,11 +2,11 @@ import * as util from 'util';
 /**
  * A simple logger.  Supports info, and warn without any configuration
  *
- * Leverages {@util}.debuglog(...) to enable debug logging
+ * Leverages [util.debuglog](https://nodejs.org/api/util.html#util_util_debuglog_section) to enable debug logging
  * To use debug logging:
  *
  * ```
- * export NODE_DEBUG=module-name.js,other-module.js
+ * export NODE_DEBUG=module-name,other-module
  * ```
  *
  */

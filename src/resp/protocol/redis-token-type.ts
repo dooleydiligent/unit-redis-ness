@@ -1,8 +1,8 @@
 export enum RedisTokenType {
-  STATUS = 'status',
-  INTEGER = 'integer',
-  STRING = 'string',
   ARRAY = 'array',
   ERROR = 'error',
+  INTEGER = 'integer',
+  STATUS = 'status',
+  STRING = 'string',
   UNKNOWN = 'unknown'
 }

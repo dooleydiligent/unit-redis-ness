@@ -1,3 +1,4 @@
+import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { DataType } from '../../data/data-type';
@@ -33,15 +34,11 @@ interface IParameters {
  *
  * Note that XX or NX can be specified multiple times without change in behavior
  */
+@DbDataType(DataType.STRING)
+@MaxParams(5)
+@MinParams(2)
+@Name('set')
 export class SetCommand implements IRespCommand {
-  public minParams: number = 2;
-  public maxParams: number = 4;
-  public isRespCommand: boolean = false;
-  public readOnly: boolean = false;
-  public txIgnore: boolean = true;
-  public pubSubAllowed: boolean = false;
-  public dataType: DataType = DataType.STRING;
-  public isDbCommand: boolean = true;
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`executeDBRequest()`, request.getParams());
@@ -100,7 +97,7 @@ export class SetCommand implements IRespCommand {
     const ttlOption: string = request.getParam(i);
     const value: number = parseInt(ttlOption.toString(), 10);
     if (value < 1) {
-      throw new Error(`ttl cannot be less than 1`);
+      throw new Error(`invalid expire time in set`);
     }
     return value;
   }

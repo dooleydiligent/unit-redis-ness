@@ -25,11 +25,11 @@ export const sendCommand = (client: net.Socket, commands: string[]): Promise<str
           response = err.toString();
           client.destroy();
         },
-        returnReply: (reply: string) => {
+        returnReply: (reply: any) => {
           response = reply;
           client.destroy();
         },
-        stringNumbers: true
+        stringNumbers: false
       });
       parser.reset();
       parser.execute(data);

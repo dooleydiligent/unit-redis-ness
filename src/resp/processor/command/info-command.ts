@@ -1,12 +1,15 @@
 import * as os from 'os';
+import { MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { IServerContext } from '../../../server/server-context';
-import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from './resp-command';
 
+@MaxParams(1)
+@MinParams(0)
+@Name('info')
 export class InfoCommand implements IRespCommand {
   private static SHARP = '#';
   private static SEPARATOR = ':';
@@ -21,14 +24,6 @@ export class InfoCommand implements IRespCommand {
   private static SECTION_CLIENTS = 'clients';
   private static SECTION_REPLICATION = 'replication';
   private static SECTION_SERVER = 'server';
-  public minParams: number = 0;
-  public maxParams: number = 1;
-  public isRespCommand: boolean = true;
-  public readOnly: boolean = true;
-  public isDbCommand: boolean = true;
-  public txIgnore: boolean = true;
-  public pubSubAllowed: boolean = false;
-  public dataType: DataType = DataType.NONE;
   private logger: Logger = new Logger(module.id);
 
   public execute(request: IRequest, db: Database): RedisToken {

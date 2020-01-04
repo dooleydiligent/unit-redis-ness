@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc -p .",
     "clean": "rm -rf dist doc coverage checkstyle-result.xml .nyc_output",
-    "doc": "typedoc --mode file --out doc --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --includes node_modules/@types/ --exclude **/*.test.ts src",
+    "doc": "typedoc --mode file --out doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
     "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test"

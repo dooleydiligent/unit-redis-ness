@@ -7,26 +7,22 @@ import { RedisToken } from '../protocol/redis-token';
 import { IRespCommand } from './command/resp-command';
 
 export class CommandWrapper implements IRespCommand {
-  public isDbCommand: boolean = false;
   public maxParams: number = -1;
   public minParams: number = -1;
-  public isRespCommand: boolean = false;
-  public dataType: DataType;
+  public dataType: DataType = DataType.NONE;
   public pubSubAllowed: boolean;
   public txIgnore: boolean;
-  public readOnly: boolean;
   private logger: Logger = new Logger(module.id);
-  constructor(private command: any) {
-    this.dataType = command.dataType;
-    this.readOnly = !!command.readOnly;
+  constructor(private command: IRespCommand) {
+    this.logger.info(`Instantiating command ${(command as any).name}`);
+    if (command.dataType) {
+      this.dataType = command.dataType;
+    }
     this.txIgnore = !!command.txIgnore;
     this.pubSubAllowed = !!command.pubSubAllowed;
-    this.isRespCommand = !!command.isRespCommand;
-    this.minParams = +command.minParams;
-    this.maxParams = +command.maxParams;
-  }
-  public isReadOnly(): boolean {
-    return this.readOnly;
+    // We have to set these values
+    this.minParams = +(command as any).minParams;
+    this.maxParams = +(command as any).maxParams;
   }
   public isTxIgnore(): boolean {
     return this.txIgnore;
@@ -41,11 +37,11 @@ export class CommandWrapper implements IRespCommand {
     this.logger.debug(`Request param 0 is ${JSON.stringify(request.getParam(0))}`);
     this.logger.debug(`PARAMS Is/Are`, request.getParams());
     switch (true) {
-      case request.getLength() < this.minParams || request.getLength() > this.maxParams:
+      case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):
+        this.logger.warn(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
         return RedisToken.error(
           `ERR wrong number of arguments for '${request.getCommand()}' command`);
-      case !!this.command.isDbCommand && this.dataType &&
-        this.dataType !== DataType.NONE &&
+      case !!this.dataType &&
         !db.isType(request.getParam(0).toString(), this.dataType):
         return RedisToken.error(
           `WRONGTYPE Operation against a key holding the wrong kind of value`);
@@ -56,12 +52,14 @@ export class CommandWrapper implements IRespCommand {
         this.enqueueRequest(request);
         return RedisToken.status(`QUEUED`);
       default:
-        if (this.command.isDbCommand) {
+        if (this.dataType) {
           this.logger.debug(`Executing DB Command ${request.getCommand()} with params `, request.getParams());
           return this.executeDBCommand(request, db);
-        } else if (this.command.isRespCommand) {
-          this.logger.debug(`Executing RESP Command ${request.getCommand()} with params `, request.getParams());
-          return this.executeCommand(request);
+        } else {
+          if (!!(this.command as any).name ) {
+            this.logger.debug(`Executing RESP Command ${request.getCommand()} with params `, request.getParams());
+            return this.executeCommand(request);
+          }
         }
         this.logger.warn(`Could not execute command ${request.getCommand()} with params `, request.getParams());
         return RedisToken.error(`invalid command type: ${this.command.constructor.name}`);

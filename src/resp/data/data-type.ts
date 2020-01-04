@@ -1,8 +1,9 @@
 export enum DataType {
-  STRING = 'string',
-  LIST = 'list',
-  SET = 'set',
-  ZSET = 'zset',
   HASH = 'hash',
-  NONE = 'none'
+  INTEGER = 'integer',
+  LIST = 'list',
+  NONE = 'none',
+  SET = 'set',
+  STRING = 'string',
+  ZSET = 'zset'
 }

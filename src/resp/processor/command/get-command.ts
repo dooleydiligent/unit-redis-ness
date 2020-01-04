@@ -1,9 +1,15 @@
+import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../command/resp-command';
+
+@DbDataType(DataType.STRING)
+@MaxParams(1)
+@MinParams(1)
+@Name('get')
 
 /**
  * Get the value of key.
@@ -12,14 +18,6 @@ import { IRespCommand } from '../command/resp-command';
  * because GET only handles string values
  */
 export class GetCommand implements IRespCommand {
-  public minParams: number = 1;
-  public maxParams: number = 1;
-  public isRespCommand: boolean = false;
-  public readOnly: boolean = true;
-  public txIgnore: boolean = true;
-  public pubSubAllowed: boolean = false;
-  public dataType: DataType = DataType.STRING;
-  public isDbCommand: boolean = true;
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     const key = request.getParam(0);

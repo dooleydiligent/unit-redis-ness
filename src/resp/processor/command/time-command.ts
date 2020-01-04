@@ -1,7 +1,9 @@
+import { MaxParams, MinParams, Name } from '../../../decorators';
 import { IRequest } from '../../../server/request';
 import { DataType } from '../../data/data-type';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from './resp-command';
+
 /**
  * Available since v2.6.0
  * The TIME command returns the current server time as a two items lists:
@@ -13,15 +15,10 @@ import { IRespCommand } from './resp-command';
  * unix time in seconds.
  * microseconds.
  */
+@MaxParams(0)
+@MinParams(0)
+@Name('time')
 export class TimeCommand implements IRespCommand {
-  public readOnly: boolean = true;
-  public txIgnore: boolean = true;
-  public pubSubAllowed: boolean = false;
-  public dataType: DataType = DataType.NONE;
-  public isDbCommand: boolean = false;
-  public maxParams: number = 0;
-  public minParams: number = 0;
-  public isRespCommand: boolean = true;
   public execute(request: IRequest): RedisToken {
     const currentTime: number[] = process.hrtime();
     return RedisToken.array(

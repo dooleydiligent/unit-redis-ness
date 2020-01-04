@@ -1,6 +1,7 @@
 import { Dictionary } from '../../dictionary';
 import { Logger } from '../../logger';
 import { CommandWrapperFactory } from './command-wrapper-factory';
+import { DelCommand } from './command/del-command';
 import { EchoCommand } from './command/echo-command';
 import { GetCommand } from './command/get-command';
 import { InfoCommand } from './command/info-command';
@@ -25,6 +26,7 @@ export class CommandSuite {
     this.addCommand('echo', new EchoCommand());
     this.addCommand('quit', new QuitCommand());
     this.addCommand('time', new TimeCommand());
+    this.addCommand('del', new DelCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

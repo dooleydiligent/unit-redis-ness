@@ -24,6 +24,7 @@ describe('data-type test', () => {
     expect(DataType.SET).to.equal('set');
     expect(DataType.ZSET).to.equal('zset');
     expect(DataType.HASH).to.equal('hash');
-    expect(Object.keys(DataType).length).to.equal(6);
+    expect(DataType.INTEGER).to.equal('integer');
+    expect(Object.keys(DataType).length).to.equal(7);
   });
 });
