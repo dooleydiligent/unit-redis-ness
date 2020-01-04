@@ -28,7 +28,7 @@ describe('exists-command test', () => {
   });
 
   after(async () => {
-    respServer.stop();
+    await respServer.stop();
   });
   /**
    * Functional testing of the exists command

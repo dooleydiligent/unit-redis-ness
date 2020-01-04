@@ -27,7 +27,7 @@ describe('resp-server test', () => {
   });
 
   after(async () => {
-    respServer.stop();
+    await respServer.stop();
   });
   /**
    * Functional testing of each implemented command

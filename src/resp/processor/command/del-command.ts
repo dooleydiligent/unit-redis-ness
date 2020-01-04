@@ -1,16 +1,16 @@
 import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
 import { DataType } from '../../data/data-type';
+import { Database } from '../../data/database';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from './resp-command';
 /**
  * Available since v1.0.0
- * 
+ *
  * DEL key [key...]
  * Removes the specified keys. A key is ignored if it does not exist.
- * 
+ *
  * RETURNS:
  * Integer reply: The number of keys that were removed.
  */

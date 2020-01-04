@@ -7,7 +7,7 @@ export class DatabaseValue {
   public static EMPTY_LIST: DatabaseValue = DatabaseValue.list([]);
   public static EMPTY_SET: DatabaseValue = DatabaseValue.set(new Set());
   public static EMPTY_ZSET: DatabaseValue = DatabaseValue.zset(new Zset());
-  // public static EMPTY_HASH: DatabaseValue = DatabaseValue.hash();
+  // public static EMPTY_HASH: DatabaseValue = DatabaseValue.hash({});
 
   // public static DatabaseValue string(String value) {
   //   return string(safeString(value));
@@ -57,9 +57,9 @@ export class DatabaseValue {
   //                                                   Collections::unmodifiableNavigableSet)));
   // }
 
-  // public static DatabaseValue hash(ImmutableMap<SafeString, SafeString> values) {
-  //   return new DatabaseValue(DataType.HASH, values);
-  // }
+  public static hash(hash: any): DatabaseValue {
+    return new DatabaseValue(DataType.HASH, hash);
+  }
 
   // public static DatabaseValue hash(Collection<Tuple2<SafeString, SafeString>> values) {
   //   return new DatabaseValue(DataType.HASH, ImmutableMap.from(requireNonNull(values).stream()));
@@ -128,10 +128,9 @@ export class DatabaseValue {
   //   return getValue();
   // }
 
-  // public ImmutableMap<SafeString, SafeString> getHash() {
-  //   requiredType(DataType.HASH);
-  //   return getValue();
-  // }
+  public getHash(): any {
+    return this.getValue();
+  }
 
   public size(): number {
     switch (this.type) {

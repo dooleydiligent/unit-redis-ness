@@ -1,13 +1,13 @@
 import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
 import { DataType } from '../../data/data-type';
+import { Database } from '../../data/database';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from './resp-command';
 /**
  * Available since v1.0.0
- * 
+ *
  * EXISTS key [key...]
  * Returns if key exists.
  *
@@ -22,12 +22,12 @@ import { IRespCommand } from './resp-command';
  *
  * Return value
  * Integer reply, specifically:
- * 
+ *
  * 1 if the key exists.
  * 0 if the key does not exist.
  * Since Redis 3.0.3 the command accepts a variable number of keys and the return value
  * is generalized:
- * 
+ *
  * The number of keys existing among the ones specified as arguments. Keys mentioned
  * multiple times and existing are counted multiple times.
  */

@@ -49,9 +49,9 @@ export class RespServer extends EventEmitter {
       stringNumbers: true
     });
     parser.execute(message);
-    this.logger.debug(`Parsed response is : ${parser.response}`);
+    this.logger.debug(`Parsed client command is : ${parser.response}`);
     const result = this.parseMessage(parser.response, session);
-    this.logger.debug(`Result is ${result}`);
+    this.logger.debug(`Parsed client message is ${result}`);
     // look up the command in commandsuite
     const execcommand: IRespCommand = this.serverContext.getCommand(result.getCommand());
     this.logger.debug(`Command is ${result.getCommand()}: ${JSON.stringify(execcommand)}`);

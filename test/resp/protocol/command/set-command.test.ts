@@ -24,7 +24,7 @@ describe('set-command test', () => {
   });
 
   after(async () => {
-    respServer.stop();
+    await respServer.stop();
   });
   /**
    * Functional testing of the set command

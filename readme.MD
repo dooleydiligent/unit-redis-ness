@@ -17,18 +17,24 @@ This project is released under the [MIT license](https://opensource.org/licenses
 
 # Current State
 
-In it's current pre-alpha state, unit-redis only supports 4 "server" commands:
+In it's current pre-alpha state, unit-redis only supports 5 "server" commands:
 
 - ping
 - echo
 - time
 - quit
+- info
 
-Plus two "database" commands:
+Plus some "database" commands:
 
 - get
 - set
-
+- exists
+- del
+- hset
+- hget
+- incr
+- decr
 
 # Future plans
 
