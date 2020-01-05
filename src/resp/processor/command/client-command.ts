@@ -103,6 +103,7 @@ import { IRespCommand } from './resp-command';
  * - PAUSE
  * - REPLY
  * - SETNAME
+ *
  * Available since 2.6.9.
  *
  * CLIENT SETNAME command assigns a name to the current connection.
@@ -165,7 +166,9 @@ export class ClientCommand implements IRespCommand {
     if (request.getParams().length !== 2) {
       return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
     }
-    if (/\s/.test(request.getParam(2))) {
+    this.logger.debug(`Testing [${request.getParam(1)}] for whitespace`);
+    const hasWhiteSpace = /\s/gm.test(request.getParam(1));
+    if (hasWhiteSpace) {
       return RedisToken.error(`Client names cannot contain spaces, newlines or special characters.`);
     }
     request.getSession().setName(request.getParam(1));
@@ -174,11 +177,7 @@ export class ClientCommand implements IRespCommand {
   private getId(request: IRequest): RedisToken {
     if (request.getParams().length === 1) {
       const name = request.getSession().getValue('ID');
-      if (!name) {
-        return RedisToken.NULL_STRING;
-      } else {
-        return RedisToken.string(name);
-      }
+      return RedisToken.string(name);
     } else {
       return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
     }
@@ -187,7 +186,7 @@ export class ClientCommand implements IRespCommand {
     this.logger.debug(`getList(${request})`);
     if (request.getParams().length === 1) {
       const clientList: string[] = [];
-      const clients: Dictionary<Session> = request.getServerContext().getClients();
+      const clients: Dictionary<Session, Session> = request.getServerContext().getClients();
       this.logger.debug(`clients is ${clients}`);
       for (const client of clients) {
         this.logger.debug(`client is:`, client);

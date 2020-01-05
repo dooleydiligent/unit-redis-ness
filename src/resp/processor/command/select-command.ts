@@ -1,3 +1,9 @@
+import { MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
+import { IRequest } from '../../../server/request';
+import { Database } from '../../data/database';
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from './resp-command';
 /**
  * Available since 1.0.0.
  *
@@ -35,3 +41,27 @@
  * Return value
  * Simple string reply
  */
+@MaxParams(1)
+@MinParams(1)
+@Name('select')
+export class SelectCommand implements IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execute(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`execute(request, db)`, request.getParams());
+    try {
+      const id: number = parseInt(request.getParam(0), 10);
+      if (id > -1) {
+        if (id < 16) {
+          request.getSession().setCurrentDb(id);
+        } else {
+          throw new Error('DB index is out of range');
+        }
+      } else {
+        throw new Error('DB index is out of range');
+      }
+      return RedisToken.RESPONSE_OK;
+    } catch (ex) {
+      return RedisToken.error(ex);
+    }
+  }
+}

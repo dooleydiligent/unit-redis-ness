@@ -31,34 +31,59 @@ describe('client command test', () => {
   /**
    * Functional testing of the client command.
    */
-  it('should not allow more than 3 parameters', (done) => {
-    sendCommand(client, ['client', 'one', 'two', 'three', 'four'])
-    .then((response: any) => {
-      expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'client\' command');
-      done();
-    });
+  it('should not allow more than 3 parameters', async () => {
+    const response: any = await sendCommand(client, ['client', 'one', 'two', 'three', 'four']);
+    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'client\' command');
   });
   it('should fail predictably when an unknown subcommand is passed', async () => {
-    const response = await sendCommand(client, ['client', 'whatever']);
+    const response: any = await sendCommand(client, ['client', 'whatever']);
     expect(response).to.equal(util.format(DEFAULT_ERROR, 'whatever'));
   });
-  it('should return a NIL name when called with GETNAME subcommand', async () => {
-    const response = await sendCommand(client, ['client', 'getname']);
+  it('should return a NIL name when called with "GETNAME" subcommand', async () => {
+    const response: any = await sendCommand(client, ['client', 'getname']);
     console.log(`RESPONSE: '${response}'`);
     expect(response).to.equal(null);
   });
-  it('should fail predictably when GETNAME is called with too many parameters', async () => {
-    const response = await sendCommand(client, ['client', 'getname', 'extra']);
+  it('should fail predictably when "GETNAME" is called with too many parameters', async () => {
+    const response: any = await sendCommand(client, ['client', 'getname', 'extra']);
     expect(response).to.equal(util.format(DEFAULT_ERROR, 'getname'));
   });
-  it('should respond with "OK" when setname is called with a valid name', async () => {
+  it('should respond with "OK" when "setname" is called with a valid name', async () => {
     let response = await sendCommand(client, ['client', 'setname', 'whatever']);
     expect(response).to.equal('OK');
     response = await sendCommand(client, ['client', 'getname']);
     expect(response).to.equal('whatever');
   });
-  it('should persist the value for setname across tests', async () => { 
-    const response = await sendCommand(client, ['client', 'getname']);
+  it('should persist the value for "setname" across tests', async () => {
+    const response: any = await sendCommand(client, ['client', 'getname']);
     expect(response).to.equal('whatever');
+  });
+  it('should respond with a predictable message when "setname" called with too many parameters', async () => {
+    const response: any = await sendCommand(client, ['client', 'setname', 'test', 'two']);
+    expect(response).to.equal(util.format(DEFAULT_ERROR, 'setname'));
+  });
+  it('should not allow whitespace in "setname" subcommand', async () => {
+    const response: any = await sendCommand(client, ['client', 'setname', 'te\nst']);
+    expect(response).to.equal(`ReplyError: Client names cannot contain spaces, newlines or special characters.`);
+  });
+  it('should return the server-assigned client id', async () => {
+    const response: any = await sendCommand(client, ['client', 'id']);
+    expect(response).to.be.a('string');
+    expect(response.length).to.be.greaterThan(0);
+  });
+  it('should respond with a predictable message when "id" called with too many parameters', async () => {
+    const response: any = await sendCommand(client, ['client', 'id', 'test', 'two']);
+    expect(response).to.equal(util.format(DEFAULT_ERROR, 'id'));
+  });
+  it('should return a bunch of information when client "list" subcommand is invoked', async () => {
+    const response: any = await sendCommand(client, ['client', 'list']);
+    expect(response).to.be.a('string');
+    expect(response.length).to.be.greaterThan(0);
+    expect(response).to.match(/ name: whatever /);
+    expect(response).to.match(/\bdb:\s0\b/);
+  });
+  it('should respond with a predictable message when "list" called with too many parameters', async () => {
+    const response: any = await sendCommand(client, ['client', 'list', 'test', 'two']);
+    expect(response).to.equal(util.format(DEFAULT_ERROR, 'list'));
   });
 });

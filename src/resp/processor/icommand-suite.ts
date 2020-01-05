@@ -4,8 +4,8 @@ import { NullCommand } from '../../resp/processor/command/null-command';
 import { IRespCommand } from '../../resp/processor/command/resp-command';
 
 export interface ICommandSuite {
-  metadata: Dictionary<string>;
-  commands: Dictionary<string>;
+  metadata: Dictionary<string, string>;
+  commands: Dictionary<string, IRespCommand>;
   nullCommand: NullCommand;
   factory: CommandWrapperFactory;
   getCommand(name: string): IRespCommand;

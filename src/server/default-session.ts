@@ -10,7 +10,7 @@ import { Session } from './session';
 const resp = require('resp');
 
 export class DefaultSession implements Session {
-  private state: Dictionary<string> = new Dictionary();
+  private state: Dictionary<string, string> = new Dictionary();
   private name: string = '';
   private logger: Logger = new Logger(module.id);
   private currentDb: number = 0;

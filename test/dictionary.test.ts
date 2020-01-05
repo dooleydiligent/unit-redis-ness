@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import { Dictionary } from '../src/dictionary';
 
 describe('dictionary test', () => {
-  let dictionary: Dictionary<string>;
+  let dictionary: Dictionary<string, any>;
   beforeEach(() => {
     dictionary = new Dictionary();
     sinon.createSandbox();

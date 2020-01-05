@@ -11,12 +11,19 @@ import { DefaultRequest } from './default-request';
 import { DefaultSession } from './default-session';
 import { IRequest } from './request';
 import { RespServerContext } from './resp-server-context';
+import { IServerContext } from './server-context';
 import { Session } from './session';
 // // tslint:disable-next-line
 // const safeId = require('generate-safe-id');
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
 
+/**
+ * The redis server.
+ * Manages client request/response cycle.
+ *
+ * Listens, by default, to env.DEFAULT_HOST (localhost) on port env.DEFAULT_PORT (6379)
+ */
 export class RespServer extends EventEmitter {
   private static BUFFER_SIZE = 1024 * 1024;
   private static MAX_FRAME_SIZE = RespServer.BUFFER_SIZE * 100;
@@ -25,7 +32,7 @@ export class RespServer extends EventEmitter {
 
   private logger: Logger = new Logger(module.id);
   private server: net.Server = net.createServer();
-  private serverContext: RespServerContext;
+  private serverContext: IServerContext;
   constructor() {
     super();
     const host = RespServer.DEFAULT_HOST;
@@ -33,6 +40,15 @@ export class RespServer extends EventEmitter {
     const commandSuite = new CommandSuite();
     this.serverContext = new RespServerContext(host, port, commandSuite);
   }
+  /**
+   * Receive the client request, convert it to RESP format,
+   * dispatch the request then respond to the client.
+   *
+   * Probably too busy.  Should be refactored.
+   *
+   * @param session The client session (including socket)
+   * @param message The client request
+   */
   public receive(session: Session, message: any): void {
     // convert message to RedisToken
     const parser = new Parser({
@@ -60,6 +76,9 @@ export class RespServer extends EventEmitter {
     // send the result back to the client
     session.publish(resultToken);
   }
+  /**
+   * start the redis server
+   */
   public start(): void {
     this.server.on('listening', (listener: any) => {
       this.logger.info(`listening at ${listener}`);
@@ -67,20 +86,27 @@ export class RespServer extends EventEmitter {
         this.logger.debug(`\n\nCONNECTION\n\n`);
         this.registerConnection(socket);
       });
-  
+
       this.emit('ready');
       this.logger.info(`redis-server: Listening on ${this.serverContext.getHost()}:${this.serverContext.getPort()}`);
     });
     this.server.listen(this.serverContext.getPort(), this.serverContext.getHost());
   }
+  /**
+   * stop the redis server
+   */
   public async stop() {
     this.logger.info(`redis-server: Shutting down`);
     await this.server.close();
     this.emit('closed');
   }
+  /**
+   * Register a client socket connection
+   * @param socket client socket
+   */
   private registerConnection(socket: net.Socket | any) {
     // Generate the socketId
-    let key = `${socket.remoteAddress}:${socket.remotePort}`;
+    const key = `${socket.remoteAddress}:${socket.remotePort}`;
     let newSession: Session;
     if (!!socket.id) {
       this.logger.debug(`FOUND SESSION: ${socket.id}`);
@@ -93,8 +119,10 @@ export class RespServer extends EventEmitter {
       socket.id = newSession.getId();
       this.serverContext.addClient(newSession.getId(), newSession);
     }
-    socket.on('close', (had_error: boolean) => {
-      this.logger.debug(`SOCKET CLOSE: ERROR ${had_error}`);
+    socket.on('close', (hadError: boolean) => {
+      this.logger.debug(`Closing socket ${socket.id}`);
+      this.serverContext.removeClient(socket.id);
+      this.logger.debug(`SOCKET CLOSE: ERROR ${hadError}`);
     });
     socket.on('data', (chunk: any) => {
       this.logger.debug(`Receive message from ${socket.id}`);

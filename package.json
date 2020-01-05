@@ -1,7 +1,7 @@
 {
-  "name": "unit-redis",
+  "name": "unit-redis-ness",
   "version": "1.0.0",
-  "description": "A typescript implementation of redis",
+  "description": "A typescript implementation of redis to facilitate unit testing",
   "main": "dist/redis.js",
   "messages": [
     "adapted from https://github.com/meteor/miniredis"

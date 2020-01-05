@@ -53,15 +53,15 @@ export class CommandWrapper implements IRespCommand {
         return RedisToken.status(`QUEUED`);
       default:
         if (this.dataType) {
-          this.logger.debug(`Executing DB Command ${request.getCommand()} with params `, request.getParams());
+          this.logger.debug(`Executing DB Command ${request.getCommand()} with params [%s]`, request.getParams());
           return this.executeDBCommand(request, db);
         } else {
           if (!!(this.command as any).name ) {
-            this.logger.debug(`Executing RESP Command ${request.getCommand()} with params `, request.getParams());
+            this.logger.debug(`Executing RESP Command ${request.getCommand()} with params [%s]`, request.getParams());
             return this.executeCommand(request);
           }
         }
-        this.logger.warn(`Could not execute command ${request.getCommand()} with params `, request.getParams());
+        this.logger.warn(`Could not execute command ${request.getCommand()} with params [%s]`, request.getParams());
         return RedisToken.error(`invalid command type: ${this.command.constructor.name}`);
     }
   }
@@ -88,7 +88,7 @@ export class CommandWrapper implements IRespCommand {
   }
 
   private getCurrentDB(request: IRequest): Database {
-    return request.getServerContext().getValue('db');
+    return request.getServerContext().getDatabase(request.getSession().getCurrentDb());
     // const serverState: DBServerState = this.getServerState(request.getServerContext());
     // const sessionState: DBSessionState = this.getSessionState(request.getSession());
     // return serverState.getDatabase(sessionState.getCurrentDB());

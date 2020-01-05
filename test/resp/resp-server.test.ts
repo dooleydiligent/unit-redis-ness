@@ -9,11 +9,13 @@ import { sendCommand } from '../common.test';
 describe('resp-server test', () => {
   let respServer: RespServer;
   let testCounter: number = 0;
+  let client: net.Socket;
   beforeEach((done) => {
     sinon.createSandbox();
     if (++testCounter === 5) {
       respServer = new RespServer();
       respServer.on('ready', () => {
+        client = new net.Socket();
         done();
       })
       respServer.start();
@@ -69,14 +71,14 @@ describe('resp-server test', () => {
     respServer.start();
   });
   it('should respond properly to the "ping" command', (done) => {
-    sendCommand(new net.Socket(), ['ping'])
+    sendCommand(client, ['ping'])
       .then((response) => {
         expect(response).to.equal('PONG');
         done();
       });
   });
   it('should respond properly to the "echo" command', (done) => {
-    sendCommand(new net.Socket(), ['echo', 'test'])
+    sendCommand(client, ['echo', 'test'])
       .then((response) => {
         expect(response).to.equal('test');
         done();
@@ -84,7 +86,7 @@ describe('resp-server test', () => {
   });
   it('should respond properly to the "quit" command', (done) => {
     // Note however that the server does not disconnect us.  That is the client's job
-    sendCommand(new net.Socket(), ['quit'])
+    sendCommand(client, ['quit'])
       .then((response) => {
         expect(response).to.equal('OK');
         done();
@@ -92,14 +94,14 @@ describe('resp-server test', () => {
   });
   it('should respond with "ERR" when echo command has no parameters', (done) => {
     // Note that 'ReplyError:' is supplied by the redis parser, NOT by the code under test
-    sendCommand(new net.Socket(), ['echo'])
+    sendCommand(client, ['echo'])
       .then((response) => {
         expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'echo\' command');
         done();
       });
   });
   it('should respond with "ERR" when echo command has two or more parameters', (done) => {
-    sendCommand(new net.Socket(), ['echo', 'one', 'two'])
+    sendCommand(client, ['echo', 'one', 'two'])
       .then((response) => {
         expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'echo\' command');
         done();
@@ -107,7 +109,7 @@ describe('resp-server test', () => {
   });
   it('should respond to the "time" command with an array of two strings', (done) => {
     // Note: we use hrtime which should already do what we need so we don't validate
-    sendCommand(new net.Socket(), ['time'])
+    sendCommand(client, ['time'])
       .then((response: any) => {
         expect(response).to.be.an('array');
         expect(response.length).to.equal(2);
@@ -117,24 +119,24 @@ describe('resp-server test', () => {
       });
   });
   it('should respond with nulCommand when the command is not known', (done) => {
-    sendCommand(new net.Socket(), ['felix', 'the', 'cat'])
+    sendCommand(client, ['felix', 'the', 'cat'])
       .then((response: any) => {
         expect(response).to.match(/^ReplyError: ERR unknown command.*/);
         done();
       });
   });
   it('should implement the info command', (done) => {
-    sendCommand(new net.Socket(), ['info'])
+    sendCommand(client, ['info'])
       .then((response: any) => {
         expect(response).to.match(/^#server\r\nserver:node_version:.*/m);
         done();
       });
   });
   it('should implement the SET command', (done) => {
-    sendCommand(new net.Socket(), ['SET', 'this', 'that'])
+    sendCommand(client, ['SET', 'this', 'that'])
       .then((response: any) => {
         expect(response).to.equal('OK');
-        sendCommand(new net.Socket(), ['GET', 'this'])
+        sendCommand(client, ['GET', 'this'])
           .then((getresponse: any) => {
             expect(getresponse).to.equal('that');
             done();
@@ -142,24 +144,43 @@ describe('resp-server test', () => {
       });
   });
   it('should return nil string when GET is invoked with unknown parameters', (done) => {
-    sendCommand(new net.Socket(), ['GET', ' '])
+    sendCommand(client, ['GET', ' '])
       .then((getresponse: any) => {
         expect(getresponse).to.equal(null);
         done();
       });
   });
   it('should implement the info command with a known parameter', (done) => {
-    sendCommand(new net.Socket(), ['info', 'memory'])
+    sendCommand(client, ['info', 'memory'])
       .then((response: any) => {
         expect(response).to.match(/^#memory.*/m);
         done();
       });
   });
   it('should not respond when info is called with an unknown paramter', (done) => {
-    sendCommand(new net.Socket(), ['info', 'juicy'])
+    sendCommand(client, ['info', 'juicy'])
       .then((response: any) => {
         expect(response).to.equal(null);
         done();
       });
+  });
+  it('should report the number of keys in the current database', async () => {
+    const response: any = await sendCommand(client, ['dbsize']);
+    expect(response).to.be.a('number');
+    expect(response).to.be.greaterThan(0);
+  });
+  it('should support the "select" command', async () => {
+    let response: any = await sendCommand(client, ['select', '12']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['dbsize']);
+    expect(response).to.equal(0);
+  });
+  it('should not allow us to select an invalid database', async () => {
+    let response: any = await sendCommand(client, ['select', 'one']);
+    expect(response).to.equal('ReplyError: Error: DB index is out of range');
+    response = await sendCommand(client, ['select', '-12']);
+    expect(response).to.equal('ReplyError: Error: DB index is out of range');
+    response = await sendCommand(client, ['select', '22']);
+    expect(response).to.equal('ReplyError: Error: DB index is out of range');
   });
 });

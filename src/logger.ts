@@ -26,7 +26,7 @@ export class Logger {
     this.logger = util.debuglog(this.modname);
   }
   public info = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1) {
+    if (message.indexOf('%s') > -1 || args && args.length) {
       // tslint:disable-next-line
       console.info(this.format('info', message, true), args);
     } else {
@@ -35,14 +35,14 @@ export class Logger {
     }
   }
   public debug = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1) {
+    if (message.indexOf('%s') > -1 || args && args.length) {
       this.logger(this.format('debug', message, false), args);
     } else {
       this.logger(this.format('debug', message, false));
     }
   }
   public warn = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1) {
+    if (message.indexOf('%s') > -1 || args && args.length) {
       // tslint:disable-next-line
       console.warn(this.format('warn', message, true), args);
     } else {

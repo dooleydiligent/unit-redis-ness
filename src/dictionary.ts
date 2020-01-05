@@ -6,7 +6,7 @@
  * const store: Dictionary<string> = new Dictionary<string>();
  * ```
  */
-export class Dictionary<T> implements Iterable<any> {
+export class Dictionary<K, T> implements Iterable<any> {
   private items: { [index: string]: any } = {};
   /**
    * Support for / each pattern:

@@ -3,7 +3,7 @@ import { Logger } from '../../logger';
 import { DataType } from './data-type';
 import { DatabaseValue } from './database-value';
 
-export class Database extends Dictionary<DatabaseValue> {
+export class Database extends Dictionary<string, DatabaseValue> {
   protected logger: Logger = new Logger(module.id);
 
   public isEmpty(): boolean {
