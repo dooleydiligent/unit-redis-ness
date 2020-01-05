@@ -16,7 +16,7 @@ Well, better.
 This project is released under the [MIT license](https://opensource.org/licenses/MIT)
 
 # How to use
-Have a look at the skeleton project [test-unit-redisness](./test-unit-redisness) included with the distribution. Or read along here:
+Have a look at the skeleton project [test-unit-redisness](./test-unit-redis-ness) included with the distribution. Or read along here:
 
 ```
 npm install -D unit-redis-ness mocha @types/node chai net source-map-support ts-node typescript @types/chai @types/mocha
