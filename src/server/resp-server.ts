@@ -13,6 +13,7 @@ import { IRequest } from './request';
 import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
+export { sendCommand } from '../client';
 // // tslint:disable-next-line
 // const safeId = require('generate-safe-id');
 /* tslint:disable-next-line */

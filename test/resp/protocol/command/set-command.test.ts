@@ -34,7 +34,7 @@ describe('set-command test', () => {
     sendCommand(new net.Socket(), ['set', 'TTLtest', 'key', 'EX', '1'])
       .then((response: any) => {
         expect(response).to.equal('OK');
-          done();
+        done();
       });
   })
 
@@ -94,20 +94,13 @@ describe('set-command test', () => {
         done();
       });
   });
-  it('should prove that the milisecond TTL has expired', (done) => {
-    sendCommand(new net.Socket(), ['get', 'MILLItest'])
-    .then((responseGet: any) => {
-      expect(responseGet).to.equal(null);
-      done();
-    });
-  });
-  it ('should prove that the one second TTL has expired', (done) => {
+  it('should prove that the one second TTL has expired', (done) => {
     setTimeout(() => {
       sendCommand(new net.Socket(), ['get', 'TTLtest'])
-      .then((responseGet: any) => {
-        expect(responseGet).to.equal(null);
-        done();
-      });
+        .then((responseGet: any) => {
+          expect(responseGet).to.equal(null);
+          done();
+        });
     }, 1000);
   });
   it('should not accept unknown parameters', (done) => {
@@ -137,5 +130,14 @@ describe('set-command test', () => {
         expect(response).to.equal('ReplyError: Error: invalid expire time in set');
         done();
       });
+  });
+  it('should prove that the millisecond TTL has expired', (done) => {
+    setTimeout(() => {
+      sendCommand(new net.Socket(), ['get', 'MILLItest'])
+        .then((responseGet: any) => {
+          expect(responseGet).to.equal(null);
+          done();
+        });
+    }, 10);
   });
 });

@@ -2,28 +2,35 @@
   "name": "unit-redis-ness",
   "version": "1.0.0",
   "description": "A typescript implementation of redis to facilitate unit testing",
-  "main": "dist/redis.js",
+  "main": "dist/server/resp-server.js",
   "messages": [
-    "adapted from https://github.com/meteor/miniredis"
+    "adapted from https://github.com/tonivade/claudb.git"
+  ],
+  "files": [
+    "coverage",
+    "dist",
+    "doc",
+    "test-unit-redis-ness"
   ],
   "scripts": {
     "build": "tsc -p .",
-    "clean": "rm -rf dist doc coverage checkstyle-result.xml .nyc_output",
+    "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output",
     "doc": "typedoc --mode file --out doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
-    "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test"
+    "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test",
+    "prepack": "npm run clean && npm run build && npm run doc && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "."
+    "url": "https://bitbucket.org:laneholcombe/redis-unit.git"
   },
   "keywords": [
     "redist",
     "typescript"
   ],
   "author": "lane holcombe",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "generate-safe-id": "^1.0.3",
     "redis-sorted-set": "^2.0.0",
@@ -34,7 +41,7 @@
     "@types/chai": "^4.2.7",
     "@types/deep-equal": "^1.0.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^13.1.2",
+    "@types/node": "^13.1.4",
     "@types/sinon": "^7.5.1",
     "chai": "^4.2.0",
     "deep-equal": "^2.0.1",
