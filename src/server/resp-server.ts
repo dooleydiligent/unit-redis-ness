@@ -12,8 +12,8 @@ import { DefaultSession } from './default-session';
 import { IRequest } from './request';
 import { RespServerContext } from './resp-server-context';
 import { Session } from './session';
-// tslint:disable-next-line
-const safeId = require('generate-safe-id');
+// // tslint:disable-next-line
+// const safeId = require('generate-safe-id');
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
 
@@ -33,8 +33,7 @@ export class RespServer extends EventEmitter {
     const commandSuite = new CommandSuite();
     this.serverContext = new RespServerContext(host, port, commandSuite);
   }
-  public receive(client: net.Socket | any, message: any): void {
-    const session: Session = this.getSession(client.id);
+  public receive(session: Session, message: any): void {
     // convert message to RedisToken
     const parser = new Parser({
       response: message,
@@ -44,6 +43,7 @@ export class RespServer extends EventEmitter {
       },
       returnReply: (command: any) => {
         this.logger.debug(`returnReply: command is ${command}`);
+        session.setLastCommand(command);
         parser.response = new ArrayRedisToken(command);
       },
       stringNumbers: true
@@ -61,13 +61,17 @@ export class RespServer extends EventEmitter {
     session.publish(resultToken);
   }
   public start(): void {
-    this.server.on('connection', (socket: net.Socket) => {
-      this.registerConnection(socket);
+    this.server.on('listening', (listener: any) => {
+      this.logger.info(`listening at ${listener}`);
+      this.server.on('connection', (socket: net.Socket) => {
+        this.logger.debug(`\n\nCONNECTION\n\n`);
+        this.registerConnection(socket);
+      });
+  
+      this.emit('ready');
+      this.logger.info(`redis-server: Listening on ${this.serverContext.getHost()}:${this.serverContext.getPort()}`);
     });
-
     this.server.listen(this.serverContext.getPort(), this.serverContext.getHost());
-    this.emit('ready');
-    this.logger.info(`redis-server: Listening on ${this.serverContext.getHost()}:${this.serverContext.getPort()}`);
   }
   public async stop() {
     this.logger.info(`redis-server: Shutting down`);
@@ -76,18 +80,46 @@ export class RespServer extends EventEmitter {
   }
   private registerConnection(socket: net.Socket | any) {
     // Generate the socketId
-    const newSocket: Session = new DefaultSession(safeId(), socket);
-    this.logger.info(`registering connection ${newSocket.getId()}`);
-    socket.id = newSocket.getId();
-    this.serverContext.putValue(newSocket.getId(), newSocket);
+    let key = `${socket.remoteAddress}:${socket.remotePort}`;
+    let newSession: Session;
+    if (!!socket.id) {
+      this.logger.debug(`FOUND SESSION: ${socket.id}`);
+      newSession = this.serverContext.getClients().get(socket.id);
+    } else {
+      (socket as net.Socket).setKeepAlive(true);
+      newSession = new DefaultSession(key, socket);
+      this.logger.info(`registering connection ${newSession.getId()}`);
+      newSession.putValue('ID', newSession.getId());
+      socket.id = newSession.getId();
+      this.serverContext.addClient(newSession.getId(), newSession);
+    }
+    socket.on('close', (had_error: boolean) => {
+      this.logger.debug(`SOCKET CLOSE: ERROR ${had_error}`);
+    });
     socket.on('data', (chunk: any) => {
       this.logger.debug(`Receive message from ${socket.id}`);
-      this.receive(socket, chunk);
+      this.receive(newSession, chunk);
+    });
+    socket.on('connect', () => {
+      this.logger.debug(`THE SOCKET IS CONNECTED`);
+    });
+    socket.on('drain', () => {
+      this.logger.debug(`SOCKET DRAIN`);
+    });
+    socket.on(`end`, () => {
+      this.logger.debug(`SOCKET END`);
+    });
+    socket.on(`error`, () => {
+      this.logger.debug(`SOCKET ERROR`);
+    });
+    socket.on(`ready`, () => {
+      this.logger.debug(`SOCKET READY`);
+    });
+    socket.on(`timeout`, () => {
+      this.logger.debug(`SOCKET TIMEOUT`);
     });
   }
-  private getSession(id: string): Session {
-    return this.serverContext.getValue(id);
-  }
+
   private parseMessage(message: ArrayRedisToken, session: Session): IRequest {
     this.logger.debug(`${session.getId()}: parseMessage `, JSON.stringify(message));
     switch (message.getType()) {

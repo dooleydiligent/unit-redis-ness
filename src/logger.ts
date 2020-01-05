@@ -26,15 +26,29 @@ export class Logger {
     this.logger = util.debuglog(this.modname);
   }
   public info = (message: string, ...args: any[]) => {
-    // tslint:disable-next-line
-    console.info(this.format('info', message, true), args);
+    if (message.indexOf('%s') > -1) {
+      // tslint:disable-next-line
+      console.info(this.format('info', message, true), args);
+    } else {
+      // tslint:disable-next-line
+      console.info(this.format('info', message, true));
+    }
   }
   public debug = (message: string, ...args: any[]) => {
-    this.logger(this.format('debug', message, false), args);
+    if (message.indexOf('%s') > -1) {
+      this.logger(this.format('debug', message, false), args);
+    } else {
+      this.logger(this.format('debug', message, false));
+    }
   }
   public warn = (message: string, ...args: any[]) => {
-    // tslint:disable-next-line
-    console.warn(this.format('warn', message, true), args);
+    if (message.indexOf('%s') > -1) {
+      // tslint:disable-next-line
+      console.warn(this.format('warn', message, true), args);
+    } else {
+      // tslint:disable-next-line
+      console.warn(this.format('warn', message, true));
+    }
   }
   private format(level: string, message: string, showName: boolean): string {
     if (showName) {

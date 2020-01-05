@@ -3,9 +3,10 @@ import { Database } from '../resp/data/database';
 import { CommandSuite } from '../resp/processor/command-suite';
 import { IRespCommand } from '../resp/processor/command/resp-command';
 import { IServerContext } from './server-context';
+import { Session } from './session';
 
 export class RespServerContext implements IServerContext {
-  private clients: any = {};
+  private clients: Dictionary<string> = new Dictionary<string>();
   private state: Dictionary<string> = new Dictionary<string>();
   private db: Database = new Database();
   constructor(private host: string, private port: number, private commands: CommandSuite) {
@@ -18,7 +19,10 @@ export class RespServerContext implements IServerContext {
   public getPort(): number {
     return this.port;
   }
-  public getClients(): number {
+  public getClients(): Dictionary<Session> {
+    return this.clients;
+  }
+  public getClientCount(): number {
     return Object.keys(this.clients).length;
   }
   public getCommand(name: string): IRespCommand {
@@ -33,7 +37,7 @@ export class RespServerContext implements IServerContext {
   public removeValue(key: string) {
     this.state.remove(key);
   }
-  public addClient(key: string): void {
-    this.clients.push(key);
+  public addClient(clientId: string, client: Session): void {
+    this.clients.put(clientId, client);
   }
 }
