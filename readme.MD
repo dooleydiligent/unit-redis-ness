@@ -1,5 +1,6 @@
 # unit-redis-ness
-- A fully in-memory redis implementation in typescript to aid unit testing of redis-based nodejs applications
+<img style="float: right;" height="100px" src="http://joeandlane.com/cordova/assets/dooley.gif">
+- A fully in-memory ![Redis][redis]redis implementation in typescript to aid unit testing of redis-based nodejs applications brought to you by [yours truly!](http://www.joeandlane.com)
 
 Initially inspired by [mini-redis](https://github.com/meteor/miniredis) but ulitimately adapted from the very well-designed [ClauDB](https://github.com/tonivade/claudb.git)
 
@@ -16,7 +17,7 @@ Well, better.
 This project is released under the [MIT license](https://opensource.org/licenses/MIT)
 
 # How to use
-Have a look at the skeleton project [test-unit-redisness](./test-unit-redis-ness) included with the distribution. Or read along here:
+Have a look at the skeleton project [test-unit-redisness](./test-unit-redis-ness/) included with the distribution. Or read along here:
 
 ```
 npm install -D unit-redis-ness mocha @types/node chai net source-map-support ts-node typescript @types/chai @types/mocha
@@ -156,5 +157,12 @@ This is, after all, intended as a unit test tool
 Time permitting, I expect to:
 
 - implement the full redis command set up to [2.6.x](http://download.redis.io/releases/) (maybe later)
-- embed [Lua](https://www.lua.org/)
+<img style="left:75%" height="50px" src="https://redis.io/images/redis-white.png"><br>
+
+- embed [lua](https://www.lua.org/)
+<img style="left:75%" height="50px" src="https://www.lua.org/images/luaa.gif"><br>
 - circle back around to validate that Bull can be thoroughly tested
+<img stule="left:75%" height="50px" src="https://github.com/OptimalBits/bull/raw/develop/support/logo@2x.png"><br>
+
+[redis]: https://redis.io/images/favicon.png "Redis Logo"
+[lua]: https://www.lua.org/images/luaa.gif "Lua Logo"
