@@ -1,5 +1,5 @@
 # unit-redis-ness
-![dooley][dooley]
+![dooley](./images/dooley.gif)
 - A fully in-memory ![Redis][redis] redis implementation in typescript to aid unit testing of redis-based nodejs applications brought to you by [yours truly!](http://www.joeandlane.com)
 
 Initially inspired by [mini-redis](https://github.com/meteor/miniredis) but ulitimately adapted from the very well-designed [ClauDB](https://github.com/tonivade/claudb.git)
@@ -157,16 +157,16 @@ This is, after all, intended as a unit test tool
 Time permitting, I expect to:
 
 - implement the full redis command set up to [2.6.x](http://download.redis.io/releases/) (maybe later)
-![redis](./redis-white.png)
+![redis](./images/redis-white.png)
 
 
 - embed [lua](https://www.lua.org/)
-![lua](./luaa.gif)]
+![lua](./images/luaa.gif)
 
 - circle back around to validate that Bull can be thoroughly tested
-![bull](./bull.png)]
+![bull](./images/bull.png)
 
-[dooley]: ./dooley.gif "Dooley Diligient"
-[redis]: ./redis.png "Redis Logo"
-[lua]: ./luaa.gif "Lua Logo"
-[bull]: ./bull.png "Bull Logo"
+[dooley]: ./images/dooley.gif "Dooley Diligient"
+[redis]: ./images/redis.png "Redis Logo"
+[lua]: ./images/luaa.gif "Lua Logo"
+[bull]: ./images/bull.png "Bull Logo"
