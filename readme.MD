@@ -95,6 +95,7 @@ Plus some "database" commands:
 - dbsize
 
 Todo (to complete v1.0.0 command set)
+
 - expire
 - flushdb
 - flushall
@@ -139,6 +140,7 @@ Todo (to complete v1.0.0 command set)
 - z*?
 
 Probably Won't do
+
 - auth
 - bgsave
 - monitor
@@ -147,6 +149,8 @@ Probably Won't do
 - slaveof
 - anything that involves replication, clustering, or persistence to disk
 
+This is, after all, intended as a unit test tool
+
 # Future plans
 
 Time permitting, I expect to:
@@ -154,5 +158,3 @@ Time permitting, I expect to:
 - implement the full redis command set up to [2.6.x](http://download.redis.io/releases/) (maybe later)
 - embed [Lua](https://www.lua.org/)
 - circle back around to validate that Bull can be thoroughly tested
-
-This is, after all, intended as a unit test tool
