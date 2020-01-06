@@ -1,7 +1,4 @@
-.nyc_output
-checkstyle-result.xml
-coverage
+!.gitignore
 node_modules
+test-unit-redis-ness/node_modules
 redis.code-workspace
-dist
-doc
