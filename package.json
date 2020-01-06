@@ -1,6 +1,6 @@
 {
   "name": "unit-redis-ness",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A typescript implementation of redis to facilitate unit testing",
   "main": "dist/server/resp-server.js",
   "messages": [
@@ -10,8 +10,10 @@
     "coverage",
     "dist",
     "doc",
+    "images",
     "test-unit-redis-ness"
   ],
+  "homepage": "https://joeandlane.com/",
   "scripts": {
     "build": "tsc -p .",
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output",
