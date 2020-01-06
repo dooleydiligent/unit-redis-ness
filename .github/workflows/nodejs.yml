@@ -24,5 +24,12 @@ jobs:
         npm test
         npm run lint
         npm run doc
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: TypeDoc 
+        # Directory containing files to upload
+        path: ./doc
       env:
         CI: true
