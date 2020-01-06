@@ -29,5 +29,6 @@ jobs:
       with:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: docs # The branch the action should deploy to.
-        FOLDER: doc # The folder the action should deploy.      env:
+        FOLDER: docs # The folder the action should deploy.
+      env:
         CI: true
