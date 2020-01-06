@@ -24,7 +24,10 @@ jobs:
         npm test
         npm run lint
         npm run doc
-    - name: GitHub Pages Deploy
-      uses: maxheld83/ghpages@v0.2.1
-      env:
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: docs # The branch the action should deploy to.
+        FOLDER: doc # The folder the action should deploy.      env:
         CI: true
