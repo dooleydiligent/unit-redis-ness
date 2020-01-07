@@ -97,6 +97,11 @@ Plus some "database" commands:
 - client (partial)
 - select
 - dbsize
+- sadd
+- scard
+- sismember
+- smembers
+- smove
 
 Todo (to complete v1.0.0 command set)
 
@@ -122,16 +127,11 @@ Todo (to complete v1.0.0 command set)
 - rpush
 - rpoplpush
 - rpop
-- sadd
-- scard
 - sdiff
 - setnx
 - sinter
 - sinterstore
-- sismember
 - sort
-- smove
-- smembers
 - spop
 - srandmember
 - srem

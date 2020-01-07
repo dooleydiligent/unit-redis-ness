@@ -83,7 +83,6 @@ export class RespServer extends EventEmitter {
    */
   public start(): void {
     this.server.on('listening', (listener: any) => {
-      this.logger.info(`listening at ${listener}`);
       this.server.on('connection', (socket: net.Socket) => {
         this.logger.debug(`\n\nCONNECTION\n\n`);
         this.registerConnection(socket);

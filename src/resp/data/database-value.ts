@@ -4,15 +4,10 @@ import { SortedSet } from './sorted-set';
 // const Zset = require('redis-sorted-set');
 
 export class DatabaseValue {
-  public static EMPTY_STRING: DatabaseValue = DatabaseValue.string('');
-  public static EMPTY_LIST: DatabaseValue = DatabaseValue.list([]);
-  public static EMPTY_SET: DatabaseValue = DatabaseValue.set(new Set());
-  public static EMPTY_ZSET: DatabaseValue = DatabaseValue.zset(new SortedSet());
-  // public static EMPTY_HASH: DatabaseValue = DatabaseValue.hash({});
-
-  // public static DatabaseValue string(String value) {
-  //   return string(safeString(value));
-  // }
+  // public static EMPTY_STRING: DatabaseValue = DatabaseValue.string('');
+  // public static EMPTY_LIST: DatabaseValue = DatabaseValue.list([]);
+  // public static EMPTY_SET: DatabaseValue = DatabaseValue.set(new Set());
+  // public static EMPTY_ZSET: DatabaseValue = DatabaseValue.zset(new SortedSet());
 
   public static hash(hash: any): DatabaseValue {
     return new DatabaseValue(DataType.HASH, hash);
@@ -25,6 +20,19 @@ export class DatabaseValue {
   public static list(values?: string[]): DatabaseValue {
     return new DatabaseValue(DataType.LIST, values);
   }
+  public static set(values?: Set<any>): DatabaseValue {
+    return new DatabaseValue(DataType.SET, values);
+  }
+  public static zset(values: SortedSet): DatabaseValue {
+    return new DatabaseValue(DataType.ZSET, values);
+  }
+
+  private static WRONG_TYPE: string = 'WRONGTYPE Operation against a key holding the wrong kind of value';
+  // public static EMPTY_HASH: DatabaseValue = DatabaseValue.hash({});
+
+  // public static DatabaseValue string(String value) {
+  //   return string(safeString(value));
+  // }
 
   // public static DatabaseValue list(Collection<SafeString> values) {
   //   return new DatabaseValue(DataType.LIST, ImmutableList.from(requireNonNull(values).stream()));
@@ -33,13 +41,6 @@ export class DatabaseValue {
   // public static DatabaseValue list(SafeString... values) {
   //   return new DatabaseValue(DataType.LIST, ImmutableList.from(Stream.of(values)));
   // }
-
-  public static set(values?: Set<any>): DatabaseValue {
-    return new DatabaseValue(DataType.SET, values);
-  }
-  public static zset(values: SortedSet): DatabaseValue {
-    return new DatabaseValue(DataType.ZSET, values);
-  }
 
   constructor(private type: DataType, private value: any, private expiredAt?: number) {
     if (!this.type || Object.values(DataType).indexOf(type) === -1) {
@@ -65,7 +66,10 @@ export class DatabaseValue {
   //                                                                 Collections::unmodifiableNavigableSet)));
   // }
   public getSortedSet(): SortedSet {
-    return this.value;
+    if (this.type !== DataType.ZSET) {
+      throw new Error(DatabaseValue.WRONG_TYPE);
+    }
+    return this.getValue();
   }
 
   // @SafeVarargs
@@ -115,15 +119,23 @@ export class DatabaseValue {
   }
 
   public getString(): string {
+    if (this.type !== DataType.STRING) {
+      throw new Error(DatabaseValue.WRONG_TYPE);
+    }
     return this.getValue();
   }
 
   public getList(): string[] {
+    if (this.type !== DataType.LIST) {
+      throw new Error(DatabaseValue.WRONG_TYPE);
+    }
     return this.getValue();
   }
 
-  public getSet(): string[] {
-    // requiredType(DataType.SET);
+  public getSet(): Set<any> {
+    if (this.type !== DataType.SET) {
+      throw new Error(DatabaseValue.WRONG_TYPE);
+    }
     return this.getValue();
   }
 
@@ -133,6 +145,9 @@ export class DatabaseValue {
   // }
 
   public getHash(): any {
+    if (this.type !== DataType.HASH) {
+      throw new Error(DatabaseValue.WRONG_TYPE);
+    }
     return this.getValue();
   }
 

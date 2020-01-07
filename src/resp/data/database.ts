@@ -76,15 +76,16 @@ export class Database extends Dictionary<string, DatabaseValue> {
   }
 
   public getOrDefault(key: string, defaultValue: DatabaseValue): DatabaseValue {
+    // Only return the value.  Don't add it to the database yet
     let value = this.get(key);
     if (!value) {
-      value = this.put(key, defaultValue);
+      value = defaultValue;
     }
     return value;
   }
 
   public isType(key: string, type: DataType): boolean {
-    this.logger.debug(`database.js: isType(${key}, ${type})`, key, type);
+    this.logger.debug(`isType(${key}, ${type})`, key, type);
     if (Object.values(DataType).indexOf(type) === -1) {
       throw new Error(`Invalid type ${type}`);
     }
