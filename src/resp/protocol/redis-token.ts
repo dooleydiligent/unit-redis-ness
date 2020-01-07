@@ -26,7 +26,7 @@ export abstract class RedisToken {
   public static integer(i: number): RedisToken {
     return new NumberRedisToken(i);
   }
-  public static array(...redisTokens: any[]): RedisToken {
+  public static array(redisTokens: any[]): RedisToken {
     return new ArrayRedisToken(redisTokens);
   }
   public static error(str: string): RedisToken {
