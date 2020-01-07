@@ -30,7 +30,7 @@ jobs:
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: docs # The branch the action should deploy to.
-        TARGET_FOLDER: docs/doc  
-        FOLDER: doc # The folder the action should deploy.
+        TARGET_FOLDER: docs  
+        FOLDER: docs # The folder the action should deploy.
       env:
         CI: true
