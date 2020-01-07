@@ -1,3 +1,4 @@
+import * as util from 'util';
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { Session } from '../../server/session';
@@ -33,8 +34,8 @@ export class CommandWrapper implements IRespCommand {
   public execute(request: IRequest): RedisToken {
     this.logger.debug(`execute(${request})`);
     const db: Database = this.getCurrentDB(request);
-    this.logger.debug(`db is ${JSON.stringify(db)}`);
-    this.logger.debug(`Request param 0 is ${JSON.stringify(request.getParam(0))}`);
+    this.logger.debug(`db is ${util.inspect(db)}`);
+    this.logger.debug(`Request param 0 is ${util.inspect(request.getParam(0))}`);
     this.logger.debug(`PARAMS Is/Are`, request.getParams());
     switch (true) {
       case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):

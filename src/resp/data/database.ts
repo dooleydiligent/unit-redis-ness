@@ -16,7 +16,7 @@ export class Database extends Dictionary<string, DatabaseValue> {
   }
   public get(key: string): any {
     const item = super.get(key);
-    if (item && item.expiredAt && parseInt(item.expiredAt, 10)  < new Date().getTime()) {
+    if (item && item.expiredAt && parseInt(item.expiredAt, 10) < new Date().getTime()) {
       this.remove(key);
       return null;
     }
@@ -61,18 +61,19 @@ export class Database extends Dictionary<string, DatabaseValue> {
     }
     return oldValue;
   }
-
-  //   public DatabaseValue merge(DatabaseKey key, DatabaseValue value,
-  //   BiFunction < DatabaseValue, DatabaseValue, DatabaseValue > remappingFunction) {
-  //   DatabaseValue oldValue = get(key);
-  //   DatabaseValue newValue = oldValue == null ? value : remappingFunction.apply(oldValue, value);
-  //   if (newValue == null) {
-  //     remove(key);
-  //   } else {
-  //     put(key, newValue);
-  //   }
-  //   return newValue;
-  // }
+  // tslint:disable-next-line
+  public merge(key: string, value: DatabaseValue, callback: (oldVal: DatabaseValue, newVal: DatabaseValue) => DatabaseValue): DatabaseValue {
+    this.logger.debug(`Keys: ${value.getSortedSet().keys()}, Values: ${value.getSortedSet().values()}`);
+    this.logger.debug(`merge(${key}, with [%j])`, value.getSortedSet().toArray());
+    const oldValue: DatabaseValue = this.get(key);
+    const newValue: DatabaseValue = oldValue == null ? value : callback(oldValue, value);
+    if (newValue == null) {
+      this.remove(key);
+    } else {
+      this.put(key, newValue);
+    }
+    return newValue;
+  }
 
   public getOrDefault(key: string, defaultValue: DatabaseValue): DatabaseValue {
     let value = this.get(key);

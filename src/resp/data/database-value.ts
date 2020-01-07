@@ -1,17 +1,22 @@
 import { DataType } from './data-type';
+import { SortedSet } from './sorted-set';
 // tslint:disable-next-line
-const Zset = require('redis-sorted-set');
+// const Zset = require('redis-sorted-set');
 
 export class DatabaseValue {
   public static EMPTY_STRING: DatabaseValue = DatabaseValue.string('');
   public static EMPTY_LIST: DatabaseValue = DatabaseValue.list([]);
   public static EMPTY_SET: DatabaseValue = DatabaseValue.set(new Set());
-  public static EMPTY_ZSET: DatabaseValue = DatabaseValue.zset(new Zset());
+  public static EMPTY_ZSET: DatabaseValue = DatabaseValue.zset(new SortedSet());
   // public static EMPTY_HASH: DatabaseValue = DatabaseValue.hash({});
 
   // public static DatabaseValue string(String value) {
   //   return string(safeString(value));
   // }
+
+  public static hash(hash: any): DatabaseValue {
+    return new DatabaseValue(DataType.HASH, hash);
+  }
 
   public static string(value: string): DatabaseValue {
     return new DatabaseValue(DataType.STRING, value);
@@ -32,8 +37,18 @@ export class DatabaseValue {
   public static set(values?: Set<any>): DatabaseValue {
     return new DatabaseValue(DataType.SET, values);
   }
-  public static zset(values?: any): DatabaseValue {
+  public static zset(values: SortedSet): DatabaseValue {
     return new DatabaseValue(DataType.ZSET, values);
+  }
+
+  constructor(private type: DataType, private value: any, private expiredAt?: number) {
+    if (!this.type || Object.values(DataType).indexOf(type) === -1) {
+      throw new Error(`Cannot use ${type} to initialize DatabaseValue`);
+    }
+    // We'll allow values to be uninitialized
+    // if (!this.value) {
+    //   throw new Error('Value is required to initialize database-value');
+    // }
   }
 
   // public static DatabaseValue set(Collection<SafeString> values) {
@@ -49,6 +64,9 @@ export class DatabaseValue {
   //       requireNonNull(values).stream().collect(collectingAndThen(toSortedSet(),
   //                                                                 Collections::unmodifiableNavigableSet)));
   // }
+  public getSortedSet(): SortedSet {
+    return this.value;
+  }
 
   // @SafeVarargs
   // public static DatabaseValue zset(Entry<Double, SafeString>... values) {
@@ -56,10 +74,6 @@ export class DatabaseValue {
   //       Stream.of(values).collect(collectingAndThen(toSortedSet(),
   //                                                   Collections::unmodifiableNavigableSet)));
   // }
-
-  public static hash(hash: any): DatabaseValue {
-    return new DatabaseValue(DataType.HASH, hash);
-  }
 
   // public static DatabaseValue hash(Collection<Tuple2<SafeString, SafeString>> values) {
   //   return new DatabaseValue(DataType.HASH, ImmutableMap.from(requireNonNull(values).stream()));
@@ -95,16 +109,6 @@ export class DatabaseValue {
   // }
 
   //  public static NULL: DatabaseValue = null;
-
-  constructor(private type: DataType, private value: any, private expiredAt?: number) {
-    if (!this.type || Object.values(DataType).indexOf(type) === -1) {
-      throw new Error(`Cannot use ${type} to initialize DatabaseValue`);
-    }
-    // We'll allow values to be uninitialized
-    // if (!this.value) {
-    //   throw new Error('Value is required to initialize database-value');
-    // }
-  }
 
   public getType(): DataType {
     return this.type;

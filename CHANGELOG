@@ -1,0 +1,4 @@
+2020-01-06-LH - Imported node module redis-sorted-set, rewrote it in Typescript, and extended
+                it to make it iterable and add an addAll method to satisfy the requirements
+                of the new zadd-command, also implemented.
+                

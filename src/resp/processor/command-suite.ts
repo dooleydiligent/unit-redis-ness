@@ -19,6 +19,7 @@ import { IRespCommand } from './command/resp-command';
 import { SelectCommand } from './command/select-command';
 import { SetCommand } from './command/set-command';
 import { TimeCommand } from './command/time-command';
+import { ZaddCommand } from './command/zadd-command';
 
 export class CommandSuite {
   private logger: Logger = new Logger(module.id);
@@ -45,6 +46,7 @@ export class CommandSuite {
     this.addCommand('dbsize', new DBSizeCommand());
     this.addCommand('incrby', new IncrByCommand(1));
     this.addCommand('decrby', new IncrByCommand(-1));
+    this.addCommand('zadd', new ZaddCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import * as net from 'net';
 import { Logger } from './logger';
-import { expect } from 'chai';
 
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
@@ -39,8 +39,8 @@ export const sendCommand = (client: net.Socket, commands: string[]): Promise<str
       parser.execute(data);
     });
 
-    client.on('close', (had_error: boolean) => {
-      logger.debug(`client.close() ERROR: ${had_error}`);
+    client.on('close', (hadError: boolean) => {
+      logger.debug(`client.close() ERROR: ${hadError}`);
     });
     if (client.remoteAddress === undefined && client.remotePort === undefined) {
       client.connect(Number(process.env.REDIS_PORT || 6379), process.env.REDIS_HOST || 'localhost', () => {

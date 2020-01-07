@@ -1,3 +1,4 @@
+import * as util from 'util';
 import { Logger } from '../../logger';
 import { AbstractRedisToken } from '../protocol/abstract-redis-token';
 import { RedisTokenType } from '../protocol/redis-token-type';
@@ -14,7 +15,7 @@ export class RespSerialize {
   constructor(private message: AbstractRedisToken<any>) {
   }
   public serialize(): string {
-    this.logger.debug(`serialize(${JSON.stringify(this.message)})`);
+    this.logger.debug(`serialize(${util.inspect(this.message)})`);
     if (this.message.getType() === RedisTokenType.ARRAY) {
       this.value += `${RespSerialize.ARRAY}${this.message.getValue().length}${RespSerialize.DELIMITER}`;
       for (const obj of this.message.getValue()) {

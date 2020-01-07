@@ -25,7 +25,7 @@ export class DefaultSession implements Session {
   }
   public publish(message: AbstractRedisToken<any>): void {
     // Send the message to the client
-    this.logger.debug(`publish FROM: ${JSON.stringify(message)}`);
+    this.logger.debug(`publish FROM: ${util.inspect(message)}`);
     const respResponse = new RespSerialize(message).serialize();
     this.logger.debug(`publish TO: ${respResponse}`);
     this.socket.write(Buffer.from(respResponse));

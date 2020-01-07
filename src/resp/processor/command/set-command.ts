@@ -1,3 +1,4 @@
+import * as util from 'util';
 import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
@@ -6,7 +7,6 @@ import { Database } from '../../data/database';
 import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from './resp-command';
-
 interface IParameters {
   ifExists: boolean;
   ifNotExists: boolean;
@@ -115,9 +115,9 @@ export class SetCommand implements IRespCommand {
     } else if (params.ifNotExists) {
       savedValue = db.putIfAbsent(key, value);
     } else {
-      this.logger.warn(`Setting ${JSON.stringify(key)} to ${JSON.stringify(value)}`);
+      this.logger.warn(`Setting ${util.inspect(key)} to ${util.inspect(value)}`);
       savedValue = db.put(key, value);
-      this.logger.warn(`Returning ${JSON.stringify(savedValue)}`);
+      this.logger.warn(`Returning ${util.inspect(savedValue)}`);
     }
     return savedValue;
   }

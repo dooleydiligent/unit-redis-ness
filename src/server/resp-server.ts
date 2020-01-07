@@ -14,6 +14,7 @@ import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
 export { sendCommand } from '../client';
+import * as util from 'util';
 // // tslint:disable-next-line
 // const safeId = require('generate-safe-id');
 /* tslint:disable-next-line */
@@ -71,7 +72,7 @@ export class RespServer extends EventEmitter {
     this.logger.debug(`Parsed client message is ${result}`);
     // look up the command in commandsuite
     const execcommand: IRespCommand = this.serverContext.getCommand(result.getCommand());
-    this.logger.debug(`Command is ${result.getCommand()}: ${JSON.stringify(execcommand)}`);
+    this.logger.debug(`Command is ${result.getCommand()}: ${util.inspect(execcommand)}`);
     const resultToken: RedisToken = execcommand.execute(result);
     this.logger.debug(`resultToken is ${resultToken}`);
     // send the result back to the client
@@ -150,7 +151,7 @@ export class RespServer extends EventEmitter {
   }
 
   private parseMessage(message: ArrayRedisToken, session: Session): IRequest {
-    this.logger.debug(`${session.getId()}: parseMessage `, JSON.stringify(message));
+    this.logger.debug(`${session.getId()}: parseMessage `, util.inspect(message));
     switch (message.getType()) {
       case RedisTokenType.ARRAY:
         return this.parseArray(message, session);

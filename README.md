@@ -160,16 +160,11 @@ This is, after all, intended as a unit test tool
 Time permitting, I expect to:
 
 - implement the full redis command set up to [2.6.x](http://download.redis.io/releases/) (maybe later)
-![redis](./images/redis-white.png)
+<img width="100px" src="./images/redis-white.png"><br/>
 
 
-- embed [lua](https://www.lua.org/)
-![lua](./images/luaa.gif)
+- embed [lua](https://www.lua.org/)<img width="100px" src="./images/luaa.gif"><br/>
 
 - circle back around to validate that Bull can be thoroughly tested
-![bull](./images/bull.png)
+<img width="100px" src="./images/bull.png"><br/>
 
-[dooley]: ./images/dooley.gif "Dooley Diligient"
-[redis]: ./images/redis.png "Redis Logo"
-[lua]: ./images/luaa.gif "Lua Logo"
-[bull]: ./images/bull.png "Bull Logo"

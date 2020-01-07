@@ -26,37 +26,32 @@ export class Logger {
     this.logger = util.debuglog(this.modname);
   }
   public info = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1 || args && args.length) {
-      // tslint:disable-next-line
-      console.info(this.format('info', message, true), args);
-    } else {
-      // tslint:disable-next-line
-      console.info(this.format('info', message, true));
-    }
+    // tslint:disable-next-line
+    console.info(this.format('info', message, true, args));
   }
   public debug = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1 || args && args.length) {
-      this.logger(this.format('debug', message, false), args);
-    } else {
-      this.logger(this.format('debug', message, false));
-    }
+    this.logger(this.format('debug', message, false, args));
   }
   public warn = (message: string, ...args: any[]) => {
-    if (message.indexOf('%s') > -1 || args && args.length) {
-      // tslint:disable-next-line
-      console.warn(this.format('warn', message, true), args);
-    } else {
-      // tslint:disable-next-line
-      console.warn(this.format('warn', message, true));
-    }
+    // tslint:disable-next-line
+    console.warn(this.format('warn', message, true, args));
   }
-  private format(level: string, message: string, showName: boolean): string {
+  private format(level: string, message: string, showName: boolean, args: any[]): string {
+    let formatString;
     if (showName) {
-      return util.format(
+      formatString = util.format(
         '%s %d: %s - [%s] - %s', this.modname.toUpperCase(),
         process.pid, new Date().toISOString(), level, message);
     } else {
-      return util.format('%s - [%s] - %s', new Date().toISOString(), level, message);
+      formatString = util.format('%s - [%s] - %s', new Date().toISOString(), level, message);
     }
+    if (/%s/gm.test(formatString)) {
+      formatString = util.format(formatString, args);
+    } else {
+      if (/%j/gm.test(formatString)) {
+        formatString = util.format(formatString, util.inspect(args));
+      }
+    }
+    return formatString;
   }
 }
