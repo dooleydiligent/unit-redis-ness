@@ -32,18 +32,19 @@ export class CommandWrapper implements IRespCommand {
     return this.pubSubAllowed;
   }
   public execute(request: IRequest): RedisToken {
-    this.logger.debug(`execute(${request})`);
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    this.logger.debug(`db id is ${request.getSession().getCurrentDb()}`);
     const db: Database = this.getCurrentDB(request);
-    this.logger.debug(`db is ${util.inspect(db)}`);
-    this.logger.debug(`Request param 0 is ${util.inspect(request.getParam(0))}`);
+    this.logger.debug(`COMMAND is ${request.getCommand()}`);
     this.logger.debug(`PARAMS Is/Are`, request.getParams());
     switch (true) {
       case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):
-        this.logger.warn(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
+        this.logger.debug(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
         return RedisToken.error(
           `ERR wrong number of arguments for '${request.getCommand()}' command`);
-      case !!this.dataType &&
-        !db.isType(request.getParam(0).toString(), this.dataType):
+      case this.dataType !== DataType.NONE &&
+        !db.isType(request.getParam(0), this.dataType):
+        this.logger.debug(`Check type for ${request.getParam(0)} against ${this.dataType}`);
         return RedisToken.error(
           `WRONGTYPE Operation against a key holding the wrong kind of value`);
       case this.isSubscribed(request) && !this.pubSubAllowed:
@@ -55,7 +56,9 @@ export class CommandWrapper implements IRespCommand {
       default:
         if (this.dataType) {
           this.logger.debug(`Executing DB Command ${request.getCommand()} with params [%s]`, request.getParams());
-          return this.executeDBCommand(request, db);
+          const retVal: RedisToken = this.executeDBCommand(request, db);
+          this.logger.debug(`DBCommand returned %j`, retVal);
+          return retVal;
         } else {
           if (!!(this.command as any).name ) {
             this.logger.debug(`Executing RESP Command ${request.getCommand()} with params [%s]`, request.getParams());

@@ -15,7 +15,7 @@ export class RespSerialize {
   constructor(private message: AbstractRedisToken<any>) {
   }
   public serialize(): string {
-    this.logger.debug(`serialize(${util.inspect(this.message)})`);
+    this.logger.debug(`serialize(${util.inspect(this.message)}) - typeOf = ${this.message.constructor.name}`);
     if (this.message.getType() === RedisTokenType.ARRAY) {
       this.value += `${RespSerialize.ARRAY}${this.message.getValue().length}${RespSerialize.DELIMITER}`;
       for (const obj of this.message.getValue()) {
@@ -39,8 +39,9 @@ export class RespSerialize {
           break;
         case RedisTokenType.ERROR:
         default:
-          this.logger.warn(`msg.type is unexpected: ${this.message.getType()}`);
-          this.logger.warn(`RedisTokenType.STRING is ${RedisTokenType.STRING}`);
+          if (this.message.getType() !== RedisTokenType.ERROR) {
+            this.logger.warn(`msg.type is unexpected: ${this.message.getType()}`);
+          }
           this.value += `${RespSerialize.ERROR}${this.message.getValue()}${RespSerialize.DELIMITER}`;
       }
     }

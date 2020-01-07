@@ -1,23 +1,21 @@
 {
   "name": "unit-redis-ness",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A typescript implementation of redis to facilitate unit testing",
   "main": "dist/server/resp-server.js",
   "messages": [
     "adapted from https://github.com/tonivade/claudb.git"
   ],
   "files": [
-    "coverage",
     "dist",
-    "doc",
     "images",
     "test-unit-redis-ness"
   ],
   "homepage": "https://joeandlane.com/",
   "scripts": {
     "build": "tsc -p .",
-    "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output",
-    "doc": "typedoc --mode file --out doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
+    "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output test-unit-redis-ness/node_modules",
+    "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
     "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test",
@@ -79,6 +77,7 @@
       "spec"
     ],
     "sourceMap": true,
-    "instrument": true
+    "instrument": true,
+    "report-dir": "docs/coverage"
   }
 }

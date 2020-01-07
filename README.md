@@ -1,5 +1,5 @@
 # unit-redis-ness
-![dooley](./images/dooley.gif)
+![dooley](https://dooleydiligent.github.io/unit-redis-ness/doc/images/dooley.gif)
 - A fully in-memory ![Redis][redis] redis implementation in typescript to aid unit testing of redis-based nodejs applications brought to you by [yours truly!](http://www.joeandlane.com)
 
 Initially inspired by [mini-redis](https://github.com/meteor/miniredis) but ulitimately adapted from the very well-designed [ClauDB](https://github.com/tonivade/claudb.git)
@@ -97,6 +97,11 @@ Plus some "database" commands:
 - client (partial)
 - select
 - dbsize
+- sadd
+- scard
+- sismember
+- smembers
+- smove
 
 Todo (to complete v1.0.0 command set)
 
@@ -122,16 +127,11 @@ Todo (to complete v1.0.0 command set)
 - rpush
 - rpoplpush
 - rpop
-- sadd
-- scard
 - sdiff
 - setnx
 - sinter
 - sinterstore
-- sismember
 - sort
-- smove
-- smembers
 - spop
 - srandmember
 - srem
@@ -160,11 +160,11 @@ This is, after all, intended as a unit test tool
 Time permitting, I expect to:
 
 - implement the full redis command set up to [2.6.x](http://download.redis.io/releases/) (maybe later)
-<img width="100px" src="./images/redis-white.png"><br/>
+<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/redis-white.png"><br/>
 
 
-- embed [lua](https://www.lua.org/)<img width="100px" src="./images/luaa.gif"><br/>
+- embed [lua](https://www.lua.org/)<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"><br/>
 
 - circle back around to validate that Bull can be thoroughly tested
-<img width="100px" src="./images/bull.png"><br/>
+<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/>
 
