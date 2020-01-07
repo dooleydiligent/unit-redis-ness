@@ -167,4 +167,3 @@ Time permitting, I expect to:
 
 - circle back around to validate that Bull can be thoroughly tested
 <img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/>
-
