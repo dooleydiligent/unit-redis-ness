@@ -5,3 +5,5 @@ redis.code-workspace
 .nyc_output
 dist
 coverage
+test-unit-redis-ness/node_modules
+doc
