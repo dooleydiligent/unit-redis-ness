@@ -16,8 +16,8 @@
   ],
   "homepage": "https://joeandlane.com/",
   "scripts": {
-    "build": "tsc -p .",
-    "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output test-unit-redis-ness/node_modules",
+    "build": "tsc -p . && cp -R template docs",
+    "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage checkstyle-result.xml .nyc_output test-unit-redis-ness/node_modules docs/*",
     "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
