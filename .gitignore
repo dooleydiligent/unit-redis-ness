@@ -4,5 +4,3 @@ test-unit-redis-ness/node_modules
 redis.code-workspace
 .nyc_output
 dist
-coverage
-doc
