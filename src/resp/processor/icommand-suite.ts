@@ -1,7 +1,7 @@
 import { Dictionary } from '../../dictionary';
+import { NullCommand } from '../../resp/command/null-command';
+import { IRespCommand } from '../../resp/command/resp-command';
 import { CommandWrapperFactory } from '../../resp/processor/command-wrapper-factory';
-import { NullCommand } from '../../resp/processor/command/null-command';
-import { IRespCommand } from '../../resp/processor/command/resp-command';
 
 export interface ICommandSuite {
   metadata: Dictionary<string, string>;

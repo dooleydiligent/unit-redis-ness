@@ -30,8 +30,8 @@ export class RespSerialize {
           this.value += `${RespSerialize.INTEGER}${this.message.getValue()}${RespSerialize.DELIMITER}`;
           break;
         case RedisTokenType.STRING:
-          if (this.message.getValue() && this.message.getValue().length > 0) {
-            this.value += `${RespSerialize.BULK_STRING}${this.message.getValue().length}${RespSerialize.DELIMITER}${this.message.getValue().toString()}`;
+          if (this.message.getValue() && String(this.message.getValue()).length > 0) {
+            this.value += `${RespSerialize.BULK_STRING}${String(this.message.getValue()).length}${RespSerialize.DELIMITER}${this.message.getValue().toString()}`;
           } else {
             this.value += `${RespSerialize.BULK_STRING}-1`;
           }
@@ -45,6 +45,7 @@ export class RespSerialize {
           this.value += `${RespSerialize.ERROR}${this.message.getValue()}${RespSerialize.DELIMITER}`;
       }
     }
+    this.logger.debug(`The serialized value is %s`, this.value);
     return this.value;
   }
 }

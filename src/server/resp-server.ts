@@ -1,8 +1,9 @@
 import { EventEmitter } from 'events';
 import * as net from 'net';
+import * as util from 'util';
 import { Logger } from '../logger';
+import { IRespCommand } from '../resp/command/resp-command';
 import { CommandSuite } from '../resp/processor/command-suite';
-import { IRespCommand } from '../resp/processor/command/resp-command';
 import { ArrayRedisToken } from '../resp/protocol/array-redis-token';
 import { RedisToken } from '../resp/protocol/redis-token';
 import { RedisTokenType } from '../resp/protocol/redis-token-type';
@@ -14,7 +15,6 @@ import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
 export { sendCommand } from '../client';
-import * as util from 'util';
 // // tslint:disable-next-line
 // const safeId = require('generate-safe-id');
 /* tslint:disable-next-line */

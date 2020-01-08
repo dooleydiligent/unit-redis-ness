@@ -1,6 +1,6 @@
 import { Dictionary } from '../dictionary';
+import { IRespCommand } from '../resp/command/resp-command';
 import { Database } from '../resp/data/database';
-import { IRespCommand } from '../resp/processor/command/resp-command';
 import { Session } from './session';
 
 export interface IServerContext {

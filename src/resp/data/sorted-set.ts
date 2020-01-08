@@ -156,9 +156,9 @@ export class SortedSet implements Iterable<SortedSet> {
 
   public add(key: string, value?: number | null): any {
     let current;
-    if (key === '__proto__') {
-      throw new Error('invalid key __proto__');
-    }
+    // if (key === '__proto__') {
+    //   throw new Error('invalid key __proto__');
+    // }
 
     if (value == null || value === undefined) {
       return this.rem(key);
@@ -197,6 +197,12 @@ export class SortedSet implements Iterable<SortedSet> {
     }
     return 0;
   }
+  /**
+   * Return the number of elements with a score between
+   * min and max scores.  Inclusive.
+   * @param min the minimum score
+   * @param max the maximum score
+   */
 
   public count(min?: number, max?: number): number {
     if (!this.length) {

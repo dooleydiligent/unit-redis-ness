@@ -1,11 +1,10 @@
-import * as util from 'util';
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { Session } from '../../server/session';
+import { IRespCommand } from '../command/resp-command';
 import { DataType } from '../data/data-type';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
-import { IRespCommand } from './command/resp-command';
 
 export class CommandWrapper implements IRespCommand {
   public maxParams: number = -1;

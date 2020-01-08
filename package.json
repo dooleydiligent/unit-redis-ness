@@ -6,6 +6,9 @@
   "messages": [
     "adapted from https://github.com/tonivade/claudb.git"
   ],
+  "bugs": {
+    "url": "https://github.com/dooleydiligent/unit-redis-ness/issues"
+  },
   "files": [
     "dist",
     "images",

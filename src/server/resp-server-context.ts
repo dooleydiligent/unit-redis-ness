@@ -1,9 +1,9 @@
 import * as net from 'net';
 import { Dictionary } from '../dictionary';
 import { Logger } from '../logger';
+import { IRespCommand } from '../resp/command/resp-command';
 import { Database } from '../resp/data/database';
 import { CommandSuite } from '../resp/processor/command-suite';
-import { IRespCommand } from '../resp/processor/command/resp-command';
 import { IServerContext } from './server-context';
 import { Session } from './session';
 

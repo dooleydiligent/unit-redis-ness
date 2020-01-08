@@ -102,6 +102,12 @@ Plus some "database" commands:
 - sismember
 - smembers
 - smove
+- zadd
+- zrange
+- zcount
+- zcard
+- zincrby
+- zrem
 
 Todo (to complete v1.0.0 command set)
 
@@ -165,6 +171,6 @@ Time permitting, I expect to:
 
 - embed [lua](https://www.lua.org/)<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"><br/>
 
-- circle back around to validate that Bull can be thoroughly tested
+- circle back around to validate that [Bull](https://www.npmjs.com/package/bull ) can be thoroughly tested
 <img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/>
 
