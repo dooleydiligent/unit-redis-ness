@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.48% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/23</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.1% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -151,24 +151,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -209,23 +209,23 @@ import { IRespCommand } from '../resp-command';
 @Name('zincrby')
 export class ZIncrByCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execute(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-    const zkey: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const zmember: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-    const zIncr: string = <span class="cstat-no" title="statement not covered" >request.getParam(2);</span>
-<span class="cstat-no" title="statement not covered" >    if (isNaN(Number(zIncr))) {</span>
-<span class="cstat-no" title="statement not covered" >      return RedisToken.error('value is not a valid float');</span>
+  public execute(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const zkey: string = request.getParam(0);
+    const zIncr: string = request.getParam(1);
+    const zmember: string = request.getParam(2);
+    if (isNaN(Number(zIncr))) {
+      return RedisToken.error('value is not a valid float');
     }
-    let score: number = <span class="cstat-no" title="statement not covered" >0;</span>
-    const dbKey: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));</span>
-<span class="cstat-no" title="statement not covered" >    score = dbKey.getSortedSet().get(zmember);</span>
-<span class="cstat-no" title="statement not covered" >    if (score) {</span>
-<span class="cstat-no" title="statement not covered" >      score += Number(zIncr);</span>
+    let score: number = 0;
+    const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+    score = dbKey.getSortedSet().get(zmember);
+    if (score) {
+      score += Number(zIncr);
     } else {
-<span class="cstat-no" title="statement not covered" >      score = Number(zIncr);</span>
+      score = Number(zIncr);
     }
-<span class="cstat-no" title="statement not covered" >    return RedisToken.string(String(score));</span>
+    return RedisToken.string(String(score));
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -235,7 +235,7 @@ export class ZIncrByCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 08 2020 17:12:33 GMT+0000 (Coordinated Universal Time)
+                at Wed Jan 08 2020 19:09:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
