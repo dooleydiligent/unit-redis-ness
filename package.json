@@ -14,11 +14,11 @@
     "images",
     "test-unit-redis-ness"
   ],
-  "homepage": "https://joeandlane.com/",
+  "homepage": "https://dooleydiligent.github.io/unit-redis-ness/",
   "scripts": {
-    "build": "npm run clean && cp -R template/* docs && npm run lint && npm run doc && npm test && tsc -p .",
+    "build": "npm run clean && npm run lint && npm run doc && npm test && tsc -p .",
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage .nyc_output test-unit-redis-ness/node_modules docs/*",
-    "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
+    "doc": "typedoc --mode file --out template/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
     "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test",
@@ -81,6 +81,6 @@
     ],
     "sourceMap": true,
     "instrument": true,
-    "report-dir": "docs/coverage"
+    "report-dir": "template/coverage"
   }
 }
