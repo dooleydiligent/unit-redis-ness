@@ -18,6 +18,7 @@ jobs:
       run: |
         npm ci
         npm run build --if-present
+        rm -f docs/.gitignore
 # https://github.com/marketplace/actions/deploy-to-github-pages
     - name: Deploy /docs folder
       uses: JamesIves/github-pages-deploy-action@releases/v3
