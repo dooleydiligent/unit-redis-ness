@@ -25,12 +25,21 @@ jobs:
         npm run lint
         npm run doc
 # https://github.com/marketplace/actions/deploy-to-github-pages
-    - name: Build and Deploy
+    - name: Build and Deploy Docs
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages # The branch the action should deploy to.
+        BRANCH: docs # The branch the action should deploy to.
         TARGET_FOLDER: docs  
-        FOLDER: docs # The folder the action should deploy.
+        FOLDER: docs/doc # The folder the action should deploy.
+        CLEAN: true
+    - name: Build and Deploy Coverage
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: docs # The branch the action should deploy to.
+        TARGET_FOLDER: docs  
+        FOLDER: docs/coverage # The folder the action should deploy.
+        CLEAN: true
       env:
         CI: true
