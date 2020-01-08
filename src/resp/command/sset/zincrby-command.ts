@@ -39,8 +39,8 @@ export class ZIncrByCommand implements IRespCommand {
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     const zkey: string = request.getParam(0);
-    const zmember: string = request.getParam(1);
-    const zIncr: string = request.getParam(2);
+    const zIncr: string = request.getParam(1);
+    const zmember: string = request.getParam(2);
     if (isNaN(Number(zIncr))) {
       return RedisToken.error('value is not a valid float');
     }

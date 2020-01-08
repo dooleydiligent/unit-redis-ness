@@ -7,6 +7,7 @@ import { HgetCommand } from '../command/hash/hget-command';
 import { HsetCommand } from '../command/hash/hset-command';
 import { DelCommand } from '../command/key/del-command';
 import { ExistsCommand } from '../command/key/exists-command';
+import { TypeCommand } from '../command/key/type-command';
 import { NullCommand } from '../command/null-command';
 import { IRespCommand } from '../command/resp-command';
 import { EchoCommand } from '../command/server/echo-command';
@@ -66,6 +67,7 @@ export class CommandSuite {
     this.addCommand('zincrby', new ZIncrByCommand());
     this.addCommand('zrange', new ZRangeCommand());
     this.addCommand('zrem', new ZRemCommand());
+    this.addCommand('type', new TypeCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

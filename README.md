@@ -20,7 +20,7 @@ This project is released under the [MIT license](https://opensource.org/licenses
 # [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
 # [Repository](https://github.com/dooleydiligent/unit-redis-ness)
 # How to use
-Have a look at the skeleton project [test-unit-redisness](./test-unit-redis-ness/) included with the distribution. Or read along here:
+Have a look at the skeleton project [test-unit-redisness](https://github.com/dooleydiligent/unit-redis-ness/tree/master/test-unit-redis-ness) included with the distribution. Or read along here:
 
 ```
 npm install -D unit-redis-ness mocha @types/node chai net source-map-support ts-node typescript @types/chai @types/mocha
@@ -82,7 +82,7 @@ In it's current pre-alpha state, unit-redis only supports 5 "server" commands:
 - quit
 - info
 
-Plus some "database" commands:
+Plus some "database" commands - **implemented as of 1.0.3**:
 
 - get
 - set
@@ -108,6 +108,7 @@ Plus some "database" commands:
 - zcard
 - zincrby
 - zrem
+- type
 
 Todo (to complete v1.0.0 command set)
 
@@ -143,10 +144,7 @@ Todo (to complete v1.0.0 command set)
 - srem
 - sunion
 - sunionstore
-- type
 - ttl
-- zadd?
-- zcard?
 - z*?
 
 Probably Won't do

@@ -34,10 +34,10 @@ export class ZCountCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const skey: string = request.getParam(0);
-    const sMin: string = request.getParam(1);
-    const sMax: string = request.getParam(2);
     try {
+      const skey: string = request.getParam(0);
+      const sMin: string = request.getParam(1);
+      const sMax: string = request.getParam(2);
       if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
         throw new Error(this.DEFAULT_ERROR);
       }
@@ -46,9 +46,8 @@ export class ZCountCommand implements IRespCommand {
       result = dbKey.getSortedSet().count(Number(sMin), Number(sMax));
       return RedisToken.integer(result);
     } catch (ex) {
-      // ERR min or max is not a float
-      this.logger.warn(`${request.getCommand()}.execute(${skey}, ${sMin}, ${sMax})`, ex);
-      return RedisToken.error(this.DEFAULT_ERROR);
+      this.logger.warn(`${request.getCommand()} Exception %s`, ex);
+      return RedisToken.error(ex);
     }
   }
 }
