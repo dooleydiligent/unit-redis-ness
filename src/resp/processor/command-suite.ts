@@ -10,6 +10,7 @@ import { ExistsCommand } from '../command/key/exists-command';
 import { TypeCommand } from '../command/key/type-command';
 import { NullCommand } from '../command/null-command';
 import { IRespCommand } from '../command/resp-command';
+import { ScriptCommand } from '../command/script-command';
 import { EchoCommand } from '../command/server/echo-command';
 import { InfoCommand } from '../command/server/info-command';
 import { PingCommand } from '../command/server/ping-command';
@@ -68,6 +69,9 @@ export class CommandSuite {
     this.addCommand('zrange', new ZRangeCommand());
     this.addCommand('zrem', new ZRemCommand());
     this.addCommand('type', new TypeCommand());
+    this.addCommand('script', new ScriptCommand());
+    this.addCommand('eval', new ScriptCommand());
+    this.addCommand('evalsha', new ScriptCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

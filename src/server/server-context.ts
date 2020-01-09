@@ -15,4 +15,7 @@ export interface IServerContext {
   getValue(key: string): any;
   putValue(key: string, value: any): void;
   removeValue(key: string): any;
+  scriptExists(sha1: string): boolean;
+  getScript(sha1: string): string;
+  setScript(code: string): string;
 }

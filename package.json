@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/laneholcombe/unit-redis-ness.git"
+    "url": "https://github.com/dooleydiligent/unit-redis-ness"
   },
   "keywords": [
     "redist",
@@ -36,7 +36,12 @@
   "author": "lane holcombe",
   "license": "MIT",
   "dependencies": {
+    "crypto": "^1.0.1",
+    "fengari": "^0.1.4",
+    "fengari-node-cli": "^0.1.0",
+    "flua": "^0.2.2",
     "generate-safe-id": "^1.0.3",
+    "node-sha1": "^1.0.1",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
   },

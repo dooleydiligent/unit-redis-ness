@@ -6,12 +6,13 @@ import { Database } from '../resp/data/database';
 import { CommandSuite } from '../resp/processor/command-suite';
 import { IServerContext } from './server-context';
 import { Session } from './session';
-
+import * as crypto from 'crypto';
 export class RespServerContext implements IServerContext {
   private logger: Logger = new Logger(module.id);
   private clients: Dictionary<string, net.Socket> = new Dictionary<string, net.Socket>();
   private state: Dictionary<string, string> = new Dictionary<string, string>();
   private databases: Dictionary<string, Database> = new Dictionary<string, Database>();
+  private scripts: Dictionary<string, string> = new Dictionary<string, string>();
   /**
    * Instantiate the server contect.
    * Database ZERO is instantiated by default.  Others will be dynamically added.
@@ -64,5 +65,34 @@ export class RespServerContext implements IServerContext {
     }
     this.logger.debug(`getDatabase _${id} is ${this.databases.get(`_${id}`)}`);
     return this.databases.get(`_${id}`);
+  }
+  public getString(sha1: string): string {
+    return this.scripts.get(sha1);
+  }
+  /**
+   * Calculate and return the sha1 of code.  Store the code
+   * using sha1 as the key.
+   * @param code lua code script
+   */
+  public setScript(code: string): string {
+    const hash: any = crypto.createHash('sha1');
+    hash.update(code);
+    const key: string = hash.digest('hex');
+    this.scripts.put(key, code);
+    return key;
+  }
+  /**
+   * Retrieve the lua script identified by the sha1
+   * @param sha1 previously calculated sha1
+   */
+  public getScript(sha1: string): string {
+    return this.scripts.get(sha1);
+  }
+  /**
+   * Check if a script exists
+   * @param sha1 sha1 of the script
+   */
+  public scriptExists(sha1: string): boolean {
+    return this.scripts.exists(sha1);
   }
 }
