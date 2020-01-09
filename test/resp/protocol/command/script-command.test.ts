@@ -59,11 +59,32 @@ describe.only('script-command test', () => {
     // Validate that param 1 cannot be text
     response = await sendCommand(client, ['evalsha', sha1, 'two', 'key1', 'key2', 'first', 'second']);
     expect(response).to.equal('ReplyError: ERR value is not an integer or out of range');
-    // response  = await sendCommand(client, ['evalsha', sha1, '2', 'key1', 'key2', 'first', 'second']);
   });
-  it.only('should execute a simple script', async () =>{ 
+  it('should execute a simple script', async () => {
     // Validate that a simple script can be processed
     response = await sendCommand(client, ['EVAL', 'local val="Hello Compose" return val', '0']);
-    console.log(response);
-  })
+    expect(response).to.equal('Hello Compose');
+  });
+  it('should create and process the ARGV table', async () => {
+    response = await sendCommand(client, ['eval', 'return ARGV[2]', '2', 'key1', 'key2', 'first', 'second']);
+    expect(response).to.eql('second');
+  });
+  it('should create and process the KEYS table', async () => {
+    response = await sendCommand(client, ['eval', 'return KEYS[1]', '2', 'key1', 'key2', 'first', 'second']);
+    expect(response).to.equal('key1');
+  });
+  // NOTE: Any number is also a string to LUA
+  it('should return a NUMBER when required', async () => {
+    response = await sendCommand(client, ['eval', 'return 123', '2', 'key1', 'key2', 'first', 'second']);
+    expect(response).to.equal('123');
+  });
+  it('should return NIL when there is no return value', async () => {
+    response = await sendCommand(client, ['eval', 'print "Hello World"', '0']);
+    expect(response).to.equal(null);
+  });
+  it('should return a TABLE when required', async () => {
+    response = await sendCommand(client, [`eval`, `return ARGV`, '2', 'key1', 'key2', 'first', 'second', 'third']);
+    console.log(`Response is ${response}`);
+    expect(response).to.eql(['first', 'second']);
+  });
 });

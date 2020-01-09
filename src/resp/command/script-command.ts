@@ -4,12 +4,12 @@ import { IRequest } from '../../server/request';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { IRespCommand } from './resp-command';
+import * as util from 'util';
 
-const fengari = require('fengari')
-const lua = fengari.lua
-const lauxlib = fengari.lauxlib
-const lualib = fengari.lualib
-// const flua = require('flua');
+const fengari = require('fengari');
+const lua = fengari.lua;
+const lauxlib = fengari.lauxlib;
+const lualib = fengari.lualib;
 /**
  * Available since 2.6.0.
  * 
@@ -139,6 +139,7 @@ export class ScriptCommand implements IRespCommand {
   }
   private executeLua(sha1: string, request: IRequest): RedisToken {
     this.logger.debug(`executeLua sha1: %s`, sha1);
+    let returnValue: RedisToken;
     // Validate the 2nd parameter
     // evalsha sha1 <key_count> ...keys ...argv
     // eval code <key_count> ...keys ...argv
@@ -164,38 +165,145 @@ export class ScriptCommand implements IRespCommand {
     const L: any = lauxlib.luaL_newstate();
     this.logger.debug(`executeLua: Opening lua libraries`);
     lualib.luaL_openlibs(L);
+    this.logger.debug(`Creating ARGV table`);
+    lua.lua_createtable(L, argv.length, 0);
+    for (let index = 0; index < argv.length; index++) {
+      lua.lua_pushstring(L, argv[index]);
+      lua.lua_seti(L, -2, index + 1);
+    }
+    lua.lua_setglobal(L, fengari.to_luastring('ARGV'));
+
+    this.logger.debug(`Creating KEYS tables`);
+    lua.lua_createtable(L, keys.length, 0);
+    for (let index = 0; index < keys.length; index++) {
+      lua.lua_pushstring(L, keys[index]);
+      lua.lua_seti(L, -2, index + 1);
+    }
+    lua.lua_setglobal(L, fengari.to_luastring('KEYS'));
+
     this.logger.debug(`executeLua: Validating lua script "%s"`, code);
-    const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(code));
+    // const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${tables}\n${code}`));
+    const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
     if (loadStatus !== lua.LUA_OK) {
       this.logger.warn(`Unexpected error parsing sha1: "${sha1}"`);
       throw new Error(`Unexpected error parsing sha1: "${sha1}"`);
     }
-    // Push keys
-    this.logger.debug(`Processing KEYS: ${keys}`);
-    lua.lua_createtable(L, keys.length, 0); // see flua_pusharray
-    for (let index = 0; index < keys.length; index++) {
-      lua.lua_pushliteral(keys[index]);
-      lua.lua_seti(L, -2, index + 1);
-    }
-    lua.lua_setglobal(L, fengari.to_luastring('KEYS'))
-    // Push arguments
-    this.logger.debug(`Processing ARGV: ${argv}`);
-    lua.lua_createtable(L, argv.length, 0); // see flua_pusharray
-    for (let index = 0; index < argv.length; index++) {
-      lua.lua_pushliteral(argv[index]);
-      lua.lua_rawset(L, -2, index + 1);
-    }
-    lua.lua_setglobal(L, fengari.to_luastring('ARGV'))
-
-    this.logger.debug(`pcalling script "%s" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`, code);
-//    const ok = lauxlib.luaL_dostring(L, 'LUA_INIT', 'LUA_INIT');
-    const ok = lua.lua_call(L, 0, -1);
-    if (ok === lua.LUA_OK || ok === undefined) {
-      this.logger.debug(`The LUA call was LUA_OK!`);
-      return RedisToken.string(lua.lua_tojsstring(L, -1));
+    this.logger.debug(`Calling script "%s" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`, code);
+    const ok = lua.lua_call(L, 0, lua.LUA_MULTRET);
+    // if (ok === lua.LUA_OK || ok === undefined) {
+    let returnedValue: any = 'UNKNOWN';
+    if (ok === undefined) { // A string return
+      this.logger.debug(`The LUA call was undefined`);
+      const stack: number = lua.lua_gettop(L);
+      this.logger.debug(`The stack top is ${stack}`);
+      if (stack === 0) {
+        returnValue = RedisToken.NULL_STRING;
+      } else {
+        this.dumpStack(L, stack);
+        switch (true) {
+          case lua.lua_istable(L, -1):
+            const table: RedisToken[] = [];
+            this.logger.debug(`return type is TABLE`);
+            // get each element of the table
+            for (let i = 0; i < 3; i++) {
+              this.logger.debug(`Getting element ${i}`);
+              lua.lua_pushstring(L, 'key');
+              const element = lua.lua_gettable(L, -2);
+              this.logger.debug(`got element ${element}`);
+              table.push(RedisToken.string(element));
+              lua.lua_pop(L, 1);
+            }
+            //          returnedValue = lua.lua_gettable(L, -1);
+            returnedValue = RedisToken.array(table);
+            this.logger.debug(`The table is %j`, returnedValue);
+            break;
+          // case lua.lua_isnumber(L, -1):
+          //   this.logger.debug(`return type is NUMBER`);
+          //   returnedValue = lua.lua_tojsstring(L, -1);
+          //   break;
+          case lua.lua_isstring(L, -1):
+            returnedValue = lua.lua_tojsstring(L, -1);
+            break;
+        }
+        //      this.logger.debug(`ISTABLE is ${lua.lua_istable(L, -1)}`);
+        returnValue = RedisToken.string(returnedValue);
+      }
     } else {
-      this.logger.warn(`The LUA call was NOT OK: ${ok}`);
-      return RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getCommand()));
+      if (ok === lua.LUA_OK) {
+        this.logger.warn(`CALL WAS LUA_OK!`);
+        const returnArray: any[] = [];
+        let le = 1;
+        let ar = new lua.lua_Debug();
+        let li = 1;
+        //      if (!returnString) {
+        this.logger.debug(`Scanning the stack`);
+        while (lua.lua_getstack(L, le, ar)) {
+          li = le; le *= 2;
+          this.logger.debug(`li = ${li}, le = ${le}`);
+        }
+        this.logger.debug(`Found stack upper bound at ${le - 1}`);
+        returnValue = RedisToken.string('LUA_OK');
+      } else {
+        this.logger.warn(`The LUA call was NOT OK: ${ok}`);
+        returnValue = RedisToken.error(lauxlib.luaL_error(L, lua.to_luastring('processing error (%s)'), code))
+      }
     }
+    this.logger.debug(`Releasing lua state`);
+    lua.lua_close(L);
+    return returnValue;
+  }
+  private dumpStack(L: any, top: number): void {
+    let dump: string = '';
+    for (let i = 1; i <= top; i++) {  /* repeat for each level */
+      let t: number = lua.lua_type(L, i);
+      switch (t) {
+        case lua.LUA_TSTRING:  /* strings */
+          dump += util.format(`STRING: '%s'`, lua.lua_tostring(L, i));
+          break;
+        case lua.LUA_TBOOLEAN:  /* booleans */
+          dump += util.format(`BOOLEAN: '%s'`, lua.lua_toboolean(L, i) ? 'true' : 'false');
+          break;
+        case lua.LUA_TNUMBER:  /* numbers */
+          dump += util.format(`NUMBER: '%s'`, lua.lua_tonumber(L, i));
+          break;
+        default:  /* other values */
+          const typename: any[] = lua.lua_typename(L, t);
+          let typenameString: string = '';
+          typename.forEach((c) => {
+            typenameString += String.fromCharCode(c)
+          });
+          dump += util.format(`OTHER: '%s'`, typenameString);
+          if (typenameString === 'table') {
+            this.logger.debug(`Invoking luaL_len against i`);
+            const size = lauxlib.luaL_len(L, i);
+            this.logger.debug(`Table ${i} size is ${size}`);
+
+            /* table is in the stack at index 'i' */
+            lua.lua_pushnil(L);  /* first key */
+            let temp: string = '';
+            while (lua.lua_next(L, i) != 0) {
+              /* uses 'key' (at index -2) and 'value' (at index -1) */
+              // temp =  util.format("%s - %s\n",
+              //   lua.lua_typename(L, lua.lua_type(L, -2)),
+              //   lua.lua_typename(L, lua.lua_type(L, -1)));
+              const element: any[] = lua.lua_tostring(L, -1);
+              element.forEach((c) => {
+                temp += String.fromCharCode(c)
+              });
+
+              dump += util.format(`\nELEMENT: '%s'`, temp);
+
+              /* removes 'value'; keeps 'key' for next iteration */
+              lua.lua_pop(L, 1);
+              // this.logger.debug(`lua_pop: ${temp}`);
+              // dump += `${temp},`;
+              temp = '';
+            }
+          }
+          break;
+      }
+      dump += '\n';  /* put a separator */
+    }
+    this.logger.debug(`DUMP STACK: ${dump}`);
   }
 }
