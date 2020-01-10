@@ -19,7 +19,7 @@
     "build": "npm run clean && npm run lint && npm run doc && npm run makeindex && npm test && tsc -p .",
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage .nyc_output test-unit-redis-ness/node_modules docs/*/*",
     "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
-    "makeindex": "echo \"<HTML><HEAD><TITLE>${npm_package_name}-v${npm_package_version}</TITLE></HEAD><BODY>${npm_package_description}<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br></BODY></HTML>\" > docs/index.md",
+    "makeindex": "echo \"<HTML><HEAD><TITLE>${npm_package_name}-v${npm_package_version}</TITLE><link rel='icon' href='./images/dooley.ico'></HEAD><BODY>${npm_package_description}<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br></BODY></HTML>\" > docs/index.html",
     "lint": "tslint --project . --format prose --force",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
     "test": "nyc --reporter=cobertura --reporter=html mocha --recursive --exit test",
@@ -38,10 +38,6 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "fengari": "^0.1.4",
-    "fengari-node-cli": "^0.1.0",
-    "flua": "^0.2.2",
-    "generate-safe-id": "^1.0.3",
-    "node-sha1": "^1.0.1",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
   },
@@ -55,6 +51,7 @@
     "assert": "^2.0.0",
     "chai": "^4.2.0",
     "deep-equal": "^2.0.1",
+    "generate-safe-id": "^1.0.3",
     "mocha": "^6.2.2",
     "net": "^1.0.2",
     "nyc": "^15.0.0",
