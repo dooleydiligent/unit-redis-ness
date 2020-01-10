@@ -73,8 +73,9 @@ describe('Some test suite', () => {
 ```
 
 # Current State
+As of 1.0.4 **unit-redis-ness* includes embedded [fengari](https://www.npmjs.com/package/fengari), which means that LUA is now available.
 
-In it's current pre-alpha state, unit-redis only supports 5 "server" commands:
+Otherwise, unit-redis only supports 5 "server" commands:
 
 - ping
 - echo
@@ -82,7 +83,7 @@ In it's current pre-alpha state, unit-redis only supports 5 "server" commands:
 - quit
 - info
 
-Plus some "database" commands - **implemented as of 1.0.3**:
+Plus some "database" commands - **implemented as of 1.0.4**:
 
 - get
 - set
@@ -109,6 +110,9 @@ Plus some "database" commands - **implemented as of 1.0.3**:
 - zincrby
 - zrem
 - type
+- script
+- eval
+- evalsha
 
 Todo (to complete v1.0.0 command set)
 
