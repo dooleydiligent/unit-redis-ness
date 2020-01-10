@@ -1,6 +1,7 @@
 # unit-redis-ness
 ![dooley](https://dooleydiligent.github.io/unit-redis-ness/doc/images/dooley.gif)
-- A fully in-memory ![Redis][redis] redis implementation in typescript to aid unit testing of redis-based nodejs applications brought to you by [yours truly!](http://www.joeandlane.com)
+
+- A fully in-memory ![Redis][redis] redis implementation in typescript to aid unit testing of redis-based nodejs applications.  Brought to you by [yours truly!](http://www.joeandlane.com)
 
 Initially inspired by [mini-redis](https://github.com/meteor/miniredis) but ulitimately adapted from the very well-designed [ClauDB](https://github.com/tonivade/claudb.git)
 
@@ -14,11 +15,15 @@ Now I feel good.
 
 Well, better.
 
-This project is released under the [MIT license](https://opensource.org/licenses/MIT)
+This project is released under the [MIT license](https://opensource.org/licenses/MIT).  It includes work from some fine projects such as:
+- [fengari](https://fengari.io/) - The Lua VM written in JS ES6 for Node and the browser
+- [resp](https://www.npmjs.com/package/resp) - An implementation of the Redis Encoding and Serialization Protocol for Node.js.
+- [redis-sorted-set](https://www.npmjs.com/package/redis-sorted-set) - A JavaScript implementation of Redis' Sorted Sets (Converted to typescript)
 
-# [Code Coverage Report](https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html)
-# [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
-# [Repository](https://github.com/dooleydiligent/unit-redis-ness)
+### [Code Coverage Report](https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html)
+### [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
+### [Repository](https://github.com/dooleydiligent/unit-redis-ness)
+
 # How to use
 Have a look at the skeleton project [test-unit-redisness](https://github.com/dooleydiligent/unit-redis-ness/tree/master/test-unit-redis-ness) included with the distribution. Or read along here:
 
@@ -175,3 +180,4 @@ Time permitting, I expect to:
 - circle back around to validate that [Bull](https://www.npmjs.com/package/bull ) can be thoroughly tested
 <img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/>
 
+[Redis]: https://dooleydiligent.github.io/unit-redis-ness/doc/images/redis.png
