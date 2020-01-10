@@ -2,11 +2,16 @@ import { Dictionary } from '../../dictionary';
 import { Logger } from '../../logger';
 import { ClientCommand } from '../command/client-command';
 import { DBSizeCommand } from '../command/db/dbsize-command';
+import { FlushAllCommand } from '../command/db/flushall-command';
+import { FlushDbCommand } from '../command/db/flushdb-command';
 import { SelectCommand } from '../command/db/select-command';
 import { HgetCommand } from '../command/hash/hget-command';
 import { HsetCommand } from '../command/hash/hset-command';
 import { DelCommand } from '../command/key/del-command';
 import { ExistsCommand } from '../command/key/exists-command';
+import { ExpireCommand } from '../command/key/expire-command';
+import { KeysCommand } from '../command/key/keys-command';
+import { RenameCommand } from '../command/key/rename-command';
 import { TypeCommand } from '../command/key/type-command';
 import { NullCommand } from '../command/null-command';
 import { IRespCommand } from '../command/resp-command';
@@ -30,6 +35,7 @@ import { ZRemCommand } from '../command/sset/zrem-command';
 import { GetCommand } from '../command/string/get-command';
 import { IncrCommand } from '../command/string/incr-command';
 import { IncrByCommand } from '../command/string/incrby-command';
+import { MsetCommand } from '../command/string/mset-command';
 import { SetCommand } from '../command/string/set-command';
 import { CommandWrapperFactory } from './command-wrapper-factory';
 export class CommandSuite {
@@ -72,6 +78,12 @@ export class CommandSuite {
     this.addCommand('script', new ScriptCommand());
     this.addCommand('eval', new ScriptCommand());
     this.addCommand('evalsha', new ScriptCommand());
+    this.addCommand('expire', new ExpireCommand());
+    this.addCommand('rename', new RenameCommand());
+    this.addCommand('flushdb', new FlushDbCommand());
+    this.addCommand('flushall', new FlushAllCommand());
+    this.addCommand('mset', new MsetCommand());
+    this.addCommand('keys', new KeysCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

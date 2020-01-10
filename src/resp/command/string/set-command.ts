@@ -41,7 +41,7 @@ interface IParameters {
 export class SetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`executeDBRequest()`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     try {
       const parameters: IParameters = this.parse(request);
       const key: string = request.getParam(0).toString();

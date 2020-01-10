@@ -1,1 +1,0 @@
-<HTML><HEAD><TITLE>unit-redis-ness-v1.0.4</TITLE></HEAD><BODY>A typescript implementation of redis to facilitate unit testing<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br></BODY></HTML>
