@@ -25,7 +25,7 @@ import { IRespCommand } from '../resp-command';
 export class HgetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // Get the original HASH
     const item: DatabaseValue = db.get(request.getParam(0));
     if (!item) {

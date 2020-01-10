@@ -39,7 +39,7 @@ export class IncrCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(public sign: number) { }
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     try {
       let value: DatabaseValue = db.get(request.getParam(0));
       if (!value) {

@@ -21,7 +21,7 @@ import { IRespCommand } from '../resp-command';
 export class DelCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     let counter = 0;
     for (const key of request.getParams()) {
       if (db.remove(key)) {
