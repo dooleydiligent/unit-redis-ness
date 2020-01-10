@@ -121,11 +121,12 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - rename
 - flushdb
 - flushall
+- keys
+- mset
 
 Todo (to complete v1.0.0 command set)
 
 - getset
-- keys
 - lindex
 - llen
 - lpop
@@ -134,9 +135,8 @@ Todo (to complete v1.0.0 command set)
 - lrem
 - lrange
 - ltrim
-- mget
 - move
-- mset
+- mget
 - randomkey
 - renamenx
 - rpush
