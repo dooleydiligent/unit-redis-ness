@@ -21,6 +21,7 @@ This project is released under the [MIT license](https://opensource.org/licenses
 - [redis-sorted-set](https://www.npmjs.com/package/redis-sorted-set) - A JavaScript implementation of Redis' Sorted Sets (Converted to typescript)
 
 ### [Code Coverage Report](https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html)
+### [Mochawesome Report](https://dooleydiligent.github.io/unit-redis-ness/mochawesome/mochawesome.html)
 ### [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
 ### [Repository](https://github.com/dooleydiligent/unit-redis-ness)
 
