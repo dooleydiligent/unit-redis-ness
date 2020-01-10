@@ -1,13 +1,8 @@
 import { MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-<<<<<<< HEAD
-import { Database } from '../../data/database';
-import { DataType } from '../../data/data-type';
-=======
 import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
->>>>>>> dev
 import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
@@ -42,15 +37,9 @@ export class MsetCommand implements IRespCommand {
     if (request.getParams().length % 2 !== 0) {
       return RedisToken.error('ERR wrong number of arguments for \'mset\' command');
     }
-<<<<<<< HEAD
-    for (let index = 0; index<request.getParams().length; index+=2) {
-      const key: string = request.getParam(index);
-      const value: string = request.getParam(index+1);
-=======
     for (let index = 0; index < request.getParams().length; index += 2) {
       const key: string = request.getParam(index);
       const value: string = request.getParam(index + 1);
->>>>>>> dev
       this.logger.debug(`Setting key ${key} to "${value}"`);
       db.put(key, new DatabaseValue(DataType.STRING, value));
     }
