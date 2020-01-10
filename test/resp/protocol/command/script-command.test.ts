@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import { RespServer } from '../../../../src/server/resp-server';
 import { sendCommand } from '../../../common.test';
 
-describe.only('script-command test', () => {
+describe('script-command test', () => {
   let respServer: RespServer;
   let client: net.Socket = new net.Socket();
   let response: any;
@@ -84,7 +84,16 @@ describe.only('script-command test', () => {
   });
   it('should return a TABLE when required', async () => {
     response = await sendCommand(client, [`eval`, `return ARGV`, '2', 'key1', 'key2', 'first', 'second', 'third']);
-    console.log(`Response is ${response}`);
-    expect(response).to.eql(['first', 'second']);
+    expect(response).to.eql(['first', 'second', 'third']);
   });
+  it('should return items in order', async () => {
+    response = await sendCommand(client, ['eval', 'return {true, "test", false, 10, 10.2}', '0']);
+    console.log(`Response is ${response}`, response);
+    expect(response).to.eql([1, 'test', null, 10, 10]);
+  })
+  it('should return integer and nil for true and false, respectively', async () => {
+    response = await sendCommand(client, ['eval', 'return { true, false, false}', '0']);
+    console.log(`Response is ${response}`, response);
+    expect(response).to.eql([1, null, null]);
+  })
 });

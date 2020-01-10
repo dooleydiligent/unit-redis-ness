@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import * as net from 'net';
 import { Dictionary } from '../dictionary';
 import { Logger } from '../logger';
@@ -6,7 +7,6 @@ import { Database } from '../resp/data/database';
 import { CommandSuite } from '../resp/processor/command-suite';
 import { IServerContext } from './server-context';
 import { Session } from './session';
-import * as crypto from 'crypto';
 export class RespServerContext implements IServerContext {
   private logger: Logger = new Logger(module.id);
   private clients: Dictionary<string, net.Socket> = new Dictionary<string, net.Socket>();
