@@ -32,7 +32,7 @@ import { IRespCommand } from './../resp-command';
 export class SAddCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     const skey: string = request.getParam(0);
     const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
     const originalSet: Set<any> = initial.getSet();

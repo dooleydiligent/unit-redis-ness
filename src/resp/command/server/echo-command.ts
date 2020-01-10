@@ -10,7 +10,7 @@ import { IRespCommand } from '../resp-command';
 export class EchoCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     return RedisToken.string(request.getParam(0));
   }
 }

@@ -136,7 +136,7 @@ export class ClientCommand implements IRespCommand {
   public static DEFAULT_ERROR = `Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`execute(request, db)`, request.getParams());
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     switch (request.getParam(0).toLowerCase()) {
       case 'getname':
         return this.getName(request);

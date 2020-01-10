@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>unit-redis-ness - v1.0.4 | unit-redis-ness - v1.0.4</title>
+	<title>unit-redis-ness - v1.0.5 | unit-redis-ness - v1.0.5</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2335,7 +2335,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">unit-redis-ness - v1.0.4</a></strong>
+					<strong><a href="index.html">unit-redis-ness - v1.0.5</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2420,6 +2420,15 @@ img {
 			<a href="classes/existscommand.html" class="tsd-kind-icon">Exists<wbr>Command</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="classes/expirecommand.html" class="tsd-kind-icon">Expire<wbr>Command</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/flushallcommand.html" class="tsd-kind-icon">Flush<wbr>All<wbr>Command</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/flushdbcommand.html" class="tsd-kind-icon">Flush<wbr>DbCommand</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="classes/getcommand.html" class="tsd-kind-icon">Get<wbr>Command</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -2437,11 +2446,17 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="classes/infocommand.html" class="tsd-kind-icon">Info<wbr>Command</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/keyscommand.html" class="tsd-kind-icon">Keys<wbr>Command</a>
+		</li>
 		<li class=" tsd-kind-class tsd-is-not-exported">
 			<a href="classes/level.html" class="tsd-kind-icon">Level</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/logger.html" class="tsd-kind-icon">Logger</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/msetcommand.html" class="tsd-kind-icon">Mset<wbr>Command</a>
 		</li>
 		<li class=" tsd-kind-class tsd-is-not-exported">
 			<a href="classes/node.html" class="tsd-kind-icon">Node</a>
@@ -2460,6 +2475,9 @@ img {
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/redistoken.html" class="tsd-kind-icon">Redis<wbr>Token</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/renamecommand.html" class="tsd-kind-icon">Rename<wbr>Command</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/respserialize.html" class="tsd-kind-icon">Resp<wbr>Serialize</a>
@@ -2600,7 +2618,7 @@ img {
 			</a>
 			<p><img src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/dooley.gif" alt="dooley"></p>
 			<ul>
-				<li>A fully in-memory ![Redis][redis] redis implementation in typescript to aid unit testing of redis-based nodejs applications brought to you by <a href="http://www.joeandlane.com">yours truly!</a></li>
+				<li>A fully in-memory <img src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/redis.png" alt="Redis"> redis implementation in typescript to aid unit testing of redis-based nodejs applications.  Brought to you by <a href="http://www.joeandlane.com">yours truly!</a></li>
 			</ul>
 			<p>Initially inspired by <a href="https://github.com/meteor/miniredis">mini-redis</a> but ulitimately adapted from the very well-designed <a href="https://github.com/tonivade/claudb.git">ClauDB</a></p>
 			<p>The reason?  I 100% agree with <a href="https://github.com/tonivade">Antonio</a></p>
@@ -2610,15 +2628,20 @@ img {
 			<p>But also because I had need of redis for unit testing on my last project, where we used <a href="https://www.npmjs.com/package/bull">bull</a>.  But I found it difficult to unit test the queue processors without spinning up a fully functional redis implementation.  Since we use CI/CD it was not practical to have a redis farm just for testing.  Instead I embedded a klunky precursor to this project and never felt good about it.</p>
 			<p>Now I feel good.</p>
 			<p>Well, better.</p>
-			<p>This project is released under the <a href="https://opensource.org/licenses/MIT">MIT license</a></p>
+			<p>This project is released under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.  It includes work from some fine projects such as:</p>
+			<ul>
+				<li><a href="https://fengari.io/">fengari</a> - The Lua VM written in JS ES6 for Node and the browser</li>
+				<li><a href="https://www.npmjs.com/package/resp">resp</a> - An implementation of the Redis Encoding and Serialization Protocol for Node.js.</li>
+				<li><a href="https://www.npmjs.com/package/redis-sorted-set">redis-sorted-set</a> - A JavaScript implementation of Redis&#39; Sorted Sets (Converted to typescript)</li>
+			</ul>
 			<a href="#a-hrefhttpsdooleydiligentgithubiounit-redis-nesscoverageindexhtmlcode-coverage-reporta" id="a-hrefhttpsdooleydiligentgithubiounit-redis-nesscoverageindexhtmlcode-coverage-reporta" style="color: inherit; text-decoration: none;">
-				<h1><a href="https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html">Code Coverage Report</a></h1>
+				<h3><a href="https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html">Code Coverage Report</a></h3>
 			</a>
 			<a href="#a-hrefhttpsdooleydiligentgithubiounit-redis-nessdocindexhtmlcode-documentationa" id="a-hrefhttpsdooleydiligentgithubiounit-redis-nessdocindexhtmlcode-documentationa" style="color: inherit; text-decoration: none;">
-				<h1><a href="https://dooleydiligent.github.io/unit-redis-ness/doc/index.html">Code Documentation</a></h1>
+				<h3><a href="https://dooleydiligent.github.io/unit-redis-ness/doc/index.html">Code Documentation</a></h3>
 			</a>
 			<a href="#a-hrefhttpsgithubcomdooleydiligentunit-redis-nessrepositorya" id="a-hrefhttpsgithubcomdooleydiligentunit-redis-nessrepositorya" style="color: inherit; text-decoration: none;">
-				<h1><a href="https://github.com/dooleydiligent/unit-redis-ness">Repository</a></h1>
+				<h3><a href="https://github.com/dooleydiligent/unit-redis-ness">Repository</a></h3>
 			</a>
 			<a href="#how-to-use" id="how-to-use" style="color: inherit; text-decoration: none;">
 				<h1>How to use</h1>
@@ -2707,14 +2730,16 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<li>script</li>
 				<li>eval</li>
 				<li>evalsha</li>
+				<li>expire</li>
+				<li>rename</li>
+				<li>flushdb</li>
+				<li>flushall</li>
+				<li>keys</li>
+				<li>mset</li>
 			</ul>
 			<p>Todo (to complete v1.0.0 command set)</p>
 			<ul>
-				<li>expire</li>
-				<li>flushdb</li>
-				<li>flushall</li>
 				<li>getset</li>
-				<li>keys</li>
 				<li>lindex</li>
 				<li>llen</li>
 				<li>lpop</li>
@@ -2723,11 +2748,9 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<li>lrem</li>
 				<li>lrange</li>
 				<li>ltrim</li>
-				<li>mget</li>
 				<li>move</li>
-				<li>mset</li>
+				<li>mget</li>
 				<li>randomkey</li>
-				<li>rename</li>
 				<li>renamenx</li>
 				<li>rpush</li>
 				<li>rpoplpush</li>
@@ -2764,12 +2787,10 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<li>implement the full redis command set up to <a href="http://download.redis.io/releases/">2.6.x</a> (maybe later)
 				<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/redis-white.png"><br/></li>
 			</ul>
+			<p><del>- embed <a href="https://www.lua.org/">lua</a><img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"></del> (completed)<br/></p>
 			<ul>
-				<li><p>embed <a href="https://www.lua.org/">lua</a><img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"><br/></p>
-				</li>
-				<li><p>circle back around to validate that <a href="https://www.npmjs.com/package/bull">Bull</a> can be thoroughly tested
-					<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/></p>
-				</li>
+				<li>circle back around to validate that <a href="https://www.npmjs.com/package/bull">Bull</a> can be thoroughly tested
+				<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/></li>
 			</ul>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
@@ -2803,20 +2824,26 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 							<li class="tsd-kind-class"><a href="classes/echocommand.html" class="tsd-kind-icon">Echo<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/errorredistoken.html" class="tsd-kind-icon">Error<wbr>Redis<wbr>Token</a></li>
 							<li class="tsd-kind-class"><a href="classes/existscommand.html" class="tsd-kind-icon">Exists<wbr>Command</a></li>
+							<li class="tsd-kind-class"><a href="classes/expirecommand.html" class="tsd-kind-icon">Expire<wbr>Command</a></li>
+							<li class="tsd-kind-class"><a href="classes/flushallcommand.html" class="tsd-kind-icon">Flush<wbr>All<wbr>Command</a></li>
+							<li class="tsd-kind-class"><a href="classes/flushdbcommand.html" class="tsd-kind-icon">Flush<wbr>DbCommand</a></li>
 							<li class="tsd-kind-class"><a href="classes/getcommand.html" class="tsd-kind-icon">Get<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/hgetcommand.html" class="tsd-kind-icon">Hget<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/hsetcommand.html" class="tsd-kind-icon">Hset<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/incrbycommand.html" class="tsd-kind-icon">Incr<wbr>ByCommand</a></li>
 							<li class="tsd-kind-class"><a href="classes/incrcommand.html" class="tsd-kind-icon">Incr<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/infocommand.html" class="tsd-kind-icon">Info<wbr>Command</a></li>
+							<li class="tsd-kind-class"><a href="classes/keyscommand.html" class="tsd-kind-icon">Keys<wbr>Command</a></li>
 							<li class="tsd-kind-class tsd-is-not-exported"><a href="classes/level.html" class="tsd-kind-icon">Level</a></li>
 							<li class="tsd-kind-class"><a href="classes/logger.html" class="tsd-kind-icon">Logger</a></li>
+							<li class="tsd-kind-class"><a href="classes/msetcommand.html" class="tsd-kind-icon">Mset<wbr>Command</a></li>
 							<li class="tsd-kind-class tsd-is-not-exported"><a href="classes/node.html" class="tsd-kind-icon">Node</a></li>
 							<li class="tsd-kind-class"><a href="classes/nullcommand.html" class="tsd-kind-icon">Null<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/numberredistoken.html" class="tsd-kind-icon">Number<wbr>Redis<wbr>Token</a></li>
 							<li class="tsd-kind-class"><a href="classes/pingcommand.html" class="tsd-kind-icon">Ping<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/quitcommand.html" class="tsd-kind-icon">Quit<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/redistoken.html" class="tsd-kind-icon">Redis<wbr>Token</a></li>
+							<li class="tsd-kind-class"><a href="classes/renamecommand.html" class="tsd-kind-icon">Rename<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/respserialize.html" class="tsd-kind-icon">Resp<wbr>Serialize</a></li>
 							<li class="tsd-kind-class"><a href="classes/respserver.html" class="tsd-kind-icon">Resp<wbr>Server</a></li>
 							<li class="tsd-kind-class"><a href="classes/respservercontext.html" class="tsd-kind-icon">Resp<wbr>Server<wbr>Context</a></li>
@@ -2888,8 +2915,8 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">Parser<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;redis-parser&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/client.ts#L6">src/client.ts:6</a></li>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/server/resp-server.ts#L21">src/server/resp-server.ts:21</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/client.ts#L6">src/client.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/server/resp-server.ts#L21">src/server/resp-server.ts:21</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2899,7 +2926,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">debug<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;util.debuglog(&#x27;decorators&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/decorators.ts#L4">src/decorators.ts:4</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/decorators.ts#L4">src/decorators.ts:4</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -2933,7 +2960,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">fengari<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;fengari&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/resp/command/script-command.ts#L9">src/resp/command/script-command.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/resp/command/script-command.ts#L9">src/resp/command/script-command.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2943,7 +2970,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lauxlib<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lauxlib</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/resp/command/script-command.ts#L11">src/resp/command/script-command.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/resp/command/script-command.ts#L11">src/resp/command/script-command.ts:11</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2953,7 +2980,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="classes/logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/client.ts#L7">src/client.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/client.ts#L7">src/client.ts:7</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2963,7 +2990,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lua<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lua</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/resp/command/script-command.ts#L10">src/resp/command/script-command.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/resp/command/script-command.ts#L10">src/resp/command/script-command.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2973,7 +3000,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lualib<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lualib</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/resp/command/script-command.ts#L12">src/resp/command/script-command.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/resp/command/script-command.ts#L12">src/resp/command/script-command.ts:12</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2983,7 +3010,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">resp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;resp&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/server/default-session.ts#L10">src/server/default-session.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/server/default-session.ts#L10">src/server/default-session.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3000,7 +3027,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/decorators.ts#L9">src/decorators.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/decorators.ts#L9">src/decorators.ts:9</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3033,7 +3060,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/decorators.ts#L44">src/decorators.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/decorators.ts#L44">src/decorators.ts:44</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3067,7 +3094,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/decorators.ts#L32">src/decorators.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/decorators.ts#L32">src/decorators.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3101,7 +3128,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/decorators.ts#L20">src/decorators.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/decorators.ts#L20">src/decorators.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3134,7 +3161,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4722d96/src/client.ts#L12">src/client.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/56ba9ef/src/client.ts#L12">src/client.ts:12</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

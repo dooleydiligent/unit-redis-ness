@@ -117,14 +117,16 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - script
 - eval
 - evalsha
+- expire
+- rename
+- flushdb
+- flushall
+- keys
+- mset
 
 Todo (to complete v1.0.0 command set)
 
-- expire
-- flushdb
-- flushall
 - getset
-- keys
 - lindex
 - llen
 - lpop
@@ -133,11 +135,9 @@ Todo (to complete v1.0.0 command set)
 - lrem
 - lrange
 - ltrim
-- mget
 - move
-- mset
+- mget
 - randomkey
-- rename
 - renamenx
 - rpush
 - rpoplpush
@@ -175,7 +175,7 @@ Time permitting, I expect to:
 <img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/redis-white.png"><br/>
 
 
-- embed [lua](https://www.lua.org/)<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"><br/>
+<del>- embed [lua](https://www.lua.org/)<img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/luaa.gif"></del> (completed)<br/>
 
 - circle back around to validate that [Bull](https://www.npmjs.com/package/bull ) can be thoroughly tested
 <img width="100px" src="https://dooleydiligent.github.io/unit-redis-ness/doc/images/bull.png"><br/>
