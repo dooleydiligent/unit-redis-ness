@@ -1,6 +1,9 @@
 name: unit-redis-ness
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,16 +20,6 @@ jobs:
       run: |
         npm ci
         npm run --silent build --if-present
-      env:
-        CI: true
-on:
-  push:
-    branches:
-      - master
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
 # https://github.com/marketplace/actions/deploy-to-github-pages
     - name: Deploy /docs folder
       uses: JamesIves/github-pages-deploy-action@releases/v3
