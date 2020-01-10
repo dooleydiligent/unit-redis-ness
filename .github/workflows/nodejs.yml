@@ -21,13 +21,13 @@ jobs:
         npm ci
         npm run --silent build --if-present
 # https://github.com/marketplace/actions/deploy-to-github-pages
-    - name: Deploy /docs folder
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: master # The branch the action should deploy to.
-        TARGET_FOLDER: docs  
-        FOLDER: docs # The folder the action should deploy.
-        CLEAN: true
+#    - name: Deploy /docs folder
+#      uses: JamesIves/github-pages-deploy-action@releases/v3
+#      with:
+#        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#        BRANCH: master # The branch the action should deploy to.
+#        TARGET_FOLDER: docs  
+#        FOLDER: docs # The folder the action should deploy.
+#        CLEAN: true
       env:
         CI: true
