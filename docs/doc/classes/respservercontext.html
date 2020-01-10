@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RespServerContext | unit-redis-ness - v1.0.3</title>
+	<title>RespServerContext | unit-redis-ness - v1.0.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2335,7 +2335,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="../index.html">unit-redis-ness - v1.0.3</a></strong>
+					<strong><a href="../index.html">unit-redis-ness - v1.0.4</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2390,6 +2390,9 @@ img {
 					<a href="respservercontext.html#port" class="tsd-kind-icon">port</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="respservercontext.html#scripts" class="tsd-kind-icon">scripts</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a href="respservercontext.html#state" class="tsd-kind-icon">state</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2414,6 +2417,12 @@ img {
 					<a href="respservercontext.html#getport" class="tsd-kind-icon">get<wbr>Port</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="respservercontext.html#getscript" class="tsd-kind-icon">get<wbr>Script</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="respservercontext.html#getstring" class="tsd-kind-icon">get<wbr>String</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="respservercontext.html#getvalue" class="tsd-kind-icon">get<wbr>Value</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2424,6 +2433,12 @@ img {
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="respservercontext.html#removevalue" class="tsd-kind-icon">remove<wbr>Value</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="respservercontext.html#scriptexists" class="tsd-kind-icon">script<wbr>Exists</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="respservercontext.html#setscript" class="tsd-kind-icon">set<wbr>Script</a>
 				</li>
 			</ul>
 		</li>
@@ -2464,6 +2479,7 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="respservercontext.html#host" class="tsd-kind-icon">host</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="respservercontext.html#logger" class="tsd-kind-icon">logger</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="respservercontext.html#port" class="tsd-kind-icon">port</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="respservercontext.html#scripts" class="tsd-kind-icon">scripts</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="respservercontext.html#state" class="tsd-kind-icon">state</a></li>
 						</ul>
 					</section>
@@ -2477,10 +2493,14 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#getdatabase" class="tsd-kind-icon">get<wbr>Database</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#gethost" class="tsd-kind-icon">get<wbr>Host</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#getport" class="tsd-kind-icon">get<wbr>Port</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#getscript" class="tsd-kind-icon">get<wbr>Script</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#getstring" class="tsd-kind-icon">get<wbr>String</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#getvalue" class="tsd-kind-icon">get<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#putvalue" class="tsd-kind-icon">put<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#removeclient" class="tsd-kind-icon">remove<wbr>Client</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#removevalue" class="tsd-kind-icon">remove<wbr>Value</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#scriptexists" class="tsd-kind-icon">script<wbr>Exists</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="respservercontext.html#setscript" class="tsd-kind-icon">set<wbr>Script</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2498,7 +2518,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L14">src/server/resp-server-context.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L15">src/server/resp-server-context.ts:15</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2547,7 +2567,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">clients<span class="tsd-signature-symbol">:</span> <a href="dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Socket</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Dictionary&lt;string, net.Socket&gt;()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L12">src/server/resp-server-context.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L12">src/server/resp-server-context.ts:12</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2557,7 +2577,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">commands<span class="tsd-signature-symbol">:</span> <a href="commandsuite.html" class="tsd-signature-type">CommandSuite</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L22">src/server/resp-server-context.ts:22</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L23">src/server/resp-server-context.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2572,7 +2592,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">databases<span class="tsd-signature-symbol">:</span> <a href="dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Dictionary&lt;string, Database&gt;()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L14">src/server/resp-server-context.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L14">src/server/resp-server-context.ts:14</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2582,7 +2602,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L22">src/server/resp-server-context.ts:22</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L23">src/server/resp-server-context.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2597,7 +2617,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L11">src/server/resp-server-context.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L11">src/server/resp-server-context.ts:11</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2607,7 +2627,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L22">src/server/resp-server-context.ts:22</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L23">src/server/resp-server-context.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2617,12 +2637,22 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="scripts" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> scripts</h3>
+				<div class="tsd-signature tsd-kind-icon">scripts<span class="tsd-signature-symbol">:</span> <a href="dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Dictionary&lt;string, string&gt;()</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L15">src/server/resp-server-context.ts:15</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 				<a name="state" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagPrivate">Private</span> state</h3>
 				<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Dictionary&lt;string, string&gt;()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L13">src/server/resp-server-context.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L13">src/server/resp-server-context.ts:13</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2640,7 +2670,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#addclient">addClient</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L50">src/server/resp-server-context.ts:50</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L51">src/server/resp-server-context.ts:51</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2667,7 +2697,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getclientcount">getClientCount</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L35">src/server/resp-server-context.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L36">src/server/resp-server-context.ts:36</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2685,7 +2715,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getclients">getClients</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L32">src/server/resp-server-context.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L33">src/server/resp-server-context.ts:33</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="session.html" class="tsd-signature-type">Session</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2703,7 +2733,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getcommand">getCommand</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L38">src/server/resp-server-context.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L39">src/server/resp-server-context.ts:39</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2727,7 +2757,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getdatabase">getDatabase</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L60">src/server/resp-server-context.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L61">src/server/resp-server-context.ts:61</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2759,7 +2789,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#gethost">getHost</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L26">src/server/resp-server-context.ts:26</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L27">src/server/resp-server-context.ts:27</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2777,10 +2807,65 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getport">getPort</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L29">src/server/resp-server-context.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L30">src/server/resp-server-context.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getscript" class="tsd-anchor"></a>
+				<h3>get<wbr>Script</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Script<span class="tsd-signature-symbol">(</span>sha1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getscript">getScript</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L88">src/server/resp-server-context.ts:88</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Retrieve the lua script identified by the sha1</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>sha1: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>previously calculated sha1</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getstring" class="tsd-anchor"></a>
+				<h3>get<wbr>String</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>String<span class="tsd-signature-symbol">(</span>sha1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L69">src/server/resp-server-context.ts:69</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>sha1: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -2795,7 +2880,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#getvalue">getValue</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L41">src/server/resp-server-context.ts:41</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L42">src/server/resp-server-context.ts:42</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2819,7 +2904,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#putvalue">putValue</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L44">src/server/resp-server-context.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L45">src/server/resp-server-context.ts:45</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2846,7 +2931,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#removeclient">removeClient</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L53">src/server/resp-server-context.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L54">src/server/resp-server-context.ts:54</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2870,7 +2955,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#removevalue">removeValue</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2bab8ba/src/server/resp-server-context.ts#L47">src/server/resp-server-context.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L48">src/server/resp-server-context.ts:48</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2880,6 +2965,71 @@ img {
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="scriptexists" class="tsd-anchor"></a>
+				<h3>script<wbr>Exists</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">script<wbr>Exists<span class="tsd-signature-symbol">(</span>sha1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#scriptexists">scriptExists</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L95">src/server/resp-server-context.ts:95</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Check if a script exists</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>sha1: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>sha1 of the script</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="setscript" class="tsd-anchor"></a>
+				<h3>set<wbr>Script</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Script<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/iservercontext.html">IServerContext</a>.<a href="../interfaces/iservercontext.html#setscript">setScript</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/server/resp-server-context.ts#L77">src/server/resp-server-context.ts:77</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Calculate and return the sha1 of code.  Store the code
+								using sha1 as the key.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>code: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>lua code script</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 					</li>
 				</ul>
 			</section>

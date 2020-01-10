@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TimeCommand | unit-redis-ness - v1.0.4</title>
+	<title>ScriptCommand | unit-redis-ness - v1.0.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2366,10 +2366,28 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="timecommand.html" class="tsd-kind-icon">Time<wbr>Command</a>
+			<a href="scriptcommand.html" class="tsd-kind-icon">Script<wbr>Command</a>
 			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#default_error" class="tsd-kind-icon">DEFAULT_<wbr>ERROR</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#logger" class="tsd-kind-icon">logger</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#collectresults" class="tsd-kind-icon">collect<wbr>Results</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="timecommand.html#execute" class="tsd-kind-icon">execute</a>
+					<a href="scriptcommand.html#execute" class="tsd-kind-icon">execute</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#executelua" class="tsd-kind-icon">execute<wbr>Lua</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#loadscript" class="tsd-kind-icon">load<wbr>Script</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a href="scriptcommand.html#stringfrom" class="tsd-kind-icon">string<wbr>From</a>
 				</li>
 			</ul>
 		</li>
@@ -2380,22 +2398,25 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since v2.6.0
-						The TIME command returns the current server time as a two items lists:
-						a Unix timestamp and the amount of microseconds already elapsed in the
-						current second. Basically the interface is very similar to the one of
-					the gettimeofday system call.</p>
+					<p>Available since 2.6.0.</p>
 				</div>
-				<p>RETURNS: A multi bulk reply containing two elements:
-					unix time in seconds.
-				microseconds.</p>
+				<p>SCRIPT LOAD script</p>
+				<p>Load a script into the scripts cache, without executing it. After the specified command
+					is loaded into the script cache it will be callable using EVALSHA with the correct SHA1
+				digest of the script, exactly like after the first successful invocation of EVAL.</p>
+				<p>The script is guaranteed to stay in the script cache forever (unless SCRIPT FLUSH is called).
+				<strong>unit-redis-ness does not persist the script thru restarts</strong></p>
+				<p>The command works in the same way even if the script was already present in the script cache.</p>
+				<p>Please refer to the EVAL documentation for detailed information about Redis Lua scripting.</p>
+				<p><strong>Return value</strong><br>
+				Bulk string reply This command returns the SHA1 digest of the script added into the script cache.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">TimeCommand</span>
+					<span class="target">ScriptCommand</span>
 				</li>
 			</ul>
 		</section>
@@ -2409,28 +2430,88 @@ img {
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
+					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#default_error" class="tsd-kind-icon">DEFAULT_<wbr>ERROR</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#logger" class="tsd-kind-icon">logger</a></li>
+						</ul>
+					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timecommand.html#execute" class="tsd-kind-icon">execute</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#collectresults" class="tsd-kind-icon">collect<wbr>Results</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="scriptcommand.html#execute" class="tsd-kind-icon">execute</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#executelua" class="tsd-kind-icon">execute<wbr>Lua</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#loadscript" class="tsd-kind-icon">load<wbr>Script</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scriptcommand.html#stringfrom" class="tsd-kind-icon">string<wbr>From</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="default_error" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> DEFAULT_<wbr>ERROR</h3>
+				<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ERR Unknown subcommand or wrong number of arguments for &#x27;%s&#x27;. Try SCRIPT HELP.&quot;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L37">src/resp/command/script-command.ts:37</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="logger" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> logger</h3>
+				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L36">src/resp/command/script-command.ts:36</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="execute" class="tsd-anchor"></a>
-				<h3>execute</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<a name="collectresults" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> collect<wbr>Results</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<li class="tsd-signature tsd-kind-icon">collect<wbr>Results<span class="tsd-signature-symbol">(</span>L<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/server/time-command.ts#L21">src/resp/command/server/time-command.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L209">src/resp/command/script-command.ts:209</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>L: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5>top: <span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="execute" class="tsd-anchor"></a>
+				<h3>execute</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L38">src/resp/command/script-command.ts:38</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2438,8 +2519,95 @@ img {
 							<li>
 								<h5>request: <a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a></h5>
 							</li>
+							<li>
+								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
+							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<a name="executelua" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> execute<wbr>Lua</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<li class="tsd-signature tsd-kind-icon">execute<wbr>Lua<span class="tsd-signature-symbol">(</span>sha1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L137">src/resp/command/script-command.ts:137</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>sha1: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>request: <a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<a name="loadscript" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> load<wbr>Script</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<li class="tsd-signature tsd-kind-icon">load<wbr>Script<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, scriptIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L100">src/resp/command/script-command.ts:100</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Attempt to parse a lua script.
+								Returns a sha1 and stores the script if it can</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>request: <a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>the client request</p>
+								</div>
+							</li>
+							<li>
+								<h5>scriptIndex: <span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<a name="stringfrom" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> string<wbr>From</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<li class="tsd-signature tsd-kind-icon">string<wbr>From<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/3475a23/src/resp/command/script-command.ts#L285">src/resp/command/script-command.ts:285</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>element: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 					</li>
 				</ul>
 			</section>
