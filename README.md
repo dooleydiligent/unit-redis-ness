@@ -72,7 +72,7 @@ describe('Some test suite', () => {
 })
 ```
 # Current State
-As of 1.0.4 **unit-redis-ness* includes embedded [fengari](https://www.npmjs.com/package/fengari), which means that LUA is now available.
+As of 1.0.4 **unit-redis-ness** includes embedded [fengari](https://www.npmjs.com/package/fengari), which means that LUA is now available.
 
 Otherwise, unit-redis only supports 5 "server" commands:
 
