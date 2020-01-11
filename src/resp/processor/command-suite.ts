@@ -11,8 +11,13 @@ import { DelCommand } from '../command/key/del-command';
 import { ExistsCommand } from '../command/key/exists-command';
 import { ExpireCommand } from '../command/key/expire-command';
 import { KeysCommand } from '../command/key/keys-command';
+import { MoveCommand } from '../command/key/move-command';
 import { RenameCommand } from '../command/key/rename-command';
 import { TypeCommand } from '../command/key/type-command';
+import { LIndexCommand } from '../command/list/lindex-command';
+import { LLenCommand } from '../command/list/llen-command';
+import { RPopCommand } from '../command/list/rpop-command';
+import { RPushCommand } from '../command/list/rpush-command';
 import { NullCommand } from '../command/null-command';
 import { IRespCommand } from '../command/resp-command';
 import { ScriptCommand } from '../command/script-command';
@@ -84,6 +89,11 @@ export class CommandSuite {
     this.addCommand('flushall', new FlushAllCommand());
     this.addCommand('mset', new MsetCommand());
     this.addCommand('keys', new KeysCommand());
+    this.addCommand('lindex', new LIndexCommand());
+    this.addCommand('llen', new LLenCommand());
+    this.addCommand('rpop', new RPopCommand());
+    this.addCommand('rpush', new RPushCommand());
+    this.addCommand('move', new MoveCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

@@ -16,7 +16,7 @@ export class Logger {
    * Initialize a logger
    * @param modname Should always be the value module.id
    */
-  constructor(private modname: string) {
+  constructor(public modname: string) {
     if (this.modname) {
       this.modname = this.modname.split(/\//).pop() || this.modname;
       this.modname = this.modname.substring(0, this.modname.lastIndexOf('.'));
