@@ -124,25 +124,25 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - flushall
 - keys
 - mset
+- llen
+- lindex
+- rpop
+- rpush
+- move
 
 Todo (to complete v1.0.0 command set)
 
 - getset
-- lindex
-- llen
 - lpop
 - lpush
 - lset
 - lrem
 - lrange
 - ltrim
-- move
 - mget
 - randomkey
 - renamenx
-- rpush
 - rpoplpush
-- rpop
 - sdiff
 - setnx
 - sinter

@@ -99,5 +99,17 @@ describe('set commands test', () => {
       response = await sendCommand(client, ['sismember', uniqueKey, 'key2']);
       expect(response).to.equal(0);
     });
+    it('should only remove the source element if the destination element already exists', async () => {
+      const newkey = `move-unique-${new Date().getTime()}`;
+      const newToKey = `move-new-to-key`;
+      let response = await sendCommand(client, ['sadd', newkey, 'key1', 'key2', 'key3']);
+      expect(response).to.equal(3);
+      response = await sendCommand(client, ['sadd', newToKey, 'key1', 'key2', 'key3']);
+      expect(response).to.equal(3);
+      response = await sendCommand(client, ['smove', newkey, newToKey, 'key2']);
+      expect(response).to.equal(0);
+      response = await sendCommand(client, ['sismember', newkey, 'key2']);
+      expect(response).to.equal(0);
+    });
   });
 });
