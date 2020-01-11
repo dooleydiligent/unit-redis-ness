@@ -16,6 +16,8 @@ import { RenameCommand } from '../command/key/rename-command';
 import { TypeCommand } from '../command/key/type-command';
 import { LIndexCommand } from '../command/list/lindex-command';
 import { LLenCommand } from '../command/list/llen-command';
+import { LPopCommand } from '../command/list/lpop-command';
+import { LPushCommand } from '../command/list/lpush-command';
 import { RPopCommand } from '../command/list/rpop-command';
 import { RPushCommand } from '../command/list/rpush-command';
 import { NullCommand } from '../command/null-command';
@@ -38,6 +40,7 @@ import { ZIncrByCommand } from '../command/sset/zincrby-command';
 import { ZRangeCommand } from '../command/sset/zrange-command';
 import { ZRemCommand } from '../command/sset/zrem-command';
 import { GetCommand } from '../command/string/get-command';
+import { GetSetCommand } from '../command/string/getset-command';
 import { IncrCommand } from '../command/string/incr-command';
 import { IncrByCommand } from '../command/string/incrby-command';
 import { MsetCommand } from '../command/string/mset-command';
@@ -94,6 +97,9 @@ export class CommandSuite {
     this.addCommand('rpop', new RPopCommand());
     this.addCommand('rpush', new RPushCommand());
     this.addCommand('move', new MoveCommand());
+    this.addCommand('getset', new GetSetCommand());
+    this.addCommand('lpop', new LPopCommand());
+    this.addCommand('lpush', new LPushCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

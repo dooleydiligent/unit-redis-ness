@@ -37,9 +37,9 @@ describe('type-command test', () => {
     expect(response).to.equal('string');
 
     response = await sendCommand(client, ['lpush', 'list-key', 'test']);
-    expect(response).to.match(/^ReplyError: ERR unknown command.*/);
+    expect(response).to.equal(1);
     response = await sendCommand(client, ['type', 'list-key']);
-    expect(response).to.equal('none');
+    expect(response).to.equal('list');
 
     response = await sendCommand(client, ['sadd', 'set-key', 'test']);
     expect(response).to.equal(1);

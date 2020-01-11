@@ -129,12 +129,12 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - rpop
 - rpush
 - move
-
-Todo (to complete v1.0.0 command set)
-
 - getset
 - lpop
 - lpush
+
+Todo (to complete v1.0.0 command set)
+
 - lset
 - lrem
 - lrange

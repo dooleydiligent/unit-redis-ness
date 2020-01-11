@@ -20,9 +20,9 @@
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage .nyc_output test-unit-redis-ness/node_modules docs/*/*",
     "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
     "makeindex": "echo \"<HTML><HEAD><TITLE>${npm_package_name}-v${npm_package_version}</TITLE><link rel='icon' href='./images/dooley.ico'></HEAD><BODY>${npm_package_description}<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br><a href='./mochawesome/mochawesome.html'>Mochawesome Report</a></BODY></HTML>\" > docs/index.html",
-    "lint": "tslint --project . --format prose --force",
+    "lint": "tslint --project . --format prose",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
-    "test": "nyc --reporter=cobertura --reporter=html --reporter-options reportDir=docs mocha --recursive --exit test",
+    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs --recursive --exit test",
     "prepack": "npm run clean && npm run build && npm run doc && npm test"
   },
   "repository": {
