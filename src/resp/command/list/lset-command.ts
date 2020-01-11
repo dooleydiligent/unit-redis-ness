@@ -37,10 +37,17 @@ export class LSetCommand implements IRespCommand {
       this.logger.debug(`LIST ${key} does not exist.`);
       return RedisToken.error('ERR no such key');
     }
-    this.logger.debug(`BEFORE shift LIST is "%j`, list.getList());
-    const result: any = list.getList().shift();
+    // validate the index exists.  Positive index from ZERO, Negative index from .length
+    const index: string = request.getParam(1);
+    this.logger.debug(`Validating list index ${index}`);
+    if (isNaN(Number(index)) || Math.abs(Number(index)) >= list.getList().length) {
+      this.logger.debug(`Index ${index} is invalid for ${key}`);
+      return RedisToken.error('ERR value is not an integer or out of range');
+    }
+    const value: string = request.getParam(2);
+    this.logger.debug(`Setting element ${index} of key ${key} to ${value}`);
+    list.getList().splice(Number(index), 1, value);
     db.put(key, list);
-    this.logger.debug(`Returning element ${result}`);
-    return RedisToken.string(result);
+    return RedisToken.string('OK');
   }
 }

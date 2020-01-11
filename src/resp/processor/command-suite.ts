@@ -18,6 +18,8 @@ import { LIndexCommand } from '../command/list/lindex-command';
 import { LLenCommand } from '../command/list/llen-command';
 import { LPopCommand } from '../command/list/lpop-command';
 import { LPushCommand } from '../command/list/lpush-command';
+import { LRangeCommand } from '../command/list/lrange-command';
+import { LSetCommand } from '../command/list/lset-command';
 import { RPopCommand } from '../command/list/rpop-command';
 import { RPushCommand } from '../command/list/rpush-command';
 import { NullCommand } from '../command/null-command';
@@ -100,6 +102,8 @@ export class CommandSuite {
     this.addCommand('getset', new GetSetCommand());
     this.addCommand('lpop', new LPopCommand());
     this.addCommand('lpush', new LPushCommand());
+    this.addCommand('lset', new LSetCommand());
+    this.addCommand('lrange', new LRangeCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

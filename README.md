@@ -132,10 +132,10 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - getset
 - lpop
 - lpush
+- lset
 
 Todo (to complete v1.0.0 command set)
 
-- lset
 - lrem
 - lrange
 - ltrim
