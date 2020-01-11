@@ -97,12 +97,9 @@ export class CommandSuite {
     this.addCommand('rpop', new RPopCommand());
     this.addCommand('rpush', new RPushCommand());
     this.addCommand('move', new MoveCommand());
-<<<<<<< HEAD
     this.addCommand('getset', new GetSetCommand());
     this.addCommand('lpop', new LPopCommand());
     this.addCommand('lpush', new LPushCommand());
-=======
->>>>>>> 20950f9654071e651c5dee4adcb136d4af785e6e
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());
