@@ -48,17 +48,91 @@ describe('lrem-command test', () => {
     expect(response).to.equal(0);
   });
   it('should use negative index counters', async () => {
-    response = await sendCommand(client, ['RPUSH',  'mylist', 'hello']);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
     expect(response).to.equal(1);
-    response = await sendCommand(client, ['RPUSH',  'mylist', 'hello']);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
     expect(response).to.equal(2);
-    response = await sendCommand(client, ['RPUSH',  'mylist', 'foo']);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'foo']);
     expect(response).to.equal(3);
-    response = await sendCommand(client, ['RPUSH',  'mylist', 'hello']);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
     expect(response).to.equal(4);
     response = await sendCommand(client, ['lrem', 'mylist', '-2', 'hello']);
     expect(response).to.equal(2);
     response = await sendCommand(client, ['lrange', 'mylist', '0', '-1']);
     expect(response).to.eql(['hello', 'foo']);
+  });
+  it('should return a ZERO result when the key does not exist', async () => {
+    response = await sendCommand(client, ['lrem', 'otherlist', '1', 'test']);
+    expect(response).to.equal(0);
+  });
+  it('should remove every matchin element when count is 0', async () => {
+    response = await sendCommand(client, ['flushdb']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(2);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'foo']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(4);
+    response = await sendCommand(client, ['lrem', 'mylist', '0', 'hello']);
+    expect(response).to.equal(3);
+  });
+  it('should remove the list when all elements are gone', async () => {
+    response = await sendCommand(client, ['lrem', 'mylist', '0', 'foo']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['exists', 'mylist']);
+    expect(response).to.equal(0);
+  });
+  it('should remove only the number of requested elements when count > 0', async () => {
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(2);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'calibrate']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
+    expect(response).to.equal(4);
+    response = await sendCommand(client, ['lrem', 'mylist', '1', 'hello']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['lrange', 'mylist', '0', '2']);
+    expect(response).to.eql(['hello', 'calibrate', 'hello']);
+  });
+  it('should default to startIndex ZERO when it is less than ZERO', async () => {
+    for (let i = 0; i< 10; i++) {
+      response = await sendCommand(client, ['RPUSH', 'newlist', `${i}`]);
+      expect(response).to.equal(i+1);
+    }
+    response = await sendCommand(client, ['ltrim', 'newlist', '-100', '2']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['llen', 'newlist']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['lrange', 'newlist', '0', '3']);
+    expect(response).to.eql(['0', '1', '2']);
+  });
+  it('should remove the list when start > end or start > llen', async () => {
+    response = await sendCommand(client, ['exists', 'newlist']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['ltrim', 'newlist', '10', '2']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['exists', 'newlist']);
+    expect(response).to.equal(0);
+  });
+  it('should properly handle a negative endIndex', async () => {
+    for (let i = 0; i< 7; i++) {
+      response = await sendCommand(client, ['RPUSH', 'neglist', `${i}`]);
+      expect(response).to.equal(i+1);
+    }
+    response = await sendCommand(client, ['ltrim', 'neglist', '-100', '-3']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['lrange', 'neglist', '0', '100']);
+    expect(response).to.eql(['0', '1', '2', '3', '4']);
+  });
+  it('should remove the key when abs(endIndex) is > llen', async () => {
+    response = await sendCommand(client, ['ltrim', 'neglist', '-100', '-6']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['exists', 'neglist']);
+    expect(response).to.eql(0);
   });
 });

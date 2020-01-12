@@ -48,24 +48,20 @@ export class SelectCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    try {
-      const id: any = Number(request.getParam(0));
-      this.logger.debug(`DB Index is ${id}`);
-      if (isNaN(id)) {
-        return RedisToken.error('ERR invalid DB index');
-      }
-      if (id > -1) {
-        if (id < 16) {
-          request.getSession().setCurrentDb(id);
-        } else {
-          return RedisToken.error('ERR DB index is out of range');
-        }
+    const id: any = Number(request.getParam(0));
+    this.logger.debug(`DB Index is ${id}`);
+    if (isNaN(id)) {
+      return RedisToken.error('ERR invalid DB index');
+    }
+    if (id > -1) {
+      if (id < 16) {
+        request.getSession().setCurrentDb(id);
       } else {
         return RedisToken.error('ERR DB index is out of range');
       }
-      return RedisToken.RESPONSE_OK;
-    } catch (ex) {
-      return RedisToken.error(ex);
+    } else {
+      return RedisToken.error('ERR DB index is out of range');
     }
+    return RedisToken.RESPONSE_OK;
   }
 }

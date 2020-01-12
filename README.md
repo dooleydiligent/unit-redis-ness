@@ -136,12 +136,13 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - lpush
 - lset
 - lrange
+- lrem
+- zrank
+- ltrim
+- mget
 
 Todo (to complete v1.0.0 command set)
 
-- lrem
-- ltrim
-- mget
 - randomkey
 - renamenx
 - rpoplpush

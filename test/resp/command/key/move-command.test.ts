@@ -62,4 +62,34 @@ describe('move-command test', () => {
     response = await sendCommand(client, ['move', uniqueKey, 'InvalidDb']);
     expect(response).to.equal('ReplyError: ERR index out of range');
   });
+  it('should return 0 when the key does not exist in the current db', async () => {
+    response = await sendCommand(client, ['flushdb']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['dbsize']);
+    expect(response).to.equal(0);
+    response = await sendCommand(client, ['move', 'nokey', '3']);
+    expect(response).to.equal(0);
+  });
+  it('should return 0 when the key exists in both source and target db', async () => {
+    response = await sendCommand(client, ['select', '0']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['set', 'nokey', 'db0']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['exists', 'nokey']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['select', '1']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['exists', 'nokey']);
+    expect(response).to.equal(0);
+    response = await sendCommand(client, ['set', 'nokey', 'db1']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['move', 'nokey', '0']);
+    expect(response).to.equal(0);
+    response = await sendCommand(client, ['get', 'nokey']);
+    expect(response).to.equal('db1');
+    response = await sendCommand(client, ['select', '0']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['get', 'nokey']);
+    expect(response).to.equal('db0');
+  });
 });

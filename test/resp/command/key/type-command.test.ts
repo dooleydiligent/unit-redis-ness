@@ -50,5 +50,8 @@ describe('type-command test', () => {
     expect(response).to.equal(1);
     response = await sendCommand(client, ['type', 'zkey']);
     expect(response).to.equal('zset');
+
+    response = await sendCommand(client, ['type', 'never']);
+    expect(response).to.equal('none');
   });
 });

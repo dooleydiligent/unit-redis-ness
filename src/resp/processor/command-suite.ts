@@ -21,6 +21,7 @@ import { LPushCommand } from '../command/list/lpush-command';
 import { LRangeCommand } from '../command/list/lrange-command';
 import { LRemCommand } from '../command/list/lrem-command';
 import { LSetCommand } from '../command/list/lset-command';
+import { LTrimCommand } from '../command/list/ltrim-command';
 import { RPopCommand } from '../command/list/rpop-command';
 import { RPushCommand } from '../command/list/rpush-command';
 import { NullCommand } from '../command/null-command';
@@ -47,6 +48,7 @@ import { GetCommand } from '../command/string/get-command';
 import { GetSetCommand } from '../command/string/getset-command';
 import { IncrCommand } from '../command/string/incr-command';
 import { IncrByCommand } from '../command/string/incrby-command';
+import { MGetCommand } from '../command/string/mget-command';
 import { MsetCommand } from '../command/string/mset-command';
 import { SetCommand } from '../command/string/set-command';
 import { CommandWrapperFactory } from './command-wrapper-factory';
@@ -108,6 +110,8 @@ export class CommandSuite {
     this.addCommand('lrange', new LRangeCommand());
     this.addCommand('lrem', new LRemCommand());
     this.addCommand('zrank', new ZRankCommand());
+    this.addCommand('ltrim', new LTrimCommand());
+    this.addCommand('mget', new MGetCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());
