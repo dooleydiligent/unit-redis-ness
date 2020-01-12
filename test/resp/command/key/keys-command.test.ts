@@ -12,7 +12,8 @@ describe('keys-command test', () => {
   let response: any;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
       done();
     });
     respServer.start();
@@ -39,6 +40,7 @@ describe('keys-command test', () => {
     response = await sendCommand(client, ['keys', 'a??']);
     expect(response).to.eql(['age']);
     response = await sendCommand(client, ['keys', '*']);
-    expect(response).to.eql(['firstname', 'lastname', 'age']);
+    // NOTE: Keys are sorted alphabetically
+    expect(response).to.eql(['age', 'firstname', 'lastname']);
   });
 });

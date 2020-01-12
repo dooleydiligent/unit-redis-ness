@@ -41,15 +41,15 @@ describe('zadd command test', () => {
   });
   it('should reject even parameter counts', async () => {
     let response = await sendCommand(client, ['zadd', 'zkey', '123', 'something', '456']);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'zadd\' command');
+    expect(response).to.equal('ReplyError: ERR syntax error');
     response = await sendCommand(client, ['zadd', 'zkey', '123', 'something', '456', 'another', '765']);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'zadd\' command');
+    expect(response).to.equal('ReplyError: ERR syntax error');
     response = await sendCommand(client, ['zadd', 'zkey', '123', 'something', '456', 'another', '765', 'test']);
     // The "something" key should already exist so we only count 2 new fields
     expect(response).to.equal(2);
   });
   it('should reject an attempt to store non-floatish rankings', async () => {
     let response = await sendCommand(client, ['zadd', 'zkey', '__data__', 'something']);
-    expect(response).to.equal('ReplyError: Error: value is not a valid float');
+    expect(response).to.equal('ReplyError: ERR value is not a valid float');
   });
 });

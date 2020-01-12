@@ -29,7 +29,7 @@ export class MsetCommand implements IRespCommand {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an even number
     if (request.getParams().length % 2 !== 0) {
-      return RedisToken.error('ERR wrong number of arguments for \'mset\' command');
+      return RedisToken.error('ERR wrong number of arguments for mset');
     }
     for (let index = 0; index < request.getParams().length; index += 2) {
       const key: string = request.getParam(index);

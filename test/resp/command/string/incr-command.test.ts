@@ -49,7 +49,7 @@ describe('incr/decr command test', () => {
     response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
     expect(response).to.equal(Number.MAX_SAFE_INTEGER);
     response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
-    expect(response).to.equal('ReplyError: Error: increment or decrement would overflow');
+    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
   });
   // DECR command
   it('should report -1 when decr called against unknown key', async () => {
@@ -68,7 +68,7 @@ describe('incr/decr command test', () => {
     response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
     expect(response).to.equal(Number.MIN_SAFE_INTEGER);
     response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
-    expect(response).to.equal('ReplyError: Error: increment or decrement would overflow');
+    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
   });
   it('should respect TTL', async () => {
     const response: any = await sendCommand(new net.Socket(), ['get', 'ttlkey']);
@@ -77,10 +77,8 @@ describe('incr/decr command test', () => {
   it('should fail to increment a HASH value', async () => {
     const uniqueKey: string = `test-incr-${new Date().getTime()}`;
     let response: any = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one', 'two']);
-    console.log(`Response is`, response);
     expect(response).to.equal(1);
     response = await sendCommand(new net.Socket(), ['incr', uniqueKey]);
-    console.log(`ERROR is ${response}`);
     expect(response).to.equal('ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value');
   });
 });

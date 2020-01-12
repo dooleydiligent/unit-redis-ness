@@ -41,6 +41,6 @@ describe('mset-command test', () => {
   });
   it('should only accept an even number of parameters', async () => {
     response = await sendCommand(client, ['msEt', 'wrong', 'number', 'of']);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'mset\' command');
+    expect(response).to.match(/ReplyError: ERR wrong number of arguments for MSET/i);
   });
 });

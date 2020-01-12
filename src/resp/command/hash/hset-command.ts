@@ -31,7 +31,7 @@ export class HsetCommand implements IRespCommand {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an odd number
     if (request.getParams().length % 2 !== 1 ) {
-      return RedisToken.error('ERR wrong number of arguments for \'hset\' command');
+      return RedisToken.error('ERR wrong number of arguments for hset');
     }
     // Get the original HASH
     this.logger.debug(`Getting database key ${request.getParam(0)}`);

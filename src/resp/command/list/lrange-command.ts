@@ -47,16 +47,31 @@ export class LRangeCommand implements IRespCommand {
       this.logger.debug(`LIST ${key} does not exist. Generating empty list`);
       list = new DatabaseValue(DataType.LIST, []);
     }
-    const startIndex: any = Number(request.getParam(1));
+    this.logger.debug(`The full list is [%s]`, list.getList());
+    let startIndex: any = Number(request.getParam(1));
     this.logger.debug(`startIndex is ${startIndex}`);
-    const stopIndex: any = Number(request.getParam(2));
+    let stopIndex: any = Number(request.getParam(2));
     this.logger.debug(`stopIndex is ${stopIndex}`);
     if (isNaN(startIndex) || isNaN(stopIndex) || !Number.isInteger(startIndex) || !Number.isInteger(stopIndex)) {
       this.logger.debug(`Invalid start or stop index`);
       return RedisToken.error('ERR value is not an integer or out of range');
     }
+    // Normalize start and stop indices
+    if (startIndex < 0) {
+      startIndex = list.getList().length + startIndex;
+      if (startIndex < 0) {
+        startIndex = 0;
+      }
+    }
+    if (stopIndex < 0) {
+      stopIndex = list.getList().length + stopIndex;
+      if (stopIndex < 0) {
+        stopIndex = 0;
+      }
+    }
+    this.logger.debug(`startIndex is ${startIndex}, stopIndex = ${stopIndex}`);
     const response: RedisToken[] = [];
-    for (const item of list.getList().slice(Number(startIndex), Number(stopIndex))) {
+    for (const item of list.getList().slice(Number(startIndex), Number(stopIndex) + 1)) {
       response.push(RedisToken.string(item));
     }
     return RedisToken.array(response);

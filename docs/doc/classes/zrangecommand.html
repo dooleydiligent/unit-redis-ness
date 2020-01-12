@@ -2383,9 +2383,13 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since 1.2.0.</p>
+					<a href="#available-since-120" id="available-since-120" style="color: inherit; text-decoration: none;">
+						<h3>Available since 1.2.0.</h3>
+					</a>
 				</div>
-				<p>ZRANGE key start stop [WITHSCORES]</p>
+				<a href="#zrange-key-start-stop-withscores" id="zrange-key-start-stop-withscores" style="color: inherit; text-decoration: none;">
+					<h3>ZRANGE key start stop [WITHSCORES]</h3>
+				</a>
 				<p>Returns the specified range of elements in the sorted set stored at key. The elements
 					are considered to be ordered from the lowest to the highest score. Lexicographical order
 				is used for elements with equal score.</p>
@@ -2404,9 +2408,35 @@ img {
 					together with the elements. The returned list will contain value1,score1,...,valueN,scoreN
 					instead of value1,...,valueN. Client libraries are free to return a more appropriate data
 				type (suggestion: an array with (value, score) arrays/tuples).</p>
-				<p><strong>Return value</strong><br>
-					Array reply: list of elements in the specified range (optionally with their scores, in case
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Array reply: list of elements in the specified range (optionally with their scores, in case
 				the WITHSCORES option is given).</p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h3>Examples</h3>
+				</a>
+				<pre><code>redis&gt; ZADD myzset <span class="hljs-number">1</span> <span class="hljs-string">"one"</span>
+(<span class="hljs-type">integer</span>) <span class="hljs-number">1</span>
+redis&gt; ZADD myzset <span class="hljs-number">2</span> <span class="hljs-string">"two"</span>
+(<span class="hljs-type">integer</span>) <span class="hljs-number">1</span>
+redis&gt; ZADD myzset <span class="hljs-number">3</span> <span class="hljs-string">"three"</span>
+(<span class="hljs-type">integer</span>) <span class="hljs-number">1</span>
+redis&gt; ZRANGE myzset <span class="hljs-number">0</span> <span class="hljs-number">-1</span>
+<span class="hljs-number">1</span>) <span class="hljs-string">"one"</span>
+<span class="hljs-number">2</span>) <span class="hljs-string">"two"</span>
+<span class="hljs-number">3</span>) <span class="hljs-string">"three"</span>
+redis&gt; ZRANGE myzset <span class="hljs-number">2</span> <span class="hljs-number">3</span>
+<span class="hljs-number">1</span>) <span class="hljs-string">"three"</span>
+redis&gt; ZRANGE myzset <span class="hljs-number">-2</span> <span class="hljs-number">-1</span>
+<span class="hljs-number">1</span>) <span class="hljs-string">"two"</span>
+<span class="hljs-number">2</span>) <span class="hljs-string">"three"</span></code></pre><p>The following example using WITHSCORES shows how the command returns always an array, but
+				this time, populated with element_1, score_1, element_2, score_2, ..., element_N, score_N.</p>
+				<pre><code>redis&gt; ZRANGE myzset <span class="hljs-number">0</span> <span class="hljs-number">1</span> WITHSCORES
+<span class="hljs-number">1</span>) <span class="hljs-string">"one"</span>
+<span class="hljs-number">2</span>) <span class="hljs-string">"1"</span>
+<span class="hljs-number">3</span>) <span class="hljs-string">"two"</span>
+<span class="hljs-number">4</span>) <span class="hljs-string">"2"</span></code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -2450,7 +2480,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/c948ac4/src/resp/command/sset/zrange-command.ts#L49">src/resp/command/sset/zrange-command.ts:49</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/a794642/src/resp/command/sset/zrange-command.ts#L77">src/resp/command/sset/zrange-command.ts:77</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2467,7 +2497,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/c948ac4/src/resp/command/sset/zrange-command.ts#L50">src/resp/command/sset/zrange-command.ts:50</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/a794642/src/resp/command/sset/zrange-command.ts#L78">src/resp/command/sset/zrange-command.ts:78</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

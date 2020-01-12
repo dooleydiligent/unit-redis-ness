@@ -37,16 +37,15 @@ export class ScriptCommand implements IRespCommand {
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let sha1: string;
+    let sha1: string | null;
     switch (request.getCommand().toLowerCase()) {
       case 'eval':
         // Replace the sha1 in the cache
-        try {
-          sha1 = this.loadScript(request, 0);
-          return this.executeLua(sha1, request);
-        } catch (ex) {
-          this.logger.warn(`Exception while loading script: %s`, ex);
-          return RedisToken.error(ex);
+        sha1 = this.loadScript(request, 0);
+        if (sha1) {
+          return this.executeLua(`${sha1}`, request);
+        } else {
+          return RedisToken.error(`ERR Parsing script`);
         }
       case 'evalsha':
         sha1 = request.getParam(0);
@@ -58,19 +57,20 @@ export class ScriptCommand implements IRespCommand {
       default:
         switch (request.getParam(0)) {
           case 'load':
-            try {
-              sha1 = this.loadScript(request, 1);
-              return RedisToken.string(sha1);
-            } catch (ex) {
-              this.logger.warn(`Exception while loading script: %s`, ex);
-              return RedisToken.error(ex);
+            sha1 = this.loadScript(request, 1);
+            if (sha1) {
+              return RedisToken.string(`${sha1}`);
+            } else {
+              return RedisToken.error(`ERR Parsing script`);
             }
           case 'exists':
-            // integer 0/1
+            // array 0/1
             const exists: any = request.getServerContext().getScript(request.getParam(1));
             this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
             this.logger.debug(`The retured value is "%s"`, exists);
-            return RedisToken.string(request.getServerContext().scriptExists(request.getParam(1)) ? '1' : '0');
+            return RedisToken.array([
+              RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
+            ]);
           case 'flush':
           case 'kill':
           case 'debug':
@@ -97,7 +97,7 @@ export class ScriptCommand implements IRespCommand {
    * @param request the client request
    * @returns
    */
-  private loadScript(request: IRequest, scriptIndex: number): string {
+  private loadScript(request: IRequest, scriptIndex: number): string | null {
     const code = request.getParam(scriptIndex);
     this.logger.debug(`loadScript(): Validating lua script "%s"`, code);
     const L: any = lauxlib.luaL_newstate();
@@ -127,7 +127,7 @@ export class ScriptCommand implements IRespCommand {
           info = 'LUA ERR Error: evaluating "%s"';
           break;
       }
-      throw new Error(info.replace('%s', code));
+      return null;
     }
     this.logger.debug(`Caching script`);
     const sha1: string = request.getServerContext().setScript(code);
@@ -214,7 +214,7 @@ export class ScriptCommand implements IRespCommand {
       switch (t) {
         case lua.LUA_TNUMBER:  /* numbers */
           value = lua.lua_tonumber(L, i);
-          result.push(RedisToken.string(value));
+          result.push(RedisToken.integer(value));
           this.logger.debug(`NUMBER: '%s'`, value);
           break;
         case lua.LUA_TSTRING:  /* strings */

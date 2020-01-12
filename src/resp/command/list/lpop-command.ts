@@ -33,7 +33,11 @@ export class LPopCommand implements IRespCommand {
     }
     this.logger.debug(`BEFORE shift LIST is "%j`, list.getList());
     const result: any = list.getList().shift();
-    db.put(key, list);
+    if (list.getList().length > 0) {
+      db.put(key, list);
+    } else {
+      db.remove(key);
+    }
     this.logger.debug(`Returning element ${result}`);
     return RedisToken.string(result);
   }

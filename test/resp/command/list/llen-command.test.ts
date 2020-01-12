@@ -12,7 +12,9 @@ describe('llen-command test', () => {
   let response: any;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
+      await sendCommand(client, ['select', '0'])
       done();
     });
     respServer.start();
@@ -59,8 +61,9 @@ describe('llen-command test', () => {
     expect(response).to.equal('a');
     response = await sendCommand(client, ['rpop', uniqueKey]);
     expect(response).to.equal(null);
+    // The list goes away when the last element is popped
     response = await sendCommand(client, ['exists', uniqueKey]);
-    expect(response).to.equal(1);
+    expect(response).to.equal(0);
     response = await sendCommand(client, ['rpush', uniqueKey, '-6']);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['llen', uniqueKey]);

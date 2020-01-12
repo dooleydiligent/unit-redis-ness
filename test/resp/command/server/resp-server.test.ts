@@ -87,21 +87,10 @@ describe('resp-server test', () => {
           done();
         });
     });
-    it('should respond properly to the "quit" command', (done) => {
-      // Note however that the server does not disconnect us.  That is the client's job
-      sendCommand(client, ['quit'])
-        .then((response) => {
-          expect(response).to.equal('OK');
-          done();
-        });
-    });
-    it('should respond with "ERR" when echo command has no parameters', (done) => {
+    it('should respond with "ERR" when echo command has no parameters', async () => {
       // Note that 'ReplyError:' is supplied by the redis parser, NOT by the code under test
-      sendCommand(client, ['echo'])
-        .then((response) => {
-          expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'echo\' command');
-          done();
-        });
+      const response = await sendCommand(client, ['echo']);
+      expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'echo\' command');
     });
     it('should respond with "ERR" when echo command has two or more parameters', (done) => {
       sendCommand(client, ['echo', 'one', 'two'])
@@ -128,12 +117,9 @@ describe('resp-server test', () => {
           done();
         });
     });
-    it('should implement the info command', (done) => {
-      sendCommand(client, ['info'])
-        .then((response: any) => {
-          expect(response).to.match(/^#server\r\nserver:node_version:.*/m);
-          done();
-        });
+    it('should implement the info command', async () => {
+      const response: any = await sendCommand(client, ['info'])
+      expect(response).to.match(/^# server\r\nredis_version:.*/im);
     });
     it('should implement the SET command', (done) => {
       sendCommand(client, ['SET', 'this', 'that'])
@@ -156,16 +142,14 @@ describe('resp-server test', () => {
     it('should implement the info command with a known parameter', (done) => {
       sendCommand(client, ['info', 'memory'])
         .then((response: any) => {
-          expect(response).to.match(/^#memory.*/m);
+          expect(response).to.match(/^# memory.*/mi);
           done();
         });
     });
-    it('should not respond when info is called with an unknown paramter', (done) => {
-      sendCommand(client, ['info', 'juicy'])
-        .then((response: any) => {
-          expect(response).to.equal(null);
-          done();
-        });
+    it('should not respond when info is called with an unknown paramter', async () => {
+      const response = await sendCommand(client, ['info', 'juicy']);
+      // Don't know how to send an empty - non-null string response yet
+      expect(String(response).trim()).to.equal('');
     });
     it('should report the number of keys in the current database', async () => {
       const response: any = await sendCommand(client, ['dbsize']);
@@ -180,11 +164,19 @@ describe('resp-server test', () => {
     });
     it('should not allow us to select an invalid database', async () => {
       let response: any = await sendCommand(client, ['select', 'one']);
-      expect(response).to.equal('ReplyError: Error: DB index is out of range');
+      expect(response).to.equal('ReplyError: ERR invalid DB index');
       response = await sendCommand(client, ['select', '-12']);
-      expect(response).to.equal('ReplyError: Error: DB index is out of range');
+      expect(response).to.equal('ReplyError: ERR DB index is out of range');
       response = await sendCommand(client, ['select', '22']);
-      expect(response).to.equal('ReplyError: Error: DB index is out of range');
+      expect(response).to.equal('ReplyError: ERR DB index is out of range');
+    });
+    it('should respond properly to the "quit" command', (done) => {
+      // Note however that the server does not disconnect us.  That is the client's job
+      sendCommand(client, ['quit'])
+        .then((response) => {
+          expect(response).to.equal('OK');
+          done();
+        });
     });
   });
 });

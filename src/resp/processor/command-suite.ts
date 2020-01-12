@@ -19,6 +19,7 @@ import { LLenCommand } from '../command/list/llen-command';
 import { LPopCommand } from '../command/list/lpop-command';
 import { LPushCommand } from '../command/list/lpush-command';
 import { LRangeCommand } from '../command/list/lrange-command';
+import { LRemCommand } from '../command/list/lrem-command';
 import { LSetCommand } from '../command/list/lset-command';
 import { RPopCommand } from '../command/list/rpop-command';
 import { RPushCommand } from '../command/list/rpush-command';
@@ -40,6 +41,7 @@ import { ZCardCommand } from '../command/sset/zcard-command';
 import { ZCountCommand } from '../command/sset/zcount-command';
 import { ZIncrByCommand } from '../command/sset/zincrby-command';
 import { ZRangeCommand } from '../command/sset/zrange-command';
+import { ZRankCommand } from '../command/sset/zrank-command';
 import { ZRemCommand } from '../command/sset/zrem-command';
 import { GetCommand } from '../command/string/get-command';
 import { GetSetCommand } from '../command/string/getset-command';
@@ -104,6 +106,8 @@ export class CommandSuite {
     this.addCommand('lpush', new LPushCommand());
     this.addCommand('lset', new LSetCommand());
     this.addCommand('lrange', new LRangeCommand());
+    this.addCommand('lrem', new LRemCommand());
+    this.addCommand('zrank', new ZRankCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

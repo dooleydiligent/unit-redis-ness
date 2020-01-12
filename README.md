@@ -80,6 +80,8 @@ describe('Some test suite', () => {
 # Current State
 As of 1.0.4 **unit-redis-ness** includes embedded [fengari](https://www.npmjs.com/package/fengari), which means that LUA is now available.
 
+All of the current test suite has been validated against a live redis instance (except for tests involving MAX_SAFE_INTEGER and MIN_SAFE_INTEGER - these are only 53 bits in unit-redis-ness)
+
 Otherwise, unit-redis only supports 5 "server" commands:
 
 - ping
@@ -133,11 +135,11 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - lpop
 - lpush
 - lset
+- lrange
 
 Todo (to complete v1.0.0 command set)
 
 - lrem
-- lrange
 - ltrim
 - mget
 - randomkey

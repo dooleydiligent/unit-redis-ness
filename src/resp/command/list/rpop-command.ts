@@ -33,7 +33,11 @@ export class RPopCommand implements IRespCommand {
     }
 
     const result: any = list.getList().pop();
-    db.put(key, list);
+    if (list.getList().length > 0) {
+      db.put(key, list);
+    } else {
+      db.remove(key);
+    }
     this.logger.debug(`Returning element ${result}`);
     return RedisToken.string(result);
   }

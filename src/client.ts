@@ -25,7 +25,6 @@ export const sendCommand = (client: net.Socket, commands: string[]): Promise<str
         returnBuffers: false,
         returnError: (err: any) => {
           response = err.toString();
-          //          client.destroy();
           resolve(response);
         },
         returnReply: (reply: any) => {

@@ -12,7 +12,8 @@ describe('hset command test', () => {
   let respServer: RespServer;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(new net.Socket(), ['flushall']);
       done();
     });
     respServer.start();
@@ -36,9 +37,9 @@ describe('hset command test', () => {
     expect(uniqueKey).not.to.equal(lastId);
     lastId = uniqueKey;
     let response = await sendCommand(new net.Socket(), ['hset', uniqueKey]);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'hset\' command');
+    expect(response).to.match(/ReplyError: ERR wrong number of arguments for \'hset\' command/i);
     response = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one']);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'hset\' command');
+    expect(response).to.match(/ReplyError: ERR wrong number of arguments for \'hm?set\' command/i);
     response = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one', 'two']);
     expect(response).to.equal(1);
   });
@@ -47,7 +48,7 @@ describe('hset command test', () => {
     expect(uniqueKey).not.to.equal(lastId);
     lastId = uniqueKey;
     const response = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one2', 'two', 'fail'])
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'hset\' command');
+    expect(response).to.match(/ReplyError: ERR wrong number of arguments for hm?set/i);
   });
   it('should only report added fields', async () => {
     const uniqueKey = safeId();

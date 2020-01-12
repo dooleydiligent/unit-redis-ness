@@ -50,8 +50,9 @@ describe('expire-command test', () => {
     expect(response).to.equal(1);
   });
   it('should expire a key when we set a negative ttl', async () => {
+    // Note that this is not consistent with documentation
     response = await sendCommand(client, ['expire', 'mykey', '-1']);
-    expect(response).to.equal(0);
+    expect(response).to.equal(1);
     response = await sendCommand(client, ['exists', 'mykey']);
     expect(response).to.equal(0);
   });

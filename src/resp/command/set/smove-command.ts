@@ -54,6 +54,7 @@ export class SMoveCommand implements IRespCommand {
         result = 1;
       } else {
         this.logger.debug(`${skeyTo}.${skeyName} already exists`);
+        result = 1;
       }
       this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());
       db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));

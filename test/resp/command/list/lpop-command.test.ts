@@ -13,7 +13,9 @@ describe('lpop-command test', () => {
   const testKey: string = `lpop-key-${new Date().getTime()}`;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
+      await sendCommand(client, ['select', '0'])
       done();
     });
     respServer.start();
@@ -51,7 +53,8 @@ describe('lpop-command test', () => {
     expect(response).to.equal('d');
     response = await sendCommand(client, ['lpop', testKey]);
     expect(response).to.equal(null);
+    // The list goes away when the last element is removed
     response = await sendCommand(client, ['exists', testKey]);
-    expect(response).to.equal(1);
+    expect(response).to.equal(0);
   });
 });

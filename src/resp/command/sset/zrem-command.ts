@@ -39,8 +39,12 @@ export class ZRemCommand implements IRespCommand {
         dbKey.getSortedSet().del(request.getParam(index));
       }
     }
-    if (result > 0) {
+    if (dbKey.getSortedSet().length > 0) {
+      this.logger.debug(`Saving zset ${zkey}, %s`, dbKey.getSortedSet().toArray({ withScores: true}));
       db.put(zkey, dbKey);
+    } else {
+      this.logger.debug(`Removing empty zset ${zkey}`);
+      db.remove(zkey);
     }
     return RedisToken.integer(result);
   }

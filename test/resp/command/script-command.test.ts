@@ -14,7 +14,10 @@ describe('script-command test', () => {
   const sha1: string = 'a42059b356c875f0717db19a51f6aaca9ae659ea';
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
+      await sendCommand(client, ['select', '0'])
+      await sendCommand(client, ['script', 'flush']);
       done();
     });
     respServer.start();
@@ -35,16 +38,16 @@ describe('script-command test', () => {
    */
   it('should calcuclate the correct sha1 of a script and store the script', async () => {
     response = await sendCommand(client, ['script', 'exists', sha1]);
-    expect(response).to.equal('0');
+    expect(response).to.eql([0]);
     // validate failure on unparseable script
     response = await sendCommand(client, ['script', 'load', code]);
-    expect(response).to.equal('ReplyError: Error: LUA SYNTAX Error evaluating: "%s"'.replace('%s', code));
+    expect(response).to.match(/ReplyError: ERR .*/);
     // validate success on parseable script
     response = await sendCommand(client, ['script', 'load', `${code}}`]);
     expect(response).to.equal(sha1);
     // validate a script is persisted
     response = await sendCommand(client, ['script', 'exists', sha1]);
-    expect(response).to.equal('1');
+    expect(response).to.eql([1]);
     // validate response to unknown sub command
     response = await sendCommand(client, ['script', 'test', sha1]);
     expect(response).to.equal('ReplyError: ERR Unknown subcommand or wrong number of arguments for \'test\'. Try SCRIPT HELP.');
@@ -76,7 +79,7 @@ describe('script-command test', () => {
   // NOTE: Any number is also a string to LUA
   it('should return a NUMBER when required', async () => {
     response = await sendCommand(client, ['eval', 'return 123', '2', 'key1', 'key2', 'first', 'second']);
-    expect(response).to.equal('123');
+    expect(response).to.equal(123);
   });
   it('should return NIL when there is no return value', async () => {
     response = await sendCommand(client, ['eval', 'print "Hello World"', '0']);
@@ -88,12 +91,10 @@ describe('script-command test', () => {
   });
   it('should return items in order', async () => {
     response = await sendCommand(client, ['eval', 'return {true, "test", false, 10, 10.2}', '0']);
-    console.log(`Response is ${response}`, response);
     expect(response).to.eql([1, 'test', null, 10, 10]);
   })
   it('should return integer and nil for true and false, respectively', async () => {
     response = await sendCommand(client, ['eval', 'return { true, false, false}', '0']);
-    console.log(`Response is ${response}`, response);
     expect(response).to.eql([1, null, null]);
   })
 });

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.53% </span>
+                <span class="strong">83.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>142/170</span>
+                <span class='fraction'>141/168</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/48</span>
+                <span class='fraction'>39/52</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.93% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>136/164</span>
+                <span class='fraction'>135/162</span>
             </div>
         
             
@@ -386,12 +386,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">93x</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">102x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -399,7 +399,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -409,14 +408,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -428,7 +426,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -684,16 +684,15 @@ export class ScriptCommand implements IRespCommand {
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let sha1: string;
+    let sha1: string | null;
     switch (request.getCommand().toLowerCase()) {
       case 'eval':
         // Replace the sha1 in the cache
-        try {
-          sha1 = this.loadScript(request, 0);
-          return this.executeLua(sha1, request);
-        } catch (ex) {
-<span class="cstat-no" title="statement not covered" >          this.logger.warn(`Exception while loading script: %s`, ex);</span>
-<span class="cstat-no" title="statement not covered" >          return RedisToken.error(ex);</span>
+        sha1 = this.loadScript(request, 0);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (sha1) {
+          return this.executeLua(`${sha1}`, request);
+        } else {
+<span class="cstat-no" title="statement not covered" >          return RedisToken.error(`ERR Parsing script`);</span>
         }
       case 'evalsha':
         sha1 = request.getParam(0);
@@ -705,22 +704,23 @@ export class ScriptCommand implements IRespCommand {
       default:
         switch (request.getParam(0)) {
           case 'load':
-            try {
-              sha1 = this.loadScript(request, 1);
-              return RedisToken.string(sha1);
-            } catch (ex) {
-              this.logger.warn(`Exception while loading script: %s`, ex);
-              return RedisToken.error(ex);
+            sha1 = this.loadScript(request, 1);
+            if (sha1) {
+              return RedisToken.string(`${sha1}`);
+            } else {
+              return RedisToken.error(`ERR Parsing script`);
             }
           case 'exists':
-            // integer 0/1
+            // array 0/1
             const exists: any = request.getServerContext().getScript(request.getParam(1));
             this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
             this.logger.debug(`The retured value is "%s"`, exists);
-            return RedisToken.string(request.getServerContext().scriptExists(request.getParam(1)) ? '1' : '0');
-<span class="branch-2 cbranch-no" title="branch not covered" >          case 'flush':</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >          case 'kill':</span>
-<span class="branch-4 cbranch-no" title="branch not covered" >          case 'debug':</span>
+            return RedisToken.array([
+              RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
+            ]);
+          case 'flush':
+          case 'kill':
+          case 'debug':
           default:
             return RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getParam(0)));
         }
@@ -744,7 +744,7 @@ export class ScriptCommand implements IRespCommand {
    * @param request the client request
    * @returns
    */
-  private loadScript(request: IRequest, scriptIndex: number): string {
+  private loadScript(request: IRequest, scriptIndex: number): string | null {
     const code = request.getParam(scriptIndex);
     this.logger.debug(`loadScript(): Validating lua script "%s"`, code);
     const L: any = lauxlib.luaL_newstate();
@@ -774,7 +774,7 @@ export class ScriptCommand implements IRespCommand {
 <span class="cstat-no" title="statement not covered" >          info = 'LUA ERR Error: evaluating "%s"';</span>
 <span class="cstat-no" title="statement not covered" >          break;</span>
       }
-      throw new Error(info.replace('%s', code));
+      return null;
     }
     this.logger.debug(`Caching script`);
     const sha1: string = request.getServerContext().setScript(code);
@@ -861,7 +861,7 @@ export class ScriptCommand implements IRespCommand {
       switch (t) {
         case lua.LUA_TNUMBER:  /* numbers */
           value = lua.lua_tonumber(L, i);
-          result.push(RedisToken.string(value));
+          result.push(RedisToken.integer(value));
           this.logger.debug(`NUMBER: '%s'`, value);
           break;
         case lua.LUA_TSTRING:  /* strings */
@@ -946,7 +946,7 @@ export class ScriptCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 10 2020 21:22:15 GMT-0500 (Eastern Standard Time)
+                at Sat Jan 11 2020 20:15:01 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

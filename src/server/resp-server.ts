@@ -30,7 +30,7 @@ export class RespServer extends EventEmitter {
   private static BUFFER_SIZE = 1024 * 1024;
   private static MAX_FRAME_SIZE = RespServer.BUFFER_SIZE * 100;
   private static DEFAULT_HOST = process.env.REDIS_HOST || 'localhost';
-  private static DEFAULT_PORT = Number(process.env.REDIS_PORT || 6379);
+  private static DEFAULT_PORT = 6378; // Number(process.env.REDIS_PORT || 6378);
 
   private logger: Logger = new Logger(module.id);
   private server: net.Server = net.createServer();

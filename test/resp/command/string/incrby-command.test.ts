@@ -37,6 +37,7 @@ describe('incrby/decrby command test', () => {
   it('should report the INCREMENT when incrby called against unknown key', async () => {
     const response: any = await sendCommand(client, ['incrby', 'incr-key', '10']);
     expect(response).to.be.a('number');
+    // This is unexpected from redis
     expect(response).to.equal(10);
   });
   it('should have created the key from the previous test', async () => {
@@ -50,7 +51,7 @@ describe('incrby/decrby command test', () => {
     response = await sendCommand(client, ['incrby', 'incr-key', '10']);
     expect(response).to.equal(Number.MAX_SAFE_INTEGER);
     response = await sendCommand(client, ['incrby', 'incr-key', '110']);
-    expect(response).to.equal('ReplyError: Error: increment or decrement would overflow');
+    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
   });
   // DECRBY command
   it('should report the NEGATIVE increment when decrby called against unknown key', async () => {
@@ -86,10 +87,8 @@ describe('incrby/decrby command test', () => {
   it('should fail to increment a HASH value', async () => {
     const uniqueKey: string = `test-incr-${new Date().getTime()}`;
     let response: any = await sendCommand(client, ['hset', uniqueKey, 'one', 'two']);
-    console.log(`Response is`, response);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['incrby', uniqueKey, '12']);
-    console.log(`ERROR is ${response}`);
     expect(response).to.equal('ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value');
   });
 });

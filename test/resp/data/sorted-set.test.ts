@@ -1577,7 +1577,6 @@ describe('sorted-set test', () => {
         ss.add('5a600e17', 12);
         ss.add('5a600e18', 10);
 
-        console.log(`values is ${ss.values()}`);
         expect(() => {
           ss.add('5a600e13', 14);
         }).to.throw(/unique/);

@@ -43,4 +43,28 @@ describe('lrange-command test', () => {
     response = await sendCommand(client, ['lrange', 'no-key', '-1', '-100']);
     expect(response).to.eql([]);
   });
+  it('should return predictable results', async () => {
+    response = await sendCommand(client, ['rpush', 'newlist', 'hello']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['rpush', 'newlist', 'world']);
+    expect(response).to.equal(2);
+    response = await sendCommand(client, ['lrange', 'newlist', '0', '-1']);
+    expect(response).to.eql(['hello', 'world']);
+  });
+  it('should reproduce the results from the redis documentation', async () => {
+    response = await sendCommand(client, ['rpush', 'doclist', 'one']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['rpush', 'doclist', 'two']);
+    expect(response).to.equal(2);
+    response = await sendCommand(client, ['rpush', 'doclist', 'three']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['lrange', 'doclist', '0', '0']);
+    expect(response).to.eql(['one']);
+    response = await sendCommand(client, ['lrange', 'doclist', '-3', '2']);
+    expect(response).to.eql(['one', 'two', 'three']);
+    response = await sendCommand(client, ['lrange', 'doclist', '-100', '100']);
+    expect(response).to.eql(['one', 'two', 'three']);
+    response = await sendCommand(client, ['lrange', 'doclist', '5', '10']);
+    expect(response).to.eql([]);   
+  });
 });

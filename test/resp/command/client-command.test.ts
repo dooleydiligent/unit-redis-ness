@@ -8,7 +8,7 @@ import { sendCommand } from '../../common.test';
 
 describe('client command test', () => {
   let respServer: RespServer;
-  const DEFAULT_ERROR = `ReplyError: Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
+  const DEFAULT_ERROR = `ReplyError: ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
   const client: net.Socket = new net.Socket();
   before((done) => {
     respServer = new RespServer();
@@ -33,7 +33,7 @@ describe('client command test', () => {
    */
   it('should not allow more than 3 parameters', async () => {
     const response: any = await sendCommand(client, ['client', 'one', 'two', 'three', 'four']);
-    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'client\' command');
+    expect(response).to.equal('ReplyError: ERR Unknown subcommand or wrong number of arguments for \'one\'. Try CLIENT HELP');
   });
   it('should fail predictably when an unknown subcommand is passed', async () => {
     const response: any = await sendCommand(client, ['client', 'whatever']);
@@ -41,7 +41,6 @@ describe('client command test', () => {
   });
   it('should return a NIL name when called with "GETNAME" subcommand', async () => {
     const response: any = await sendCommand(client, ['client', 'getname']);
-    console.log(`RESPONSE: '${response}'`);
     expect(response).to.equal(null);
   });
   it('should fail predictably when "GETNAME" is called with too many parameters', async () => {
@@ -64,12 +63,12 @@ describe('client command test', () => {
   });
   it('should not allow whitespace in "setname" subcommand', async () => {
     const response: any = await sendCommand(client, ['client', 'setname', 'te\nst']);
-    expect(response).to.equal(`ReplyError: Client names cannot contain spaces, newlines or special characters.`);
+    expect(response).to.equal(`ReplyError: ERR Client names cannot contain spaces, newlines or special characters.`);
   });
   it('should return the server-assigned client id', async () => {
     const response: any = await sendCommand(client, ['client', 'id']);
-    expect(response).to.be.a('string');
-    expect(response.length).to.be.greaterThan(0);
+    expect(response).to.be.a('number');
+    expect(String(response).length).to.be.greaterThan(0);
   });
   it('should respond with a predictable message when "id" called with too many parameters', async () => {
     const response: any = await sendCommand(client, ['client', 'id', 'test', 'two']);
@@ -79,11 +78,11 @@ describe('client command test', () => {
     const response: any = await sendCommand(client, ['client', 'list']);
     expect(response).to.be.a('string');
     expect(response.length).to.be.greaterThan(0);
-    expect(response).to.match(/ name: whatever /);
-    expect(response).to.match(/\bdb:\s0\b/);
+    expect(response).to.match(/ name=whatever /);
+    expect(response).to.match(/\bdb=0\b/);
   });
   it('should respond with a predictable message when "list" called with too many parameters', async () => {
     const response: any = await sendCommand(client, ['client', 'list', 'test', 'two']);
-    expect(response).to.equal(util.format(DEFAULT_ERROR, 'list'));
+    expect(response).to.equal('ReplyError: ERR syntax error');
   });
 });

@@ -72,13 +72,13 @@ export class ExpireCommand implements IRespCommand {
     const ttlVal: number = Number(newTtl) < 1 ? -1 : new Date().getTime() + (Number(newTtl) * 1000);
     dbValue = db.put(key, dbValue.setExpiredAt(ttlVal));
     this.logger.debug(`Updated key is %j`, dbValue);
+    response = 1;
 
     if (dbValue.getExpiredAt() < 0) {
       this.logger.debug(`Key ${key} is effectively deleted - returning ${response}`);
       return RedisToken.integer(response);
     }
 
-    response = 1;
     this.logger.debug(`${request.getCommand()}.execute ttl set to ${dbValue.getExpiredAt()}`);
     return RedisToken.integer(response);
   }

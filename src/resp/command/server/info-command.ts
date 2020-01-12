@@ -11,7 +11,7 @@ import { IRespCommand } from '../resp-command';
 @MinParams(0)
 @Name('info')
 export class InfoCommand implements IRespCommand {
-  private static SHARP = '#';
+  private static SHARP = '# ';
   private static SEPARATOR = ':';
   private static DELIMITER = '\r\n';
 
@@ -35,7 +35,7 @@ export class InfoCommand implements IRespCommand {
       if (this.allSections().indexOf(section.toLowerCase()) > -1) {
         sections[section] = this.section(section, request.getServerContext());
       } else {
-        return RedisToken.string('');
+        return RedisToken.string(' ');
       }
     } else {
       for (const section of this.allSections()) {
@@ -70,9 +70,10 @@ export class InfoCommand implements IRespCommand {
   private server(ctx: IServerContext): any {
     return {
       server: {
+        redis_version: '1.0.1',
+        // tslint:disable-next-line
         node_version: process.version,
         os: `${os.platform()} ${os.release()} ${os.arch()}`,
-        redis_version: 'not even alpha 0.0.1',
         tcp_port: ctx.getPort()
       }
     };
@@ -91,7 +92,7 @@ export class InfoCommand implements IRespCommand {
         if (sections[section][subkey].constructor.name === 'String') {
           result += `${subkey}${InfoCommand.SEPARATOR}${sections[section][subkey]}${InfoCommand.DELIMITER}`;
         } else {
-          result += `${subkey}${InfoCommand.SEPARATOR}`;
+//          result += `${subkey}${InfoCommand.SEPARATOR}`;
           for (const sskey of Object.keys(sections[section][subkey])) {
             result += `${sskey}${InfoCommand.SEPARATOR}\t${sections[section][subkey][sskey]}${InfoCommand.DELIMITER}`;
           }

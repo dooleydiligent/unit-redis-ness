@@ -2,7 +2,7 @@ import { MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
+import { AbstractRedisToken } from '../../protocol/abstract-redis-token';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
@@ -41,18 +41,19 @@ export class KeysCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const keys: RedisToken[] = [];
+    const keys: any[] = [];
     const pattern: string = request.getParam(0);
     const re = new RegExp(`^${pattern.replace(/\?/g, '.').replace(/\*/g, '.*?')}$`);
     this.logger.debug(`Searching for keys matching pattern /%s/`, re);
     for (const key of db.keys()) {
       if (re.test(key)) {
         this.logger.debug(`Accepting ${key}`);
-        keys.push(RedisToken.string(key));
+        keys.push(RedisToken.string(key) as AbstractRedisToken<string>);
       } else {
         this.logger.debug(`Rejecting ${key}`);
       }
     }
-    return RedisToken.array(keys);
+    // Keys are sorted alphabetically in redis
+    return RedisToken.array(keys.sort((a, b) => a.getValue() < b.getValue() ? 0 : 1));
   }
 }

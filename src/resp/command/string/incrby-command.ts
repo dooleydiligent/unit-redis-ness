@@ -32,6 +32,8 @@ export class IncrByCommand implements IRespCommand {
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     try {
+      const key: string = request.getParam(0);
+      const incr: string = request.getParam(1);
       let value: DatabaseValue = db.get(request.getParam(0));
       const increment: number = Number(request.getParam(1));
       if (!value) {
@@ -47,14 +49,14 @@ export class IncrByCommand implements IRespCommand {
             ttl !== -1 ? ttl : undefined);
           this.logger.debug(`The ${this.sign ? 'INCRBY' : 'DECRBY'} value is ${value.getString()}`);
         } else {
-          throw new Error(`increment or decrement would overflow`);
+          return RedisToken.error(`ERR increment or decrement would overflow`);
         }
       }
       db.put(request.getParam(0), value);
 
       return RedisToken.integer(Number(value.getString()));
     } catch (ex) {
-      return RedisToken.error(ex);
+      return RedisToken.error(ex.message);
     }
   }
 }

@@ -95,7 +95,7 @@ export class ZaddCommand implements IRespCommand {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an odd number
     if (request.getParams().length % 2 !== 1) {
-      return RedisToken.error('ERR wrong number of arguments for \'zadd\' command');
+      return RedisToken.error('ERR syntax error');
     }
     try {
       const zkey: string = request.getParam(0);
@@ -119,7 +119,7 @@ export class ZaddCommand implements IRespCommand {
       this.logger.debug(`The sorted set is %s`, result.getSortedSet().toArray({withScores: true}));
       return RedisToken.integer(result.getSortedSet().keys().length - initialCount);
     } catch (ex) {
-      return RedisToken.error(ex);
+      return RedisToken.error(ex.message);
     }
   }
   private parseInput(request: IRequest): DatabaseValue {
@@ -131,13 +131,13 @@ export class ZaddCommand implements IRespCommand {
       try {
         value = request.getParam(i);
         if (isNaN(Number(value))) {
-          throw new Error(`Cannot parse ${value} for param ${key}`);
+          throw new Error(`ERR Cannot parse ${value} for param ${key}`);
         }
         this.logger.debug(`sortedSet.add(${key}, ${value})`);
         set.add(key, Number(value));
       } catch (ex) {
         this.logger.warn(`Exception parsing param ${i}: ${value}: %s`, ex);
-        throw new Error('value is not a valid float');
+        throw new Error('ERR value is not a valid float');
       }
     }
     return DatabaseValue.zset(set);

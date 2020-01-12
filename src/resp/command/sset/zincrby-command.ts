@@ -42,16 +42,20 @@ export class ZIncrByCommand implements IRespCommand {
     const zIncr: string = request.getParam(1);
     const zmember: string = request.getParam(2);
     if (isNaN(Number(zIncr))) {
-      return RedisToken.error('value is not a valid float');
+      return RedisToken.error('ERR value is not a valid float');
     }
     let score: number = 0;
     const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-    score = dbKey.getSortedSet().get(zmember);
-    if (score) {
-      score += Number(zIncr);
-    } else {
-      score = Number(zIncr);
+    if (!dbKey.getSortedSet().has(zmember)) {
+      this.logger.debug(`Creating new ZSET ${zkey} member ${zmember}`);
+      dbKey.getSortedSet().add(zmember, 0);
     }
+    this.logger.debug(`Incrementing existing ZSET ${zkey} member ${zmember}`);
+    dbKey.getSortedSet().incrBy(Number(zIncr), zmember);
+
+    score = dbKey.getSortedSet().score(zmember);
+    this.logger.debug(`Saving ZSET ${zkey} as %s`, dbKey.getSortedSet().toArray({ withScores: true}));
+    db.put(zkey, dbKey);
     return RedisToken.string(String(score));
   }
 }

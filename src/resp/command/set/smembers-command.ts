@@ -32,6 +32,7 @@ export class SMembersCommand implements IRespCommand {
     for (const item of initial.getSet()) {
       values.push(RedisToken.string(item));
     }
+    // Redis can return a list in any order
     const retval = RedisToken.array(values);
     this.logger.debug(`${request.getCommand()}.execute returning (%s)`, retval);
     return retval;

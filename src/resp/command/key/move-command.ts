@@ -33,12 +33,9 @@ export class MoveCommand implements IRespCommand {
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     let response = 0;
+    const currentDb: number = request.getSession().getCurrentDb();
     const key: string = request.getParam(0);
-    const dbValue: DatabaseValue = db.get(key);
-    if (!dbValue) {
-      this.logger.debug(`key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}`);
-      return RedisToken.integer(response);
-    }
+
     const newDbIndex: string = request.getParam(1);
     this.logger.debug(`Target DB is ${newDbIndex}`);
     const targetDb = Number(newDbIndex);
@@ -46,6 +43,17 @@ export class MoveCommand implements IRespCommand {
       this.logger.debug(`Target DB is invalid`);
       return RedisToken.error(`ERR index out of range`);
     }
+    if (targetDb === currentDb) {
+      return RedisToken.error(`ERR source and destination objects are the same`);
+    }
+
+    const dbValue: DatabaseValue = db.get(key);
+
+    if (!dbValue) {
+      this.logger.debug(`key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}`);
+      return RedisToken.integer(response);
+    }
+
     const newDb: Database = request.getServerContext().getDatabase(targetDb);
     const targetExists: boolean = newDb.exists(key);
     if (targetExists) {

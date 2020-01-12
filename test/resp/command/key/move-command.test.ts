@@ -13,7 +13,9 @@ describe('move-command test', () => {
   const uniqueKey = `move-key${new Date().getTime()}`;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
+      await sendCommand(client, ['select', '0'])
       done();
     });
     respServer.start();
@@ -32,9 +34,10 @@ describe('move-command test', () => {
   /**
    * Functional testing of the move command
    */
-  it('should report ZERO when the source key does not exist', async () => {
+  it('should not allow target and source db to be the same', async () => {
+    // Even if source key does not exist
     response = await sendCommand(client, ['move', uniqueKey, '0']);
-    expect(response).to.equal(0);
+    expect(response).to.equal('ReplyError: ERR source and destination objects are the same');
   });
   it('should also report ZERO when the target key already exists', async () => {
     response = await sendCommand(client, ['set', uniqueKey, 'database ZERO']);
@@ -42,7 +45,7 @@ describe('move-command test', () => {
     response = await sendCommand(client, ['exists', uniqueKey]);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['move', uniqueKey, '0']);
-    expect(response).to.equal(0);
+    expect(response).to.equal('ReplyError: ERR source and destination objects are the same');
   });
   it('should move a key from one database to another otherwise', async () => {
     response = await sendCommand(client, ['move', uniqueKey, '14']);

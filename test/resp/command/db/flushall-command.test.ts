@@ -12,7 +12,8 @@ describe('flushall-command test', () => {
   let response: any;
   before((done) => {
     respServer = new RespServer();
-    respServer.on('ready', () => {
+    respServer.on('ready', async () => {
+      await sendCommand(client, ['flushall']);
       done();
     });
     respServer.start();
@@ -38,6 +39,7 @@ describe('flushall-command test', () => {
       response = await sendCommand(client, ['set', 'dbid', `${db}`]);
       expect(response).to.equal('OK');
       response = await sendCommand(client, ['dbsize']);
+      console.log(`DB: ${db}: dbsize: ${response}`);
       expect(response).to.equal(1);
     }
     response = await sendCommand(client, ['flushall']);
@@ -46,7 +48,6 @@ describe('flushall-command test', () => {
       response = await sendCommand(client, ['select', `${db}`]);
       expect(response).to.equal('OK');
       response = await sendCommand(client, ['dbsize']);
-      console.log(`DB is ${db}, dbsize is ${response}`);
       expect(response).to.equal(0);
     }
   });

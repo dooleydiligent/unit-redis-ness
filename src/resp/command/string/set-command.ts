@@ -35,7 +35,7 @@ interface IParameters {
  * Note that XX or NX can be specified multiple times without change in behavior
  */
 @DbDataType(DataType.STRING)
-@MaxParams(5)
+@MaxParams(6)
 @MinParams(2)
 @Name('set')
 export class SetCommand implements IRespCommand {
@@ -51,7 +51,7 @@ export class SetCommand implements IRespCommand {
         RedisToken.responseOk() : RedisToken.nullString();
     } catch (ex) {
       this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
-      return RedisToken.error(ex);
+      return RedisToken.error(ex.message);
     }
   }
   private parse(request: IRequest): IParameters {
@@ -65,26 +65,26 @@ export class SetCommand implements IRespCommand {
         const option: string = request.getParam(i);
         if (this.match('EX', option)) {
           if (parameters.ttl != null) {
-            throw new Error('Syntax Exception - cannot set ttl twice');
+            throw new Error('ERR syntax error');
           }
           parameters.ttl = (this.parseTtl(request, ++i) * 1000);
         } else if (this.match('PX', option)) {
           if (parameters.ttl != null) {
-            throw new Error('Syntax Exception - cannot set ttl twice');
+            throw new Error('ERR syntax error');
           }
           parameters.ttl = this.parseTtl(request, ++i);
         } else if (this.match('NX', option)) {
           if (parameters.ifExists) {
-            throw new Error('Syntax Exception - cannot set NX with XX');
+            throw new Error('ERR syntax error');
           }
           parameters.ifNotExists = true;
         } else if (this.match('XX', option)) {
           if (parameters.ifNotExists) {
-            throw new Error('Syntax Exception - cannot set XX with NX');
+            throw new Error('ERR syntax error');
           }
           parameters.ifExists = true;
         } else {
-          throw new Error('Cannot parse the command');
+          throw new Error('ERR syntax error');
         }
       }
     }
@@ -97,7 +97,7 @@ export class SetCommand implements IRespCommand {
     const ttlOption: string = request.getParam(i);
     const value: number = parseInt(ttlOption.toString(), 10);
     if (value < 1) {
-      throw new Error(`invalid expire time in set`);
+      throw new Error(`ERR invalid expire time in set`);
     }
     return value;
   }

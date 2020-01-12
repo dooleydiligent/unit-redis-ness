@@ -55,7 +55,7 @@ export class IncrCommand implements IRespCommand {
             ttl !== -1 ? ttl : undefined);
           this.logger.debug(`The ${this.sign ? 'INCR' : 'DECR'} value is ${value.getString()}`);
         } else {
-          throw new Error(`increment or decrement would overflow`);
+          return RedisToken.error(`ERR increment or decrement would overflow`);
         }
       }
       db.put(request.getParam(0), value);

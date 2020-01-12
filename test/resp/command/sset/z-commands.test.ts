@@ -46,9 +46,9 @@ describe('z-command tests', () => {
     response = await sendCommand(client, ['zcard', uniqueZkey]);
     expect(response).to.equal(3);
     response = await sendCommand(client, ['zrange', uniqueZkey, String(Number.MIN_SAFE_INTEGER), String(Number.MAX_SAFE_INTEGER), 'withScores']);
-    expect(response).to.eql([['5a600e16', '8'],
-    ['5a600e17', '9'],
-    ['5a600e18', '10']]);
+    expect(response).to.eql(['5a600e16', '8',
+    '5a600e17', '9',
+    '5a600e18', '10']);
 
     response = await sendCommand(client, ['zadd', uniqueZkey, '12', '5a600e17'])
     expect(response).to.equal(0);
@@ -60,24 +60,26 @@ describe('z-command tests', () => {
     expect(response.length).to.equal(3);
     expect(response).to.eql(['5a600e16', '5a600e18', '5a600e17']);
     response = await sendCommand(client, ['zrange', uniqueZkey, String(Number.MIN_SAFE_INTEGER), String(Number.MAX_SAFE_INTEGER), 'withScores']);
-    expect(response).to.eql([['5a600e16', '8'], ['5a600e18', '10'], ['5a600e17', '12']]);
+    expect(response).to.eql(['5a600e16', '8', '5a600e18', '10', '5a600e17', '12']);
     response = await sendCommand(client, ['type', uniqueZkey]);
     expect(response).to.equal('zset');
 
     response = await sendCommand(client, ['zcount', uniqueZkey, '-Infinity', '10']);
     expect(response).to.equal(2);
     response = await sendCommand(client, ['zcount', uniqueZkey, 'Negative One', '10']);
-    expect(response).to.equal('ReplyError: Error: min or max is not a float');
+    expect(response).to.equal('ReplyError: ERR min or max is not a float');
     // report syntax error
     response = await sendCommand(client, ['zrange', uniqueZkey, String(Number.MIN_SAFE_INTEGER), String(Number.MAX_SAFE_INTEGER), 'with Scores']);
-    expect(response).to.eql('ReplyError: syntax error');
+    expect(response).to.eql('ReplyError: ERR syntax error');
     response = await sendCommand(client, ['zrange', uniqueZkey, String('Number.MIN_SAFE_INTEGER'), String(Number.MAX_SAFE_INTEGER), 'withScores']);
-    expect(response).to.eql('ReplyError: value is not an integer or out of range');
+    expect(response).to.eql('ReplyError: ERR value is not an integer or out of range');
     // Remove members without removing keys
     response = await sendCommand(client, ['zrem', uniqueZkey, 'does not exist', '5a600e16', '5a600e18', '5a600e17']);
     expect(response).to.equal(3);
+    // Unexpectedly, redis removes the key when the last element is removed
     response = await sendCommand(client, ['exists', uniqueZkey]);
-    expect(response).to.equal(1);
+    console.log(`searched for ${uniqueZkey}`);
+    expect(response).to.equal(0);
     response = await sendCommand(client, ['zrange', uniqueZkey, String(Number.MIN_SAFE_INTEGER), String(Number.MAX_SAFE_INTEGER), 'withScores']);
     expect(response).to.eql([]);
   });
@@ -95,20 +97,35 @@ describe('z-command tests', () => {
 
     response = await sendCommand(client, ['zincrby', uniqueZkey, '2', 'first']);
     expect(response).to.equal('3')
+    // Validate zscore
+    // response = await sendCommand(client, ['zscore', uniqueZkey, 'first']);
+    // expect(response).to.equal('3');
+    // response = await sendCommand(client, ['zscore', uniqueZkey, 'second']);
+    // expect(response).to.equal('2');
+    // response = await sendCommand(client, ['zscore', uniqueZkey, 'third']);
+    // expect(response).to.equal('3');
+    // response = await sendCommand(client, ['zscore', uniqueZkey, 'fourth']);
+    // expect(response).to.equal('4');
+    //
     response = await sendCommand(client, ['zrank', uniqueZkey, 'first']);
-    // expect(ss.rank('first')).to.equal(1);
-    expect(response).to.match(/^ReplyError: ERR unknown command.*/);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['zrank', uniqueZkey, 'second']);
+    expect(response).to.equal(0);
+    response = await sendCommand(client, ['zrank', uniqueZkey, 'third']);
+    expect(response).to.equal(2);
+    response = await sendCommand(client, ['zrank', uniqueZkey, 'fourth']);
+    expect(response).to.equal(3);
+    // expect(response).to.match(/^ReplyError: ERR unknown command.*/);
 
     response = await sendCommand(client, ['zincrby', uniqueZkey, '-20', 'fourth']);
     expect(response).to.equal('-16');
     response = await sendCommand(client, ['zincrby', uniqueZkey, `-${Number.MIN_SAFE_INTEGER + 1}.${Number.MAX_SAFE_INTEGER}`, 'fourth']);
-    expect(response).to.equal('ReplyError: value is not a valid float');
+    expect(response).to.equal('ReplyError: ERR value is not a valid float');
 
     // Should create a key if it doesn't exist
     response = await sendCommand(client, ['zincrby', uniqueZkey, '-20', 'fifth']);
     expect(response).to.equal('-20');
     response = await sendCommand(client, ['zrange', uniqueZkey, String(Number.MIN_SAFE_INTEGER), String(Number.MAX_SAFE_INTEGER), 'withScores']);
-    console.log(response);
-//    expect(response).to.eql([['5a600e16', '8'], ['5a600e18', '10'], ['5a600e17', '12']]);
+    expect(response).to.eql([ 'fifth', '-20', 'fourth', '-16', 'second', '2', 'first', '3', 'third', '3']);
   });
 });

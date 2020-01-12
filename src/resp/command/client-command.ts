@@ -129,11 +129,11 @@ import { IRespCommand } from './resp-command';
  *
  * Simple string reply: OK if the connection name was successfully set.
  */
-@MaxParams(3)
+@MaxParams(4)
 @MinParams(1)
 @Name('client')
 export class ClientCommand implements IRespCommand {
-  public static DEFAULT_ERROR = `Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
+  public static DEFAULT_ERROR = `ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
@@ -169,15 +169,17 @@ export class ClientCommand implements IRespCommand {
     this.logger.debug(`Testing [${request.getParam(1)}] for whitespace`);
     const hasWhiteSpace = /\s/gm.test(request.getParam(1));
     if (hasWhiteSpace) {
-      return RedisToken.error(`Client names cannot contain spaces, newlines or special characters.`);
+      return RedisToken.error(`ERR Client names cannot contain spaces, newlines or special characters.`);
     }
     request.getSession().setName(request.getParam(1));
     return RedisToken.responseOk();
   }
   private getId(request: IRequest): RedisToken {
     if (request.getParams().length === 1) {
-      const name = request.getSession().getValue('ID');
-      return RedisToken.string(name);
+      const name = 7;
+      // TODO: Get the index of the server-assigned client id from servercontext
+      // .getValue('ID');
+      return RedisToken.integer(name);
     } else {
       return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
     }
@@ -192,9 +194,9 @@ export class ClientCommand implements IRespCommand {
         this.logger.debug(`client is:`, client);
         this.logger.debug(`Got client: ${client}`, client);
         clientList.push(
-          util.format(`id: %s name: %s addr: %s fd: %s age: %d idle: %d flags: %s ` +
-            `db: %d sub: %d psub: %d multi: %d qbuf: %d qbuf-free: %d obl: %d oll: ` +
-            `%d omem: %d events: %s cmd: %s`,
+          util.format(`id=%s name=%s addr=%s fd=%s age=%d idle=%d flags=%s ` +
+            `db=%d sub=%d psub=%d multi=%d qbuf=%d qbuf-free=%d obl=%d oll=` +
+            `%d omem=%d events=%s cmd=%s`,
             client.getId(),
             client.getName(),
             client.getAddress(),
@@ -218,7 +220,7 @@ export class ClientCommand implements IRespCommand {
       }
       return RedisToken.string(clientList.join('\n') + '\n');
     } else {
-      return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
+      return RedisToken.error('ERR syntax error');
     }
   }
 }

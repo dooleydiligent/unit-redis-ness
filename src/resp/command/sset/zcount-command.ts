@@ -30,7 +30,7 @@ import { IRespCommand } from '../resp-command';
 @MinParams(3)
 @Name('zcount')
 export class ZCountCommand implements IRespCommand {
-  private DEFAULT_ERROR = 'min or max is not a float';
+  private DEFAULT_ERROR = 'ERR min or max is not a float';
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
@@ -39,7 +39,7 @@ export class ZCountCommand implements IRespCommand {
       const sMin: string = request.getParam(1);
       const sMax: string = request.getParam(2);
       if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
-        throw new Error(this.DEFAULT_ERROR);
+        return RedisToken.error(this.DEFAULT_ERROR);
       }
       let result: number = 0;
       const dbKey: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.ZSET, new SortedSet()));
