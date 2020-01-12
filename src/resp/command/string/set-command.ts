@@ -45,6 +45,7 @@ export class SetCommand implements IRespCommand {
     try {
       const parameters: IParameters = this.parse(request);
       const key: string = request.getParam(0).toString();
+      this.logger.debug(`Creating key ${key} with parameters %s`, parameters);
       const value: DatabaseValue = this.parseValue(request, parameters);
       const savedValue = this.saveValue(db, parameters, key, value);
       return savedValue && savedValue.toString() === value.toString() ?

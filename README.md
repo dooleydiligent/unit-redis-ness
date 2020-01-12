@@ -140,9 +140,6 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - zrank
 - ltrim
 - mget
-
-Todo (to complete v1.0.0 command set)
-
 - randomkey
 - renamenx
 - rpoplpush
@@ -150,13 +147,16 @@ Todo (to complete v1.0.0 command set)
 - setnx
 - sinter
 - sinterstore
-- sort
-- spop
-- srandmember
 - srem
 - sunion
 - sunionstore
 - ttl
+
+Todo (to complete v1.0.0 command set)
+
+- sort
+- spop
+- srandmember
 - z*?
 
 Probably Won't do

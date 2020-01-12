@@ -163,7 +163,7 @@ export class DatabaseValue {
   }
 
   public getExpiredAt(): number {
-    return this.expiredAt ? this.expiredAt : 0;
+    return this.expiredAt ? this.expiredAt : -1;
   }
 
   public isExpired(now: number): boolean {

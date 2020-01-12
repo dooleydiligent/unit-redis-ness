@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/28</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.15% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/26</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -115,11 +115,7 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -148,10 +144,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">74x</span>
-<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">98x</span>
+<span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -176,9 +171,6 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -214,33 +206,29 @@ export class IncrByCommand implements IRespCommand {
   constructor(public sign: number) { }
   public execute(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    try {
-      const key: string = request.getParam(0);
-      const incr: string = request.getParam(1);
-      let value: DatabaseValue = db.get(request.getParam(0));
-      const increment: number = Number(request.getParam(1));
-      if (!value) {
-        value = DatabaseValue.string(String( this.sign * increment));
+    const key: string = request.getParam(0);
+    const incr: string = request.getParam(1);
+    let value: DatabaseValue = db.get(request.getParam(0));
+    const increment: number = Number(request.getParam(1));
+    if (!value) {
+      value = DatabaseValue.string(String( this.sign * increment));
+    } else {
+      this.logger.debug(`The original value is ${value.getString()}`);
+      if (Math.abs(Number(value.getString()) + increment) &lt;= Number.MAX_SAFE_INTEGER) {
+        const newValue: number = Number(value.getString()) + ( this.sign * increment);
+        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+        value = new DatabaseValue(
+          DataType.STRING,
+          String(newValue),
+          ttl !== -1 ? <span class="branch-0 cbranch-no" title="branch not covered" >ttl </span>: undefined);
+        this.logger.debug(`The ${this.sign ? 'INCRBY' : <span class="branch-1 cbranch-no" title="branch not covered" >'DECRBY'}</span> value is ${value.getString()}`);
       } else {
-        this.logger.debug(`The original value is ${value.getString()}`);
-        if (Math.abs(Number(value.getString()) + increment) &lt;= Number.MAX_SAFE_INTEGER) {
-          const newValue: number = Number(value.getString()) + ( this.sign * increment);
-          const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
-          value = new DatabaseValue(
-            DataType.STRING,
-            String(newValue),
-            ttl !== -1 ? <span class="branch-0 cbranch-no" title="branch not covered" >ttl </span>: undefined);
-          this.logger.debug(`The ${this.sign ? 'INCRBY' : <span class="branch-1 cbranch-no" title="branch not covered" >'DECRBY'}</span> value is ${value.getString()}`);
-        } else {
-          return RedisToken.error(`ERR increment or decrement would overflow`);
-        }
+        return RedisToken.error(`ERR increment or decrement would overflow`);
       }
-      db.put(request.getParam(0), value);
-&nbsp;
-      return RedisToken.integer(Number(value.getString()));
-    } catch (ex) {
-<span class="cstat-no" title="statement not covered" >      return RedisToken.error(ex.message);</span>
     }
+    db.put(request.getParam(0), value);
+&nbsp;
+    return RedisToken.integer(Number(value.getString()));
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -250,7 +238,7 @@ export class IncrByCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 00:02:27 GMT-0500 (Eastern Standard Time)
+                at Sun Jan 12 2020 16:11:09 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
