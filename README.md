@@ -157,7 +157,6 @@ Todo (to complete v1.0.0 command set)
 - sort
 - spop
 - srandmember
-- z*?
 
 Probably Won't do
 
