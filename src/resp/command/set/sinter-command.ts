@@ -13,8 +13,8 @@ import { IRespCommand } from '../resp-command';
  * Returns the members of the set resulting from the intersection of all the given sets.
  *
  * ### SINTERSTORE destination key [key...]
- * This command is equal to SINTER, but instead of returning the resulting set, it is stored
- * in destination.
+ * This command is equal to [SINTER]{@link SinterCommand}, but instead of returning the
+ * resulting set, it is stored in destination.
  *
  * If destination already exists, it is overwritten
  *
@@ -56,21 +56,23 @@ export class SInterCommand implements IRespCommand {
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    switch (request.getCommand().toLowerCase()) {
-      case 'sinterstore':
-        return this.sinterstore(request, db);
-      default:
-        return this.sinter(request, db);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      switch (request.getCommand().toLowerCase()) {
+        case 'sinterstore':
+          resolve(this.sinterstore(request, db));
+        default:
+          resolve(this.sinter(request, db));
+      }
+    });
   }
   private sinter(request: IRequest, db: Database): RedisToken {
     return RedisToken.array(this.intersection(0, request, db));
   }
   private sinterstore(request: IRequest, db: Database): RedisToken {
     const result = this.intersection(1, request, db);
-    if (result[0] === RedisToken.NULL_STRING) {
+    if (result[0] === RedisToken.nullString()) {
       return RedisToken.integer(0);
     }
     const newKey: DatabaseValue = new DatabaseValue(DataType.SET, new Set());
@@ -85,7 +87,7 @@ export class SInterCommand implements IRespCommand {
     const result: RedisToken[] = [];
     const skey: string = request.getParam(start);
     if (!db.exists(skey)) {
-      return [RedisToken.NULL_STRING];
+      return [RedisToken.nullString()];
     }
     const dbKey: DatabaseValue = db.get(request.getParam(start));
     const dbKeys: DatabaseValue[] = [];
@@ -94,7 +96,7 @@ export class SInterCommand implements IRespCommand {
       if (dbInter && dbInter.getType() === DataType.SET) {
         dbKeys.push(dbInter);
       } else {
-        return [RedisToken.NULL_STRING];
+        return [RedisToken.nullString()];
       }
     }
     dbKey.getSet().forEach((element) => {

@@ -21,11 +21,13 @@ import { IRespCommand } from '../resp-command';
 @Name('scard')
 export class SCardCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const skey: string = request.getParam(0);
-    const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
-    const result: number = initial.getSet().size;
-    return RedisToken.integer(result);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const skey: string = request.getParam(0);
+      const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
+      const result: number = initial.getSet().size;
+      resolve(RedisToken.integer(result));
+    });
   }
 }

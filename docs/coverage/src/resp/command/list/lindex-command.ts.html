@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -106,7 +106,9 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -131,11 +133,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -153,6 +154,9 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -164,10 +168,8 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.0.
- *
- * LINDEX key index
- *
+ * ### Available since 1.0.0.
+ * ### LINDEX key index
  * Returns the element at index index in the list stored at key. The index is zero-based,
  * so 0 means the first element, 1 the second element and so on. Negative indices can be used
  * to designate elements starting at the tail of the list. Here, -1 means the last element,
@@ -175,7 +177,7 @@ import { IRespCommand } from '../resp-command';
  *
  * When the value at key is not a list, an error is returned.
  *
- * **Return value**&lt;br&gt;
+ * ### Return value
  * Bulk string reply: the requested element, or nil when index is out of range.
  */
 @DbDataType(DataType.LIST)
@@ -184,24 +186,28 @@ import { IRespCommand } from '../resp-command';
 @Name('lindex')
 export class LIndexCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const list: DatabaseValue = db.get(key);
-    this.logger.debug(`Getting list "${key}"`);
-    if (!list) {
-      this.logger.debug(`LIST ${key} does not exist.  Returning NIL`);
-      return RedisToken.NULL_STRING;
-    }
-    const index: string = request.getParam(1);
-    if (isNaN(Number(index)) || Number(index) !== parseInt(index, 10)) {
-      return RedisToken.error('ERR value is not an integer or out of range');
-    }
-    const len: number = Number(index) &lt; 0 &amp;&amp; Math.abs(Number(index)) &lt; list.getList().length ?
-      list.getList().length + 1 + Number(index) : Number(index) + 1;
-    const value: any = list.getList().slice(Number(index), len);
-    this.logger.debug(`Returning element "${value}", "%s"`, typeof value);
-    return RedisToken.string(value);
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      const list: DatabaseValue = db.get(key);
+      this.logger.debug(`Getting list "${key}"`);
+      if (!list) {
+        this.logger.debug(`LIST ${key} does not exist.  Returning NIL`);
+        resolve(RedisToken.nullString());
+      } else {
+        const index: string = request.getParam(1);
+        if (isNaN(Number(index)) || Number(index) !== parseInt(index, 10)) {
+          resolve(RedisToken.error('ERR value is not an integer or out of range'));
+        } else {
+          const len: number = Number(index) &lt; 0 &amp;&amp; Math.abs(Number(index)) &lt; list.getList().length ?
+            list.getList().length + 1 + Number(index) : Number(index) + 1;
+          const value: any = list.getList().slice(Number(index), len);
+          this.logger.debug(`Returning element "${value}", "%s"`, typeof value);
+          resolve(RedisToken.string(value));
+        }
+      }
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -211,7 +217,7 @@ export class LIndexCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

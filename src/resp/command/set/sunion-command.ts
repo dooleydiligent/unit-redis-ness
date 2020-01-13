@@ -50,21 +50,23 @@ export class SUnionCommand implements IRespCommand {
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    switch (request.getCommand().toLowerCase()) {
-      case 'sunionstore':
-        return this.sunionstore(request, db);
-      default:
-        return this.sunion(request, db);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      switch (request.getCommand().toLowerCase()) {
+        case 'sunionstore':
+          resolve(this.sunionstore(request, db));
+        default:
+          resolve(this.sunion(request, db));
+      }
+    });
   }
   private sunion(request: IRequest, db: Database): RedisToken {
     return RedisToken.array(this.union(0, request, db));
   }
   private sunionstore(request: IRequest, db: Database): RedisToken {
     const result = this.union(1, request, db);
-    if (result[0] === RedisToken.NULL_STRING) {
+    if (result[0] === RedisToken.nullString()) {
       return RedisToken.integer(0);
     }
     const newKey: DatabaseValue = new DatabaseValue(DataType.SET, new Set());
@@ -80,7 +82,7 @@ export class SUnionCommand implements IRespCommand {
     const skey: string = request.getParam(start);
     if (!db.exists(skey)) {
       this.logger.debug(`Key ${skey} does not exist.  Return NULL set`);
-      return [RedisToken.NULL_STRING];
+      return [RedisToken.nullString()];
     }
     const members: Set<any> = new Set();
     for (let index = start; index < request.getParams().length; index++) {

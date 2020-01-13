@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/36</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -125,7 +125,10 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -153,11 +156,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,6 +195,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -222,43 +228,46 @@ import { IRespCommand } from '../resp-command';
 @Name('hset')
 export class HsetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an odd number
-    if (request.getParams().length % 2 !== 1 ) {
-      return RedisToken.error('ERR wrong number of arguments for hset');
-    }
-    // Get the original HASH
-    this.logger.debug(`Getting database key ${request.getParam(0)}`);
-    let item: DatabaseValue = db.get(request.getParam(0));
-    this.logger.debug(`ITEM is ${item}`, item);
-    let fieldsAdded: number = 0;
-    if (!item) {
-      item = new DatabaseValue(DataType.HASH, {});
-      this.logger.debug(`Instantiated new EMPTY_HASH`, item);
-    }
-    const hash = item.getHash();
-    this.logger.debug(`Hash is `, item);
-    this.logger.debug(`Processing ${request.getParams().length} params`);
-    this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
-    for (let index = 1; index &lt; request.getParams().length; index += 2) {
-      const field = request.getParam(index);
-      const value = request.getParam(index + 1);
-      this.logger.debug(`Got field ${field} with value ${value}`);
-      if (!hash[field]) {
-        this.logger.debug(`Adding field ${field}`);
-        ++fieldsAdded;
+    return new Promise((resolve) =&gt; {
+      if (request.getParams().length % 2 !== 1) {
+        resolve(RedisToken.error('ERR wrong number of arguments for hset'));
       } else {
-        this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);
+        // Get the original HASH
+        this.logger.debug(`Getting database key ${request.getParam(0)}`);
+        let item: DatabaseValue = db.get(request.getParam(0));
+        this.logger.debug(`ITEM is ${item}`, item);
+        let fieldsAdded: number = 0;
+        if (!item) {
+          item = new DatabaseValue(DataType.HASH, {});
+          this.logger.debug(`Instantiated new EMPTY_HASH`, item);
+        }
+        const hash = item.getHash();
+        this.logger.debug(`Hash is `, item);
+        this.logger.debug(`Processing ${request.getParams().length} params`);
+        this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
+        for (let index = 1; index &lt; request.getParams().length; index += 2) {
+          const field = request.getParam(index);
+          const value = request.getParam(index + 1);
+          this.logger.debug(`Got field ${field} with value ${value}`);
+          if (!hash[field]) {
+            this.logger.debug(`Adding field ${field}`);
+            ++fieldsAdded;
+          } else {
+            this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);
+          }
+          hash[field] = value;
+        }
+        this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
+        // If the has already had an expiredAt value it might have been replaced here
+        // TODO: Create a special key (applicable to all DatabaseValue types) to
+        // segregate admin values from public scrutiny.  Until then ...
+        db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));
+        resolve(RedisToken.integer(fieldsAdded));
       }
-      hash[field] = value;
-    }
-    this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
-    // If the has already had an expiredAt value it might have been replaced here
-    // TODO: Create a special key (applicable to all DatabaseValue types) to
-    // segregate admin values from public scrutiny.  Until then ...
-    db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));
-    return RedisToken.integer(fieldsAdded);
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -268,7 +277,7 @@ export class HsetCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

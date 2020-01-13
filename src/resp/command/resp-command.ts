@@ -38,5 +38,5 @@ export interface IRespCommand {
    * @param request The original request
    * @param db The optional database argument
    */
-  execute(request: IRequest, db?: Database): RedisToken;
+  execute(request: IRequest, db?: Database): Promise<RedisToken>;
 }

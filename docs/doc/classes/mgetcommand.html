@@ -2386,10 +2386,12 @@ img {
 					<a href="#available-since-100" id="available-since-100" style="color: inherit; text-decoration: none;">
 						<h3>Available since 1.0.0.</h3>
 					</a>
+					<a href="#mget-key-key-" id="mget-key-key-" style="color: inherit; text-decoration: none;">
+						<h3>MGET key [key ...]</h3>
+					</a>
+					<p>Returns the values of all specified keys. For every key that does not hold a string value or
+					does not exist, the special value nil is returned. Because of this, the operation never fails.</p>
 				</div>
-				<p>MGET key [key ...]</p>
-				<p>Returns the values of all specified keys. For every key that does not hold a string value or
-				does not exist, the special value nil is returned. Because of this, the operation never fails.</p>
 				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
 					<h3>Return value</h3>
 				</a>
@@ -2449,7 +2451,7 @@ redis&gt;</code></pre>
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/string/mget-command.ts#L37">src/resp/command/string/mget-command.ts:37</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/string/mget-command.ts#L35">src/resp/command/string/mget-command.ts:35</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2460,13 +2462,13 @@ redis&gt;</code></pre>
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/string/mget-command.ts#L38">src/resp/command/string/mget-command.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/string/mget-command.ts#L36">src/resp/command/string/mget-command.ts:36</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2478,7 +2480,7 @@ redis&gt;</code></pre>
 								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>

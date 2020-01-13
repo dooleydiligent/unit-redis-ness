@@ -2383,25 +2383,37 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since 1.0.0.</p>
+					<a href="#available-since-100" id="available-since-100" style="color: inherit; text-decoration: none;">
+						<h3>Available since 1.0.0.</h3>
+					</a>
+					<a href="#getset-key-value" id="getset-key-value" style="color: inherit; text-decoration: none;">
+						<h3>GETSET key value</h3>
+					</a>
+					<p>Atomically sets key to value and returns the old value stored at key. Returns an error when
+					key exists but does not hold a string value.</p>
 				</div>
-				<p>GETSET key value</p>
-				<p>Atomically sets key to value and returns the old value stored at key. Returns an error when
-				key exists but does not hold a string value.</p>
-				<p><strong>Design pattern</strong><br>
-					GETSET can be used together with INCR for counting with atomic reset. For example: a process
+				<a href="#design-pattern" id="design-pattern" style="color: inherit; text-decoration: none;">
+					<h3>Design pattern</h3>
+				</a>
+				<p>GETSET can be used together with <a href="incrcommand.html">INCR</a> for counting with atomic reset.
+					For example: a process
 					may call INCR against the key mycounter every time some event occurs, but from time to time we
 					need to get the value of the counter and reset it to zero atomically. This can be done using
 				GETSET mycounter &quot;0&quot;:</p>
-				<p>redis&gt; INCR mycounter
-					(integer) 1
-					redis&gt; GETSET mycounter &quot;0&quot;
-					&quot;1&quot;
-					redis&gt; GET mycounter
-					&quot;0&quot;
-				redis&gt;</p>
-				<p><strong>Return value</strong><br>
-				Bulk string reply: the old value stored at key, or nil when key did not exist.</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h3>Example</h3>
+				</a>
+				<pre><code>redis&gt; INCR mycounter
+(<span class="hljs-name">integer</span>) <span class="hljs-number">1</span>
+redis&gt; GETSET mycounter <span class="hljs-string">"0"</span>
+<span class="hljs-string">"1"</span>
+redis&gt; GET mycounter
+<span class="hljs-string">"0"</span>
+redis&gt;</code></pre>
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Bulk string reply: the old value stored at key, or nil when key did not exist.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -2445,7 +2457,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/string/getset-command.ts#L39">src/resp/command/string/getset-command.ts:39</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/string/getset-command.ts#L39">src/resp/command/string/getset-command.ts:39</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2456,13 +2468,13 @@ img {
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/string/getset-command.ts#L40">src/resp/command/string/getset-command.ts:40</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/string/getset-command.ts#L40">src/resp/command/string/getset-command.ts:40</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2474,7 +2486,7 @@ img {
 								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>

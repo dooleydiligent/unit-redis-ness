@@ -30,48 +30,56 @@ export class CommandWrapper implements IRespCommand {
   public isPubSubAllowed(): boolean {
     return this.pubSubAllowed;
   }
-  public execute(request: IRequest): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    this.logger.debug(`db id is ${request.getSession().getCurrentDb()}`);
-    const db: Database = this.getCurrentDB(request);
-    this.logger.debug(`COMMAND is ${request.getCommand()}`);
-    this.logger.debug(`PARAMS Is/Are`, request.getParams());
-    switch (true) {
-      case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):
-        this.logger.debug(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
-        return RedisToken.error(
-          `ERR wrong number of arguments for '${request.getCommand()}' command`);
-      case this.dataType !== DataType.NONE &&
-        !db.isType(request.getParam(0), this.dataType):
-        this.logger.debug(`Check type for ${request.getParam(0)} against ${this.dataType}`);
-        return RedisToken.error(
-          `WRONGTYPE Operation against a key holding the wrong kind of value`);
-      case this.isSubscribed(request) && !this.pubSubAllowed:
-        return RedisToken.error(
-          `ERR only (P)SUBSCRIBE / (P)UNSUBSCRIBE / QUIT allowed in this context`);
-      case this.isTxActive(request) && !this.txIgnore:
-        this.enqueueRequest(request);
-        return RedisToken.status(`QUEUED`);
-      default:
-        if (this.dataType) {
-          this.logger.debug(`Executing DB Command ${request.getCommand()} with params [%s]`, request.getParams());
-          const retVal: RedisToken = this.executeDBCommand(request, db);
-          this.logger.debug(`DBCommand returned %j`, retVal);
-          return retVal;
-        } else {
-          if (!!(this.command as any).name ) {
-            this.logger.debug(`Executing RESP Command ${request.getCommand()} with params [%s]`, request.getParams());
-            return this.executeCommand(request);
+  public execute(request: IRequest): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      this.logger.debug(`db id is ${request.getSession().getCurrentDb()}`);
+      const db: Database = this.getCurrentDB(request);
+      this.logger.debug(`COMMAND is ${request.getCommand()}`);
+      this.logger.debug(`PARAMS Is/Are`, request.getParams());
+      switch (true) {
+        case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):
+          this.logger.debug(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
+          resolve(RedisToken.error(
+            `ERR wrong number of arguments for '${request.getCommand()}' command`));
+          break;
+        case this.dataType !== DataType.NONE &&
+          !db.isType(request.getParam(0), this.dataType):
+          this.logger.debug(`Check type for ${request.getParam(0)} against ${this.dataType}`);
+          resolve(RedisToken.error(
+            `WRONGTYPE Operation against a key holding the wrong kind of value`));
+          break;
+        case this.isSubscribed(request) && !this.pubSubAllowed:
+          resolve(RedisToken.error(
+            `ERR only (P)SUBSCRIBE / (P)UNSUBSCRIBE / QUIT allowed in this context`));
+          break;
+        case this.isTxActive(request) && !this.txIgnore:
+          this.enqueueRequest(request);
+          resolve(RedisToken.status(`QUEUED`));
+          break;
+        default:
+          if (this.dataType) {
+            this.logger.debug(`Executing DB Command ${request.getCommand()} with params [%s]`, request.getParams());
+            const retVal: RedisToken | Promise<RedisToken> = this.executeDBCommand(request, db);
+            this.logger.debug(`DBCommand returned %j`, retVal);
+            resolve(retVal);
+            return;
+          } else {
+            if (!!(this.command as any).name) {
+              this.logger.debug(`Executing RESP Command ${request.getCommand()} with params [%s]`, request.getParams());
+              resolve(this.executeCommand(request));
+              return;
+            }
           }
-        }
-        this.logger.warn(`Could not execute command ${request.getCommand()} with params [%s]`, request.getParams());
-        return RedisToken.error(`invalid command type: ${this.command.constructor.name}`);
-    }
+          this.logger.warn(`Could not execute command ${request.getCommand()} with params [%s]`, request.getParams());
+          resolve(RedisToken.error(`invalid command type: ${this.command.constructor.name}`));
+      }
+    });
   }
-  private executeCommand(request: IRequest): RedisToken {
+  private executeCommand(request: IRequest): RedisToken | Promise<RedisToken> {
     return this.command.execute(request);
   }
-  private executeDBCommand(request: IRequest, db: Database): RedisToken {
+  private executeDBCommand(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
     return this.command.execute(request, db);
   }
   private enqueueRequest(request: IRequest): void {

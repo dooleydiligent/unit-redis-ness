@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
@@ -109,7 +109,10 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,28 +140,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -170,10 +176,8 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.0.
- *
- * RPUSH key element [element ...]
- *
+ * ### Available since 1.0.0.
+ * ### RPUSH key element [element ...]
  * Insert all the specified values at the tail of the list stored at key. If key does not exist,
  * it is created as empty list before performing the push operation. When key holds a value that
  * is not a list, an error is returned.
@@ -184,7 +188,7 @@ import { IRespCommand } from '../resp-command';
  * mylist a b c will result into a list containing a as first element, b as second element and c
  * as third element.
  *
- * **Return value**&lt;br&gt;
+ * ### Return value
  * Integer reply: the length of the list after the push operation.
  */
 @DbDataType(DataType.LIST)
@@ -193,24 +197,29 @@ import { IRespCommand } from '../resp-command';
 @Name('rpush')
 export class RPushCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    let list: DatabaseValue = db.get(key);
-    this.logger.debug(`Getting list "${key}"`);
-    if (!list) {
-      this.logger.debug(`Creating new list: "${key}"`);
-      list = new DatabaseValue(DataType.LIST, []);
-    }
-    for (let index = 1; index &lt; request.getParams().length; index++) {
-      const element = request.getParam(index);
-      this.logger.debug(`PUSHING element "${element}" to list "${key}"`);
-      list.getList().push(element);
-    }
-    db.put(key, list);
-    const size: number = list.getList().length;
-    this.logger.debug(`Returning list ${key} size ${size}`);
-    return RedisToken.integer(size);
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      let list: DatabaseValue = db.get(key);
+      this.logger.debug(`Getting list "${key}"`);
+      if (!list) {
+        this.logger.debug(`Creating new list: "${key}"`);
+        list = new DatabaseValue(DataType.LIST, []);
+      }
+      for (let index = 1; index &lt; request.getParams().length; index++) {
+        const element = request.getParam(index);
+        this.logger.debug(`PUSHING element "${element}" to list "${key}"`);
+        list.getList().push(element);
+      }
+      const size: number = list.getList().length;
+      db.put(key, list);
+      for (let index = 1; index &lt; request.getParams().length; index++) {
+        request.getServerContext().emit(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+      }
+      this.logger.debug(`Returning list ${key} size ${size}`);
+      resolve(RedisToken.integer(size));
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -220,7 +229,7 @@ export class RPushCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

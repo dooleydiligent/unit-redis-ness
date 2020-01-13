@@ -2383,12 +2383,18 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since v2.0.0</p>
+					<a href="#available-since-200" id="available-since-200" style="color: inherit; text-decoration: none;">
+						<h3>Available since 2.0.0</h3>
+					</a>
+					<a href="#hget-key-field" id="hget-key-field" style="color: inherit; text-decoration: none;">
+						<h3>HGET key field</h3>
+					</a>
+					<p>Returns the value associated with field in the hash stored at key.</p>
 				</div>
-				<p>HGET key field</p>
-				<p>Returns the value associated with field in the hash stored at key.</p>
-				<p>Return value
-					Bulk string reply: the value associated with field, or nil when field is not
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Bulk string reply: the value associated with field, or nil when field is not
 				present in the hash or key does not exist.</p>
 			</div>
 		</section>
@@ -2433,7 +2439,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/hash/hget-command.ts#L26">src/resp/command/hash/hget-command.ts:26</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/hash/hget-command.ts#L24">src/resp/command/hash/hget-command.ts:24</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2444,13 +2450,13 @@ img {
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/hash/hget-command.ts#L27">src/resp/command/hash/hget-command.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/hash/hget-command.ts#L25">src/resp/command/hash/hget-command.ts:25</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2462,7 +2468,7 @@ img {
 								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>

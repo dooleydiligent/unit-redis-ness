@@ -38,27 +38,29 @@ import { IRespCommand } from '../resp-command';
 export class IncrCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(public sign: number) { }
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let value: DatabaseValue = db.get(request.getParam(0));
-    if (!value) {
-      value = DatabaseValue.string(String( this.sign * 1));
-    } else {
-      this.logger.debug(`The original value is ${value.getString()}`);
-      if (Math.abs(Number(value.getString())) < Number.MAX_SAFE_INTEGER) {
-        const newValue: number = Number(value.getString()) + this.sign;
-        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
-        value = new DatabaseValue(
-          DataType.STRING,
-          String(newValue),
-          ttl !== -1 ? ttl : undefined);
-        this.logger.debug(`The ${this.sign ? 'INCR' : 'DECR'} value is ${value.getString()}`);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      let value: DatabaseValue = db.get(request.getParam(0));
+      if (!value) {
+        value = DatabaseValue.string(String( this.sign * 1));
       } else {
-        return RedisToken.error(`ERR increment or decrement would overflow`);
+        this.logger.debug(`The original value is ${value.getString()}`);
+        if (Math.abs(Number(value.getString())) < Number.MAX_SAFE_INTEGER) {
+          const newValue: number = Number(value.getString()) + this.sign;
+          const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+          value = new DatabaseValue(
+            DataType.STRING,
+            String(newValue),
+            ttl !== -1 ? ttl : undefined);
+          this.logger.debug(`The ${this.sign ? 'INCR' : 'DECR'} value is ${value.getString()}`);
+        } else {
+          resolve(RedisToken.error(`ERR increment or decrement would overflow`));
+          return;
+        }
       }
-    }
-    db.put(request.getParam(0), value);
-
-    return RedisToken.integer(Number(value.getString()));
+      db.put(request.getParam(0), value);
+      resolve(RedisToken.integer(Number(value.getString())));
+    });
   }
 }

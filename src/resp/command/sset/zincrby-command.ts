@@ -36,26 +36,29 @@ import { IRespCommand } from '../resp-command';
 @Name('zincrby')
 export class ZIncrByCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const zkey: string = request.getParam(0);
-    const zIncr: string = request.getParam(1);
-    const zmember: string = request.getParam(2);
-    if (isNaN(Number(zIncr))) {
-      return RedisToken.error('ERR value is not a valid float');
-    }
-    let score: number = 0;
-    const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-    if (!dbKey.getSortedSet().has(zmember)) {
-      this.logger.debug(`Creating new ZSET ${zkey} member ${zmember}`);
-      dbKey.getSortedSet().add(zmember, 0);
-    }
-    this.logger.debug(`Incrementing existing ZSET ${zkey} member ${zmember}`);
-    dbKey.getSortedSet().incrBy(Number(zIncr), zmember);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const zkey: string = request.getParam(0);
+      const zIncr: string = request.getParam(1);
+      const zmember: string = request.getParam(2);
+      if (isNaN(Number(zIncr))) {
+        resolve(RedisToken.error('ERR value is not a valid float'));
+      } else {
+        let score: number = 0;
+        const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+        if (!dbKey.getSortedSet().has(zmember)) {
+          this.logger.debug(`Creating new ZSET ${zkey} member ${zmember}`);
+          dbKey.getSortedSet().add(zmember, 0);
+        }
+        this.logger.debug(`Incrementing existing ZSET ${zkey} member ${zmember}`);
+        dbKey.getSortedSet().incrBy(Number(zIncr), zmember);
 
-    score = dbKey.getSortedSet().score(zmember);
-    this.logger.debug(`Saving ZSET ${zkey} as %s`, dbKey.getSortedSet().toArray({ withScores: true}));
-    db.put(zkey, dbKey);
-    return RedisToken.string(String(score));
+        score = dbKey.getSortedSet().score(zmember);
+        this.logger.debug(`Saving ZSET ${zkey} as %s`, dbKey.getSortedSet().toArray({ withScores: true}));
+        db.put(zkey, dbKey);
+        resolve(RedisToken.string(String(score)));
+      }
+    });
   }
 }

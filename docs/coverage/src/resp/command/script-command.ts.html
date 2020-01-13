@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">84.39% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>141/168</span>
+                <span class='fraction'>146/173</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>135/162</span>
+                <span class='fraction'>140/167</span>
             </div>
         
             
@@ -351,7 +351,15 @@
 <a name='L292'></a><a href='#L292'>292</a>
 <a name='L293'></a><a href='#L293'>293</a>
 <a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,10 +393,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">147x</span>
-<span class="cline-any cline-yes">147x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">153x</span>
+<span class="cline-any cline-yes">153x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
@@ -400,6 +410,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -407,6 +418,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,6 +429,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -424,11 +438,13 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -658,22 +674,23 @@ const lua = fengari.lua;
 const lauxlib = fengari.lauxlib;
 const lualib = fengari.lualib;
 /**
- * Available since 2.6.0.
- *
- * SCRIPT LOAD script
- *
+ * ### Available since 2.6.0.
+ * ### SCRIPT LOAD script
  * Load a script into the scripts cache, without executing it. After the specified command
- * is loaded into the script cache it will be callable using EVALSHA with the correct SHA1
- * digest of the script, exactly like after the first successful invocation of EVAL.
+ * is loaded into the script cache it will be callable using [EVALSHA]{@EvalshaComamnd} with
+ * the correct SHA1 digest of the script, exactly like after the first successful invocation
+ * of EVAL.
  *
- * The script is guaranteed to stay in the script cache forever (unless SCRIPT FLUSH is called).
- * **unit-redis-ness does not persist the script thru restarts**
+ * The script is guaranteed to stay in the script cache forever (unless [SCRIPT FLUSH]{@link ScriptCommand}
+ * is called).
+ * **NOTE: unit-redis-ness does not persist the script thru restarts**
  *
  * The command works in the same way even if the script was already present in the script cache.
  *
- * Please refer to the EVAL documentation for detailed information about Redis Lua scripting.
+ * Please refer to the [EVAL]{@link EvalCommand} documentation for detailed information about
+ * Redis Lua scripting.
  *
- * **Return value**&lt;br&gt;
+ * ### Return value
  * Bulk string reply This command returns the SHA1 digest of the script added into the script cache.
  */
 @MaxParams(-1)
@@ -682,49 +699,56 @@ const lualib = fengari.lualib;
 export class ScriptCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let sha1: string | null;
-    switch (request.getCommand().toLowerCase()) {
-      case 'eval':
-        // Replace the sha1 in the cache
-        sha1 = this.loadScript(request, 0);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (sha1) {
-          return this.executeLua(`${sha1}`, request);
-        } else {
-<span class="cstat-no" title="statement not covered" >          return RedisToken.error(`ERR Parsing script`);</span>
-        }
-      case 'evalsha':
-        sha1 = request.getParam(0);
-        const code: string = request.getServerContext().getScript(sha1);
-        if (!code) {
-          return RedisToken.error('NOSCRIPT No matching script. Please use EVAL.');
-        }
-        return this.executeLua(sha1, request);
-      default:
-        switch (request.getParam(0)) {
-          case 'load':
-            sha1 = this.loadScript(request, 1);
-            if (sha1) {
-              return RedisToken.string(`${sha1}`);
-            } else {
-              return RedisToken.error(`ERR Parsing script`);
-            }
-          case 'exists':
-            // array 0/1
-            const exists: any = request.getServerContext().getScript(request.getParam(1));
-            this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
-            this.logger.debug(`The retured value is "%s"`, exists);
-            return RedisToken.array([
-              RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
-            ]);
-          case 'flush':
-          case 'kill':
-          case 'debug':
-          default:
-            return RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getParam(0)));
-        }
-    }
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      let sha1: string | null;
+      switch (request.getCommand().toLowerCase()) {
+        case 'eval':
+          // Replace the sha1 in the cache
+          sha1 = this.loadScript(request, 0);
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (sha1) {
+            resolve(this.executeLua(`${sha1}`, request));
+          } else {
+<span class="cstat-no" title="statement not covered" >            resolve(RedisToken.error(`ERR Parsing script`));</span>
+          }
+          break;
+        case 'evalsha':
+          sha1 = request.getParam(0);
+          const code: string = request.getServerContext().getScript(sha1);
+          if (!code) {
+            resolve(RedisToken.error('NOSCRIPT No matching script. Please use EVAL.'));
+          } else {
+            resolve(this.executeLua(sha1, request));
+          }
+          break;
+        default:
+          switch (request.getParam(0)) {
+            case 'load':
+              sha1 = this.loadScript(request, 1);
+              if (sha1) {
+                resolve(RedisToken.string(`${sha1}`));
+              } else {
+                resolve(RedisToken.error(`ERR Parsing script`));
+              }
+              break;
+            case 'exists':
+              // array 0/1
+              const exists: any = request.getServerContext().getScript(request.getParam(1));
+              this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
+              this.logger.debug(`The retured value is "%s"`, exists);
+              resolve(RedisToken.array([
+                RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
+              ]));
+              break;
+            case 'flush':
+            case 'kill':
+            case 'debug':
+            default:
+              resolve(RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getParam(0))));
+          }
+      }
+    });
   }
 &nbsp;
   /*
@@ -841,7 +865,7 @@ export class ScriptCommand implements IRespCommand {
       const stack: number = lua.lua_gettop(L);
       this.logger.debug(`The stack top is ${stack}`);
       if (stack === 0) {
-        returnValue = RedisToken.NULL_STRING;
+        returnValue = RedisToken.nullString();
       } else {
         returnValue = this.collectResults(L, stack);
       }
@@ -876,7 +900,7 @@ export class ScriptCommand implements IRespCommand {
 <span class="cstat-no" title="statement not covered" >          break;</span>
 <span class="branch-3 cbranch-no" title="branch not covered" >        case lua.LUA_TNIL:</span>
 <span class="cstat-no" title="statement not covered" >          value = null;</span>
-<span class="cstat-no" title="statement not covered" >          result.push(RedisToken.NULL_STRING);</span>
+<span class="cstat-no" title="statement not covered" >          result.push(RedisToken.nullString());</span>
 <span class="cstat-no" title="statement not covered" >          this.logger.debug(`NIL: null`);</span>
 <span class="cstat-no" title="statement not covered" >          break;</span>
         case lua.LUA_TTABLE:  /* other values */
@@ -900,7 +924,7 @@ export class ScriptCommand implements IRespCommand {
                 if (elementValue) {
                   elementToken = RedisToken.integer(1);
                 } else {
-                  elementToken = RedisToken.NULL_STRING;
+                  elementToken = RedisToken.nullString();
                 }
                 this.logger.debug(`TABLE BOOLEAN: '%s'`, elementValue);
                 break;
@@ -946,7 +970,7 @@ export class ScriptCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

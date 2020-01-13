@@ -48,22 +48,24 @@ import { IRespCommand } from '../resp-command';
 @Name('rpoplpush')
 export class RPoplPushCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const src: string = request.getParam(0);
-    const dst: string = request.getParam(1);
-    const dbSrcList: DatabaseValue = db.get(src);
-    if (!dbSrcList) {
-      return RedisToken.NULL_STRING;
-    } else {
-      const dbDstList: DatabaseValue = db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));
-      const member: any = dbSrcList.getList().pop();
-      dbDstList.getList().unshift(member);
-      db.put(dst, dbDstList);
-      if (dst !== src) {
-        db.put(src, dbSrcList);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const src: string = request.getParam(0);
+      const dst: string = request.getParam(1);
+      const dbSrcList: DatabaseValue = db.get(src);
+      if (!dbSrcList) {
+        resolve(RedisToken.nullString());
+      } else {
+        const dbDstList: DatabaseValue = db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));
+        const member: any = dbSrcList.getList().pop();
+        dbDstList.getList().unshift(member);
+        db.put(dst, dbDstList);
+        if (dst !== src) {
+          db.put(src, dbSrcList);
+        }
+        resolve(RedisToken.string(member));
       }
-      return RedisToken.string(member);
-    }
+    });
   }
 }

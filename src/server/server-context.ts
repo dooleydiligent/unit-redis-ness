@@ -1,9 +1,10 @@
+import { EventEmitter } from 'events';
 import { Dictionary } from '../dictionary';
 import { IRespCommand } from '../resp/command/resp-command';
 import { Database } from '../resp/data/database';
 import { Session } from './session';
 
-export interface IServerContext {
+export interface IServerContext extends EventEmitter {
   addClient(clientId: string, clientSession: Session): void;
   removeClient(clientId: string): void;
   getDatabase(id: number): Database;

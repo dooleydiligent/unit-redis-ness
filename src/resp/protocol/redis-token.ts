@@ -5,9 +5,11 @@ import { RedisTokenType } from './redis-token-type';
 import { StatusRedisToken } from './status-redis-token';
 import { StringRedisToken } from './string-redis-token';
 
+/**
+ * An abstract wrapper for RESP Protocol messages.
+ * See {@link RedisTokenType}
+ */
 export abstract class RedisToken {
-  public static NULL_STRING: RedisToken = RedisToken.string('');
-  public static RESPONSE_OK: RedisToken = RedisToken.status('OK');
   public static nullString(): RedisToken {
     return RedisToken.NULL_STRING;
   }
@@ -32,6 +34,7 @@ export abstract class RedisToken {
   public static error(str: string): RedisToken {
     return new ErrorRedisToken(str);
   }
-
+  private static NULL_STRING: RedisToken = RedisToken.string('');
+  private static RESPONSE_OK: RedisToken = RedisToken.status('OK');
   public abstract getType(): RedisTokenType;
 }

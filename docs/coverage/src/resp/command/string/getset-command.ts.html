@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -111,7 +111,9 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,8 +151,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,6 +168,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
@@ -174,19 +178,19 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.0.
- *
- * GETSET key value
- *
+ * ### Available since 1.0.0.
+ * ### GETSET key value
  * Atomically sets key to value and returns the old value stored at key. Returns an error when
  * key exists but does not hold a string value.
  *
- * **Design pattern**&lt;br&gt;
- * GETSET can be used together with INCR for counting with atomic reset. For example: a process
+ * ### Design pattern
+ * GETSET can be used together with [INCR]{@link IncrCommand} for counting with atomic reset.
+ * For example: a process
  * may call INCR against the key mycounter every time some event occurs, but from time to time we
  * need to get the value of the counter and reset it to zero atomically. This can be done using
  * GETSET mycounter "0":
- *
+ * ### Example
+ * ```
  * redis&gt; INCR mycounter
  * (integer) 1
  * redis&gt; GETSET mycounter "0"
@@ -194,8 +198,8 @@ import { IRespCommand } from '../resp-command';
  * redis&gt; GET mycounter
  * "0"
  * redis&gt;
- *
- * **Return value**&lt;br&gt;
+ * ```
+ * ### Return value
  * Bulk string reply: the old value stored at key, or nil when key did not exist.
  */
 @DbDataType(DataType.STRING)
@@ -204,19 +208,21 @@ import { IRespCommand } from '../resp-command';
 @Name('getset')
 export class GetSetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    let result: RedisToken;
-    const dbValue: DatabaseValue = db.get(key);
-    if (!dbValue) {
-      result = RedisToken.NULL_STRING;
-    } else {
-      result = RedisToken.string(dbValue.getString());
-    }
-    const newValue: string = request.getParam(1);
-    db.put(key, new DatabaseValue(DataType.STRING, newValue));
-    return result;
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      let result: RedisToken;
+      const dbValue: DatabaseValue = db.get(key);
+      if (!dbValue) {
+        result = RedisToken.nullString();
+      } else {
+        result = RedisToken.string(dbValue.getString());
+      }
+      const newValue: string = request.getParam(1);
+      db.put(key, new DatabaseValue(DataType.STRING, newValue));
+      resolve(result);
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -226,7 +232,7 @@ export class GetSetCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -26,23 +26,26 @@ export class InfoCommand implements IRespCommand {
   private static SECTION_SERVER = 'server';
   private logger: Logger = new Logger(module.id);
 
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`executeDBRequest(${request}, ${db})`);
-    const sections: any = {};
-    this.logger.debug(`request is ${request.constructor.name}`, request);
-    if (request.getParams().length > 0) {
-      const section = request.getParam(0).toString();
-      if (this.allSections().indexOf(section.toLowerCase()) > -1) {
-        sections[section] = this.section(section, request.getServerContext());
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`executeDBRequest(${request}, ${db})`);
+      const sections: any = {};
+      this.logger.debug(`request is ${request.constructor.name}`, request);
+      if (request.getParams().length > 0) {
+        const section = request.getParam(0).toString();
+        if (this.allSections().indexOf(section.toLowerCase()) > -1) {
+          sections[section] = this.section(section, request.getServerContext());
+        } else {
+          resolve(RedisToken.string(' '));
+          return;
+        }
       } else {
-        return RedisToken.string(' ');
+        for (const section of this.allSections()) {
+          sections[section] = this.section(section, request.getServerContext());
+        }
       }
-    } else {
-      for (const section of this.allSections()) {
-        sections[section] = this.section(section, request.getServerContext());
-      }
-    }
-    return RedisToken.string(this.makeString(sections));
+      resolve(RedisToken.string(this.makeString(sections)));
+    });
   }
   private allSections(): string[] {
     return [InfoCommand.SECTION_SERVER, InfoCommand.SECTION_REPLICATION, InfoCommand.SECTION_CLIENTS,

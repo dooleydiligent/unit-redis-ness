@@ -23,14 +23,16 @@ import { IRespCommand } from '../resp-command';
 @Name('type')
 export class TypeCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const dbField: DatabaseValue = db.get(key);
-    if (dbField) {
-      return RedisToken.string(dbField.getType());
-    } else {
-      return RedisToken.string(DataType.NONE);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      const dbField: DatabaseValue = db.get(key);
+      if (dbField) {
+        resolve(RedisToken.string(dbField.getType()));
+      } else {
+        resolve(RedisToken.string(DataType.NONE));
+      }
+    });
   }
 }

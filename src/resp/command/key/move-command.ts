@@ -30,40 +30,45 @@ import { IRespCommand } from '../resp-command';
 @Name('move')
 export class MoveCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let response = 0;
-    const currentDb: number = request.getSession().getCurrentDb();
-    const key: string = request.getParam(0);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      let response = 0;
+      const currentDb: number = request.getSession().getCurrentDb();
+      const key: string = request.getParam(0);
 
-    const newDbIndex: string = request.getParam(1);
-    this.logger.debug(`Target DB is ${newDbIndex}`);
-    const targetDb = Number(newDbIndex);
-    if (isNaN(targetDb) || targetDb < 0 || targetDb > 15) {
-      this.logger.debug(`Target DB is invalid`);
-      return RedisToken.error(`ERR index out of range`);
-    }
-    if (targetDb === currentDb) {
-      return RedisToken.error(`ERR source and destination objects are the same`);
-    }
-
-    const dbValue: DatabaseValue = db.get(key);
-
-    if (!dbValue) {
-      this.logger.debug(`key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}`);
-      return RedisToken.integer(response);
-    }
-
-    const newDb: Database = request.getServerContext().getDatabase(targetDb);
-    const targetExists: boolean = newDb.exists(key);
-    if (targetExists) {
-      this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);
-      return RedisToken.integer(0);
-    }
-    newDb.put(key, dbValue);
-    db.remove(key);
-    response = 1;
-    this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);
-    return RedisToken.integer(response);
+      const newDbIndex: string = request.getParam(1);
+      this.logger.debug(`Target DB is ${newDbIndex}`);
+      const targetDb = Number(newDbIndex);
+      if (isNaN(targetDb) || targetDb < 0 || targetDb > 15) {
+        this.logger.debug(`Target DB is invalid`);
+        resolve(RedisToken.error(`ERR index out of range`));
+      } else {
+        if (targetDb === currentDb) {
+          resolve(RedisToken.error(`ERR source and destination objects are the same`));
+        } else {
+          const dbValue: DatabaseValue = db.get(key);
+          if (!dbValue) {
+            this.logger.debug(
+              `key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}
+            `);
+            resolve(RedisToken.integer(response));
+          } else {
+            const newDb: Database = request.getServerContext().getDatabase(targetDb);
+            const targetExists: boolean = newDb.exists(key);
+            if (targetExists) {
+              this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);
+              resolve(RedisToken.integer(0));
+            } else {
+              newDb.put(key, dbValue);
+              db.remove(key);
+              response = 1;
+              this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);
+              resolve(RedisToken.integer(response));
+            }
+          }
+        }
+      }
+    });
   }
 }

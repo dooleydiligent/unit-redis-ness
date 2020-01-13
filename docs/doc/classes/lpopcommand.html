@@ -2368,11 +2368,14 @@ img {
 		<li class="current tsd-kind-class">
 			<a href="lpopcommand.html" class="tsd-kind-icon">LPop<wbr>Command</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="lpopcommand.html#logger" class="tsd-kind-icon">logger</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="lpopcommand.html#execute" class="tsd-kind-icon">execute</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="lpopcommand.html#process" class="tsd-kind-icon">process</a>
 				</li>
 			</ul>
 		</li>
@@ -2383,12 +2386,18 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since 1.0.0.</p>
+					<a href="#available-since-100" id="available-since-100" style="color: inherit; text-decoration: none;">
+						<h3>Available since 1.0.0.</h3>
+					</a>
+					<a href="#lpop-key" id="lpop-key" style="color: inherit; text-decoration: none;">
+						<h3>LPOP key</h3>
+					</a>
+					<p>Removes and returns the first element of the list stored at key.</p>
 				</div>
-				<p>LPOP key</p>
-				<p>Removes and returns the first element of the list stored at key.</p>
-				<p><strong>Return value</strong><br>
-				Bulk string reply: the value of the first element, or nil when key does not exist.</p>
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Bulk string reply: the value of the first element, or nil when key does not exist.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -2396,6 +2405,11 @@ img {
 			<ul class="tsd-hierarchy">
 				<li>
 					<span class="target">LPopCommand</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<a href="blpopcommand.html" class="tsd-signature-type">BLPopCommand</a>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
@@ -2409,30 +2423,31 @@ img {
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+					<section class="tsd-index-section tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="lpopcommand.html#logger" class="tsd-kind-icon">logger</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="lpopcommand.html#logger" class="tsd-kind-icon">logger</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="lpopcommand.html#execute" class="tsd-kind-icon">execute</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="lpopcommand.html#process" class="tsd-kind-icon">process</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="logger" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> logger</h3>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> logger</h3>
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/list/lpop-command.ts#L24">src/resp/command/list/lpop-command.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/list/lpop-command.ts#L22">src/resp/command/list/lpop-command.ts:22</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2443,13 +2458,13 @@ img {
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/list/lpop-command.ts#L25">src/resp/command/list/lpop-command.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/list/lpop-command.ts#L23">src/resp/command/list/lpop-command.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2459,6 +2474,35 @@ img {
 							</li>
 							<li>
 								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="process" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> process</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">process<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/list/lpop-command.ts#L30">src/resp/command/list/lpop-command.ts:30</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>request: <a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a></h5>
+							</li>
+							<li>
+								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
+							</li>
+							<li>
+								<h5>key: <span class="tsd-signature-type">string</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>

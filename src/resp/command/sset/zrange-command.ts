@@ -75,63 +75,68 @@ import { IRespCommand } from '../resp-command';
 @Name('zrange')
 export class ZRangeCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const withScores: string = request.getParams().length === 4 ? request.getParam(3) : '';
-    if (withScores && withScores.toLowerCase() !== 'withscores') {
-      this.logger.debug(`Invalid fourth parameter ${request.getParam(3)}`);
-      return RedisToken.error('ERR syntax error');
-    }
-    const zstart: string = request.getParam(1);
-    this.logger.debug(`Requested start index: ${zstart}`);
-    const zend: string = request.getParam(2);
-    this.logger.debug(`Requested end index: ${zend}`);
-
-    if (isNaN(Number(zstart)) || isNaN(Number(zend))) {
-      this.logger.debug(`Invalid start or stop index: ${zstart} / ${zend}`);
-      return RedisToken.error('ERR value is not an integer or out of range');
-    }
-    const zkey: string = request.getParam(0);
-    this.logger.debug(`ZKey is ${zkey}`);
-    const options = { withScores: withScores ? true : false };
-    this.logger.debug(`WithScores is {%j}`, options);
-    const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-    let start: number = Number(zstart);
-    if (start < 0) {
-      start = dbKey.getSortedSet().length + start;
-      if (start < 0) {
-        start = 0;
-      }
-    }
-    let end: number = Number(zend);
-    if (end < 0) {
-      end = dbKey.getSortedSet().length + 1 + end;
-      if (end < 0) {
-        end = 0;
-      }
-    }
-    if (start > end || start > dbKey.getSortedSet().length) {
-      return RedisToken.array([]);
-    }
-    // SortedSet().rangeByScore uses inclusive ranges so we increment to account for that
-    this.logger.debug(`Getting possibly modified range ${start} - ${end} from %s`,
-      dbKey.getSortedSet().toArray({ withScores: true }));
-    const range: any[] = dbKey.getSortedSet().range(start, end, options);
-    const values: RedisToken[] = [];
-    for (const item of range) {
-      this.logger.debug(`Item is ${item.constructor.name} %s`, item);
-      if (item.constructor.name === 'Array') {
-        this.logger.debug(`pushing ${item[0]}, ${item[1]}}`);
-        values.push(
-          RedisToken.string(item[0]),
-          RedisToken.string(item[1])
-        );
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const withScores: string = request.getParams().length === 4 ? request.getParam(3) : '';
+      if (withScores && withScores.toLowerCase() !== 'withscores') {
+        this.logger.debug(`Invalid fourth parameter ${request.getParam(3)}`);
+        resolve(RedisToken.error('ERR syntax error'));
       } else {
-        values.push(RedisToken.string(item));
+        const zstart: string = request.getParam(1);
+        this.logger.debug(`Requested start index: ${zstart}`);
+        const zend: string = request.getParam(2);
+        this.logger.debug(`Requested end index: ${zend}`);
+
+        if (isNaN(Number(zstart)) || isNaN(Number(zend))) {
+          this.logger.debug(`Invalid start or stop index: ${zstart} / ${zend}`);
+          resolve(RedisToken.error('ERR value is not an integer or out of range'));
+        } else {
+          const zkey: string = request.getParam(0);
+          this.logger.debug(`ZKey is ${zkey}`);
+          const options = { withScores: withScores ? true : false };
+          this.logger.debug(`WithScores is {%j}`, options);
+          const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+          let start: number = Number(zstart);
+          if (start < 0) {
+            start = dbKey.getSortedSet().length + start;
+            if (start < 0) {
+              start = 0;
+            }
+          }
+          let end: number = Number(zend);
+          if (end < 0) {
+            end = dbKey.getSortedSet().length + 1 + end;
+            if (end < 0) {
+              end = 0;
+            }
+          }
+          if (start > end || start > dbKey.getSortedSet().length) {
+            resolve(RedisToken.array([]));
+          } else {
+            // SortedSet().rangeByScore uses inclusive ranges so we increment to account for that
+            this.logger.debug(`Getting possibly modified range ${start} - ${end} from %s`,
+              dbKey.getSortedSet().toArray({ withScores: true }));
+            const range: any[] = dbKey.getSortedSet().range(start, end, options);
+            const values: RedisToken[] = [];
+            for (const item of range) {
+              this.logger.debug(`Item is ${item.constructor.name} %s`, item);
+              if (item.constructor.name === 'Array') {
+                this.logger.debug(`pushing ${item[0]}, ${item[1]}}`);
+                values.push(
+                  RedisToken.string(item[0]),
+                  RedisToken.string(item[1])
+                );
+              } else {
+                values.push(RedisToken.string(item));
+              }
+            }
+            const finalValues = RedisToken.array(values);
+            this.logger.debug(`Returning array %s`, finalValues);
+            resolve(finalValues);
+          }
+        }
       }
-    }
-    const finalValues = RedisToken.array(values);
-    this.logger.debug(`Returning array %s`, finalValues);
-    return finalValues;
+    });
   }
 }

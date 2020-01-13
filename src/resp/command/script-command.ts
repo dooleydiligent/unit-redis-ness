@@ -11,22 +11,23 @@ const lua = fengari.lua;
 const lauxlib = fengari.lauxlib;
 const lualib = fengari.lualib;
 /**
- * Available since 2.6.0.
- *
- * SCRIPT LOAD script
- *
+ * ### Available since 2.6.0.
+ * ### SCRIPT LOAD script
  * Load a script into the scripts cache, without executing it. After the specified command
- * is loaded into the script cache it will be callable using EVALSHA with the correct SHA1
- * digest of the script, exactly like after the first successful invocation of EVAL.
+ * is loaded into the script cache it will be callable using [EVALSHA]{@EvalshaComamnd} with
+ * the correct SHA1 digest of the script, exactly like after the first successful invocation
+ * of EVAL.
  *
- * The script is guaranteed to stay in the script cache forever (unless SCRIPT FLUSH is called).
- * **unit-redis-ness does not persist the script thru restarts**
+ * The script is guaranteed to stay in the script cache forever (unless [SCRIPT FLUSH]{@link ScriptCommand}
+ * is called).
+ * **NOTE: unit-redis-ness does not persist the script thru restarts**
  *
  * The command works in the same way even if the script was already present in the script cache.
  *
- * Please refer to the EVAL documentation for detailed information about Redis Lua scripting.
+ * Please refer to the [EVAL]{@link EvalCommand} documentation for detailed information about
+ * Redis Lua scripting.
  *
- * **Return value**<br>
+ * ### Return value
  * Bulk string reply This command returns the SHA1 digest of the script added into the script cache.
  */
 @MaxParams(-1)
@@ -35,49 +36,56 @@ const lualib = fengari.lualib;
 export class ScriptCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let sha1: string | null;
-    switch (request.getCommand().toLowerCase()) {
-      case 'eval':
-        // Replace the sha1 in the cache
-        sha1 = this.loadScript(request, 0);
-        if (sha1) {
-          return this.executeLua(`${sha1}`, request);
-        } else {
-          return RedisToken.error(`ERR Parsing script`);
-        }
-      case 'evalsha':
-        sha1 = request.getParam(0);
-        const code: string = request.getServerContext().getScript(sha1);
-        if (!code) {
-          return RedisToken.error('NOSCRIPT No matching script. Please use EVAL.');
-        }
-        return this.executeLua(sha1, request);
-      default:
-        switch (request.getParam(0)) {
-          case 'load':
-            sha1 = this.loadScript(request, 1);
-            if (sha1) {
-              return RedisToken.string(`${sha1}`);
-            } else {
-              return RedisToken.error(`ERR Parsing script`);
-            }
-          case 'exists':
-            // array 0/1
-            const exists: any = request.getServerContext().getScript(request.getParam(1));
-            this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
-            this.logger.debug(`The retured value is "%s"`, exists);
-            return RedisToken.array([
-              RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
-            ]);
-          case 'flush':
-          case 'kill':
-          case 'debug':
-          default:
-            return RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getParam(0)));
-        }
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      let sha1: string | null;
+      switch (request.getCommand().toLowerCase()) {
+        case 'eval':
+          // Replace the sha1 in the cache
+          sha1 = this.loadScript(request, 0);
+          if (sha1) {
+            resolve(this.executeLua(`${sha1}`, request));
+          } else {
+            resolve(RedisToken.error(`ERR Parsing script`));
+          }
+          break;
+        case 'evalsha':
+          sha1 = request.getParam(0);
+          const code: string = request.getServerContext().getScript(sha1);
+          if (!code) {
+            resolve(RedisToken.error('NOSCRIPT No matching script. Please use EVAL.'));
+          } else {
+            resolve(this.executeLua(sha1, request));
+          }
+          break;
+        default:
+          switch (request.getParam(0)) {
+            case 'load':
+              sha1 = this.loadScript(request, 1);
+              if (sha1) {
+                resolve(RedisToken.string(`${sha1}`));
+              } else {
+                resolve(RedisToken.error(`ERR Parsing script`));
+              }
+              break;
+            case 'exists':
+              // array 0/1
+              const exists: any = request.getServerContext().getScript(request.getParam(1));
+              this.logger.debug(`EXISTS is ${request.getServerContext().scriptExists(request.getParam(1))}`);
+              this.logger.debug(`The retured value is "%s"`, exists);
+              resolve(RedisToken.array([
+                RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
+              ]));
+              break;
+            case 'flush':
+            case 'kill':
+            case 'debug':
+            default:
+              resolve(RedisToken.error(this.DEFAULT_ERROR.replace('%s', request.getParam(0))));
+          }
+      }
+    });
   }
 
   /*
@@ -194,7 +202,7 @@ export class ScriptCommand implements IRespCommand {
       const stack: number = lua.lua_gettop(L);
       this.logger.debug(`The stack top is ${stack}`);
       if (stack === 0) {
-        returnValue = RedisToken.NULL_STRING;
+        returnValue = RedisToken.nullString();
       } else {
         returnValue = this.collectResults(L, stack);
       }
@@ -229,7 +237,7 @@ export class ScriptCommand implements IRespCommand {
           break;
         case lua.LUA_TNIL:
           value = null;
-          result.push(RedisToken.NULL_STRING);
+          result.push(RedisToken.nullString());
           this.logger.debug(`NIL: null`);
           break;
         case lua.LUA_TTABLE:  /* other values */
@@ -253,7 +261,7 @@ export class ScriptCommand implements IRespCommand {
                 if (elementValue) {
                   elementToken = RedisToken.integer(1);
                 } else {
-                  elementToken = RedisToken.NULL_STRING;
+                  elementToken = RedisToken.nullString();
                 }
                 this.logger.debug(`TABLE BOOLEAN: '%s'`, elementValue);
                 break;

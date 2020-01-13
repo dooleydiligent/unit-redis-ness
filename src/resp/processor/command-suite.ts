@@ -17,6 +17,8 @@ import { RenameCommand } from '../command/key/rename-command';
 import { RenameNxCommand } from '../command/key/renamenx-command';
 import { TtlCommand } from '../command/key/ttl-command';
 import { TypeCommand } from '../command/key/type-command';
+import { BLPopCommand } from '../command/list/blpop-command';
+import { BRPopCommand } from '../command/list/brpop-command';
 import { LIndexCommand } from '../command/list/lindex-command';
 import { LLenCommand } from '../command/list/llen-command';
 import { LPopCommand } from '../command/list/lpop-command';
@@ -132,6 +134,8 @@ export class CommandSuite {
     this.addCommand('sunion', new SUnionCommand(-1, 1, 'sunion'));
     this.addCommand('sunionstore', new SUnionCommand(-1, 2, 'sunionstore'));
     this.addCommand('ttl', new TtlCommand());
+    this.addCommand('brpop', new BRPopCommand(-1, 2, 'brpop'));
+    this.addCommand('blpop', new BLPopCommand(-1, 2, 'blpop'));
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

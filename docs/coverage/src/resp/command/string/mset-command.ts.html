@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -99,7 +99,9 @@
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -123,10 +125,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -139,6 +141,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../../decorators';
@@ -150,17 +154,16 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.1.
- *
- * MSET key value [key value ...]
- *
+ * ### Available since 1.0.1.
+ * ### MSET key value [key value ...]
  * Sets the given keys to their respective values. MSET replaces existing values with new
- * values, just as regular SET. See MSETNX if you don't want to overwrite existing values.
+ * values, just as regular [SET]{@link SetCommand}. See [MSETNX]{@lint MSetNxCommand} if you
+ * don't want to overwrite existing values.
  *
  * MSET is atomic, so all given keys are set at once. It is not possible for clients to see
  * that some of the keys were updated while others are unchanged.
  *
- * **Return value**&lt;br&gt;
+ * ### Return value
  * Simple string reply: always OK since MSET can't fail.
  */
 @MaxParams(-1)
@@ -168,19 +171,22 @@ import { IRespCommand } from '../resp-command';
 @Name('mset')
 export class MsetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    // params() must be an even number
-    if (request.getParams().length % 2 !== 0) {
-      return RedisToken.error('ERR wrong number of arguments for mset');
-    }
-    for (let index = 0; index &lt; request.getParams().length; index += 2) {
-      const key: string = request.getParam(index);
-      const value: string = request.getParam(index + 1);
-      this.logger.debug(`Setting key ${key} to "${value}"`);
-      db.put(key, new DatabaseValue(DataType.STRING, value));
-    }
-    return RedisToken.string('OK');
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      // params() must be an even number
+      if (request.getParams().length % 2 !== 0) {
+        resolve(RedisToken.error('ERR wrong number of arguments for mset'));
+      } else {
+        for (let index = 0; index &lt; request.getParams().length; index += 2) {
+          const key: string = request.getParam(index);
+          const value: string = request.getParam(index + 1);
+          this.logger.debug(`Setting key ${key} to "${value}"`);
+          db.put(key, new DatabaseValue(DataType.STRING, value));
+        }
+        resolve(RedisToken.responseOk());
+      }
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -190,7 +196,7 @@ export class MsetCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
