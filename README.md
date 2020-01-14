@@ -90,7 +90,7 @@ Otherwise, unit-redis only supports 5 "server" commands:
 - quit
 - info
 
-Plus some "database" commands - **implemented as of 1.0.4**:
+Plus some "database" commands - **implemented as of 1.0.8**:
 
 - get
 - set
