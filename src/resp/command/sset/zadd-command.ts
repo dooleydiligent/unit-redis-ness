@@ -91,36 +91,39 @@ import { IRespCommand } from '../resp-command';
 @Name('zadd')
 export class ZaddCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    // params() must be an odd number
-    if (request.getParams().length % 2 !== 1) {
-      return RedisToken.error('ERR syntax error');
-    }
-    try {
-      const zkey: string = request.getParam(0);
-      const initial: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-      const initialCount = initial.getSortedSet().keys().length;
-      this.logger.debug(`Initial key length of ${zkey} is ${initialCount}`);
-      const result: DatabaseValue = db.merge(zkey, this.parseInput(request),
-        (oldValue: DatabaseValue, newValue: DatabaseValue): DatabaseValue => {
-          const merge: SortedSet = new SortedSet();
-          this.logger.debug(
-            `Callback: adding ${oldValue.getSortedSet().keys().length} keys from OldValue [%j]`,
-            oldValue.getSortedSet().toArray({ withScores: true }));
-          merge.addAll(oldValue.getSortedSet());
-          this.logger.debug(
-            `Callback: adding ${newValue.getSortedSet().keys().length} keys from NewValue [%j]`,
-            newValue.getSortedSet().toArray({ withScores: true }));
-          merge.addAll(newValue.getSortedSet());
-          return DatabaseValue.zset(merge);
-        });
-      this.logger.debug(`Final key length of ${zkey} is ${result.getSortedSet().keys().length}`);
-      this.logger.debug(`The sorted set is %s`, result.getSortedSet().toArray({withScores: true}));
-      return RedisToken.integer(result.getSortedSet().keys().length - initialCount);
-    } catch (ex) {
-      return RedisToken.error(ex.message);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      // params() must be an odd number
+      if (request.getParams().length % 2 !== 1) {
+        resolve(RedisToken.error('ERR syntax error'));
+      } else {
+        try {
+          const zkey: string = request.getParam(0);
+          const initial: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+          const initialCount = initial.getSortedSet().keys().length;
+          this.logger.debug(`Initial key length of ${zkey} is ${initialCount}`);
+          const result: DatabaseValue = db.merge(zkey, this.parseInput(request),
+            (oldValue: DatabaseValue, newValue: DatabaseValue): DatabaseValue => {
+              const merge: SortedSet = new SortedSet();
+              this.logger.debug(
+                `Callback: adding ${oldValue.getSortedSet().keys().length} keys from OldValue [%j]`,
+                oldValue.getSortedSet().toArray({ withScores: true }));
+              merge.addAll(oldValue.getSortedSet());
+              this.logger.debug(
+                `Callback: adding ${newValue.getSortedSet().keys().length} keys from NewValue [%j]`,
+                newValue.getSortedSet().toArray({ withScores: true }));
+              merge.addAll(newValue.getSortedSet());
+              return DatabaseValue.zset(merge);
+            });
+          this.logger.debug(`Final key length of ${zkey} is ${result.getSortedSet().keys().length}`);
+          this.logger.debug(`The sorted set is %s`, result.getSortedSet().toArray({withScores: true}));
+          resolve(RedisToken.integer(result.getSortedSet().keys().length - initialCount));
+        } catch (ex) {
+          resolve(RedisToken.error(ex.message));
+        }
+      }
+    });
   }
   private parseInput(request: IRequest): DatabaseValue {
     this.logger.debug(`Parsing input: %s`, request.getParams());

@@ -8,20 +8,19 @@ import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { IRespCommand } from './resp-command';
 /**
- * Client supports the following parameters:
+ * ### Available since 2.6.9.
+ * ### Client supports the following parameters:
  * - GETNAME
- * Available since 2.6.9.
  *
  * CLIENT GETNAME returns the name of the current connection as set by CLIENT SETNAME.
  * Since every new connection starts without an associated name, if no name was assigned
  * a null bulk reply is returned.
  *
- * Return value:
- *
+ * ### Return value:
  * Bulk string reply: The connection name, or a null bulk reply if no name is set.
  *
  * - ID
- * Available since 5.0.0.
+ * ### Available since 5.0.0.
  *
  * NOTE THAT THIS IMPLEMENTATION IS NOT AS ROBUST AS IS EXPLAINED BELOW (YET).
  * Intead this implementation will return the ID assigned by the server.
@@ -43,9 +42,9 @@ import { IRespCommand } from './resp-command';
  *
  * - KILL
  * - LIST
- * CLIENT LIST [TYPE normal|master|replica|pubsub]
+ * ### CLIENT LIST [TYPE normal|master|replica|pubsub]
  *
- *  Available since 2.4.0.
+ * ### Available since 2.4.0.
  *
  * ONLY PARTIALLY IMPLEMENTED
  *
@@ -56,8 +55,7 @@ import { IRespCommand } from './resp-command';
  * where type is one of normal, master, replica and pubsub. Note that clients blocked into the
  * MONITOR command are considered to belong to the normal class.
  *
- * Return value:
- *
+ * ### Return value:
  * Bulk string reply: a unique string, formatted as follows:
  *
  * One client connection per line (separated by LF)
@@ -104,9 +102,8 @@ import { IRespCommand } from './resp-command';
  * - REPLY
  * - SETNAME
  *
- * Available since 2.6.9.
- *
- * CLIENT SETNAME command assigns a name to the current connection.
+ * ### Available since 2.6.9.
+ * ### CLIENT SETNAME command assigns a name to the current connection.
  *
  * The assigned name is displayed in the output of CLIENT LIST so that it is possible
  * to identify the client that performed a given connection.
@@ -125,8 +122,7 @@ import { IRespCommand } from './resp-command';
  *
  * Every new connection starts without an assigned name.
  *
- * Return value:
- *
+ * ### Return value:
  * Simple string reply: OK if the connection name was successfully set.
  */
 @MaxParams(4)
@@ -135,26 +131,32 @@ import { IRespCommand } from './resp-command';
 export class ClientCommand implements IRespCommand {
   public static DEFAULT_ERROR = `ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    switch (request.getParam(0).toLowerCase()) {
-      case 'getname':
-        return this.getName(request);
-      case 'setname':
-        return this.setName(request);
-      case 'id':
-        return this.getId(request);
-      case 'list':
-        return this.getList(request);
-      default:
-        return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      switch (request.getParam(0).toLowerCase()) {
+        case 'getname':
+          resolve(this.getName(request));
+          break;
+        case 'setname':
+          resolve(this.setName(request));
+          break;
+        case 'id':
+          resolve(this.getId(request));
+          break;
+        case 'list':
+          resolve(this.getList(request));
+          break;
+        default:
+          resolve(RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0))));
+      }
+    });
   }
   private getName(request: IRequest): RedisToken {
     if (request.getParams().length === 1) {
       const name = request.getSession().getName();
       if (!name) {
-        return RedisToken.NULL_STRING;
+        return RedisToken.nullString();
       } else {
         return RedisToken.string(name);
       }

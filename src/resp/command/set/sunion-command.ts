@@ -1,4 +1,3 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { DataType } from '../../data/data-type';
@@ -6,6 +5,7 @@ import { Database } from '../../data/database';
 import { DatabaseValue } from '../../data/database-value';
 import { AbstractRedisToken } from '../../protocol/abstract-redis-token';
 import { RedisToken } from '../../protocol/redis-token';
+import { RedisTokenType } from '../../protocol/redis-token-type';
 import { IRespCommand } from '../resp-command';
 /**
  * ### Available since 1.0.0.
@@ -43,6 +43,8 @@ import { IRespCommand } from '../resp-command';
  * 5) "e"
  * redis>
  */
+// NOTE: We don't supply a data type because sunionstore can overwrite the first param
+// even if it is not a SET
 export class SUnionCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(maxParams: number, minParams: number, name: string) {
@@ -50,21 +52,27 @@ export class SUnionCommand implements IRespCommand {
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    switch (request.getCommand().toLowerCase()) {
-      case 'sunionstore':
-        return this.sunionstore(request, db);
-      default:
-        return this.sunion(request, db);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      switch (request.getCommand().toLowerCase()) {
+        case 'sunionstore':
+          resolve(this.sunionstore(request, db));
+        default:
+          resolve(this.sunion(request, db));
+      }
+    });
   }
   private sunion(request: IRequest, db: Database): RedisToken {
-    return RedisToken.array(this.union(0, request, db));
+    const result: RedisToken[] = this.union(0, request, db);
+    if (result && result.length === 1 && result[0].getType() === RedisTokenType.ERROR) {
+      return result[0];
+    }
+    return RedisToken.array(result);
   }
   private sunionstore(request: IRequest, db: Database): RedisToken {
     const result = this.union(1, request, db);
-    if (result[0] === RedisToken.NULL_STRING) {
+    if (result[0] === RedisToken.nullString()) {
       return RedisToken.integer(0);
     }
     const newKey: DatabaseValue = new DatabaseValue(DataType.SET, new Set());
@@ -79,8 +87,8 @@ export class SUnionCommand implements IRespCommand {
     const result: RedisToken[] = [];
     const skey: string = request.getParam(start);
     if (!db.exists(skey)) {
-      this.logger.debug(`Key ${skey} does not exist.  Return NULL set`);
-      return [RedisToken.NULL_STRING];
+      this.logger.debug(`Key ${skey} does not exist.  Return EMPTY set`);
+      return [];
     }
     const members: Set<any> = new Set();
     for (let index = start; index < request.getParams().length; index++) {
@@ -96,7 +104,8 @@ export class SUnionCommand implements IRespCommand {
           }
         }
       } else {
-        this.logger.debug(`Key ${tkey} is not a list.  Ignoring`);
+        this.logger.debug(`Key ${tkey} is not a list.`);
+        return [RedisToken.error('WRONGTYPE Operation against a key holding the wrong kind of value')];
       }
     }
     return result;

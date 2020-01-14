@@ -44,15 +44,17 @@ import { IRespCommand } from '../resp-command';
 @Name('ttl')
 export class TtlCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let ttl: number = -2;
-    const key: string = request.getParam(0);
-    this.logger.debug(`Getting dbValue ${key}`);
-    const dbKey: DatabaseValue = db.get(key);
-    if (dbKey) {
-      ttl = dbKey.timeToLiveSeconds(new Date().getTime());
-    }
-    return RedisToken.integer(ttl);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      let ttl: number = -2;
+      const key: string = request.getParam(0);
+      this.logger.debug(`Getting dbValue ${key}`);
+      const dbKey: DatabaseValue = db.get(key);
+      if (dbKey) {
+        ttl = dbKey.timeToLiveSeconds(new Date().getTime());
+      }
+      resolve(RedisToken.integer(ttl));
+    });
   }
 }

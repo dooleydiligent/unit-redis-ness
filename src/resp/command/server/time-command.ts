@@ -18,12 +18,14 @@ import { IRespCommand } from '../resp-command';
 @MinParams(0)
 @Name('time')
 export class TimeCommand implements IRespCommand {
-  public execute(request: IRequest): RedisToken {
-    const currentTime: number[] = process.hrtime();
-    return RedisToken.array(
-      [
-        RedisToken.string(String(currentTime[0])),
-        RedisToken.string(String(currentTime[1]))
-      ]);
+  public execute(request: IRequest): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      const currentTime: number[] = process.hrtime();
+      resolve(RedisToken.array(
+        [
+          RedisToken.string(String(currentTime[0])),
+          RedisToken.string(String(currentTime[1]))
+        ]));
+      });
   }
 }

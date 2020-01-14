@@ -36,6 +36,8 @@ describe('ltrim-command test', () => {
     expect(response).to.equal('OK');
   });
   it('should trim a list to the requested size or less', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['RPUSH', 'mylist', 'hello']);

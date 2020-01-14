@@ -44,12 +44,16 @@ describe('incr/decr command test', () => {
     expect(response).to.equal('1');
   });
   it('should overflow after 53 bits', async () => {
-    let response: any = await sendCommand(new net.Socket(), ['set', 'incr-key', '9007199254740990']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
-    expect(response).to.equal(Number.MAX_SAFE_INTEGER);
-    response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
-    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    let response: any = await sendCommand(new net.Socket(), ['info', 'server']);
+    // Only run the remaining tests if this is NOT unit-redis-ness
+    if (!/redis_version:5/gim.test(response)) {
+      response = await sendCommand(new net.Socket(), ['set', 'incr-key', '9007199254740990']);
+      expect(response).to.equal('OK');
+      response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
+      expect(response).to.equal(Number.MAX_SAFE_INTEGER);
+      response = await sendCommand(new net.Socket(), ['incr', 'incr-key']);
+      expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    }
   });
   // DECR command
   it('should report -1 when decr called against unknown key', async () => {
@@ -63,12 +67,16 @@ describe('incr/decr command test', () => {
     expect(response).to.equal('-1');
   });
   it('should overflow after 53 bits', async () => {
-    let response: any = await sendCommand(new net.Socket(), ['set', 'decr-key', '-9007199254740990']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
-    expect(response).to.equal(Number.MIN_SAFE_INTEGER);
-    response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
-    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    let response: any = await sendCommand(new net.Socket(), ['info', 'server']);
+    // Only run the remaining tests if this is NOT unit-redis-ness
+    if (!/redis_version:5/gim.test(response)) {
+      let response: any = await sendCommand(new net.Socket(), ['set', 'decr-key', '-9007199254740990']);
+      expect(response).to.equal('OK');
+      response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
+      expect(response).to.equal(Number.MIN_SAFE_INTEGER);
+      response = await sendCommand(new net.Socket(), ['decr', 'decr-key']);
+      expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    }
   });
   it('should respect TTL', async () => {
     const response: any = await sendCommand(new net.Socket(), ['get', 'ttlkey']);

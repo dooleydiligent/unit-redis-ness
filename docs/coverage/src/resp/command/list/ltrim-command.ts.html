@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/38</span>
+                <span class='fraction'>39/39</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/36</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
@@ -164,7 +164,11 @@
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -226,8 +230,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -269,6 +274,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -334,48 +342,52 @@ import { IRespCommand } from '../resp-command';
 @Name('ltrim')
 export class LTrimCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    let startIndex: any = Number(request.getParam(1));
-    this.logger.debug(`startIndex is ${startIndex}`);
-    let stopIndex: any = Number(request.getParam(2));
-    this.logger.debug(`stopIndex is ${stopIndex}`);
-    if (isNaN(startIndex) || isNaN(stopIndex) || !Number.isInteger(startIndex) || !Number.isInteger(stopIndex)) {
-      this.logger.debug(`Invalid start or stop index`);
-      return RedisToken.error('ERR value is not an integer or out of range');
-    }
-    const list: DatabaseValue = db.get(key);
-    this.logger.debug(`Getting list "${key}"`);
-    if (!list) {
-      this.logger.debug(`LIST ${key} does not exist. Bailing`);
-      return RedisToken.string('OK');
-    }
-    this.logger.debug(`The full list is [%s]`, list.getList());
-    // Normalize start and stop indices
-    if (startIndex &lt; 0) {
-      startIndex = list.getList().length + startIndex;
-      if (startIndex &lt; 0) {
-        startIndex = 0;
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      let startIndex: any = Number(request.getParam(1));
+      this.logger.debug(`startIndex is ${startIndex}`);
+      let stopIndex: any = Number(request.getParam(2));
+      this.logger.debug(`stopIndex is ${stopIndex}`);
+      if (isNaN(startIndex) || isNaN(stopIndex) || !Number.isInteger(startIndex) || !Number.isInteger(stopIndex)) {
+        this.logger.debug(`Invalid start or stop index`);
+        resolve(RedisToken.error('ERR value is not an integer or out of range'));
+      } else {
+        const list: DatabaseValue = db.get(key);
+        this.logger.debug(`Getting list "${key}"`);
+        if (!list) {
+          this.logger.debug(`LIST ${key} does not exist. Bailing`);
+          resolve(RedisToken.responseOk());
+        } else {
+          this.logger.debug(`The full list is [%s]`, list.getList());
+          // Normalize start and stop indices
+          if (startIndex &lt; 0) {
+            startIndex = list.getList().length + startIndex;
+            if (startIndex &lt; 0) {
+              startIndex = 0;
+            }
+          }
+          if (stopIndex &lt; 0) {
+            stopIndex = list.getList().length + stopIndex;
+          }
+          // create a temporary array with slice
+          this.logger.debug(`startIndex is ${startIndex}, stopIndex = ${stopIndex + 1}`);
+          // slice does not include the end element
+          const temparray: any[] = list.getList().slice(startIndex, stopIndex + 1);
+          // replace list with the slice
+          list.getList().splice(0, list.getList().length, ...temparray);
+          if (list.getList().length &gt; 0) {
+            this.logger.debug(`Saving potentially modified list ${key}: %s`, list.getList());
+            db.put(key, list);
+          } else {
+            this.logger.debug(`Removing empty list ${key}`);
+            db.remove(key);
+          }
+          resolve(RedisToken.responseOk());
+        }
       }
-    }
-    if (stopIndex &lt; 0) {
-      stopIndex = list.getList().length + stopIndex;
-    }
-    // create a temporary array with slice
-    this.logger.debug(`startIndex is ${startIndex}, stopIndex = ${stopIndex + 1}`);
-    // slice does not include the end element
-    const temparray: any[] = list.getList().slice(startIndex, stopIndex + 1);
-    // replace list with the slice
-    list.getList().splice(0, list.getList().length, ...temparray);
-    if (list.getList().length &gt; 0) {
-      this.logger.debug(`Saving potentially modified list ${key}: %s`, list.getList());
-      db.put(key, list);
-    } else {
-      this.logger.debug(`Removing empty list ${key}`);
-      db.remove(key);
-    }
-    return RedisToken.responseOk();
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -385,7 +397,7 @@ export class LTrimCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:20:15 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

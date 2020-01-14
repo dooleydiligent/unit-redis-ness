@@ -30,7 +30,7 @@ export class RespServer extends EventEmitter {
   private static BUFFER_SIZE = 1024 * 1024;
   private static MAX_FRAME_SIZE = RespServer.BUFFER_SIZE * 100;
   private static DEFAULT_HOST = process.env.REDIS_HOST || 'localhost';
-  private static DEFAULT_PORT = 6378; // Number(process.env.REDIS_PORT || 6378);
+  private static DEFAULT_PORT = process.env.REDIS_PORT ||  6379;
 
   private logger: Logger = new Logger(module.id);
   private server: net.Server = net.createServer();
@@ -38,7 +38,7 @@ export class RespServer extends EventEmitter {
   constructor() {
     super();
     const host = RespServer.DEFAULT_HOST;
-    const port = RespServer.DEFAULT_PORT;
+    const port = Number(RespServer.DEFAULT_PORT);
     const commandSuite = new CommandSuite();
     this.serverContext = new RespServerContext(host, port, commandSuite);
   }
@@ -73,10 +73,12 @@ export class RespServer extends EventEmitter {
     // look up the command in commandsuite
     const execcommand: IRespCommand = this.serverContext.getCommand(result.getCommand());
     this.logger.debug(`Command is ${result.getCommand()}: ${util.inspect(execcommand)}`);
-    const resultToken: RedisToken = execcommand.execute(result);
-    this.logger.debug(`resultToken is ${resultToken}`);
-    // send the result back to the client
-    session.publish(resultToken);
+    execcommand.execute(result)
+      .then((resultToken: RedisToken) => {
+        this.logger.debug(`resultToken is ${resultToken}`);
+        // send the result back to the client
+        session.publish(resultToken);
+      });
   }
   /**
    * start the redis server

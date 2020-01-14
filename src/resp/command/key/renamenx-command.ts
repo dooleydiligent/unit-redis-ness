@@ -40,21 +40,25 @@ import { IRespCommand } from '../resp-command';
 @Name('renamenx')
 export class RenameNxCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const oldKey: string = request.getParam(0);
-    const newKey: string = request.getParam(1);
-    const dbValue: DatabaseValue = db.get(oldKey);
-    if (!dbValue) {
-      this.logger.debug(`Key ${oldKey} does not exist`);
-      return RedisToken.error('ERR no such key');
-    }
-    if (db.exists(newKey)) {
-      this.logger.debug(`Key ${newKey} already exists`);
-      return RedisToken.integer(0);
-    }
-    db.rename(oldKey, newKey);
-    this.logger.debug(`Renamed ${oldKey} to ${newKey}`);
-    return RedisToken.integer(1);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const oldKey: string = request.getParam(0);
+      const newKey: string = request.getParam(1);
+      const dbValue: DatabaseValue = db.get(oldKey);
+      if (!dbValue) {
+        this.logger.debug(`Key ${oldKey} does not exist`);
+        resolve(RedisToken.error('ERR no such key'));
+      } else {
+        if (db.exists(newKey)) {
+          this.logger.debug(`Key ${newKey} already exists`);
+          resolve(RedisToken.integer(0));
+        } else {
+          db.rename(oldKey, newKey);
+          this.logger.debug(`Renamed ${oldKey} to ${newKey}`);
+          resolve(RedisToken.integer(1));
+        }
+      }
+    });
   }
 }

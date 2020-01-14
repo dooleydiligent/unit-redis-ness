@@ -31,15 +31,16 @@ describe('sdiff-command test', () => {
   /**
    * Functional testing of the sdiff command
    */
-  it('should return NIL when the source set does not exist', async () => {
+  it('should return EMPTY ARRAY when the source set does not exist', async () => {
     response = await sendCommand(client, ['sdiff', 'ary']);
-    expect(response).to.eql([null]);
+    expect(response).to.eql([]);
   });
   it('should return all members of source set when the destination set does not exist', async () => {
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c', 'd']);
     expect(response).to.equal(4);
     response = await sendCommand(client, ['sdiff', 'key1', 'empty']);
-    expect(response).to.eql(['a', 'b', 'c', 'd']);
+    // REDIS does not guarantee order of the set
+    expect(response.sort()).to.eql(['a', 'b', 'c', 'd']);
   });
   it('should return a proper DIFF of one or more sets', async () => {
     response = await sendCommand(client, ['sadd', 'key2', 'c']);

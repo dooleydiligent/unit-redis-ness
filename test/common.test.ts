@@ -1,5 +1,4 @@
 import 'mocha';
-
 export { sendCommand } from '../src/client';
 /**
  * Rool-level before and after run only once

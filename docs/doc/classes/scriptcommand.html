@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ScriptCommand | unit-redis-ness - v1.0.7</title>
+	<title>ScriptCommand | unit-redis-ness - v1.0.8</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2335,7 +2335,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="../index.html">unit-redis-ness - v1.0.7</a></strong>
+					<strong><a href="../index.html">unit-redis-ness - v1.0.8</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2398,18 +2398,27 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since 2.6.0.</p>
+					<a href="#available-since-260" id="available-since-260" style="color: inherit; text-decoration: none;">
+						<h3>Available since 2.6.0.</h3>
+					</a>
+					<a href="#script-load-script" id="script-load-script" style="color: inherit; text-decoration: none;">
+						<h3>SCRIPT LOAD script</h3>
+					</a>
+					<p>Load a script into the scripts cache, without executing it. After the specified command
+						is loaded into the script cache it will be callable using [EVALSHA]{@EvalshaComamnd} with
+						the correct SHA1 digest of the script, exactly like after the first successful invocation
+					of EVAL.</p>
 				</div>
-				<p>SCRIPT LOAD script</p>
-				<p>Load a script into the scripts cache, without executing it. After the specified command
-					is loaded into the script cache it will be callable using EVALSHA with the correct SHA1
-				digest of the script, exactly like after the first successful invocation of EVAL.</p>
-				<p>The script is guaranteed to stay in the script cache forever (unless SCRIPT FLUSH is called).
-				<strong>unit-redis-ness does not persist the script thru restarts</strong></p>
+				<p>The script is guaranteed to stay in the script cache forever (unless <a href="scriptcommand.html">SCRIPT FLUSH</a>
+					is called).
+				<strong>NOTE: unit-redis-ness does not persist the script thru restarts</strong></p>
 				<p>The command works in the same way even if the script was already present in the script cache.</p>
-				<p>Please refer to the EVAL documentation for detailed information about Redis Lua scripting.</p>
-				<p><strong>Return value</strong><br>
-				Bulk string reply This command returns the SHA1 digest of the script added into the script cache.</p>
+				<p>Please refer to the [EVAL]{@link EvalCommand} documentation for detailed information about
+				Redis Lua scripting.</p>
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Bulk string reply This command returns the SHA1 digest of the script added into the script cache.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -2458,7 +2467,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ERR Unknown subcommand or wrong number of arguments for &#x27;%s&#x27;. Try SCRIPT HELP.&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L37">src/resp/command/script-command.ts:37</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L38">src/resp/command/script-command.ts:38</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2468,7 +2477,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L36">src/resp/command/script-command.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L37">src/resp/command/script-command.ts:37</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2485,7 +2494,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L209">src/resp/command/script-command.ts:209</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L217">src/resp/command/script-command.ts:217</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2505,13 +2514,13 @@ img {
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="../interfaces/irequest.html" class="tsd-signature-type">IRequest</a>, db<span class="tsd-signature-symbol">: </span><a href="database.html" class="tsd-signature-type">Database</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L38">src/resp/command/script-command.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L39">src/resp/command/script-command.ts:39</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2523,7 +2532,7 @@ img {
 								<h5>db: <a href="database.html" class="tsd-signature-type">Database</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="redistoken.html" class="tsd-signature-type">RedisToken</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="redistoken.html" class="tsd-signature-type">RedisToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -2537,7 +2546,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L137">src/resp/command/script-command.ts:137</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L145">src/resp/command/script-command.ts:145</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2563,7 +2572,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L100">src/resp/command/script-command.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L108">src/resp/command/script-command.ts:108</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2601,7 +2610,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/9e699db/src/resp/command/script-command.ts#L285">src/resp/command/script-command.ts:285</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/8257d4c/src/resp/command/script-command.ts#L293">src/resp/command/script-command.ts:293</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

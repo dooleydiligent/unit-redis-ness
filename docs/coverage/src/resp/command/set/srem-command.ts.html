@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -134,7 +134,10 @@
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -180,8 +183,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -209,6 +213,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -258,34 +264,37 @@ import { IRespCommand } from '../resp-command';
 @Name('srem')
 export class SRemCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const dbKey: DatabaseValue = db.get(key);
-    if (!dbKey) {
-      this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
-      return RedisToken.integer(0);
-    }
-    let results: number = 0;
-    for (let index = 1; index &lt; request.getParams().length; index++) {
-      const member = request.getParam(index);
-      this.logger.debug(`Checking key ${key} for member ${member}`);
-      if (dbKey.getSet().has(member)) {
-        this.logger.debug(`Removing member ${member} from key ${key}`);
-        dbKey.getSet().delete(member);
-        ++results;
-      }
-    }
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (results &gt; 0) {
-      if (dbKey.getSet().size &gt; 0) {
-        this.logger.debug(`Saving updated set ${key} as %s`, dbKey.getSet());
-        db.put(key, dbKey);
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      const dbKey: DatabaseValue = db.get(key);
+      if (!dbKey) {
+        this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
+        resolve(RedisToken.integer(0));
       } else {
-        this.logger.debug(`Removing empty set ${key}`);
-        db.remove(key);
+        let results: number = 0;
+        for (let index = 1; index &lt; request.getParams().length; index++) {
+          const member = request.getParam(index);
+          this.logger.debug(`Checking key ${key} for member ${member}`);
+          if (dbKey.getSet().has(member)) {
+            this.logger.debug(`Removing member ${member} from key ${key}`);
+            dbKey.getSet().delete(member);
+            ++results;
+          }
+        }
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (results &gt; 0) {
+          if (dbKey.getSet().size &gt; 0) {
+            this.logger.debug(`Saving updated set ${key} as %s`, dbKey.getSet());
+            db.put(key, dbKey);
+          } else {
+            this.logger.debug(`Removing empty set ${key}`);
+            db.remove(key);
+          }
+        }
+        resolve(RedisToken.integer(results));
       }
-    }
-    return RedisToken.integer(results);
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -295,7 +304,7 @@ export class SRemCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:20:15 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

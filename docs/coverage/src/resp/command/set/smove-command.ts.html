@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/32</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -123,7 +123,9 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -158,8 +160,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -187,6 +190,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -225,34 +229,36 @@ import { IRespCommand } from '../resp-command';
 @Name('smove')
 export class SMoveCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const skeyFrom: string = request.getParam(0);
-    const skeyTo: string = request.getParam(1);
-    const skeyName: string = request.getParam(2);
-    const dbFrom: DatabaseValue = db.getOrDefault(skeyFrom, new DatabaseValue(DataType.SET, new Set()));
-    const dbTo: DatabaseValue = db.getOrDefault(skeyTo,  new DatabaseValue(DataType.SET, new Set()));
-    let result = 0;
-    if (dbFrom.getSet().has(skeyName)) {
-      this.logger.debug(`deleting ${skeyFrom}.${skeyName} from %j`, dbFrom.getSet().entries());
-      dbFrom.getSet().delete(skeyName);
-      this.logger.debug(`after delete, ${skeyFrom} is %j`, dbFrom.getSet().entries());
-      if (!dbTo.getSet().has(skeyName)) {
-        this.logger.debug(`adding ${skeyTo}.${skeyName} to %j`, dbTo.getSet().entries());
-        dbTo.getSet().add(skeyName);
-        this.logger.debug(`saving ${skeyTo} %j`, dbTo.getSet().entries());
-        db.put(skeyTo, DatabaseValue.set(dbTo.getSet()));
-        result = 1;
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const skeyFrom: string = request.getParam(0);
+      const skeyTo: string = request.getParam(1);
+      const skeyName: string = request.getParam(2);
+      const dbFrom: DatabaseValue = db.getOrDefault(skeyFrom, new DatabaseValue(DataType.SET, new Set()));
+      const dbTo: DatabaseValue = db.getOrDefault(skeyTo,  new DatabaseValue(DataType.SET, new Set()));
+      let result = 0;
+      if (dbFrom.getSet().has(skeyName)) {
+        this.logger.debug(`deleting ${skeyFrom}.${skeyName} from %j`, dbFrom.getSet().entries());
+        dbFrom.getSet().delete(skeyName);
+        this.logger.debug(`after delete, ${skeyFrom} is %j`, dbFrom.getSet().entries());
+        if (!dbTo.getSet().has(skeyName)) {
+          this.logger.debug(`adding ${skeyTo}.${skeyName} to %j`, dbTo.getSet().entries());
+          dbTo.getSet().add(skeyName);
+          this.logger.debug(`saving ${skeyTo} %j`, dbTo.getSet().entries());
+          db.put(skeyTo, DatabaseValue.set(dbTo.getSet()));
+          result = 1;
+        } else {
+          this.logger.debug(`${skeyTo}.${skeyName} already exists`);
+          result = 1;
+        }
+        this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());
+        db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));
       } else {
-        this.logger.debug(`${skeyTo}.${skeyName} already exists`);
-        result = 1;
+        this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);
       }
-      this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());
-      db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));
-    } else {
-      this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);
-    }
-    return RedisToken.integer(result);
+      resolve(RedisToken.integer(result));
+    });
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +268,7 @@ export class SMoveCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 12 2020 16:18:20 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:20:15 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

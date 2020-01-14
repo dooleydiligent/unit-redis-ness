@@ -6,9 +6,8 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.0.
- *
- * RENAME key newkey
+ * ### Available since 1.0.0.
+ * ### RENAME key newkey
  *
  * Renames key to newkey. It returns an error when key does not exist. If newkey already exists
  * it is overwritten, when this happens RENAME executes an implicit DEL operation, so if the
@@ -20,7 +19,7 @@ import { IRespCommand } from '../resp-command';
  * only keys that have the same hash tag can be reliably renamed in cluster.
  * **Also NOTE: There is no 'cluster mode' available for unit-redis-ness**
  *
- * History
+ * ### History
  * <= 3.2.0: Before Redis 3.2.0, an error is returned if source and destination names are the same.
  */
 
@@ -29,17 +28,20 @@ import { IRespCommand } from '../resp-command';
 @Name('rename')
 export class RenameCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const oldKey: string = request.getParam(0);
-    const newKey: string = request.getParam(1);
-    const dbValue: DatabaseValue = db.get(oldKey);
-    if (!dbValue) {
-      this.logger.debug(`key ${oldKey} does not exist`);
-      return RedisToken.error('ERR no such key');
-    }
-    db.rename(oldKey, newKey);
-    this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
-    return RedisToken.string('OK');
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const oldKey: string = request.getParam(0);
+      const newKey: string = request.getParam(1);
+      const dbValue: DatabaseValue = db.get(oldKey);
+      if (!dbValue) {
+        this.logger.debug(`key ${oldKey} does not exist`);
+        resolve(RedisToken.error('ERR no such key'));
+      } else {
+        db.rename(oldKey, newKey);
+        this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
+        resolve(RedisToken.responseOk());
+      }
+    });
   }
 }
