@@ -151,6 +151,12 @@ Plus some "database" commands - **implemented as of 1.0.4**:
 - sunion
 - sunionstore
 - ttl
+- brpop
+- blpop
+- brpoplpush
+- exec
+- multi
+- discard
 
 Todo (to complete v1.0.0 command set)
 

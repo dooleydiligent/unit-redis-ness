@@ -20,10 +20,12 @@ import { IRespCommand } from '../resp-command';
 @Name('dbsize')
 export class DBSizeCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     const count: number = db.keys().length;
     this.logger.debug(`Returning ${count}`);
-    return RedisToken.integer(count);
+    return new Promise((resolve) => {
+      resolve(RedisToken.integer(count));
+    });
   }
 }

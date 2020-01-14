@@ -8,14 +8,13 @@ import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
  * ### Available since 2.0.0.
- *
  * ### ZRANK key member
- *
  * Returns the rank of member in the sorted set stored at key, with the scores ordered
  * from low to high. The rank (or index) is 0-based, which means that the member with
  * the lowest score has rank 0.
  *
- * Use ZREVRANK to get the rank of an element with the scores ordered from high to low.
+ * Use [ZREVRANK]{@link ZRevRankCommand} to get the rank of an element with the scores
+ * ordered from high to low.
  *
  * ### Return value
  * If member exists in the sorted set, Integer reply: the rank of member.
@@ -43,23 +42,26 @@ import { IRespCommand } from '../resp-command';
 @Name('zrank')
 export class ZRankCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const member: string = request.getParam(1);
-    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
-    const dbValue: DatabaseValue = db.get(key);
-    if (!dbValue) {
-      this.logger.debug(`Key ${key} not found`);
-      return RedisToken.NULL_STRING;
-    }
-    this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({withScores: true}));
-    if (dbValue.getSortedSet().has(member)) {
-      const result: number = dbValue.getSortedSet().rank(member);
-      return RedisToken.integer(result);
-    } else {
-      this.logger.debug(`Member ${member} not found in key ${key}`);
-      return RedisToken.NULL_STRING;
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      const member: string = request.getParam(1);
+      this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
+      const dbValue: DatabaseValue = db.get(key);
+      if (!dbValue) {
+        this.logger.debug(`Key ${key} not found`);
+        resolve(RedisToken.nullString());
+      } else {
+        this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({withScores: true}));
+        if (dbValue.getSortedSet().has(member)) {
+          const result: number = dbValue.getSortedSet().rank(member);
+          resolve(RedisToken.integer(result));
+        } else {
+          this.logger.debug(`Member ${member} not found in key ${key}`);
+          resolve(RedisToken.nullString());
+        }
+      }
+    });
   }
 }

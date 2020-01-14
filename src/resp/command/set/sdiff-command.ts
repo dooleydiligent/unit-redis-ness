@@ -49,31 +49,31 @@ import { IRespCommand } from '../resp-command';
 @Name('sdiff')
 export class SDiffCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const result: RedisToken[] = [];
-    const skey: string = request.getParam(0);
-    if (!db.exists(skey)) {
-      result.push(RedisToken.NULL_STRING);
-    } else {
-      const dbKey: DatabaseValue = db.get(skey);
-      const diffset: Set<any> = new Set();
-      for (let index = 1; index < request.getParams().length; index++) {
-        const dbDiff: DatabaseValue = db.get(request.getParam(index));
-        if (dbDiff && dbDiff.getType() === DataType.SET) {
-          dbDiff.getSet().forEach((element) => {
-            if (!diffset.has(element)) {
-              diffset.add(element);
-            }
-          });
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const result: RedisToken[] = [];
+      const skey: string = request.getParam(0);
+      if (db.exists(skey)) {
+        const dbKey: DatabaseValue = db.get(skey);
+        const diffset: Set<any> = new Set();
+        for (let index = 1; index < request.getParams().length; index++) {
+          const dbDiff: DatabaseValue = db.get(request.getParam(index));
+          if (dbDiff && dbDiff.getType() === DataType.SET) {
+            dbDiff.getSet().forEach((element) => {
+              if (!diffset.has(element)) {
+                diffset.add(element);
+              }
+            });
+          }
         }
+        dbKey.getSet().forEach((element) => {
+          if (!diffset.has(element)) {
+            result.push(RedisToken.string(element));
+          }
+        });
       }
-      dbKey.getSet().forEach((element) => {
-        if (!diffset.has(element)) {
-          result.push(RedisToken.string(element));
-        }
-      });
-    }
-    return RedisToken.array(result);
+      resolve(RedisToken.array(result));
+    });
   }
 }

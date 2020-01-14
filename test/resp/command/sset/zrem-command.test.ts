@@ -32,6 +32,8 @@ describe('zrem-command test', () => {
    * Functional testing of the zrem command
    */
   it('should remove a key from a sorted set', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['zadd', 'zset', '1', 'one']);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['zadd', 'zset', '2', 'two']);

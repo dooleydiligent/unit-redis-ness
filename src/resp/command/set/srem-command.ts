@@ -45,33 +45,36 @@ import { IRespCommand } from '../resp-command';
 @Name('srem')
 export class SRemCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const dbKey: DatabaseValue = db.get(key);
-    if (!dbKey) {
-      this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
-      return RedisToken.integer(0);
-    }
-    let results: number = 0;
-    for (let index = 1; index < request.getParams().length; index++) {
-      const member = request.getParam(index);
-      this.logger.debug(`Checking key ${key} for member ${member}`);
-      if (dbKey.getSet().has(member)) {
-        this.logger.debug(`Removing member ${member} from key ${key}`);
-        dbKey.getSet().delete(member);
-        ++results;
-      }
-    }
-    if (results > 0) {
-      if (dbKey.getSet().size > 0) {
-        this.logger.debug(`Saving updated set ${key} as %s`, dbKey.getSet());
-        db.put(key, dbKey);
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      const dbKey: DatabaseValue = db.get(key);
+      if (!dbKey) {
+        this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
+        resolve(RedisToken.integer(0));
       } else {
-        this.logger.debug(`Removing empty set ${key}`);
-        db.remove(key);
+        let results: number = 0;
+        for (let index = 1; index < request.getParams().length; index++) {
+          const member = request.getParam(index);
+          this.logger.debug(`Checking key ${key} for member ${member}`);
+          if (dbKey.getSet().has(member)) {
+            this.logger.debug(`Removing member ${member} from key ${key}`);
+            dbKey.getSet().delete(member);
+            ++results;
+          }
+        }
+        if (results > 0) {
+          if (dbKey.getSet().size > 0) {
+            this.logger.debug(`Saving updated set ${key} as %s`, dbKey.getSet());
+            db.put(key, dbKey);
+          } else {
+            this.logger.debug(`Removing empty set ${key}`);
+            db.remove(key);
+          }
+        }
+        resolve(RedisToken.integer(results));
       }
-    }
-    return RedisToken.integer(results);
+    });
   }
 }

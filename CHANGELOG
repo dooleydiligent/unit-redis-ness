@@ -6,3 +6,6 @@
                 Grouped commands logically
 
 2020-01-09-LH - Implemented SCRIPT, EVAL, and EVALSHA - embedded fengari
+
+2020-01-14-LH - Implemented EXEC, MULTI, DISCARD, sinter, sinterstore, sunion, and sunionstore,
+                blpop, brpop, and brpoplpush

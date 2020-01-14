@@ -8,13 +8,11 @@ import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 
 /**
- * Available since v2.0.0
- *
- * HGET key field
- *
+ * ### Available since 2.0.0
+ * ### HGET key field
  * Returns the value associated with field in the hash stored at key.
  *
- * Return value
+ * ### Return value
  * Bulk string reply: the value associated with field, or nil when field is not
  * present in the hash or key does not exist.
  */
@@ -24,17 +22,21 @@ import { IRespCommand } from '../resp-command';
 @Name('hget')
 export class HgetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // Get the original HASH
-    const item: DatabaseValue = db.get(request.getParam(0));
-    if (!item) {
-      return RedisToken.NULL_STRING;
-    }
-    const hash = item.getHash();
-    if (!hash[request.getParam(1)]) {
-      return RedisToken.NULL_STRING;
-    }
-    return RedisToken.string(hash[request.getParam(1)]);
+    return new Promise((resolve) => {
+      const item: DatabaseValue = db.get(request.getParam(0));
+      if (!item) {
+        resolve(RedisToken.nullString());
+      } else {
+        const hash = item.getHash();
+        if (!hash[request.getParam(1)]) {
+          resolve(RedisToken.nullString());
+        } else {
+          resolve(RedisToken.string(hash[request.getParam(1)]));
+        }
+      }
+    });
   }
 }

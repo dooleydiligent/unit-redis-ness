@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+import { EventEmitter } from 'events';
 import * as net from 'net';
 import { Dictionary } from '../dictionary';
 import { Logger } from '../logger';
@@ -7,7 +8,7 @@ import { Database } from '../resp/data/database';
 import { CommandSuite } from '../resp/processor/command-suite';
 import { IServerContext } from './server-context';
 import { Session } from './session';
-export class RespServerContext implements IServerContext {
+export class RespServerContext extends EventEmitter implements IServerContext {
   private logger: Logger = new Logger(module.id);
   private clients: Dictionary<string, net.Socket> = new Dictionary<string, net.Socket>();
   private state: Dictionary<string, string> = new Dictionary<string, string>();
@@ -21,6 +22,8 @@ export class RespServerContext implements IServerContext {
    * @param commands An empty command suite
    */
   constructor(private host: string, private port: number, private commands: CommandSuite) {
+    super();
+    this.logger.warn(`REDIS_PORT is ${process.env.REDIS_PORT}`);
     this.databases.put('_0', new Database());
   }
 

@@ -36,11 +36,11 @@ describe('keys-command test', () => {
     response = await sendCommand(client, ['mset', 'firstname', 'Jack', 'lastname', 'Stuntman', 'age', '35']);
     expect(response).to.equal('OK');
     response = await sendCommand(client, ['keys', '*name*']);
-    expect(response).to.eql(['firstname', 'lastname']);
+    expect(response.sort()).to.eql(['firstname', 'lastname']);
     response = await sendCommand(client, ['keys', 'a??']);
     expect(response).to.eql(['age']);
     response = await sendCommand(client, ['keys', '*']);
-    // NOTE: Keys are sorted alphabetically
-    expect(response).to.eql(['age', 'firstname', 'lastname']);
+    // NOTE: There does not appear to be a guarantee of order
+    expect(response.sort()).to.eql(['age', 'firstname', 'lastname']);
   });
 });

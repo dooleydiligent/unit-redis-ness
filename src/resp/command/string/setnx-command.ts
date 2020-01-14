@@ -40,17 +40,19 @@ interface IParameters {
 @Name('setnx')
 export class SetNxCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    if (db.exists(key)) {
-      this.logger.debug(`Key ${key} already exists`);
-      return RedisToken.integer(0);
-    } else {
-      const value: string = request.getParam(1);
-      this.logger.debug(`Setting Key ${key} to ${value}`);
-      db.put(key, new DatabaseValue(DataType.STRING, value));
-      return RedisToken.integer(1);
-    }
+  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const key: string = request.getParam(0);
+      if (db.exists(key)) {
+        this.logger.debug(`Key ${key} already exists`);
+        resolve(RedisToken.integer(0));
+      } else {
+        const value: string = request.getParam(1);
+        this.logger.debug(`Setting Key ${key} to ${value}`);
+        db.put(key, new DatabaseValue(DataType.STRING, value));
+        resolve(RedisToken.integer(1));
+      }
+    });
   }
 }

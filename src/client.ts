@@ -6,9 +6,6 @@ import { Logger } from './logger';
 const Parser = require('redis-parser');
 const logger: Logger = new Logger(module.id);
 
-process.env.REDIS_HOST = '127.0.0.1';
-process.env.REDIS_PORT = '6378';
-
 export const sendCommand = (client: net.Socket, commands: string[]): Promise<string | string[] | null> => {
   let commandString = `*${commands.length}\r\n`;
   for (const element of commands) {
