@@ -10,22 +10,22 @@ export class CommandWrapper implements IRespCommand {
   public minParams: number = -1;
   public dataType: DataType = DataType.NONE;
   public pubSubAllowed: boolean;
-  public txIgnore: boolean;
+  // public txIgnore: boolean;
   private logger: Logger = new Logger(module.id);
   constructor(private command: IRespCommand) {
     this.logger.info(`Instantiating command ${(command as any).name}`);
     if (command.dataType) {
       this.dataType = command.dataType;
     }
-    this.txIgnore = !!command.txIgnore;
+    // this.txIgnore = !!command.txIgnore;
     this.pubSubAllowed = !!command.pubSubAllowed;
     // We have to set these values
     this.minParams = +(command as any).minParams;
     this.maxParams = +(command as any).maxParams;
   }
-  public isTxIgnore(): boolean {
-    return this.txIgnore;
-  }
+  // public isTxIgnore(): boolean {
+  //   return this.txIgnore;
+  // }
   public isPubSubAllowed(): boolean {
     return this.pubSubAllowed;
   }
@@ -38,12 +38,18 @@ export class CommandWrapper implements IRespCommand {
       this.logger.debug(`PARAMS Is/Are`, request.getParams());
       switch (true) {
         case request.getLength() < this.minParams || (this.maxParams > -1 && request.getLength() > this.maxParams):
+          if (request.getSession().inTransaction()) {
+            request.getSession().setError();  // Send EXECABORT if EXEC is called later
+          }
           this.logger.debug(`getLength() is ${request.getLength()}, minParams is ${this.minParams}, maxParams is ${this.maxParams}`);
           resolve(RedisToken.error(
             `ERR wrong number of arguments for '${request.getCommand()}' command`));
           break;
         case this.dataType !== DataType.NONE &&
           !db.isType(request.getParam(0), this.dataType):
+          if (request.getSession().inTransaction()) {
+            request.getSession().setError();  // Send EXECABORT if EXEC is called later
+          }
           this.logger.debug(`Check type for ${request.getParam(0)} against ${this.dataType}`);
           resolve(RedisToken.error(
             `WRONGTYPE Operation against a key holding the wrong kind of value`));
@@ -52,10 +58,10 @@ export class CommandWrapper implements IRespCommand {
           resolve(RedisToken.error(
             `ERR only (P)SUBSCRIBE / (P)UNSUBSCRIBE / QUIT allowed in this context`));
           break;
-        case this.isTxActive(request) && !this.txIgnore:
-          this.enqueueRequest(request);
-          resolve(RedisToken.status(`QUEUED`));
-          break;
+        // case this.isTxActive(request) && !this.txIgnore:
+        //   this.enqueueRequest(request);
+        //   resolve(RedisToken.status(`QUEUED`));
+        //   break;
         default:
           if (
             request.getSession().inTransaction() &&
@@ -96,21 +102,21 @@ export class CommandWrapper implements IRespCommand {
   private executeDBCommand(request: IRequest, db: Database): Promise<RedisToken> {
     return this.command.execute(request, db);
   }
-  private enqueueRequest(request: IRequest): void {
-    const tx = this.getTransactionState(request.getSession());
-    // .ifPresent(tx -> tx.enqueue(request));
-    tx.enqueue(request);
-  }
+  // private enqueueRequest(request: IRequest): void {
+  //   const tx = this.getTransactionState(request.getSession());
+  //   // .ifPresent(tx -> tx.enqueue(request));
+  //   tx.enqueue(request);
+  // }
 
-  private isTxActive(request: IRequest): boolean {
-    const isPresent = this.getTransactionState(request.getSession());
-    return (isPresent && isPresent.isPresent());
-    //    return this.getTransactionState(request.getSession()).isPresent();
-  }
+  // private isTxActive(request: IRequest): boolean {
+  //   const isPresent = this.getTransactionState(request.getSession());
+  //   return (isPresent && isPresent.isPresent());
+  //   //    return this.getTransactionState(request.getSession()).isPresent();
+  // }
 
-  private getTransactionState(session: Session): any { // Option<TransactionState>
-    return session.getValue('tx');
-  }
+  // private getTransactionState(session: Session): any { // Option<TransactionState>
+  //   return session.getValue('tx');
+  // }
 
   private getCurrentDB(request: IRequest): Database {
     return request.getServerContext().getDatabase(request.getSession().getCurrentDb());

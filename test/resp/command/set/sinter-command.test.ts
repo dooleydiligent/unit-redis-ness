@@ -43,7 +43,7 @@ describe('sinter-command test', () => {
     response = await sendCommand(client, ['sinter', 'key1', 'empty']);
     expect(response).to.eql([]);
   });
-  it('should fail when the other key is not a set', async () => {
+  it('should fail when one of the keys is not a set', async () => {
     response = await sendCommand(client, ['zadd', 'zkey', '1', 'two'] );
     expect(response).to.equal(1);
     response = await sendCommand(client, ['sinter', 'key1', 'zkey']);

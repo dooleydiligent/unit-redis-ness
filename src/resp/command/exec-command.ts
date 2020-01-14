@@ -29,14 +29,19 @@ export class ExecCommand implements IRespCommand {
       if (!request.getSession().inTransaction()) {
         resolve(RedisToken.error(`ERR EXEC without MULTI`));
       } else {
-        const commands: ICmdReq[] = request.getSession().getTransaction();
-        Promise.all(commands.map(async (cmdReq) => {
-          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
-          return await cmdReq.command.execute(cmdReq.request, db);
-        })).
-          then((tokens: RedisToken[]) => {
-            resolve(RedisToken.array(tokens));
-          });
+        if (request.getSession().isErrored()) {
+          request.getSession().abortTransaction();
+          resolve(RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
+        } else {
+          const commands: ICmdReq[] = request.getSession().getTransaction();
+          Promise.all(commands.map(async (cmdReq) => {
+            this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+            return await cmdReq.command.execute(cmdReq.request, db);
+          })).
+            then((tokens: RedisToken[]) => {
+              resolve(RedisToken.array(tokens));
+            });
+        }
       }
     });
   }

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.53% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.53% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -108,31 +108,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">798x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">798x</span>
+<span class="cline-any cline-yes">798x</span>
+<span class="cline-any cline-yes">798x</span>
+<span class="cline-any cline-yes">798x</span>
+<span class="cline-any cline-yes">798x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4851x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3906x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1716x</span>
+<span class="cline-any cline-yes">1716x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1456x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -141,10 +138,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3491x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1358x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">807x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Logger } from '../logger';
@@ -153,28 +153,28 @@ import { IServerContext } from './server-context';
 import { Session } from './session';
 &nbsp;
 export class DefaultRequest implements IRequest {
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-<span class="fstat-no" title="function not covered" >  constructor(</span>
-    private <span class="cstat-no" title="statement not covered" >server: IServerContext,</span>
-    private <span class="cstat-no" title="statement not covered" >session: Session,</span>
-    private <span class="cstat-no" title="statement not covered" >command: string,</span>
-    private <span class="cstat-no" title="statement not covered" >params: string[])</span> {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`constructor(server, ${session.getId()}, ${command}, ${params})`);</span>
+  private logger: Logger = new Logger(module.id);
+  constructor(
+    private server: IServerContext,
+    private session: Session,
+    private command: string,
+    private params: string[]) {
+    this.logger.debug(`constructor(server, ${session.getId()}, ${command}, ${params})`);
   }
-  public <span class="fstat-no" title="function not covered" >getCommand(</span>): string {
-<span class="cstat-no" title="statement not covered" >    return this.command.toString();</span>
+  public getCommand(): string {
+    return this.command.toString();
   }
-  public <span class="fstat-no" title="function not covered" >getParams(</span>): string[] {
-<span class="cstat-no" title="statement not covered" >    return this.params;</span>
+  public getParams(): string[] {
+    return this.params;
   }
-  public <span class="fstat-no" title="function not covered" >getParam(</span>index: number): string {
-<span class="cstat-no" title="statement not covered" >    if (index &lt; this.params.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return this.params[index];</span>
+  public getParam(index: number): string {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (index &lt; this.params.length) {
+      return this.params[index];
     }
 <span class="cstat-no" title="statement not covered" >    return '';</span>
   }
-  public <span class="fstat-no" title="function not covered" >getLength(</span>): number {
-<span class="cstat-no" title="statement not covered" >    return this.params.length;</span>
+  public getLength(): number {
+    return this.params.length;
   }
   public <span class="fstat-no" title="function not covered" >isEmpty(</span>): boolean {
 <span class="cstat-no" title="statement not covered" >    return this.params.length === 0;</span>
@@ -182,14 +182,14 @@ export class DefaultRequest implements IRequest {
   public <span class="fstat-no" title="function not covered" >isExit(</span>): boolean {
 <span class="cstat-no" title="statement not covered" >    return this.command.toString() === 'quit';</span>
   }
-  public <span class="fstat-no" title="function not covered" >getSession(</span>): Session {
-<span class="cstat-no" title="statement not covered" >    return this.session;</span>
+  public getSession(): Session {
+    return this.session;
   }
-  public <span class="fstat-no" title="function not covered" >getServerContext(</span>): IServerContext {
-<span class="cstat-no" title="statement not covered" >    return this.server;</span>
+  public getServerContext(): IServerContext {
+    return this.server;
   }
-  public <span class="fstat-no" title="function not covered" >toString(</span>): string {
-<span class="cstat-no" title="statement not covered" >    return `${this.command}[${this.params.length}]: ${this.params}`;</span>
+  public toString(): string {
+    return `${this.command}[${this.params.length}]: ${this.params}`;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -199,7 +199,7 @@ export class DefaultRequest implements IRequest {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:15:21 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

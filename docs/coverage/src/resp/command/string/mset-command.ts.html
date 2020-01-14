@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.18% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -128,19 +128,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,20 +171,20 @@ import { IRespCommand } from '../resp-command';
 @Name('mset')
 export class MsetCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execute(</span>request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       // params() must be an even number
-<span class="cstat-no" title="statement not covered" >      if (request.getParams().length % 2 !== 0) {</span>
-<span class="cstat-no" title="statement not covered" >        resolve(RedisToken.error('ERR wrong number of arguments for mset'));</span>
+      if (request.getParams().length % 2 !== 0) {
+        resolve(RedisToken.error('ERR wrong number of arguments for mset'));
       } else {
-<span class="cstat-no" title="statement not covered" >        for (let index = <span class="cstat-no" title="statement not covered" >0;</span> index &lt; request.getParams().length; index += 2) {</span>
-          const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(index);</span>
-          const value: string = <span class="cstat-no" title="statement not covered" >request.getParam(index + 1);</span>
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(`Setting key ${key} to "${value}"`);</span>
-<span class="cstat-no" title="statement not covered" >          db.put(key, new DatabaseValue(DataType.STRING, value));</span>
+        for (let index = 0; index &lt; request.getParams().length; index += 2) {
+          const key: string = request.getParam(index);
+          const value: string = request.getParam(index + 1);
+          this.logger.debug(`Setting key ${key} to "${value}"`);
+          db.put(key, new DatabaseValue(DataType.STRING, value));
         }
-<span class="cstat-no" title="statement not covered" >        resolve(RedisToken.responseOk());</span>
+        resolve(RedisToken.responseOk());
       }
     });
   }
@@ -196,7 +196,7 @@ export class MsetCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:15:21 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

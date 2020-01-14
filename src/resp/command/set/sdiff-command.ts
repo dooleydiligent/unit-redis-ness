@@ -54,9 +54,7 @@ export class SDiffCommand implements IRespCommand {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const result: RedisToken[] = [];
       const skey: string = request.getParam(0);
-      if (!db.exists(skey)) {
-        result.push(RedisToken.nullString());
-      } else {
+      if (db.exists(skey)) {
         const dbKey: DatabaseValue = db.get(skey);
         const diffset: Set<any> = new Set();
         for (let index = 1; index < request.getParams().length; index++) {

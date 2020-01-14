@@ -7,6 +7,7 @@ import { IRespCommand } from './resp-command';
 export class NullCommand implements IRespCommand {
   public execute(request: IRequest): Promise<RedisToken> {
     return new Promise((resolve) => {
+      request.getSession().setError();
       let params: string = '';
       request.getParams().forEach((param) => {
         params += '`' + param + '`, ';

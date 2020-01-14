@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.63% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/27</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/24</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -136,9 +136,7 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -190,32 +188,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,33 +266,31 @@ import { IRespCommand } from '../resp-command';
 @Name('sdiff')
 export class SDiffCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execute(</span>request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-      const result: RedisToken[] = <span class="cstat-no" title="statement not covered" >[];</span>
-      const skey: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-<span class="cstat-no" title="statement not covered" >      if (!db.exists(skey)) {</span>
-<span class="cstat-no" title="statement not covered" >        result.push(RedisToken.nullString());</span>
-      } else {
-        const dbKey: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(skey);</span>
-        const diffset: Set&lt;any&gt; = <span class="cstat-no" title="statement not covered" >new Set();</span>
-<span class="cstat-no" title="statement not covered" >        for (let index = <span class="cstat-no" title="statement not covered" >1;</span> index &lt; request.getParams().length; index++) {</span>
-          const dbDiff: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(request.getParam(index));</span>
-<span class="cstat-no" title="statement not covered" >          if (dbDiff &amp;&amp; dbDiff.getType() === DataType.SET) {</span>
-<span class="cstat-no" title="statement not covered" >            dbDiff.getSet().forEach(<span class="fstat-no" title="function not covered" >(e</span>lement) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >              if (!diffset.has(element)) {</span>
-<span class="cstat-no" title="statement not covered" >                diffset.add(element);</span>
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      const result: RedisToken[] = [];
+      const skey: string = request.getParam(0);
+      if (db.exists(skey)) {
+        const dbKey: DatabaseValue = db.get(skey);
+        const diffset: Set&lt;any&gt; = new Set();
+        for (let index = 1; index &lt; request.getParams().length; index++) {
+          const dbDiff: DatabaseValue = db.get(request.getParam(index));
+          if (dbDiff &amp;&amp; dbDiff.getType() === DataType.SET) {
+            dbDiff.getSet().forEach((element) =&gt; {
+              if (!diffset.has(element)) {
+                diffset.add(element);
               }
             });
           }
         }
-<span class="cstat-no" title="statement not covered" >        dbKey.getSet().forEach(<span class="fstat-no" title="function not covered" >(e</span>lement) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          if (!diffset.has(element)) {</span>
-<span class="cstat-no" title="statement not covered" >            result.push(RedisToken.string(element));</span>
+        dbKey.getSet().forEach((element) =&gt; {
+          if (!diffset.has(element)) {
+            result.push(RedisToken.string(element));
           }
         });
       }
-<span class="cstat-no" title="statement not covered" >      resolve(RedisToken.array(result));</span>
+      resolve(RedisToken.array(result));
     });
   }
 }
@@ -307,7 +301,7 @@ export class SDiffCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:15:21 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

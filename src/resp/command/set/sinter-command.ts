@@ -1,4 +1,4 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { DbDataType } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { DataType } from '../../data/data-type';
@@ -6,6 +6,7 @@ import { Database } from '../../data/database';
 import { DatabaseValue } from '../../data/database-value';
 import { AbstractRedisToken } from '../../protocol/abstract-redis-token';
 import { RedisToken } from '../../protocol/redis-token';
+import { RedisTokenType } from '../../protocol/redis-token-type';
 import { IRespCommand } from '../resp-command';
 /**
  * ### Available since 1.0.0.
@@ -49,6 +50,8 @@ import { IRespCommand } from '../resp-command';
  * redis>
  * ```
  */
+// NOTE: We don't supply a data type because sinterstore can overwrite the first param
+// even if it is not a SET
 export class SInterCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(maxParams: number, minParams: number, name: string) {
@@ -61,19 +64,28 @@ export class SInterCommand implements IRespCommand {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       switch (request.getCommand().toLowerCase()) {
         case 'sinterstore':
-          resolve(this.sinterstore(request, db));
+          const result: RedisToken = this.sinterstore(request, db);
+          this.logger.debug(`sinterstore result is %s`, result);
+          resolve(result);
+          break;
         default:
           resolve(this.sinter(request, db));
       }
     });
   }
   private sinter(request: IRequest, db: Database): RedisToken {
-    return RedisToken.array(this.intersection(0, request, db));
+    const result: RedisToken[] = this.intersection(0, request, db);
+    if (result && result.length === 1 && result[0].getType() === RedisTokenType.ERROR) {
+      return result[0];
+    }
+    return RedisToken.array(result);
   }
   private sinterstore(request: IRequest, db: Database): RedisToken {
     const result = this.intersection(1, request, db);
-    if (result[0] === RedisToken.nullString()) {
-      return RedisToken.integer(0);
+    this.logger.debug(`sinterstore received ${result.length} result(s)`);
+    if (result && result.length === 1 && result[0].getType() === RedisTokenType.ERROR) {
+      this.logger.debug(`returning error ${result[0].toString()}`);
+      return result[0];
     }
     const newKey: DatabaseValue = new DatabaseValue(DataType.SET, new Set());
     for (const token of result) {
@@ -84,21 +96,32 @@ export class SInterCommand implements IRespCommand {
     return RedisToken.integer(result.length);
   }
   private intersection(start: number, request: IRequest, db: Database): RedisToken[] {
+    this.logger.debug(`intersection start: ${start}, params: "%s"`, request.getParams());
     const result: RedisToken[] = [];
     const skey: string = request.getParam(start);
     if (!db.exists(skey)) {
-      return [RedisToken.nullString()];
+      return result;
     }
     const dbKey: DatabaseValue = db.get(request.getParam(start));
+    if (dbKey.getType() !== DataType.SET) {
+      return [RedisToken.error('WRONGTYPE Operation against a key holding the wrong kind of value')];
+    }
     const dbKeys: DatabaseValue[] = [];
     for (let index = start + 1; index < request.getParams().length; index++) {
       const dbInter: DatabaseValue = db.get(request.getParam(index));
       if (dbInter && dbInter.getType() === DataType.SET) {
         dbKeys.push(dbInter);
       } else {
-        return [RedisToken.nullString()];
+        this.logger.debug(`dbInter is %s`, dbInter);
+        if (!dbInter) {
+          return [];
+        } else {
+          this.logger.debug(`Trying to return redistoken.error`);
+          return [RedisToken.error('WRONGTYPE Operation against a key holding the wrong kind of value')];
+        }
       }
     }
+    this.logger.debug(`dbKey is %s`, dbKey);
     dbKey.getSet().forEach((element) => {
       let candidate: any = null;
       for (const key of dbKeys) {

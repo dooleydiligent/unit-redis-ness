@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.18% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/17</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,7 +100,12 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,18 +131,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,20 +178,25 @@ import { IRespCommand } from './resp-command';
 @Name('exec')
 export class ExecCommand implements IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execute(</span>request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve: any) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-<span class="cstat-no" title="statement not covered" >      if (!request.getSession().inTransaction()) {</span>
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve: any) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!request.getSession().inTransaction()) {
 <span class="cstat-no" title="statement not covered" >        resolve(RedisToken.error(`ERR EXEC without MULTI`));</span>
       } else {
-        const commands: ICmdReq[] = <span class="cstat-no" title="statement not covered" >request.getSession().getTransaction();</span>
-<span class="cstat-no" title="statement not covered" >        Promise.all(commands.map(<span class="fstat-no" title="function not covered" >async (c</span>mdReq) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);</span>
-<span class="cstat-no" title="statement not covered" >          return await cmdReq.command.execute(cmdReq.request, db);</span>
-        })).
-          then(<span class="fstat-no" title="function not covered" >(t</span>okens: RedisToken[]) =&gt; {
-<span class="cstat-no" title="statement not covered" >            resolve(RedisToken.array(tokens));</span>
-          });
+        if (request.getSession().isErrored()) {
+          request.getSession().abortTransaction();
+          resolve(RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
+        } else {
+          const commands: ICmdReq[] = request.getSession().getTransaction();
+          Promise.all(commands.map(async (cmdReq) =&gt; {
+            this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+            return await cmdReq.command.execute(cmdReq.request, db);
+          })).
+            then((tokens: RedisToken[]) =&gt; {
+              resolve(RedisToken.array(tokens));
+            });
+        }
       }
     });
   }
@@ -193,7 +208,7 @@ export class ExecCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:15:21 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

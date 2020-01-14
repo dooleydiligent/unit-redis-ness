@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/28</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -260,36 +260,36 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,37 +377,37 @@ import { IRespCommand } from '../resp-command';
 @Name('rpoplpush')
 export class RPoplPushCommand implements IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execute(</span>request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-<span class="cstat-no" title="statement not covered" >      resolve(this.process(request, db));</span>
+  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
+    return new Promise((resolve) =&gt; {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      resolve(this.process(request, db));
     });
   }
-  protected <span class="fstat-no" title="function not covered" >process(</span>request: IRequest, db: Database): RedisToken {
-    const src: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const dst: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`process(src: ${src}, dst: ${dst})`);</span>
-    const dbSrcList: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(src);</span>
-<span class="cstat-no" title="statement not covered" >    if (!dbSrcList) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`src list is empty`);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.nullString());</span>
+  protected process(request: IRequest, db: Database): RedisToken {
+    const src: string = request.getParam(0);
+    const dst: string = request.getParam(1);
+    this.logger.debug(`process(src: ${src}, dst: ${dst})`);
+    const dbSrcList: DatabaseValue = db.get(src);
+    if (!dbSrcList) {
+      this.logger.debug(`src list is empty`);
+      return (RedisToken.nullString());
     } else {
-      const dbDstList: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`src list is %s`, dbDstList.getList());</span>
-      const member: any = <span class="cstat-no" title="statement not covered" >dbSrcList.getList().pop();</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Member is ${member}`);</span>
-<span class="cstat-no" title="statement not covered" >      dbDstList.getList().unshift(member);</span>
-<span class="cstat-no" title="statement not covered" >      db.put(dst, dbDstList);</span>
+      const dbDstList: DatabaseValue = db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));
+      this.logger.debug(`src list is %s`, dbDstList.getList());
+      const member: any = dbSrcList.getList().pop();
+      this.logger.debug(`Member is ${member}`);
+      dbDstList.getList().unshift(member);
+      db.put(dst, dbDstList);
       // Fire events on dst?
-<span class="cstat-no" title="statement not covered" >      if (dst !== src) {</span>
-<span class="cstat-no" title="statement not covered" >        if (dbSrcList.getList().length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >          db.put(src, dbSrcList);</span>
+      if (dst !== src) {
+        if (dbSrcList.getList().length &gt; 0) {
+          db.put(src, dbSrcList);
           // fire events on src?
         } else {
-<span class="cstat-no" title="statement not covered" >          db.remove(src);</span>
+          db.remove(src);
         }
       }
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.string(member));</span>
+      return (RedisToken.string(member));
     }
   }
 }
@@ -418,7 +418,7 @@ export class RPoplPushCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 18:15:21 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

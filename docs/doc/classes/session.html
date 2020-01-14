@@ -2368,6 +2368,15 @@ img {
 		<li class="current tsd-kind-class">
 			<a href="session.html" class="tsd-kind-icon">Session</a>
 			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="session.html#commands" class="tsd-kind-icon">commands</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="session.html#errored" class="tsd-kind-icon">errored</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="session.html#logger" class="tsd-kind-icon">logger</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="session.html#aborttransaction" class="tsd-kind-icon">abort<wbr>Transaction</a>
 				</li>
@@ -2402,6 +2411,9 @@ img {
 					<a href="session.html#intransaction" class="tsd-kind-icon">in<wbr>Transaction</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="session.html#iserrored" class="tsd-kind-icon">is<wbr>Errored</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="session.html#publish" class="tsd-kind-icon">publish</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2415,6 +2427,9 @@ img {
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="session.html#setcurrentdb" class="tsd-kind-icon">set<wbr>Current<wbr>Db</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="session.html#seterror" class="tsd-kind-icon">set<wbr>Error</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="session.html#setlastcommand" class="tsd-kind-icon">set<wbr>Last<wbr>Command</a>
@@ -2436,19 +2451,26 @@ img {
 			<ul class="tsd-hierarchy">
 				<li>
 					<span class="target">Session</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<a href="defaultsession.html" class="tsd-signature-type">DefaultSession</a>
+						</li>
+					</ul>
 				</li>
-			</ul>
-		</section>
-		<section class="tsd-panel">
-			<h3>Implemented by</h3>
-			<ul class="tsd-hierarchy">
-				<li><a href="defaultsession.html" class="tsd-signature-type">DefaultSession</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
+					<section class="tsd-index-section tsd-is-private-protected">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="session.html#commands" class="tsd-kind-icon">commands</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="session.html#errored" class="tsd-kind-icon">errored</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="session.html#logger" class="tsd-kind-icon">logger</a></li>
+						</ul>
+					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
@@ -2463,11 +2485,13 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#gettransaction" class="tsd-kind-icon">get<wbr>Transaction</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#getvalue" class="tsd-kind-icon">get<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#intransaction" class="tsd-kind-icon">in<wbr>Transaction</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#iserrored" class="tsd-kind-icon">is<wbr>Errored</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#publish" class="tsd-kind-icon">publish</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#putvalue" class="tsd-kind-icon">put<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#queuerequest" class="tsd-kind-icon">queue<wbr>Request</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#removevalue" class="tsd-kind-icon">remove<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#setcurrentdb" class="tsd-kind-icon">set<wbr>Current<wbr>Db</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#seterror" class="tsd-kind-icon">set<wbr>Error</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#setlastcommand" class="tsd-kind-icon">set<wbr>Last<wbr>Command</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#setname" class="tsd-kind-icon">set<wbr>Name</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="session.html#starttransaction" class="tsd-kind-icon">start<wbr>Transaction</a></li>
@@ -2476,11 +2500,44 @@ img {
 				</div>
 			</section>
 		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="commands" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> commands</h3>
+				<div class="tsd-signature tsd-kind-icon">commands<span class="tsd-signature-symbol">:</span> <a href="../interfaces/icmdreq.html" class="tsd-signature-type">ICmdReq</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L11">src/server/session.ts:11</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="errored" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> errored</h3>
+				<div class="tsd-signature tsd-kind-icon">errored<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L12">src/server/session.ts:12</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="logger" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> logger</h3>
+				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L10">src/server/session.ts:10</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="aborttransaction" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> abort<wbr>Transaction</h3>
+				<h3>abort<wbr>Transaction</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">abort<wbr>Transaction<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
@@ -2488,7 +2545,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L11">src/server/session.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L37">src/server/session.ts:37</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -2505,7 +2562,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L17">src/server/session.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L17">src/server/session.ts:17</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2522,7 +2579,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L18">src/server/session.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L18">src/server/session.ts:18</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2539,7 +2596,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L22">src/server/session.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L22">src/server/session.ts:22</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2556,7 +2613,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L23">src/server/session.ts:23</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L23">src/server/session.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2573,7 +2630,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L13">src/server/session.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L13">src/server/session.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2590,7 +2647,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L25">src/server/session.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L25">src/server/session.ts:25</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2607,7 +2664,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L14">src/server/session.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L14">src/server/session.ts:14</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2616,7 +2673,7 @@ img {
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="gettransaction" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> get<wbr>Transaction</h3>
+				<h3>get<wbr>Transaction</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">get<wbr>Transaction<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/icmdreq.html" class="tsd-signature-type">ICmdReq</a><span class="tsd-signature-symbol">[]</span></li>
 				</ul>
@@ -2624,7 +2681,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L27">src/server/session.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L46">src/server/session.ts:46</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/icmdreq.html" class="tsd-signature-type">ICmdReq</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -2641,7 +2698,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L19">src/server/session.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L19">src/server/session.ts:19</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2656,7 +2713,7 @@ img {
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="intransaction" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> in<wbr>Transaction</h3>
+				<h3>in<wbr>Transaction</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">in<wbr>Transaction<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
@@ -2664,7 +2721,24 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L9">src/server/session.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L51">src/server/session.ts:51</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="iserrored" class="tsd-anchor"></a>
+				<h3>is<wbr>Errored</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Errored<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L31">src/server/session.ts:31</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -2681,7 +2755,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L16">src/server/session.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L16">src/server/session.ts:16</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2704,7 +2778,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L20">src/server/session.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L20">src/server/session.ts:20</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2722,7 +2796,7 @@ img {
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="queuerequest" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> queue<wbr>Request</h3>
+				<h3>queue<wbr>Request</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">queue<wbr>Request<span class="tsd-signature-symbol">(</span>cmdReq<span class="tsd-signature-symbol">: </span><a href="../interfaces/icmdreq.html" class="tsd-signature-type">ICmdReq</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
@@ -2730,7 +2804,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L10">src/server/session.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L34">src/server/session.ts:34</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2753,7 +2827,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L21">src/server/session.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L21">src/server/session.ts:21</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2776,7 +2850,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L24">src/server/session.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L24">src/server/session.ts:24</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2785,6 +2859,23 @@ img {
 								<h5>db: <span class="tsd-signature-type">number</span></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="seterror" class="tsd-anchor"></a>
+				<h3>set<wbr>Error</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Error<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L28">src/server/session.ts:28</a></li>
+							</ul>
+						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
@@ -2799,7 +2890,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L26">src/server/session.ts:26</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L26">src/server/session.ts:26</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2822,7 +2913,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L15">src/server/session.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L15">src/server/session.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2837,7 +2928,7 @@ img {
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="starttransaction" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> start<wbr>Transaction</h3>
+				<h3>start<wbr>Transaction</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">start<wbr>Transaction<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
@@ -2845,7 +2936,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/server/session.ts#L12">src/server/session.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/2a34561/src/server/session.ts#L60">src/server/session.ts:60</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
