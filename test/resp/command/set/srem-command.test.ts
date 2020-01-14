@@ -41,7 +41,7 @@ describe('srem-command test', () => {
     response = await sendCommand(client, ['srem', 'set', 'key2', 'not', 'here', 'today', 'key4']);
     expect(response).to.equal(2);
     response = await sendCommand(client, ['smembers', 'set']);
-    expect(response).to.eql(['key1', 'key3']);
+    expect(response.sort()).to.eql(['key1', 'key3']);
   });
   it('should remove an empty set when all members are removed', async () => {
     response = await sendCommand(client, ['srem', 'set', 'key1', 'key3']);

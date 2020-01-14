@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,28 +110,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">197x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">237x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">315x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,11 +149,11 @@ import { StringRedisToken } from './string-redis-token';
  * See {@link RedisTokenType}
  */
 export abstract class RedisToken {
-  public static nullString(): RedisToken {
-    return RedisToken.NULL_STRING;
+  public <span class="fstat-no" title="function not covered" >static </span>nullString(): RedisToken {
+<span class="cstat-no" title="statement not covered" >    return RedisToken.NULL_STRING;</span>
   }
-  public static responseOk(): RedisToken {
-    return RedisToken.RESPONSE_OK;
+  public <span class="fstat-no" title="function not covered" >static </span>responseOk(): RedisToken {
+<span class="cstat-no" title="statement not covered" >    return RedisToken.RESPONSE_OK;</span>
   }
   public static status(str: string): RedisToken {
     return new StatusRedisToken(str);
@@ -164,14 +164,14 @@ export abstract class RedisToken {
   public <span class="fstat-no" title="function not covered" >static </span>boolean(tf: boolean): RedisToken {
 <span class="cstat-no" title="statement not covered" >    return new NumberRedisToken(tf ? 1 : 0);</span>
   }
-  public static integer(i: number): RedisToken {
-    return new NumberRedisToken(i);
+  public <span class="fstat-no" title="function not covered" >static </span>integer(i: number): RedisToken {
+<span class="cstat-no" title="statement not covered" >    return new NumberRedisToken(i);</span>
   }
-  public static array(redisTokens: any[]): RedisToken {
-    return new ArrayRedisToken(redisTokens);
+  public <span class="fstat-no" title="function not covered" >static </span>array(redisTokens: any[]): RedisToken {
+<span class="cstat-no" title="statement not covered" >    return new ArrayRedisToken(redisTokens);</span>
   }
-  public static error(str: string): RedisToken {
-    return new ErrorRedisToken(str);
+  public <span class="fstat-no" title="function not covered" >static </span>error(str: string): RedisToken {
+<span class="cstat-no" title="statement not covered" >    return new ErrorRedisToken(str);</span>
   }
   private static NULL_STRING: RedisToken = RedisToken.string('');
   private static RESPONSE_OK: RedisToken = RedisToken.status('OK');
@@ -184,7 +184,7 @@ export abstract class RedisToken {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 13 2020 18:54:53 GMT-0500 (Eastern Standard Time)
+                at Tue Jan 14 2020 15:52:44 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

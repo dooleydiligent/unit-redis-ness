@@ -2395,39 +2395,36 @@ img {
 					<a href="#available-since-200" id="available-since-200" style="color: inherit; text-decoration: none;">
 						<h3>Available since 2.0.0.</h3>
 					</a>
-					<a href="#brpop-key-key--timeout" id="brpop-key-key--timeout" style="color: inherit; text-decoration: none;">
-						<h3>BRPOP key [key ...] timeout</h3>
+					<a href="#blpop-key-key--timeout" id="blpop-key-key--timeout" style="color: inherit; text-decoration: none;">
+						<h3>BLPOP key [key ...] timeout</h3>
 					</a>
+					<p>BLPOP is a blocking list pop primitive. It is the blocking version of LPOP because it blocks
+						the connection when there are no elements to pop from any of the given lists. An element is
+						popped from the head of the first list that is non-empty, with the given keys being checked
+					in the order that they are given.</p>
 				</div>
-				<p>BRPOP is a blocking list pop primitive. It is the blocking version of <a href="rpopcommand.html">RPOP</a> because
-					it blocks the connection when there are no elements to pop from any of the given lists. An element
-					is popped from the tail of the first list that is non-empty, with the given keys being checked
-				in the order that they are given.</p>
-				<a href="#see-a-hreftimedemitterhtmltimedemittera-for-limitations" id="see-a-hreftimedemitterhtmltimedemittera-for-limitations" style="color: inherit; text-decoration: none;">
-					<h3>See <a href="timedemitter.html">TimedEmitter</a> for limitations</h3>
+				<a href="#non-blocking-behavior" id="non-blocking-behavior" style="color: inherit; text-decoration: none;">
+					<h3>Non-blocking behavior</h3>
 				</a>
-				<p>See the <a href="blpopcommand.html">BLPOP</a> documentation for the exact semantics, since BRPOP is
-					identical to BLPOP with the only difference being that it pops elements from the tail of a
-				list instead of popping from the head.</p>
-				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
-					<h3>Return value</h3>
+				<p>When BLPOP is called, if at least one of the specified keys contains a non-empty list, an
+					element is popped from the head of the list and returned to the caller together with the key
+				it was popped from.</p>
+				<p>Keys are checked in the order that they are given. Let&#39;s say that the key list1 doesn&#39;t exist
+				and list2 and list3 hold non-empty lists. Consider the following command:</p>
+				<pre><code>BLPOP list1 list2 list3 <span class="hljs-number">0</span></code></pre><p>BLPOP guarantees to return an element from the list stored at list2 (since it is the first
+				non empty list when checking list1, list2 and list3 in that order).</p>
+				<a href="#blocking-behavior" id="blocking-behavior" style="color: inherit; text-decoration: none;">
+					<h3>Blocking behavior</h3>
 				</a>
-				<p>Array reply: specifically:</p>
-				<ul>
-					<li>A nil multi-bulk when no element could be popped and the timeout expired.</li>
-					<li>A two-element multi-bulk with the first element being the name of the key where an element was
-						popped and the second element being the value of the popped element.
-						<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
-							<h3>Examples</h3>
-						</a>
-						<pre><code>redis&gt; DEL list1 list2
-(<span class="hljs-type">integer</span>) <span class="hljs-number">0</span>
-redis&gt; RPUSH list1 a b c
-(<span class="hljs-type">integer</span>) <span class="hljs-number">3</span>
-redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
-<span class="hljs-number">1</span>) <span class="hljs-string">"list1"</span>
-<span class="hljs-number">2</span>) <span class="hljs-string">"c"</span></code></pre></li>
-				</ul>
+				<p>If none of the specified keys exist, BLPOP blocks the connection until another client performs
+				an LPUSH or RPUSH operation against one of the keys.</p>
+				<p>Once new data is present on one of the lists, the client returns with the name of the key
+				unblocking it and the popped value.</p>
+				<p>When BLPOP causes a client to block and a non-zero timeout is specified, the client will
+					unblock returning a nil multi-bulk value when the specified timeout has expired without a
+				push operation against at least one of the specified keys.</p>
+				<p>The timeout argument is interpreted as an integer value specifying the maximum number of
+				seconds to block. A timeout of zero can be used to block indefinitely.</p>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -2488,7 +2485,7 @@ redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in src/resp/command/list/blpop-command.ts:41</li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/list/blpop-command.ts#L45">src/resp/command/list/blpop-command.ts:45</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2517,7 +2514,7 @@ redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
 				<aside class="tsd-sources">
 					<p>Overrides <a href="lpopcommand.html">LPopCommand</a>.<a href="lpopcommand.html#logger">logger</a></p>
 					<ul>
-						<li>Defined in src/resp/command/list/blpop-command.ts:41</li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/list/blpop-command.ts#L45">src/resp/command/list/blpop-command.ts:45</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2535,7 +2532,7 @@ redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
 						<aside class="tsd-sources">
 							<p>Overrides <a href="lpopcommand.html">LPopCommand</a>.<a href="lpopcommand.html#execute">execute</a></p>
 							<ul>
-								<li>Defined in src/resp/command/list/blpop-command.ts:49</li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/list/blpop-command.ts#L53">src/resp/command/list/blpop-command.ts:53</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2562,7 +2559,7 @@ redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="lpopcommand.html">LPopCommand</a>.<a href="lpopcommand.html#process">process</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/list/lpop-command.ts#L30">src/resp/command/list/lpop-command.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/list/lpop-command.ts#L30">src/resp/command/list/lpop-command.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2591,7 +2588,7 @@ redis&gt; BRPOP list1 list2 <span class="hljs-number">0</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in src/resp/command/list/blpop-command.ts:80</li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/list/blpop-command.ts#L99">src/resp/command/list/blpop-command.ts:99</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

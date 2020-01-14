@@ -1,11 +1,10 @@
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
-import { Session } from '../../server/session';
+import { ICmdReq, Session } from '../../server/session';
 import { IRespCommand } from '../command/resp-command';
 import { DataType } from '../data/data-type';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
-
 export class CommandWrapper implements IRespCommand {
   public maxParams: number = -1;
   public minParams: number = -1;
@@ -58,17 +57,32 @@ export class CommandWrapper implements IRespCommand {
           resolve(RedisToken.status(`QUEUED`));
           break;
         default:
-          if (this.dataType) {
-            this.logger.debug(`Executing DB Command ${request.getCommand()} with params [%s]`, request.getParams());
-            const retVal: RedisToken | Promise<RedisToken> = this.executeDBCommand(request, db);
-            this.logger.debug(`DBCommand returned %j`, retVal);
-            resolve(retVal);
+          if (
+            request.getSession().inTransaction() &&
+            'exec discard multi'.indexOf(request.getCommand().toLowerCase()) === -1) {
+            this.logger.debug(
+              `Adding command to transaction for command "${request.getCommand()}" with params [%s]`,
+              request.getParams()
+            );
+            request.getSession().queueRequest({ command: this.command, request});
+            resolve(RedisToken.string('QUEUED'));
             return;
           } else {
-            if (!!(this.command as any).name) {
-              this.logger.debug(`Executing RESP Command ${request.getCommand()} with params [%s]`, request.getParams());
-              resolve(this.executeCommand(request));
+            if (this.dataType) {
+              this.logger.debug(`Executing DB Command "${request.getCommand()}" with params [%s]`, request.getParams());
+              const retVal: Promise<RedisToken> = this.executeDBCommand(request, db);
+              this.logger.debug(`DBCommand returned %j`, retVal);
+              resolve(retVal);
               return;
+            } else {
+              if (!!(this.command as any).name) {
+                this.logger.debug(
+                  `Executing RESP Command "${request.getCommand()}" with params [%s]`,
+                  request.getParams()
+                );
+                resolve(this.executeCommand(request));
+                return;
+              }
             }
           }
           this.logger.warn(`Could not execute command ${request.getCommand()} with params [%s]`, request.getParams());
@@ -76,10 +90,10 @@ export class CommandWrapper implements IRespCommand {
       }
     });
   }
-  private executeCommand(request: IRequest): RedisToken | Promise<RedisToken> {
+  private executeCommand(request: IRequest): Promise<RedisToken> {
     return this.command.execute(request);
   }
-  private executeDBCommand(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
+  private executeDBCommand(request: IRequest, db: Database): Promise<RedisToken> {
     return this.command.execute(request, db);
   }
   private enqueueRequest(request: IRequest): void {

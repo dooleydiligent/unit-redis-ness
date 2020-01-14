@@ -40,6 +40,8 @@ describe('sinterstore-command test', () => {
     expect(response).to.eql(0);
   });
   it('should overwrite the destination and return the number of keys copied', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c']);
     expect(response).to.equal(3);
     response = await sendCommand(client, ['sadd', 'key2', 'c', 'd', 'e']);

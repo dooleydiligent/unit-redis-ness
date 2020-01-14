@@ -56,17 +56,26 @@ describe('expire-command test', () => {
     response = await sendCommand(client, ['exists', 'mykey']);
     expect(response).to.equal(0);
   });
-  it('should work with ZKEYs (and other key types - as yet untested)', async () => {
-    response = await sendCommand(client, ['zadd', 'zkey', '1', 'member']);
-    expect(response).to.equal(1);
-    response = await sendCommand(client, ['exists', 'zkey']);
-    expect(response).to.equal(1);
-    response = await sendCommand(client, ['expire', 'zkey', '1']);
-    expect(response).to.equal(1);
-    await setTimeout(async () => {
-      response = await sendCommand(client, ['exists', 'zkey']);
-      expect(response).to.equal(0);
-    }, 2000);
+  it('should work with ZKEYs (and other key types - as yet untested)', (done) => {
+    sendCommand(client, ['zadd', 'zkey', '1', 'member'])
+      .then((response: any) => {
+        expect(response).to.equal(1);
+        sendCommand(client, ['exists', 'zkey'])
+          .then((response: any) => {
+            expect(response).to.equal(1);
+            sendCommand(client, ['expire', 'zkey', '1'])
+              .then((response: any) => {
+                expect(response).to.equal(1);
+                setTimeout(() => {
+                  sendCommand(client, ['exists', 'zkey'])
+                    .then((response: any) => {
+                      expect(response).to.equal(0, `Unexpected response ${response} should be ZERO`);
+                      done();
+                    });
+                }, 2000);
+              });
+          });
+      });
   });
   it('should survive the RENAME operation', async () => {
     response = await sendCommand(client, ['set', 'rename-test', 'value']);

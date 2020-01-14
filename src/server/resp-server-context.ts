@@ -23,6 +23,7 @@ export class RespServerContext extends EventEmitter implements IServerContext {
    */
   constructor(private host: string, private port: number, private commands: CommandSuite) {
     super();
+    this.logger.warn(`REDIS_PORT is ${process.env.REDIS_PORT}`);
     this.databases.put('_0', new Database());
   }
 

@@ -31,23 +31,27 @@ describe('sinter-command test', () => {
   /**
    * Functional testing of the sinter command
    */
-  it('should return NIL when the source set does not exist', async () => {
+  it('should return EMPTY SET when the source set does not exist', async () => {
     response = await sendCommand(client, ['sinter', 'ary']);
-    expect(response).to.eql([null]);
+    expect(response).to.eql([]);
   });
-  it('should return NIL when any other set does not exist or is NOT a set', async () => {
+  it('should return EMPTY SET when any other set does not exist', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c', 'd']);
     expect(response).to.equal(4);
     response = await sendCommand(client, ['sinter', 'key1', 'empty']);
-    expect(response).to.eql([null]);
-    response = await sendCommand(client, ['set', 'skey1', 'test']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(client, ['sinter', 'key1', 'skey1']);
-    expect(response).to.eql([null]);
+    expect(response).to.eql([]);
+  });
+  it('should fail when the other key is not a set', async () => {
     response = await sendCommand(client, ['zadd', 'zkey', '1', 'two'] );
     expect(response).to.equal(1);
     response = await sendCommand(client, ['sinter', 'key1', 'zkey']);
-    expect(response).to.eql([null]);
+    expect(response).to.equal('ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value');
+    response = await sendCommand(client, ['set', 'skey1', 'test']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['sinter', 'key1', 'skey1']);
+    expect(response).to.equal('ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value');
   });
   it('should return the intersection of one or more sets', async () => {
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c', 'd']);
@@ -62,8 +66,7 @@ describe('sinter-command test', () => {
     expect(response).to.equal(1);
     response = await sendCommand(client, ['sinter', 'key2', 'key1', 'key3']);
     expect(response.length).to.equal(2);
-    // May be that sinter sorts the set upon return
-    expect(response.indexOf('a')).to.be.greaterThan(-1);
-    expect(response.indexOf('c')).to.be.greaterThan(-1);
+    // Redis does not guarantee the order of a set
+    expect(response.sort()).to.eql(['a', 'c']);
   });
 });

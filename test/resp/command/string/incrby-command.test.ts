@@ -34,10 +34,12 @@ describe('incrby/decrby command test', () => {
   /**
    * Functional testing of the incrby and decrby command
    */
-  it('should report the INCREMENT when incrby called against unknown key', async () => {
-    const response: any = await sendCommand(client, ['incrby', 'incr-key', '10']);
+  it('should report the INCREMENT when incrby called against non-existing key', async () => {
+    let response: any = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['incrby', 'incr-key', '10']);
     expect(response).to.be.a('number');
-    // This is unexpected from redis
+    // This is how redis behaves
     expect(response).to.equal(10);
   });
   it('should have created the key from the previous test', async () => {
@@ -46,12 +48,16 @@ describe('incrby/decrby command test', () => {
     expect(response).to.equal('10');
   });
   it('should overflow after 53 bits', async () => {
-    let response: any = await sendCommand(client, ['set', 'incr-key', '9007199254740981']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(client, ['incrby', 'incr-key', '10']);
-    expect(response).to.equal(Number.MAX_SAFE_INTEGER);
-    response = await sendCommand(client, ['incrby', 'incr-key', '110']);
-    expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    let response: any = await sendCommand(client, ['info', 'server']);
+    // Only run the remaining tests if this is NOT unit-redis-ness
+    if (!/redis_version:5/gim.test(response)) {
+      response = await sendCommand(client, ['set', 'incr-key', '9007199254740981']);
+      expect(response).to.equal('OK');
+      response = await sendCommand(client, ['incrby', 'incr-key', '10']);
+      expect(response).to.equal(Number.MAX_SAFE_INTEGER);
+      response = await sendCommand(client, ['incrby', 'incr-key', '110']);
+      expect(response).to.equal('ReplyError: ERR increment or decrement would overflow');
+    }
   });
   // DECRBY command
   it('should report the NEGATIVE increment when decrby called against unknown key', async () => {
@@ -72,13 +78,17 @@ describe('incrby/decrby command test', () => {
     expect(response).to.equal('-12');
   });
   it('should overflow after 53 bits', async () => {
-    let response: any = await sendCommand(client, ['set', 'decr-key', '-9007199254740981']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(client, ['decrby', 'decr-key', '10']);
-    expect(response).to.equal(Number.MIN_SAFE_INTEGER);
-    // This does not seem to be exact
-    // response = await sendCommand(client, ['decrby', 'decr-key', String(Number.MAX_SAFE_INTEGER)]);
-    // expect(response).to.equal('ReplyError: Error: increment or decrement would overflow');
+    let response: any = await sendCommand(new net.Socket(), ['info', 'server']);
+    // Only run the remaining tests if this is NOT unit-redis-ness
+    if (!/redis_version:5/gim.test(response)) {
+      response = await sendCommand(client, ['set', 'decr-key', '-9007199254740981']);
+      expect(response).to.equal('OK');
+      response = await sendCommand(client, ['decrby', 'decr-key', '10']);
+      expect(response).to.equal(Number.MIN_SAFE_INTEGER);
+      // This does not seem to be exact
+      // response = await sendCommand(client, ['decrby', 'decr-key', String(Number.MAX_SAFE_INTEGER)]);
+      // expect(response).to.equal('ReplyError: Error: increment or decrement would overflow');
+    }
   });
   it('should respect TTL', async () => {
     const response: any = await sendCommand(client, ['get', 'ttlkey']);

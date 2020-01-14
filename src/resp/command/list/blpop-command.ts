@@ -8,33 +8,37 @@ import { RedisToken } from '../../protocol/redis-token';
 import { LPopCommand } from './lpop-command';
 /**
  * ### Available since 2.0.0.
- * ### BRPOP key [key ...] timeout
- *
- * BRPOP is a blocking list pop primitive. It is the blocking version of [RPOP]{@link RPopCommand} because
- * it blocks the connection when there are no elements to pop from any of the given lists. An element
- * is popped from the tail of the first list that is non-empty, with the given keys being checked
+ * ### BLPOP key [key ...] timeout
+ * BLPOP is a blocking list pop primitive. It is the blocking version of LPOP because it blocks
+ * the connection when there are no elements to pop from any of the given lists. An element is
+ * popped from the head of the first list that is non-empty, with the given keys being checked
  * in the order that they are given.
  *
- * ### See {@link TimedEmitter} for limitations
+ * ### Non-blocking behavior
+ * When BLPOP is called, if at least one of the specified keys contains a non-empty list, an
+ * element is popped from the head of the list and returned to the caller together with the key
+ * it was popped from.
  *
- * See the [BLPOP]{@link BLPopCommand} documentation for the exact semantics, since BRPOP is
- * identical to BLPOP with the only difference being that it pops elements from the tail of a
- * list instead of popping from the head.
- * ### Return value
- * Array reply: specifically:
- * - A nil multi-bulk when no element could be popped and the timeout expired.
- * - A two-element multi-bulk with the first element being the name of the key where an element was
- * popped and the second element being the value of the popped element.
- * ### Examples
+ * Keys are checked in the order that they are given. Let's say that the key list1 doesn't exist
+ * and list2 and list3 hold non-empty lists. Consider the following command:
  * ```
- * redis> DEL list1 list2
- * (integer) 0
- * redis> RPUSH list1 a b c
- * (integer) 3
- * redis> BRPOP list1 list2 0
- * 1) "list1"
- * 2) "c"
+ * BLPOP list1 list2 list3 0
  * ```
+ * BLPOP guarantees to return an element from the list stored at list2 (since it is the first
+ * non empty list when checking list1, list2 and list3 in that order).
+ * ### Blocking behavior
+ * If none of the specified keys exist, BLPOP blocks the connection until another client performs
+ * an LPUSH or RPUSH operation against one of the keys.
+ *
+ * Once new data is present on one of the lists, the client returns with the name of the key
+ * unblocking it and the popped value.
+ *
+ * When BLPOP causes a client to block and a non-zero timeout is specified, the client will
+ * unblock returning a nil multi-bulk value when the specified timeout has expired without a
+ * push operation against at least one of the specified keys.
+ *
+ * The timeout argument is interpreted as an integer value specifying the maximum number of
+ * seconds to block. A timeout of zero can be used to block indefinitely.
  */
 @DbDataType(DataType.LIST)
 export class BLPopCommand extends LPopCommand {
@@ -47,33 +51,48 @@ export class BLPopCommand extends LPopCommand {
     this.logger = new Logger(module.id);
   }
   public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     return new Promise((resolve: any) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const timeout: string = request.getParam(request.getParams().length - 1);
-      const eventNames: string[] = [ ];
-      const eventCallbacks: any = {};
+      // Check all source keys first
+      const results: RedisToken[] = [];
       for (let index = 0; index < request.getParams().length - 1; index++) {
         const key = request.getParam(index);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
+        const result = this.process(request, db, key);
+        if (result !== RedisToken.nullString()) {
+          results.push(RedisToken.string(key));
+          results.push(result);
+          break;
+        }
       }
-      const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
-      timedEvent.on('timeout', () => {
-        this.logger.debug(`Timeout`);
-        this.removeListeners(timedEvent, eventCallbacks);
-        resolve(RedisToken.nullString());
-      });
-      for (const eventName of eventNames) {
-        this.logger.debug(`Adding listener for ${eventName}`);
-        eventCallbacks[eventName] = () => {
-          const keyName: string = `${eventName.split(' ')[1]}`;
-          const results: RedisToken[] = [RedisToken.string(keyName)];
-          results.push(this.process(request, db, keyName));
-          resolve(RedisToken.array(results));
-        };
-        timedEvent.on(eventName, eventCallbacks[eventName]);
+      if (results.length > 0) {
+        resolve(RedisToken.array(results));
+      } else {
+        const eventNames: string[] = [];
+        const eventCallbacks: any = {};
+        for (let index = 0; index < request.getParams().length - 1; index++) {
+          const key = request.getParam(index);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
+        }
+        const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
+        timedEvent.on('timeout', () => {
+          this.logger.debug(`Timeout`);
+          this.removeListeners(timedEvent, eventCallbacks);
+          resolve(RedisToken.nullString());
+        });
+        for (const eventName of eventNames) {
+          this.logger.debug(`Adding listener for ${eventName}`);
+          eventCallbacks[eventName] = () => {
+            const keyName: string = `${eventName.split(' ')[1]}`;
+            const callresults: RedisToken[] = [RedisToken.string(keyName)];
+            callresults.push(this.process(request, db, keyName));
+            resolve(RedisToken.array(callresults));
+          };
+          timedEvent.on(eventName, eventCallbacks[eventName]);
+        }
       }
     });
   }

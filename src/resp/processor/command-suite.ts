@@ -5,6 +5,8 @@ import { DBSizeCommand } from '../command/db/dbsize-command';
 import { FlushAllCommand } from '../command/db/flushall-command';
 import { FlushDbCommand } from '../command/db/flushdb-command';
 import { SelectCommand } from '../command/db/select-command';
+import { DiscardCommand } from '../command/discard-command';
+import { ExecCommand } from '../command/exec-command';
 import { HgetCommand } from '../command/hash/hget-command';
 import { HsetCommand } from '../command/hash/hset-command';
 import { DelCommand } from '../command/key/del-command';
@@ -19,6 +21,7 @@ import { TtlCommand } from '../command/key/ttl-command';
 import { TypeCommand } from '../command/key/type-command';
 import { BLPopCommand } from '../command/list/blpop-command';
 import { BRPopCommand } from '../command/list/brpop-command';
+import { BRPoplPushCommand } from '../command/list/brpoplpush-command';
 import { LIndexCommand } from '../command/list/lindex-command';
 import { LLenCommand } from '../command/list/llen-command';
 import { LPopCommand } from '../command/list/lpop-command';
@@ -30,6 +33,7 @@ import { LTrimCommand } from '../command/list/ltrim-command';
 import { RPopCommand } from '../command/list/rpop-command';
 import { RPoplPushCommand } from '../command/list/rpoplpush-command';
 import { RPushCommand } from '../command/list/rpush-command';
+import { MultiCommand } from '../command/multi-command';
 import { NullCommand } from '../command/null-command';
 import { IRespCommand } from '../command/resp-command';
 import { ScriptCommand } from '../command/script-command';
@@ -136,6 +140,10 @@ export class CommandSuite {
     this.addCommand('ttl', new TtlCommand());
     this.addCommand('brpop', new BRPopCommand(-1, 2, 'brpop'));
     this.addCommand('blpop', new BLPopCommand(-1, 2, 'blpop'));
+    this.addCommand('brpoplpush', new BRPoplPushCommand());
+    this.addCommand('multi', new MultiCommand());
+    this.addCommand('discard', new DiscardCommand());
+    this.addCommand('exec', new ExecCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

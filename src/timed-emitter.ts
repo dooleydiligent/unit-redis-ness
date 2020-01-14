@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { Logger } from './logger';
 /**
  * Setup a blocking wait.  Used in B(locking)* commands, such as [BRPOP]{@link BRPopCommand}.
  *
@@ -14,7 +15,7 @@ import { EventEmitter } from 'events';
  */
 
 export class TimedEmitter extends EventEmitter {
-
+  private logger: Logger = new Logger(module.id);
   constructor(private timeoutSeconds: number, private keyEventNames: string[], emitter: EventEmitter) {
     super();
     setTimeout(() => {
@@ -23,6 +24,7 @@ export class TimedEmitter extends EventEmitter {
     }, timeoutSeconds === 0 ? 2147483647 : timeoutSeconds * 1000);
     for (const eventName of keyEventNames) {
       emitter.on(eventName, () => {
+        this.logger.debug(`Triggered ${eventName}`);
         this.emit(eventName);
       });
     }

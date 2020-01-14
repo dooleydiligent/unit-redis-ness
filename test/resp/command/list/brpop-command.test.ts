@@ -37,35 +37,51 @@ describe('brpop-command test', () => {
   });
   it('should wait for a list to exist and return the list name and value', (done) => {
     sendCommand(client, ['brpop', 'no-key', '0'])
-    .then((response: any) => {
-      expect(response).to.eql(['no-key', 'THE NEW VALUE']);
-      done();
-    });
+      .then((response: any) => {
+        expect(response).to.eql(['no-key', 'THE NEW VALUE']);
+        done();
+      });
     sendCommand(new net.Socket(), ['lpush', 'no-key', 'THE NEW VALUE'])
-    .then((response: any) => {
-      expect(response).to.equal(1);
-    });
+      .then((response: any) => {
+        expect(response).to.equal(1);
+      });
   });
   it('should return the list name and TAIL value', (done) => {
-    sendCommand(client, ['brpop', 'no-key2', '0'])
-    .then((response: any) => {
-      expect(response).to.eql(['no-key2', 'first']);
-      done();
-    });
-    sendCommand(new net.Socket(), ['rpush', 'no-key2', 'third', 'second', 'first'])
-    .then((response: any) => {
-      expect(response).to.equal(3);
-    });
+    sendCommand(client, ['flushall'])
+      .then((response) => {
+        expect(response).to.equal('OK');
+        sendCommand(client, ['brpop', 'no-key2', '0'])
+          .then((response: any) => {
+            expect(response).to.eql(['no-key2', 'first']);
+            done();
+          });
+        sendCommand(new net.Socket(), ['rpush', 'no-key2', 'third', 'second', 'first'])
+          .then((response: any) => {
+            expect(response).to.equal(3);
+          });
+      });
   });
   it('should support blocking rpop against multiple lists in one call', (done) => {
     sendCommand(client, ['brpop', 'list1', 'list2', 'list3', '0'])
-    .then((response: any) => {
-      expect(response).to.eql(['list3', 'THE NEW VALUE']);
-      done();
-    });
+      .then((response: any) => {
+        expect(response).to.eql(['list3', 'THE NEW VALUE']);
+        done();
+      });
     sendCommand(new net.Socket(), ['lpush', 'list3', 'THE NEW VALUE'])
-    .then((response: any) => {
-      expect(response).to.equal(1);
-    });
+      .then((response: any) => {
+        expect(response).to.equal(1);
+      });
+  });
+  it('should return the pushd value when it already exists even if a timeout is set', (done) => {
+    const uniqueKey = `poprpush${new Date().getTime()}`;
+    sendCommand(new net.Socket(), ['rpush', uniqueKey, 'third', 'second', 'first'])
+      .then((response: any) => {
+        expect(response).to.equal(3);
+        sendCommand(client, ['brpop', uniqueKey, '0'])
+          .then((response: any) => {
+            expect(response).to.eql([uniqueKey, 'first']);
+            done();
+          });
+      });
   });
 });

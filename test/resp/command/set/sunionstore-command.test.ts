@@ -40,6 +40,8 @@ describe('sunionstore-command test', () => {
     expect(response).to.eql(0);
   });
   it('should overwrite the destination and return the number of keys copied', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c']);
     expect(response).to.equal(3);
     response = await sendCommand(client, ['sadd', 'key2', 'c', 'd', 'e']);
@@ -49,6 +51,6 @@ describe('sunionstore-command test', () => {
     response = await sendCommand(client, ['sunionstore', 'key3', 'key1', 'key2']);
     expect(response).to.equal(5);
     response = await sendCommand(client, ['smembers', 'key3']);
-    expect(response).to.eql(['a', 'b', 'c', 'd', 'e']);
+    expect(response.sort()).to.eql(['a', 'b', 'c', 'd', 'e']);
   });
 });

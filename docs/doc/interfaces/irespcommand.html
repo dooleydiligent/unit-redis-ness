@@ -2416,11 +2416,14 @@ img {
 			<ul class="tsd-hierarchy">
 				<li><a href="../classes/blpopcommand.html" class="tsd-signature-type">BLPopCommand</a></li>
 				<li><a href="../classes/brpopcommand.html" class="tsd-signature-type">BRPopCommand</a></li>
+				<li><a href="../classes/brpoplpushcommand.html" class="tsd-signature-type">BRPoplPushCommand</a></li>
 				<li><a href="../classes/clientcommand.html" class="tsd-signature-type">ClientCommand</a></li>
 				<li><a href="../classes/commandwrapper.html" class="tsd-signature-type">CommandWrapper</a></li>
 				<li><a href="../classes/dbsizecommand.html" class="tsd-signature-type">DBSizeCommand</a></li>
 				<li><a href="../classes/delcommand.html" class="tsd-signature-type">DelCommand</a></li>
+				<li><a href="../classes/discardcommand.html" class="tsd-signature-type">DiscardCommand</a></li>
 				<li><a href="../classes/echocommand.html" class="tsd-signature-type">EchoCommand</a></li>
+				<li><a href="../classes/execcommand.html" class="tsd-signature-type">ExecCommand</a></li>
 				<li><a href="../classes/existscommand.html" class="tsd-signature-type">ExistsCommand</a></li>
 				<li><a href="../classes/expirecommand.html" class="tsd-signature-type">ExpireCommand</a></li>
 				<li><a href="../classes/flushallcommand.html" class="tsd-signature-type">FlushAllCommand</a></li>
@@ -2444,6 +2447,7 @@ img {
 				<li><a href="../classes/mgetcommand.html" class="tsd-signature-type">MGetCommand</a></li>
 				<li><a href="../classes/movecommand.html" class="tsd-signature-type">MoveCommand</a></li>
 				<li><a href="../classes/msetcommand.html" class="tsd-signature-type">MsetCommand</a></li>
+				<li><a href="../classes/multicommand.html" class="tsd-signature-type">MultiCommand</a></li>
 				<li><a href="../classes/nullcommand.html" class="tsd-signature-type">NullCommand</a></li>
 				<li><a href="../classes/pingcommand.html" class="tsd-signature-type">PingCommand</a></li>
 				<li><a href="../classes/quitcommand.html" class="tsd-signature-type">QuitCommand</a></li>
@@ -2510,7 +2514,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">data<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/datatype.html" class="tsd-signature-type">DataType</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L27">src/resp/command/resp-command.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L27">src/resp/command/resp-command.ts:27</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2525,7 +2529,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">max<wbr>Params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L35">src/resp/command/resp-command.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L35">src/resp/command/resp-command.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2540,7 +2544,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">min<wbr>Params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L31">src/resp/command/resp-command.ts:31</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L31">src/resp/command/resp-command.ts:31</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2555,7 +2559,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">pub<wbr>Sub<wbr>Allowed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L23">src/resp/command/resp-command.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L23">src/resp/command/resp-command.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2570,7 +2574,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">sign<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L15">src/resp/command/resp-command.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L15">src/resp/command/resp-command.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2586,7 +2590,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">tx<wbr>Ignore<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L19">src/resp/command/resp-command.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L19">src/resp/command/resp-command.ts:19</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2608,7 +2612,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/05bfef0/src/resp/command/resp-command.ts#L41">src/resp/command/resp-command.ts:41</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/4b485ff/src/resp/command/resp-command.ts#L41">src/resp/command/resp-command.ts:41</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

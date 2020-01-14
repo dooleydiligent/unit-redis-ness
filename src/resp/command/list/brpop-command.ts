@@ -50,30 +50,45 @@ export class BRPopCommand extends RPopCommand {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     return new Promise((resolve: any) => {
       const timeout: string = request.getParam(request.getParams().length - 1);
-      const eventNames: string[] = [ ];
-      const eventCallbacks: any = {};
+      // Check all source keys first
+      const results: RedisToken[] = [];
       for (let index = 0; index < request.getParams().length - 1; index++) {
         const key = request.getParam(index);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
+        const result = this.process(request, db, key);
+        if (result !== RedisToken.nullString()) {
+          results.push(RedisToken.string(key));
+          results.push(result);
+          break;
+        }
       }
-      const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
-      timedEvent.on('timeout', () => {
-        this.logger.debug(`Timeout`);
-        this.removeListeners(timedEvent, eventCallbacks);
-        resolve(RedisToken.nullString());
-      });
-      for (const eventName of eventNames) {
-        this.logger.debug(`Adding listener for ${eventName}`);
-        eventCallbacks[eventName] = () => {
-          const keyName: string = `${eventName.split(' ')[1]}`;
-          const results: RedisToken[] = [RedisToken.string(keyName)];
-          results.push(this.process(request, db, keyName));
-          resolve(RedisToken.array(results));
-        };
-        timedEvent.on(eventName, eventCallbacks[eventName]);
+      if (results.length > 0) {
+        resolve(RedisToken.array(results));
+      } else {
+        const eventNames: string[] = [ ];
+        const eventCallbacks: any = {};
+        for (let index = 0; index < request.getParams().length - 1; index++) {
+          const key = request.getParam(index);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
+          eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
+        }
+        const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
+        timedEvent.on('timeout', () => {
+          this.logger.debug(`Timeout`);
+          this.removeListeners(timedEvent, eventCallbacks);
+          resolve(RedisToken.nullString());
+        });
+        for (const eventName of eventNames) {
+          this.logger.debug(`Adding listener for ${eventName}`);
+          eventCallbacks[eventName] = () => {
+            const keyName: string = `${eventName.split(' ')[1]}`;
+            const callresults: RedisToken[] = [RedisToken.string(keyName)];
+            callresults.push(this.process(request, db, keyName));
+            resolve(RedisToken.array(callresults));
+          };
+          timedEvent.on(eventName, eventCallbacks[eventName]);
+        }
       }
     });
   }

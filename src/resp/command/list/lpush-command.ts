@@ -47,7 +47,7 @@ export class LPushCommand implements IRespCommand {
       // To remain consistent with redis 2.6+, we raise events only after all pushes have completed
       db.put(key, list);
       for (let index = 1; index < request.getParams().length; index++) {
-        request.getServerContext().emit(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+        request.getServerContext().emit(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
       }
       this.logger.debug(`Returning list ${key} size ${size}`);
       resolve(RedisToken.integer(size));

@@ -31,21 +31,23 @@ describe('sunion-command test', () => {
   /**
    * Functional testing of the sunion command
    */
-  it('should return NIL when the source set does not exist', async () => {
+  it('should return EMPTY SET when the source set does not exist', async () => {
     response = await sendCommand(client, ['sunion', 'ary']);
-    expect(response).to.eql([null]);
+    expect(response).to.eql([]);
   });
   it('should return the union of a single set', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['sadd', 'key1', 'a', 'b', 'c', 'd']);
     expect(response).to.equal(4);
     response = await sendCommand(client, ['sunion', 'key1']);
-    expect(response).to.eql(['a', 'b', 'c', 'd']);
+    expect(response.sort()).to.eql(['a', 'b', 'c', 'd']);
   });
-  it('should ignore non-set keys', async () => {
+  it('should fail when sunion requested againt non-set keys', async () => {
     response = await sendCommand(client, ['set', 'string-key', 'value']);
     expect(response).to.equal('OK');
     response = await sendCommand(client, ['sunion', 'key1', 'string-key']);
-    expect(response).to.eql(['a', 'b', 'c', 'd']);
+    expect(response).to.equal('ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value');
   });
   it('should return the union of multiple sets', async () => {
     response = await sendCommand(client, ['sadd', 'key2', 'c']);
@@ -53,6 +55,6 @@ describe('sunion-command test', () => {
     response = await sendCommand(client, ['sadd', 'key3', 'a', 'c', 'e']);
     expect(response).to.equal(3);
     response = await sendCommand(client, ['sunion', 'key1', 'key2', 'key3']);
-    expect(response).to.eql(['a','b','c','d','e']);
+    expect(response.sort()).to.eql(['a','b','c','d','e']);
   });
 });
