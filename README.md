@@ -22,6 +22,7 @@ This project is released under the [MIT license](https://opensource.org/licenses
 
 ### [Code Coverage Report](https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html)
 ### [Mochawesome Report](https://dooleydiligent.github.io/unit-redis-ness/mochawesome/mochawesome.html)
+The full unit-test suite is tested against redis v5.0.5 with each release
 ### [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
 ### [Repository](https://github.com/dooleydiligent/unit-redis-ness)
 

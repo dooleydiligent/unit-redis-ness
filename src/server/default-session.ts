@@ -37,10 +37,6 @@ export class DefaultSession extends Session {
   public close(): void {
     // noop
   }
-  public destroy(): void {
-    this.state.clear();
-    this.socket.destroy();
-  }
   public getValue(key: string) {
     this.logger.debug(`getValue(${key}: ${this.state.get(key)}`);
     return this.state.get(key);

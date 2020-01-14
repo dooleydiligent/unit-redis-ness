@@ -27,12 +27,6 @@ export class DefaultRequest implements IRequest {
   public getLength(): number {
     return this.params.length;
   }
-  public isEmpty(): boolean {
-    return this.params.length === 0;
-  }
-  public isExit(): boolean {
-    return this.command.toString() === 'quit';
-  }
   public getSession(): Session {
     return this.session;
   }

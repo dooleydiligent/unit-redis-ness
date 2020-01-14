@@ -15,7 +15,6 @@ export abstract class Session {
   public abstract setName(name: string): void;
   public abstract publish(message: RedisToken | Promise<RedisToken>): void;
   public abstract close(): void;
-  public abstract destroy(): void;
   public abstract getValue(key: string): any;
   public abstract putValue(key: string, value: any): void;
   public abstract removeValue(key: string): any;

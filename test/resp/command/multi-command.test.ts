@@ -99,4 +99,8 @@ describe('multi command test', () => {
     response = await sendCommand(client, ['brpoplpush', 'test', 'dest', '0']);
     expect(response).to.equal('one');
   });
+  it('should fail when EXEC issued without MULTI', async () => {
+    response = await sendCommand(client, ['exec']);
+    expect(response).to.equal('ReplyError: ERR EXEC without MULTI');
+  });
 });
