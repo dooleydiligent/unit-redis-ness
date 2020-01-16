@@ -15,8 +15,7 @@ import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
 export { sendCommand } from '../client';
-// // tslint:disable-next-line
-// const safeId = require('generate-safe-id');
+
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
 
@@ -62,23 +61,20 @@ export class RespServer extends EventEmitter {
       returnReply: (command: any) => {
         this.logger.debug(`returnReply: command is ${command}`);
         session.setLastCommand(command);
-        parser.response = new ArrayRedisToken(command);
+        const request: IRequest = this.parseMessage(new ArrayRedisToken(command), session);
+        // look up the command in commandsuite
+        const execcommand: IRespCommand = this.serverContext.getCommand(request.getCommand());
+        this.logger.debug(`Executing command "${request.getCommand()}"`);
+        execcommand.execute(request)
+          .then((resultToken: RedisToken) => {
+            this.logger.debug(`command response is %s`, resultToken);
+            // send the result back to the client
+            session.publish(resultToken);
+          });
       },
       stringNumbers: true
     });
     parser.execute(message);
-    this.logger.debug(`Parsed client command is : ${parser.response}`);
-    const result = this.parseMessage(parser.response, session);
-    this.logger.debug(`Parsed client message is ${result}`);
-    // look up the command in commandsuite
-    const execcommand: IRespCommand = this.serverContext.getCommand(result.getCommand());
-    this.logger.debug(`Command is ${result.getCommand()}: ${util.inspect(execcommand)}`);
-    execcommand.execute(result)
-      .then((resultToken: RedisToken) => {
-        this.logger.debug(`resultToken is ${resultToken}`);
-        // send the result back to the client
-        session.publish(resultToken);
-      });
   }
   /**
    * start the redis server

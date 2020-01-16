@@ -1,10 +1,12 @@
 import { MaxParams, MinParams, Name } from '../../decorators';
 import { Logger } from '../../logger';
+import { DefaultRequest } from '../../server/default-request';
 import { IRequest } from '../../server/request';
+import { IServerContext } from '../../server/server-context';
+import { Session } from '../../server/session';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { IRespCommand } from './resp-command';
-
 /* tslint:disable-next-line */
 const fengari = require('fengari');
 const lua = fengari.lua;
@@ -36,9 +38,13 @@ const lualib = fengari.lualib;
 export class ScriptCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
+  private serverContext: IServerContext | null = null;
+  private session: Session | null = null;
   public execute(request: IRequest, db: Database): Promise<RedisToken> {
     return new Promise((resolve) => {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+      this.serverContext = request.getServerContext();
+      this.session = request.getSession();
       let sha1: string | null;
       switch (request.getCommand().toLowerCase()) {
         case 'eval':
@@ -190,6 +196,29 @@ export class ScriptCommand implements IRespCommand {
     }
     lua.lua_setglobal(L, fengari.to_luastring('KEYS'));
 
+    // push the global redis reference
+    this.logger.debug(`Creating reference to REDIS`);
+    const redis = {
+      call: this.call
+    };
+    this.logger.debug(`creating redis table`);
+    lua.lua_createtable(L, 2, 0);
+    // push the key name
+    this.logger.debug(`pushing redis`);
+    lua.lua_pushstring(L, 'redis');
+    lua.lua_seti(L, -2, 1);
+
+    // push the key value
+    this.logger.debug(`pushing call function`);
+    lua.lua_pushjsfunction(L, this.call);
+    // // call rawseti
+    // this.logger.debug(`calling rawseti`);
+    lua.lua_seti(L, -2, 2);
+
+    this.logger.debug(`calling setglobal on redis`);
+    lua.lua_setglobal(L, fengari.to_luastring('redis'));
+
+    /// End push redis
     this.logger.debug(`executeLua: Validating lua script "%s"`, code);
     // const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${tables}\n${code}`));
     const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
@@ -300,5 +329,22 @@ export class ScriptCommand implements IRespCommand {
       });
     }
     return elementValue;
+  }
+  private call(command: string, ...params: any[]): any {
+    this.logger.debug(`RCALL redis with ${command} and %s`, params);
+    if (this.serverContext && this.session) {
+      const execcommand: IRespCommand = this.serverContext.getCommand(command);
+      this.logger.debug(`Executing command "${command}"`);
+      const request: IRequest = new DefaultRequest(this.serverContext, this.session, command, params);
+
+      execcommand.execute(request)
+        .then((responseToken: RedisToken) => {
+          this.logger.debug(`command response is %s`, responseToken);
+          // send the result back to the client
+          // session.publish(responseToken);
+        });
+    } else {
+      this.logger.warn(`ServerContext or Session was not initialized`);
+    }
   }
 }

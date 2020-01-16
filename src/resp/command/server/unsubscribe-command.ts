@@ -18,7 +18,7 @@ import { IRespCommand } from '../resp-command';
  */
 @MaxParams(-1)
 @MinParams(1)
-@Name('subscribe')
+@Name('unsubscribe')
 export class UnsubscribeCommand implements IRespCommand {
   private logger: Logger = new Logger(module.id);
   public execute(request: IRequest): Promise<RedisToken> {
