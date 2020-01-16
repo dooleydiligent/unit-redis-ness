@@ -22,6 +22,7 @@ This project is released under the [MIT license](https://opensource.org/licenses
 
 ### [Code Coverage Report](https://dooleydiligent.github.io/unit-redis-ness/coverage/index.html)
 ### [Mochawesome Report](https://dooleydiligent.github.io/unit-redis-ness/mochawesome/mochawesome.html)
+The full unit-test suite is tested against redis v5.0.5 with each release
 ### [Code Documentation](https://dooleydiligent.github.io/unit-redis-ness/doc/index.html)
 ### [Repository](https://github.com/dooleydiligent/unit-redis-ness)
 
@@ -82,15 +83,18 @@ As of 1.0.4 **unit-redis-ness** includes embedded [fengari](https://www.npmjs.co
 
 All of the current test suite has been validated against a live redis instance (except for tests involving MAX_SAFE_INTEGER and MIN_SAFE_INTEGER - these are only 53 bits in unit-redis-ness)
 
-Otherwise, unit-redis only supports 5 "server" commands:
+As of **v1.0.9, unit-redis-net** supports 8 "server" commands:
 
 - ping
 - echo
 - time
 - quit
 - info
+- publish
+- subscribe
+- unsubscribe
 
-Plus some "database" commands - **implemented as of 1.0.8**:
+Plus these "database" commands:
 
 - get
 - set

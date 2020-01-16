@@ -40,8 +40,11 @@ import { ScriptCommand } from '../command/script-command';
 import { EchoCommand } from '../command/server/echo-command';
 import { InfoCommand } from '../command/server/info-command';
 import { PingCommand } from '../command/server/ping-command';
+import { PublishCommand } from '../command/server/publish-command';
 import { QuitCommand } from '../command/server/quit-command';
+import { SubscribeCommand } from '../command/server/subscribe-command';
 import { TimeCommand } from '../command/server/time-command';
+import { UnsubscribeCommand } from '../command/server/unsubscribe-command';
 import { SAddCommand } from '../command/set/sadd-command';
 import { SCardCommand } from '../command/set/scard-command';
 import { SDiffCommand } from '../command/set/sdiff-command';
@@ -144,6 +147,9 @@ export class CommandSuite {
     this.addCommand('multi', new MultiCommand());
     this.addCommand('discard', new DiscardCommand());
     this.addCommand('exec', new ExecCommand());
+    this.addCommand('publish', new PublishCommand());
+    this.addCommand('subscribe', new SubscribeCommand());
+    this.addCommand('unsubscribe', new UnsubscribeCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

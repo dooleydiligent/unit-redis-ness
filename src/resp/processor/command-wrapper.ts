@@ -10,22 +10,19 @@ export class CommandWrapper implements IRespCommand {
   public minParams: number = -1;
   public dataType: DataType = DataType.NONE;
   public pubSubAllowed: boolean;
-  // public txIgnore: boolean;
   private logger: Logger = new Logger(module.id);
   constructor(private command: IRespCommand) {
     this.logger.info(`Instantiating command ${(command as any).name}`);
     if (command.dataType) {
       this.dataType = command.dataType;
     }
-    // this.txIgnore = !!command.txIgnore;
+
     this.pubSubAllowed = !!command.pubSubAllowed;
     // We have to set these values
     this.minParams = +(command as any).minParams;
     this.maxParams = +(command as any).maxParams;
   }
-  // public isTxIgnore(): boolean {
-  //   return this.txIgnore;
-  // }
+
   public isPubSubAllowed(): boolean {
     return this.pubSubAllowed;
   }
@@ -58,10 +55,6 @@ export class CommandWrapper implements IRespCommand {
           resolve(RedisToken.error(
             `ERR only (P)SUBSCRIBE / (P)UNSUBSCRIBE / QUIT allowed in this context`));
           break;
-        // case this.isTxActive(request) && !this.txIgnore:
-        //   this.enqueueRequest(request);
-        //   resolve(RedisToken.status(`QUEUED`));
-        //   break;
         default:
           if (
             request.getSession().inTransaction() &&
@@ -102,47 +95,12 @@ export class CommandWrapper implements IRespCommand {
   private executeDBCommand(request: IRequest, db: Database): Promise<RedisToken> {
     return this.command.execute(request, db);
   }
-  // private enqueueRequest(request: IRequest): void {
-  //   const tx = this.getTransactionState(request.getSession());
-  //   // .ifPresent(tx -> tx.enqueue(request));
-  //   tx.enqueue(request);
-  // }
-
-  // private isTxActive(request: IRequest): boolean {
-  //   const isPresent = this.getTransactionState(request.getSession());
-  //   return (isPresent && isPresent.isPresent());
-  //   //    return this.getTransactionState(request.getSession()).isPresent();
-  // }
-
-  // private getTransactionState(session: Session): any { // Option<TransactionState>
-  //   return session.getValue('tx');
-  // }
 
   private getCurrentDB(request: IRequest): Database {
     return request.getServerContext().getDatabase(request.getSession().getCurrentDb());
-    // const serverState: DBServerState = this.getServerState(request.getServerContext());
-    // const sessionState: DBSessionState = this.getSessionState(request.getSession());
-    // return serverState.getDatabase(sessionState.getCurrentDB());
   }
 
-  // private getServerState(server: ServerContext): DBServerState {
-  //   return serverState(server).getOrElseThrow(() -> new IllegalStateException('missing server state'));
-  // }
-
-  // private getSessionState(session: Session): DBSessionState {
-  //   return this.sessionState(session).getOrElseThrow(() -> new IllegalStateException('missing session state'));
-  // }
-
-  // private Option<DBServerState> serverState(ServerContext server) {
-  //   return server.getValue('state');
-  // }
-
-  // private Option<DBSessionState> sessionState(Session session) {
-  //   return session.getValue('state');
-  // }
-
   private isSubscribed(request: IRequest): boolean {
-    // return this.getSessionState(request.getSession()).isSubscribed();
     return request.getSession().getValue('subscribed') === true;
   }
 }

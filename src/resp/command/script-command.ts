@@ -45,6 +45,7 @@ export class ScriptCommand implements IRespCommand {
           // Replace the sha1 in the cache
           sha1 = this.loadScript(request, 0);
           if (sha1) {
+            this.logger.debug(`Generated sha1 ${sha1}`);
             resolve(this.executeLua(`${sha1}`, request));
           } else {
             resolve(RedisToken.error(`ERR Parsing script`));
@@ -64,6 +65,7 @@ export class ScriptCommand implements IRespCommand {
             case 'load':
               sha1 = this.loadScript(request, 1);
               if (sha1) {
+                this.logger.debug(`Returning sha1 ${sha1}`);
                 resolve(RedisToken.string(`${sha1}`));
               } else {
                 resolve(RedisToken.error(`ERR Parsing script`));

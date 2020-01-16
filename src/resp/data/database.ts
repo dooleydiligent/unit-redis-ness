@@ -6,10 +6,6 @@ import { DatabaseValue } from './database-value';
 export class Database extends Dictionary<string, DatabaseValue> {
   protected logger: Logger = new Logger(module.id);
 
-  public isEmpty(): boolean {
-    return this.size() === 0;
-  }
-
   public exists(key: string): boolean {
     const item = this.get(key);
     return (!!item);
@@ -22,30 +18,6 @@ export class Database extends Dictionary<string, DatabaseValue> {
     }
     return item;
   }
-
-  // public getString(key: string): string {
-  //   return this.getOrDefault(DatabaseKey.safeKey(key.toString()), DatabaseValue.EMPTY_STRING).getString();
-  // }
-
-  // public getList(key: string): string[] {
-  //   return this.getOrDefault(DatabaseKey.safeKey(key.toString()), DatabaseValue.EMPTY_LIST).getList();
-  // }
-
-  // public getSet(key: string): Set<any> {
-  //   return this.getOrDefault(key, DatabaseValue.EMPTY_SET).getSet();
-  // }
-
-  //   public abstract NavigableSet < Entry < Double, SafeString >> getSortedSet(SafeString key) {
-  //   return getOrDefault(safeKey(key), DatabaseValue.EMPTY_ZSET).getSortedSet();
-  // }
-
-  //   default ImmutableMap < SafeString, SafeString > getHash(SafeString key) {
-  //   return getOrDefault(safeKey(key), DatabaseValue.EMPTY_HASH).getHash();
-  // }
-
-  //   default void putAll(ImmutableMap <? extends DatabaseKey, ? extends DatabaseValue > map) {
-  //   map.forEach(this:: put);
-  // }
 
   public putIfPresent(key: string, value: DatabaseValue): DatabaseValue {
     let oldKey = this.get(key);
@@ -105,15 +77,4 @@ export class Database extends Dictionary<string, DatabaseValue> {
     }
     return false;
   }
-
-  //   default void overrideAll(ImmutableMap < DatabaseKey, DatabaseValue > value) {
-  //   clear();
-  //   putAll(value);
-  // }
-
-  //   default ImmutableSet < DatabaseKey > evictableKeys(Instant now) {
-  //   return entrySet()
-  //     .filter(entry -> entry.get2().isExpired(now))
-  //     .map(Tuple2:: get1);
-  // }
 }
