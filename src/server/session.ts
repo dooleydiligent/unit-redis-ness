@@ -1,6 +1,8 @@
+import { Dictionary } from '../dictionary';
 import { Logger } from '../logger';
 import { IRespCommand } from '../resp/command/resp-command';
 import { RedisToken } from '../resp/protocol/redis-token';
+import { TimedEmitter } from '../timed-emitter';
 import { IRequest } from './request';
 export interface ICmdReq {
   command: IRespCommand;
@@ -9,11 +11,12 @@ export interface ICmdReq {
 export abstract class Session {
   protected logger: Logger = new Logger(module.id);
   protected commands: ICmdReq[] = [];
+  private subscriptions: Dictionary<string, TimedEmitter> = new Dictionary();
   private errored: boolean = false;
   public abstract getId(): string;
   public abstract getName(): string;
   public abstract setName(name: string): void;
-  public abstract publish(message: RedisToken | Promise<RedisToken>): void;
+  public abstract publish(message: RedisToken): void;
   public abstract close(): void;
   public abstract getValue(key: string): any;
   public abstract putValue(key: string, value: any): void;
@@ -24,6 +27,25 @@ export abstract class Session {
   public abstract getLastCommand(): string;
   public abstract setLastCommand(command: string): void;
 
+  public isSubscribed(channel: string): boolean {
+    return this.subscriptions.exists(channel);
+  }
+  public subscribe(channel: string, emitter: TimedEmitter): void {
+    this.subscriptions.put(channel, emitter);
+  }
+  public getSubscription(channel: string): TimedEmitter {
+    return this.subscriptions.get(channel);
+  }
+  public unSubscribe(channel: string): void {
+    if (this.isSubscribed(channel)) {
+      const emitter: TimedEmitter = this.subscriptions.get(channel);
+      emitter.off(channel, emitter.callback);
+      this.subscriptions.remove(channel);
+    }
+  }
+  public getSubscriptionNames(): string[] {
+    return this.subscriptions.keys();
+  }
   public setError(): void {
     this.errored = true;
   }

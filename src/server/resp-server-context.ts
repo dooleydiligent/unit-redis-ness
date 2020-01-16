@@ -26,6 +26,11 @@ export class RespServerContext extends EventEmitter implements IServerContext {
     this.logger.warn(`REDIS_PORT is ${process.env.REDIS_PORT}`);
     this.databases.put('_0', new Database());
   }
+  public publish(channel: string, message: string): number {
+    this.logger.debug(`publish "${message}" to channel "${channel}"`);
+    this.emit(channel, { channel, message});
+    return this.listenerCount(channel);
+  }
 
   public getHost(): string {
     return this.host;

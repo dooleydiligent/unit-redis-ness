@@ -7,15 +7,14 @@ import { DatabaseValue } from '../../data/database-value';
 import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 /**
- * Available since 1.0.0.
- *
- * LLEN key
+ * ### Available since 1.0.0.
+ * ### LLEN key
  *
  * Returns the length of the list stored at key. If key does not exist, it is interpreted
  * as an empty list and 0 is returned. An error is returned when the value stored at key is
  * not a list.
  *
- * **Return value**<br>
+ * ### Return value
  * Integer reply: the length of the list at key.
  */
 @DbDataType(DataType.LIST)

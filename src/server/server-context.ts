@@ -19,4 +19,5 @@ export interface IServerContext extends EventEmitter {
   scriptExists(sha1: string): boolean;
   getScript(sha1: string): string;
   setScript(code: string): string;
+  publish(channel: string, message: string): number;
 }

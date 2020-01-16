@@ -2383,17 +2383,25 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Available since 1.0.0.</p>
+					<a href="#available-since-100" id="available-since-100" style="color: inherit; text-decoration: none;">
+						<h3>Available since 1.0.0.</h3>
+					</a>
+					<a href="#sadd-key-member-member-" id="sadd-key-member-member-" style="color: inherit; text-decoration: none;">
+						<h3>SADD key member [member ...]</h3>
+					</a>
+					<p>Add the specified members to the set stored at key. Specified members that are already
+						a member of this set are ignored. If key does not exist, a new set is created before
+					adding the specified members.</p>
 				</div>
-				<p>SADD key member [member ...]</p>
-				<p>Add the specified members to the set stored at key. Specified members that are already
-					a member of this set are ignored. If key does not exist, a new set is created before
-				adding the specified members.</p>
 				<p>An error is returned when the value stored at key is not a set.</p>
-				<p><strong>Return value</strong><br>
-					Integer reply: the number of elements that were added to the set, not including all the
+				<a href="#return-value" id="return-value" style="color: inherit; text-decoration: none;">
+					<h3>Return value</h3>
+				</a>
+				<p>Integer reply: the number of elements that were added to the set, not including all the
 				elements already present into the set.</p>
-				<p><strong>History</strong><br></p>
+				<a href="#history" id="history" style="color: inherit; text-decoration: none;">
+					<h3>History</h3>
+				</a>
 				<blockquote>
 					<p>= 2.4: Accepts multiple member arguments. Redis versions before 2.4 are only able to add a
 					single member per call. <strong>unit-redis-ness implements the 2.4 version of this command.</strong></p>
@@ -2441,7 +2449,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/393ae80/src/resp/command/set/sadd-command.ts#L33">src/resp/command/set/sadd-command.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/709739c/src/resp/command/set/sadd-command.ts#L31">src/resp/command/set/sadd-command.ts:31</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2458,7 +2466,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/393ae80/src/resp/command/set/sadd-command.ts#L34">src/resp/command/set/sadd-command.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/709739c/src/resp/command/set/sadd-command.ts#L32">src/resp/command/set/sadd-command.ts:32</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
