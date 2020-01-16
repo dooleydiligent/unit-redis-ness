@@ -6,12 +6,16 @@ import { IServerContext } from '../../server/server-context';
 import { Session } from '../../server/session';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
+import { RespSerialize } from '../protocol/resp-serialize';
 import { IRespCommand } from './resp-command';
 /* tslint:disable-next-line */
 const fengari = require('fengari');
 const lua = fengari.lua;
 const lauxlib = fengari.lauxlib;
 const lualib = fengari.lualib;
+/* tslint:disable-next-line */
+const Parser = require('redis-parser');
+
 /**
  * ### Available since 2.6.0.
  * ### SCRIPT LOAD script
@@ -41,7 +45,7 @@ export class ScriptCommand implements IRespCommand {
   private serverContext: IServerContext | null = null;
   private session: Session | null = null;
   public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       this.serverContext = request.getServerContext();
       this.session = request.getSession();
@@ -52,7 +56,7 @@ export class ScriptCommand implements IRespCommand {
           sha1 = this.loadScript(request, 0);
           if (sha1) {
             this.logger.debug(`Generated sha1 ${sha1}`);
-            resolve(this.executeLua(`${sha1}`, request));
+            resolve(await this.executeLua(`${sha1}`, request));
           } else {
             resolve(RedisToken.error(`ERR Parsing script`));
           }
@@ -115,7 +119,7 @@ export class ScriptCommand implements IRespCommand {
    */
   private loadScript(request: IRequest, scriptIndex: number): string | null {
     const code = request.getParam(scriptIndex);
-    this.logger.debug(`loadScript(): Validating lua script "%s"`, code);
+    this.logger.debug(`loadScript(): Validating lua script "<script>"`);
     const L: any = lauxlib.luaL_newstate();
     this.logger.debug(`Opening lua libraries`);
     lualib.luaL_openlibs(L);
@@ -150,7 +154,7 @@ export class ScriptCommand implements IRespCommand {
     this.logger.debug(`Script sha1 is "%s"`, sha1);
     return sha1;
   }
-  private executeLua(sha1: string, request: IRequest): RedisToken {
+  private async executeLua(sha1: string, request: IRequest): Promise<RedisToken> {
     this.logger.debug(`executeLua sha1: %s`, sha1);
     let returnValue: RedisToken;
     // Validate the 2nd parameter
@@ -195,39 +199,130 @@ export class ScriptCommand implements IRespCommand {
       lua.lua_seti(L, -2, index + 1);
     }
     lua.lua_setglobal(L, fengari.to_luastring('KEYS'));
-
+    ///
+    ///
+    ///
     // push the global redis reference
     this.logger.debug(`Creating reference to REDIS`);
-    const redis = {
-      call: this.call
-    };
-    this.logger.debug(`creating redis table`);
-    lua.lua_createtable(L, 2, 0);
-    // push the key name
-    this.logger.debug(`pushing redis`);
-    lua.lua_pushstring(L, 'redis');
-    lua.lua_seti(L, -2, 1);
-
-    // push the key value
-    this.logger.debug(`pushing call function`);
-    lua.lua_pushjsfunction(L, this.call);
-    // // call rawseti
-    // this.logger.debug(`calling rawseti`);
-    lua.lua_seti(L, -2, 2);
-
-    this.logger.debug(`calling setglobal on redis`);
-    lua.lua_setglobal(L, fengari.to_luastring('redis'));
-
-    /// End push redis
-    this.logger.debug(`executeLua: Validating lua script "%s"`, code);
+    // this.logger.debug(`Setting globals the flua way`);
+    // this.flua_setglobals(L, {
+    //   redis: {
+    //     call: this.callcmd
+    //   }
+    // });
+    ///
+    lua.lua_createtable(L, 0, 1);
+    lua.lua_pushstring(L, 'call');
+    lua.lua_pushjsfunction(L, (L: any) => {
+      const n = lua.lua_gettop(L);
+      const args = new Array(n - 1);
+      let cmd: any;
+      this.logger.debug(`lua_pushjsfunction pushing ${n} args`);
+      for (let i = 0; i < n; i++) {
+        let value: any;
+        switch (lua.lua_type(L, i + 1)) {
+          case lua.LUA_TNIL:
+            value = null;
+            break;
+          case lua.LUA_TNUMBER:
+            value = lua.lua_tonumber(L, i + 1);
+            break;
+          case lua.LUA_TBOOLEAN:
+            value = lua.lua_toboolean(L, i + 1);
+            break;
+          case lua.LUA_TSTRING:
+            value = lua.lua_tojsstring(L, i + 1);
+            break;
+          case lua.LUA_TTABLE:
+            this.logger.warn(`Not prepared to readtable`);
+            // value = this.flua_readtable(L, i + 1);
+            break;
+        }
+        if (i === 0) {
+          cmd = value;
+          this.logger.debug(`pushjs setting cmd to ${cmd}`);
+        } else {
+          args[i - 1] = value;
+          this.logger.debug(`pushjs setting arg[${i - 1}] to "%s"`, value);
+        }
+      }
+      this.logger.debug(`LUA starting call to ${cmd} (${args})`);
+      // callcmd(command: string, ...params: any[]): Promise<any> {
+      new Promise((resolve) => {
+        this.logger.debug(`RCALL redis with ${cmd} and %s`, args);
+        if (this.serverContext && this.session) {
+          const execcommand: IRespCommand = this.serverContext.getCommand(cmd);
+          // this.logger.debug(`Executing command "${command}"`);
+          const request: IRequest = new DefaultRequest(this.serverContext, this.session, cmd, args);
+          execcommand.execute(request)
+            .then((response: any) => {
+              // this.logger.debug(`command response is %j`, response);
+              const serializedResponse: string = new RespSerialize(response).serialize();
+              // this.logger.debug(`Serialized Response is "%j"`, serializedResponse);
+              const parser: any = new Parser({
+                returnBuffers: false,
+                returnError: (err: any) => {
+                  this.logger.warn(`returnError: "%j"`, err);
+                  resolve(err);
+                },
+                returnReply: (result: any) => {
+                  this.logger.debug(`Replying with: ${result}`);
+                  resolve(result);
+                },
+                stringNumbers: false
+              });
+              parser.reset();
+              parser.execute(Buffer.from(serializedResponse));
+            });
+        } else {
+          console.warn(`ServerContext or Session was not initialized`);
+          resolve();
+        }
+      })
+        .then((returned: any) => {
+          this.logger.debug(`LUA call returned ${returned}: %j`, returned);
+          if (returned !== null && returned !== undefined) {
+            this.logger.debug(`return value is ${returned.constructor.name}`);
+          } else {
+            this.logger.debug(`return value is null or undefined`);
+          }
+          //      this.pushany(L, returned);
+          switch (true) {
+            case (returned === undefined || returned === null):
+              this.logger.debug(`Push nil`);
+              lua.lua_pushnil(L);
+              break;
+            case (returned.constructor.name === 'String'):
+              this.logger.debug(`Push string`);
+              lua.lua_pushstring(L, returned);
+              break;
+            case (returned.constructor.name === 'Number'):
+              this.logger.debug(`Push number`);
+              lua.lua_pushnumber(L, returned);
+              break;
+            case (returned.constructor.name === 'Boolean'):
+              this.logger.debug(`Push boolean`);
+              lua.lua_pushboolean(L, returned);
+              break;
+            default:
+              this.logger.warn(`Not prepared to push type "${returned.constructor.name}": %j`, returned);
+          }
+          this.logger.debug(`returned.length is ${Array.isArray(returned) ? returned.length : 1}`);
+          return Array.isArray(returned) ? returned.length : 1;
+        });
+    });
+    lua.lua_rawset(L, -3);
+    lua.lua_setglobal(L, 'redis');
+    ///
+    this.logger.debug(`executeLua: Validating lua script "<script>"`);
     // const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${tables}\n${code}`));
-    const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
+    const loadStatus = await lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
     if (loadStatus !== lua.LUA_OK) {
       this.logger.warn(`Unexpected error parsing sha1: "${sha1}"`);
       throw new Error(`Unexpected error parsing sha1: "${sha1}"`);
     }
-    this.logger.debug(`Calling script "%s" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`, code);
-    const ok = lua.lua_call(L, 0, lua.LUA_MULTRET);
+    this.logger.debug(`Calling script "{script}" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`);
+    const ok = await lua.lua_call(L, 0, lua.LUA_MULTRET);
     if (ok === undefined) { // A string return
       this.logger.debug(`The LUA call was undefined`);
       const stack: number = lua.lua_gettop(L);
@@ -329,22 +424,5 @@ export class ScriptCommand implements IRespCommand {
       });
     }
     return elementValue;
-  }
-  private call(command: string, ...params: any[]): any {
-    this.logger.debug(`RCALL redis with ${command} and %s`, params);
-    if (this.serverContext && this.session) {
-      const execcommand: IRespCommand = this.serverContext.getCommand(command);
-      this.logger.debug(`Executing command "${command}"`);
-      const request: IRequest = new DefaultRequest(this.serverContext, this.session, command, params);
-
-      execcommand.execute(request)
-        .then((responseToken: RedisToken) => {
-          this.logger.debug(`command response is %s`, responseToken);
-          // send the result back to the client
-          // session.publish(responseToken);
-        });
-    } else {
-      this.logger.warn(`ServerContext or Session was not initialized`);
-    }
   }
 }

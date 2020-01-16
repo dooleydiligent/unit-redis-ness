@@ -47,15 +47,15 @@ function dump(o)
  end
 end
 
-print 'inside the script'
-print('redis', dump(redis))
+print 'LUA SCRIPT: inside the script'
+print('LUA SCRIPT: redis', dump(redis))
 
 local jobId
 local jobIdKey
 local rcall = redis.call
-
+print('LUA SCRIPT:  calling "INCR"')
 local jobCounter = rcall("INCR", KEYS[4])
-
+print('LUA SCRIPT: jobCounter is', jobCounter);
 if ARGV[2] == "" then
   jobId = jobCounter
   jobIdKey = ARGV[1] .. jobId

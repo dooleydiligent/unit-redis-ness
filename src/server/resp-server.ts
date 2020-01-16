@@ -53,10 +53,10 @@ export class RespServer extends EventEmitter {
   public receive(session: Session, message: any): void {
     // convert message to RedisToken
     const parser = new Parser({
-      response: message,
+//      response: message,
       returnBuffers: false,
       returnError: (err: any) => {
-        this.logger.warn(`returnError: `, err);
+        this.logger.warn(`returnError: "%j"`, err);
       },
       returnReply: (command: any) => {
         this.logger.debug(`returnReply: command is ${command}`);

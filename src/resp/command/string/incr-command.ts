@@ -60,6 +60,7 @@ export class IncrCommand implements IRespCommand {
         }
       }
       db.put(request.getParam(0), value);
+      this.logger.debug(`Returning ${value.getString()}`);
       resolve(RedisToken.integer(Number(value.getString())));
     });
   }
