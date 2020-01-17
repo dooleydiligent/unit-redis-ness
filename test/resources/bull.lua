@@ -49,6 +49,7 @@ end
 
 print 'LUA SCRIPT: inside the script'
 print('LUA SCRIPT: redis', dump(redis))
+print('LUA SCRIPT: bit', dump(bit))
 
 local jobId
 local jobIdKey
@@ -62,7 +63,9 @@ if ARGV[2] == "" then
 else
   jobId = ARGV[2]
   jobIdKey = ARGV[1] .. jobId
+  print("Searching for", jobIdKey)
   if rcall("EXISTS", jobIdKey) == 1 then
+    print ("Returning jobId", jobId)
     return jobId .. "" -- convert to string
   end
 end
@@ -72,13 +75,15 @@ rcall("HMSET", jobIdKey, "name", ARGV[3], "data", ARGV[4], "opts", ARGV[5], "tim
 
 -- Check if job is delayed
 local delayedTimestamp = tonumber(ARGV[8])
+print("delayedTimestamp is", delayedTimestamp)
 if(delayedTimestamp ~= 0) then
+  print("getting bit.band for ", jobCounter, 0xfff)
   local timestamp = delayedTimestamp * 0x1000 + bit.band(jobCounter, 0xfff)
   rcall("ZADD", KEYS[5], timestamp, jobId)
   rcall("PUBLISH", KEYS[5], delayedTimestamp)
 else
   local target
-
+  print("Check for ", KEYS[3])
   -- Whe check for the meta-paused key to decide if we are paused or not
   -- (since an empty list and !EXISTS are not really the same)
   local paused
@@ -89,7 +94,7 @@ else
     target = KEYS[2]
     paused = true
   end
-
+  print("paused is ", paused)
   -- Standard or priority add
   local priority = tonumber(ARGV[9])
   if priority == 0 then

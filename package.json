@@ -30,7 +30,8 @@
     "url": "https://github.com/dooleydiligent/unit-redis-ness"
   },
   "keywords": [
-    "redist",
+    "redis",
+    "lua",
     "typescript"
   ],
   "author": "lane holcombe",
@@ -38,6 +39,10 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "fengari": "^0.1.4",
+    "fengari-interop": "^0.1.2",
+    "fengari-node-cli": "^0.1.0",
+    "fengari-web": "^0.1.4",
+    "flua": "^0.2.2",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
   },
