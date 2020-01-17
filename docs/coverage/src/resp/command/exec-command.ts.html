@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -104,12 +104,12 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,7 +133,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -141,19 +140,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../decorators';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Blocking, MaxParams, MinParams, Name } from '../../decorators';
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { ICmdReq } from '../../server/session';
@@ -173,32 +171,31 @@ import { IRespCommand } from './resp-command';
  *
  * When using [WATCH]{@link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
  */
+@Blocking(true)
 @MinParams(0)
 @MaxParams(0)
 @Name('exec')
-export class ExecCommand implements IRespCommand {
-  protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve: any) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      if (!request.getSession().inTransaction()) {
-        resolve(RedisToken.error(`ERR EXEC without MULTI`));
+export class ExecCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    if (!request.getSession().inTransaction()) {
+      return (RedisToken.error(`ERR EXEC without MULTI`));
+    } else {
+      if (request.getSession().isErrored()) {
+        request.getSession().abortTransaction();
+        return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
       } else {
-        if (request.getSession().isErrored()) {
-          request.getSession().abortTransaction();
-          resolve(RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
-        } else {
-          const commands: ICmdReq[] = request.getSession().getTransaction();
-          Promise.all(commands.map(async (cmdReq) =&gt; {
-            this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
-            return await cmdReq.command.execute(cmdReq.request, db);
-          })).
-            then((tokens: RedisToken[]) =&gt; {
-              resolve(RedisToken.array(tokens));
-            });
-        }
+        const commands: ICmdReq[] = request.getSession().getTransaction();
+        const tokens: any[] = [];
+        commands.map(async (cmdReq) =&gt; {
+          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+          const token = await cmdReq.command.execSync(cmdReq.request, db);
+          tokens.push(token);
+        });
+        return (RedisToken.array(tokens));
       }
-    });
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -208,7 +205,7 @@ export class ExecCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:32:40 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

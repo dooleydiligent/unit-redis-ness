@@ -1,4 +1,4 @@
-import { MaxParams, MinParams, Name } from '../../decorators';
+import { Blocking, MaxParams, MinParams, Name } from '../../decorators';
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { ICmdReq } from '../../server/session';
@@ -18,6 +18,7 @@ import { IRespCommand } from './resp-command';
  *
  * When using [WATCH]{@link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
  */
+@Blocking(true)
 @MinParams(0)
 @MaxParams(0)
 @Name('exec')
@@ -33,10 +34,11 @@ export class ExecCommand extends IRespCommand {
         return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
       } else {
         const commands: ICmdReq[] = request.getSession().getTransaction();
-        const tokens: RedisToken[] = [];
-        commands.map((cmdReq) => {
+        const tokens: any[] = [];
+        commands.map(async (cmdReq) => {
           this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
-          tokens.push(cmdReq.command.execSync(cmdReq.request, db));
+          const token = await cmdReq.command.execSync(cmdReq.request, db);
+          tokens.push(token);
         });
         return (RedisToken.array(tokens));
       }

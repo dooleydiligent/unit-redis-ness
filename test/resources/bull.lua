@@ -34,7 +34,7 @@
       ARGV[10] LIFO
       ARGV[11] token
 ]]
-function dump(o)
+local function dump(o)
   if type(o) == 'table' then
     local s = '{ '
     for k,v in pairs(o) do

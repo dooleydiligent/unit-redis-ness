@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/54</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/52</span>
+                <span class='fraction'>51/51</span>
             </div>
         
             
@@ -164,15 +164,13 @@
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,8 +193,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -206,7 +202,6 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -214,7 +209,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -289,7 +283,8 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(0)
 @Name('info')
-export class InfoCommand implements IRespCommand {
+&nbsp;
+export class InfoCommand extends IRespCommand {
   private static SHARP = '# ';
   private static SEPARATOR = ':';
   private static DELIMITER = '\r\n';
@@ -304,27 +299,23 @@ export class InfoCommand implements IRespCommand {
   private static SECTION_REPLICATION = 'replication';
   private static SECTION_SERVER = 'server';
   private logger: Logger = new Logger(module.id);
-&nbsp;
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`executeDBRequest(${request}, ${db})`);
-      const sections: any = {};
-      this.logger.debug(`request is ${request.constructor.name}`, request);
-      if (request.getParams().length &gt; 0) {
-        const section = request.getParam(0).toString();
-        if (this.allSections().indexOf(section.toLowerCase()) &gt; -1) {
-          sections[section] = this.section(section, request.getServerContext());
-        } else {
-          resolve(RedisToken.string(' '));
-          return;
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`executeDBRequest(${request}, ${db})`);
+    const sections: any = {};
+    this.logger.debug(`request is ${request.constructor.name}`, request);
+    if (request.getParams().length &gt; 0) {
+      const section = request.getParam(0).toString();
+      if (this.allSections().indexOf(section.toLowerCase()) &gt; -1) {
+        sections[section] = this.section(section, request.getServerContext());
       } else {
-        for (const section of this.allSections()) {
-          sections[section] = this.section(section, request.getServerContext());
-        }
+        return (RedisToken.string(' '));
       }
-      resolve(RedisToken.string(this.makeString(sections)));
-    });
+    } else {
+      for (const section of this.allSections()) {
+        sections[section] = this.section(section, request.getServerContext());
+      }
+    }
+    return (RedisToken.string(this.makeString(sections)));
   }
   private allSections(): string[] {
     return [InfoCommand.SECTION_SERVER, InfoCommand.SECTION_REPLICATION, InfoCommand.SECTION_CLIENTS,
@@ -374,7 +365,7 @@ export class InfoCommand implements IRespCommand {
         if (sections[section][subkey].constructor.name === 'String') {
           result += `${subkey}${InfoCommand.SEPARATOR}${sections[section][subkey]}${InfoCommand.DELIMITER}`;
         } else {
-//          result += `${subkey}${InfoCommand.SEPARATOR}`;
+          //          result += `${subkey}${InfoCommand.SEPARATOR}`;
           for (const sskey of Object.keys(sections[section][subkey])) {
             result += `${sskey}${InfoCommand.SEPARATOR}\t${sections[section][subkey][sskey]}${InfoCommand.DELIMITER}`;
           }
@@ -394,7 +385,7 @@ export class InfoCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:32:40 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

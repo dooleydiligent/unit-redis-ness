@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -129,15 +129,13 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,7 +162,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -204,7 +201,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
@@ -235,48 +231,46 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('move')
-export class MoveCommand implements IRespCommand {
+export class MoveCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let response = 0;
-      const currentDb: number = request.getSession().getCurrentDb();
-      const key: string = request.getParam(0);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let response = 0;
+    const currentDb: number = request.getSession().getCurrentDb();
+    const key: string = request.getParam(0);
 &nbsp;
-      const newDbIndex: string = request.getParam(1);
-      this.logger.debug(`Target DB is ${newDbIndex}`);
-      const targetDb = Number(newDbIndex);
-      if (isNaN(targetDb) || targetDb &lt; 0 || targetDb &gt; 15) {
-        this.logger.debug(`Target DB is invalid`);
-        resolve(RedisToken.error(`ERR index out of range`));
+    const newDbIndex: string = request.getParam(1);
+    this.logger.debug(`Target DB is ${newDbIndex}`);
+    const targetDb = Number(newDbIndex);
+    if (isNaN(targetDb) || targetDb &lt; 0 || targetDb &gt; 15) {
+      this.logger.debug(`Target DB is invalid`);
+      return (RedisToken.error(`ERR index out of range`));
+    } else {
+      if (targetDb === currentDb) {
+        return (RedisToken.error(`ERR source and destination objects are the same`));
       } else {
-        if (targetDb === currentDb) {
-          resolve(RedisToken.error(`ERR source and destination objects are the same`));
-        } else {
-          const dbValue: DatabaseValue = db.get(key);
-          if (!dbValue) {
-            this.logger.debug(
-              `key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}
+        const dbValue: DatabaseValue = db.get(key);
+        if (!dbValue) {
+          this.logger.debug(
+            `key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}
             `);
-            resolve(RedisToken.integer(response));
+          return (RedisToken.integer(response));
+        } else {
+          const newDb: Database = request.getServerContext().getDatabase(targetDb);
+          const targetExists: boolean = newDb.exists(key);
+          if (targetExists) {
+            this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);
+            return (RedisToken.integer(0));
           } else {
-            const newDb: Database = request.getServerContext().getDatabase(targetDb);
-            const targetExists: boolean = newDb.exists(key);
-            if (targetExists) {
-              this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);
-              resolve(RedisToken.integer(0));
-            } else {
-              newDb.put(key, dbValue);
-              db.remove(key);
-              response = 1;
-              this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);
-              resolve(RedisToken.integer(response));
-            }
+            newDb.put(key, dbValue);
+            db.remove(key);
+            response = 1;
+            this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);
+            return (RedisToken.integer(response));
           }
         }
       }
-    });
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -286,7 +280,7 @@ export class MoveCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:32:40 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

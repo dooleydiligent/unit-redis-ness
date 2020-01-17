@@ -8,6 +8,7 @@ import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { RespSerialize } from '../protocol/resp-serialize';
 import { IRespCommand } from './resp-command';
+
 /* tslint:disable-next-line */
 const fengari = require('fengari');
 const lua = fengari.lua;
@@ -226,6 +227,7 @@ export class ScriptCommand extends IRespCommand {
             break;
           case lua.LUA_TNUMBER:
             value = lua.lua_tonumber(LIB, i + 1);
+            value = parseInt(value, 10);
             break;
           case lua.LUA_TBOOLEAN:
             value = lua.lua_toboolean(LIB, i + 1);
@@ -267,7 +269,8 @@ export class ScriptCommand extends IRespCommand {
             this.logger.debug(`Replying with: ${result}`);
             returned = result;
           },
-          stringNumbers: false
+          // Force numbers from double precision to integer
+          stringNumbers: true
         });
         parser.execute(Buffer.from(serializedResponse));
         this.logger.debug(`parsedReply is %s`, returned);
@@ -337,18 +340,17 @@ export class ScriptCommand extends IRespCommand {
     lua.lua_close(L);
     return returnValue;
   }
-  loadBitLib(L: any) {
+  /* tslint:disable:no-bitwise */
+  private loadBitLib(L: any) {
     this.logger.debug(`Assembling lua bit library`);
-    const band = (x1: number, x2: number) => {
-      console.log(`band(${x1} & ${x2} = ${x1 & x2})`);
-      return (x1 & x2);
-    };
-    const bor = (x1: number, x2: number) => { x1 | x2 };
-    const bxor = (x1: any, x2: any) => { x1 ^ x2 };
-    const bnot = (x1: any) => { ~x1 };
-    const lshift = (x1: any, x2: any) => { x1 << x2 };
-    const rshift = (x1: any, x2: any) => { x1 >> x2 };
-    const arshift = (x1: any, x2: any) => { x1 >>> x2 };
+    const band = (x1: number, x2: number) => x1 & x2;
+    // See http://bitop.luajit.org/
+    const bor = (x1: number, x2: number) => x1 | x2;
+    const bxor = (x1: any, x2: any) => x1 ^ x2;
+    const bnot = (x1: any) => ~x1;
+    const lshift = (x1: any, x2: any) => x1 << x2;
+    const rshift = (x1: any, x2: any) => x1 >> x2;
+    const arshift = (x1: any, x2: any) => x1 >>> x2;
     // const bit: any = {
     //   arshift,
     //   band,
@@ -380,14 +382,16 @@ export class ScriptCommand extends IRespCommand {
             case lua.LUA_TNUMBER:
               this.logger.debug(`lua_type is TNUMBER`);
               value = lua.lua_tonumber(LIB, i + 1);
+              // Numbers are always integer to redis
+              value = parseInt(value, 10);
               break;
             case lua.LUA_TBOOLEAN:
               this.logger.debug(`lua_type is TBOOLEAN`);
               value = lua.lua_toboolean(LIB, i + 1);
               break;
             case lua.LUA_TSTRING:
-            this.logger.debug(`lua_type is TSTRING`);
-            value = lua.lua_tojsstring(LIB, i + 1);
+              this.logger.debug(`lua_type is TSTRING`);
+              value = lua.lua_tojsstring(LIB, i + 1);
               break;
             case lua.LUA_TTABLE:
               this.logger.warn(`Not prepared to readtable`);
@@ -443,6 +447,7 @@ export class ScriptCommand extends IRespCommand {
       switch (t) {
         case lua.LUA_TNUMBER:  /* numbers */
           value = lua.lua_tonumber(L, i);
+          value = parseInt(value, 10);
           result.push(RedisToken.integer(value));
           this.logger.debug(`NUMBER: '%s'`, value);
           break;

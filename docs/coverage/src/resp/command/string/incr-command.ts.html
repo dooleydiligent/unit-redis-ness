@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -130,7 +130,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,30 +163,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-yes">108x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -226,33 +226,33 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('incr')
-export class IncrCommand implements IRespCommand {
+export class IncrCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  constructor(public sign: number) { }
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let value: DatabaseValue = db.get(request.getParam(0));
-      if (!value) {
-        value = DatabaseValue.string(String( this.sign * 1));
+  constructor(public sign: number) {
+    super();
+  }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let value: DatabaseValue = db.get(request.getParam(0));
+    if (!value) {
+      value = DatabaseValue.string(String(this.sign * 1));
+    } else {
+      this.logger.debug(`The original value is ${value.getString()}`);
+      if (Math.abs(Number(value.getString())) &lt; Number.MAX_SAFE_INTEGER) {
+        const newValue: number = Number(value.getString()) + this.sign;
+        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+        value = new DatabaseValue(
+          DataType.STRING,
+          String(newValue),
+          ttl !== -1 ? <span class="branch-0 cbranch-no" title="branch not covered" >ttl </span>: undefined);
+        this.logger.debug(`The ${this.sign ? 'INCR' : <span class="branch-1 cbranch-no" title="branch not covered" >'DECR'}</span> value is ${value.getString()}`);
       } else {
-        this.logger.debug(`The original value is ${value.getString()}`);
-        if (Math.abs(Number(value.getString())) &lt; Number.MAX_SAFE_INTEGER) {
-          const newValue: number = Number(value.getString()) + this.sign;
-          const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
-          value = new DatabaseValue(
-            DataType.STRING,
-            String(newValue),
-            ttl !== -1 ? <span class="branch-0 cbranch-no" title="branch not covered" >ttl </span>: undefined);
-          this.logger.debug(`The ${this.sign ? 'INCR' : <span class="branch-1 cbranch-no" title="branch not covered" >'DECR'}</span> value is ${value.getString()}`);
-        } else {
-          resolve(RedisToken.error(`ERR increment or decrement would overflow`));
-          return;
-        }
+        return (RedisToken.error(`ERR increment or decrement would overflow`));
       }
-      db.put(request.getParam(0), value);
-      resolve(RedisToken.integer(Number(value.getString())));
-    });
+    }
+    db.put(request.getParam(0), value);
+    this.logger.debug(`Returning ${value.getString()}`);
+    return (RedisToken.integer(Number(value.getString())));
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +262,7 @@ export class IncrCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:32:40 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

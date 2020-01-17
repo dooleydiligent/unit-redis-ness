@@ -99,7 +99,7 @@ describe('script-command test', () => {
     response = await sendCommand(client, ['eval', 'return { true, false, false}', '0']);
     expect(response).to.eql([1, null, null]);
   })
-  it.only('should be able to execute a representative BULL script', async () => {
+  it('should be able to execute a representative BULL script', async () => {
     response = await sendCommand(client, ['flushall']);
     const luaScriptPath = path.join(__dirname, '../../resources/bull.lua');
     console.log(`trying to load ${luaScriptPath}`);

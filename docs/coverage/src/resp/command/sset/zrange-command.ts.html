@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -197,9 +197,7 @@
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -207,7 +205,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,7 +278,6 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,7 +332,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,71 +412,69 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(4)
 @MinParams(3)
 @Name('zrange')
-export class ZRangeCommand implements IRespCommand {
+export class ZRangeCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const withScores: string = request.getParams().length === 4 ? request.getParam(3) : '';
-      if (withScores &amp;&amp; withScores.toLowerCase() !== 'withscores') {
-        this.logger.debug(`Invalid fourth parameter ${request.getParam(3)}`);
-        resolve(RedisToken.error('ERR syntax error'));
-      } else {
-        const zstart: string = request.getParam(1);
-        this.logger.debug(`Requested start index: ${zstart}`);
-        const zend: string = request.getParam(2);
-        this.logger.debug(`Requested end index: ${zend}`);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const withScores: string = request.getParams().length === 4 ? request.getParam(3) : '';
+    if (withScores &amp;&amp; withScores.toLowerCase() !== 'withscores') {
+      this.logger.debug(`Invalid fourth parameter ${request.getParam(3)}`);
+      return (RedisToken.error('ERR syntax error'));
+    } else {
+      const zstart: string = request.getParam(1);
+      this.logger.debug(`Requested start index: ${zstart}`);
+      const zend: string = request.getParam(2);
+      this.logger.debug(`Requested end index: ${zend}`);
 &nbsp;
-        if (isNaN(Number(zstart)) || isNaN(Number(zend))) {
-          this.logger.debug(`Invalid start or stop index: ${zstart} / ${zend}`);
-          resolve(RedisToken.error('ERR value is not an integer or out of range'));
-        } else {
-          const zkey: string = request.getParam(0);
-          this.logger.debug(`ZKey is ${zkey}`);
-          const options = { withScores: withScores ? true : false };
-          this.logger.debug(`WithScores is {%j}`, options);
-          const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-          let start: number = Number(zstart);
+      if (isNaN(Number(zstart)) || isNaN(Number(zend))) {
+        this.logger.debug(`Invalid start or stop index: ${zstart} / ${zend}`);
+        return (RedisToken.error('ERR value is not an integer or out of range'));
+      } else {
+        const zkey: string = request.getParam(0);
+        this.logger.debug(`ZKey is ${zkey}`);
+        const options = { withScores: withScores ? true : false };
+        this.logger.debug(`WithScores is {%j}`, options);
+        const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+        let start: number = Number(zstart);
+        if (start &lt; 0) {
+          start = dbKey.getSortedSet().length + start;
           if (start &lt; 0) {
-            start = dbKey.getSortedSet().length + start;
-            if (start &lt; 0) {
-              start = 0;
-            }
-          }
-          let end: number = Number(zend);
-          if (end &lt; 0) {
-            end = dbKey.getSortedSet().length + 1 + end;
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (end &lt; 0) {
-<span class="cstat-no" title="statement not covered" >              end = 0;</span>
-            }
-          }
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (start &gt; end || start &gt; dbKey.getSortedSet().length) {
-<span class="cstat-no" title="statement not covered" >            resolve(RedisToken.array([]));</span>
-          } else {
-            // SortedSet().rangeByScore uses inclusive ranges so we increment to account for that
-            this.logger.debug(`Getting possibly modified range ${start} - ${end} from %s`,
-              dbKey.getSortedSet().toArray({ withScores: true }));
-            const range: any[] = dbKey.getSortedSet().range(start, end, options);
-            const values: RedisToken[] = [];
-            for (const item of range) {
-              this.logger.debug(`Item is ${item.constructor.name} %s`, item);
-              if (item.constructor.name === 'Array') {
-                this.logger.debug(`pushing ${item[0]}, ${item[1]}}`);
-                values.push(
-                  RedisToken.string(item[0]),
-                  RedisToken.string(item[1])
-                );
-              } else {
-                values.push(RedisToken.string(item));
-              }
-            }
-            const finalValues = RedisToken.array(values);
-            this.logger.debug(`Returning array %s`, finalValues);
-            resolve(finalValues);
+            start = 0;
           }
         }
+        let end: number = Number(zend);
+        if (end &lt; 0) {
+          end = dbKey.getSortedSet().length + 1 + end;
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (end &lt; 0) {
+<span class="cstat-no" title="statement not covered" >            end = 0;</span>
+          }
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (start &gt; end || start &gt; dbKey.getSortedSet().length) {
+<span class="cstat-no" title="statement not covered" >          return (RedisToken.array([]));</span>
+        } else {
+          // SortedSet().rangeByScore uses inclusive ranges so we increment to account for that
+          this.logger.debug(`Getting possibly modified range ${start} - ${end} from %s`,
+            dbKey.getSortedSet().toArray({ withScores: true }));
+          const range: any[] = dbKey.getSortedSet().range(start, end, options);
+          const values: RedisToken[] = [];
+          for (const item of range) {
+            this.logger.debug(`Item is ${item.constructor.name} %s`, item);
+            if (item.constructor.name === 'Array') {
+              this.logger.debug(`pushing ${item[0]}, ${item[1]}}`);
+              values.push(
+                RedisToken.string(item[0]),
+                RedisToken.string(item[1])
+              );
+            } else {
+              values.push(RedisToken.string(item));
+            }
+          }
+          const finalValues = RedisToken.array(values);
+          this.logger.debug(`Returning array %s`, finalValues);
+          return (finalValues);
+        }
       }
-    });
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -490,7 +484,7 @@ export class ZRangeCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:32:40 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

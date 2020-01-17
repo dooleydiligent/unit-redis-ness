@@ -27,7 +27,7 @@ export class CommandWrapper extends IRespCommand {
   public isPubSubAllowed(): boolean {
     return this.pubSubAllowed;
   }
-  public execSync(request: IRequest): RedisToken {
+  public execSync(request: IRequest): RedisToken | Promise<RedisToken>  {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     this.logger.debug(`db id is ${request.getSession().getCurrentDb()}`);
     const db: Database = this.getCurrentDB(request);
@@ -68,7 +68,7 @@ export class CommandWrapper extends IRespCommand {
         } else {
           if (this.dataType) {
             this.logger.debug(`Executing DB Command "${request.getCommand()}" with params [%s]`, request.getParams());
-            const retVal: RedisToken = this.executeDBCommand(request, db);
+            const retVal: RedisToken | Promise<RedisToken>  = this.executeDBCommand(request, db);
             this.logger.debug(`DBCommand returned %j`, retVal);
             return (retVal);
           } else {
@@ -85,10 +85,10 @@ export class CommandWrapper extends IRespCommand {
         return (RedisToken.error(`invalid command type: ${this.command.constructor.name}`));
     }
   }
-  private executeCommand(request: IRequest): RedisToken {
+  private executeCommand(request: IRequest): RedisToken | Promise<RedisToken> {
     return this.command.execSync(request);
   }
-  private executeDBCommand(request: IRequest, db: Database): RedisToken {
+  private executeDBCommand(request: IRequest, db: Database): RedisToken | Promise<RedisToken>  {
     return this.command.execSync(request, db);
   }
 

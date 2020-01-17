@@ -20,7 +20,7 @@ import { IRespCommand } from '../resp-command';
 @Name('lpop')
 export class LPopCommand extends IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken>  {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     const key: string = request.getParam(0);
     return (this.process(request, db, key));

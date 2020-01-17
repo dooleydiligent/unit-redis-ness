@@ -57,19 +57,17 @@ export class RespServer extends EventEmitter {
       returnError: (err: any) => {
         this.logger.warn(`returnError: "%j"`, err);
       },
-      returnReply: (command: any) => {
+      returnReply: async (command: any) => {
         this.logger.debug(`returnReply: command is ${command}`);
         session.setLastCommand(command);
         const request: IRequest = this.parseMessage(new ArrayRedisToken(command), session);
         // look up the command in commandsuite
         const execcommand: IRespCommand = this.serverContext.getCommand(request.getCommand());
         this.logger.debug(`Executing command "${request.getCommand()}"`);
-        execcommand.execute(request)
-          .then((resultToken: RedisToken) => {
-            this.logger.debug(`Response from "${request.getCommand()}, ${request.getParams()}" is %s`, resultToken);
-            // send the result back to the client
-            session.publish(resultToken);
-          });
+        const resultToken = await execcommand.execSync(request);
+        this.logger.debug(`Response from "${request.getCommand()}, ${request.getParams()}" is %s`, resultToken);
+        // send the result back to the client
+        session.publish(resultToken);
       },
       stringNumbers: true
     });

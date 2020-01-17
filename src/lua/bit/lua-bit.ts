@@ -13,14 +13,15 @@ const L: any = lauxlib.luaL_newstate();
 logger.debug(`Opening lua libraries`);
 lualib.luaL_openlibs(L);
 
+/* tslint:disable:no-bitwise */
 logger.debug(`Assembling lua bit library`);
-const band = (x1: any, x2: any) => { x1 & x2 };
-const bor = (x1: any, x2: any) => { x1 | x2 };
-const bxor = (x1: any, x2: any) => { x1 ^ x2 };
-const bnot = (x1: any) => { ~x1 };
-const lshift = (x1: any, x2: any) => { x1 << x2 };
-const rshift = (x1: any, x2: any) => { x1 >> x2 };
-const arshift = (x1: any, x2: any) => { x1 >>> x2 };
+const band = (x1: any, x2: any) => x1 & x2;
+const bor = (x1: any, x2: any) => x1 | x2;
+const bxor = (x1: any, x2: any) => x1 ^ x2;
+const bnot = (x1: any) => ~x1;
+const lshift = (x1: any, x2: any) => x1 << x2;
+const rshift = (x1: any, x2: any) => x1 >> x2;
+const arshift = (x1: any, x2: any) => x1 >>> x2;
 const lib: any = {
   arshift,
   band,

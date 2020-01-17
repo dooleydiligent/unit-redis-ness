@@ -1,13 +1,14 @@
+import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { DataType } from '../data/data-type';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
-import { Logger } from '../../logger';
 /**
  * We use decorators to supply much of the information required
  * Thus we make these fields optional
  */
 export abstract class IRespCommand {
+  public blocking?: boolean;
   /**
    * Sign is used in commands with a compliment command.
    * The only current example is INCR/DECR.  Sign is 1 for INCR and -1 for DECR
@@ -38,12 +39,5 @@ export abstract class IRespCommand {
    * @param request The original request
    * @param db The optional database argument
    */
-  public abstract execSync(request: IRequest, db?: Database): RedisToken;
-  public execute(request: IRequest, db?: Database): Promise<RedisToken> {
-    const logger = new Logger(module.id);
-    return new Promise((resolve) => {
-      resolve(this.execSync(request, db));
-    });
-  }
-
+  public abstract execSync(request: IRequest, db?: Database): RedisToken | Promise<RedisToken>;
 }
