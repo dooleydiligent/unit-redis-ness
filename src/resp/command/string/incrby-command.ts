@@ -26,35 +26,34 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('incrby')
-export class IncrByCommand implements IRespCommand {
+export class IncrByCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  constructor(public sign: number) { }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      const incr: string = request.getParam(1);
-      let value: DatabaseValue = db.get(request.getParam(0));
-      const increment: number = Number(request.getParam(1));
-      if (!value) {
-        value = DatabaseValue.string(String( this.sign * increment));
+  constructor(public sign: number) {
+    super();
+  }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    const incr: string = request.getParam(1);
+    let value: DatabaseValue = db.get(request.getParam(0));
+    const increment: number = Number(request.getParam(1));
+    if (!value) {
+      value = DatabaseValue.string(String(this.sign * increment));
+    } else {
+      this.logger.debug(`The original value is ${value.getString()}`);
+      if (Math.abs(Number(value.getString()) + increment) <= Number.MAX_SAFE_INTEGER) {
+        const newValue: number = Number(value.getString()) + (this.sign * increment);
+        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+        value = new DatabaseValue(
+          DataType.STRING,
+          String(newValue),
+          ttl !== -1 ? ttl : undefined);
+        this.logger.debug(`The ${this.sign ? 'INCRBY' : 'DECRBY'} value is ${value.getString()}`);
       } else {
-        this.logger.debug(`The original value is ${value.getString()}`);
-        if (Math.abs(Number(value.getString()) + increment) <= Number.MAX_SAFE_INTEGER) {
-          const newValue: number = Number(value.getString()) + ( this.sign * increment);
-          const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
-          value = new DatabaseValue(
-            DataType.STRING,
-            String(newValue),
-            ttl !== -1 ? ttl : undefined);
-          this.logger.debug(`The ${this.sign ? 'INCRBY' : 'DECRBY'} value is ${value.getString()}`);
-        } else {
-          resolve(RedisToken.error(`ERR increment or decrement would overflow`));
-          return;
-        }
+        return (RedisToken.error(`ERR increment or decrement would overflow`));
       }
-      db.put(request.getParam(0), value);
-      resolve(RedisToken.integer(Number(value.getString())));
-    });
+    }
+    db.put(request.getParam(0), value);
+    return (RedisToken.integer(Number(value.getString())));
   }
 }

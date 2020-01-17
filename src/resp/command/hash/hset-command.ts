@@ -25,47 +25,45 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(3)
 @Name('hset')
-export class HsetCommand implements IRespCommand {
+export class HsetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+  public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an odd number
-    return new Promise((resolve) => {
-      if (request.getParams().length % 2 !== 1) {
-        resolve(RedisToken.error('ERR wrong number of arguments for hset'));
-      } else {
-        // Get the original HASH
-        this.logger.debug(`Getting database key ${request.getParam(0)}`);
-        let item: DatabaseValue = db.get(request.getParam(0));
-        this.logger.debug(`ITEM is ${item}`, item);
-        let fieldsAdded: number = 0;
-        if (!item) {
-          item = new DatabaseValue(DataType.HASH, {});
-          this.logger.debug(`Instantiated new EMPTY_HASH`, item);
-        }
-        const hash = item.getHash();
-        this.logger.debug(`Hash is `, item);
-        this.logger.debug(`Processing ${request.getParams().length} params`);
-        this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
-        for (let index = 1; index < request.getParams().length; index += 2) {
-          const field = request.getParam(index);
-          const value = request.getParam(index + 1);
-          this.logger.debug(`Got field ${field} with value ${value}`);
-          if (!hash[field]) {
-            this.logger.debug(`Adding field ${field}`);
-            ++fieldsAdded;
-          } else {
-            this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);
-          }
-          hash[field] = value;
-        }
-        this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
-        // If the has already had an expiredAt value it might have been replaced here
-        // TODO: Create a special key (applicable to all DatabaseValue types) to
-        // segregate admin values from public scrutiny.  Until then ...
-        db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));
-        resolve(RedisToken.integer(fieldsAdded));
+    if (request.getParams().length % 2 !== 1) {
+      return (RedisToken.error('ERR wrong number of arguments for hset'));
+    } else {
+      // Get the original HASH
+      this.logger.debug(`Getting database key ${request.getParam(0)}`);
+      let item: DatabaseValue = db.get(request.getParam(0));
+      this.logger.debug(`ITEM is ${item}`, item);
+      let fieldsAdded: number = 0;
+      if (!item) {
+        item = new DatabaseValue(DataType.HASH, {});
+        this.logger.debug(`Instantiated new EMPTY_HASH`, item);
       }
-    });
+      const hash = item.getHash();
+      this.logger.debug(`Hash is `, item);
+      this.logger.debug(`Processing ${request.getParams().length} params`);
+      this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
+      for (let index = 1; index < request.getParams().length; index += 2) {
+        const field = request.getParam(index);
+        const value = request.getParam(index + 1);
+        this.logger.debug(`Got field ${field} with value ${value}`);
+        if (!hash[field]) {
+          this.logger.debug(`Adding field ${field}`);
+          ++fieldsAdded;
+        } else {
+          this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);
+        }
+        hash[field] = value;
+      }
+      this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
+      // If the has already had an expiredAt value it might have been replaced here
+      // TODO: Create a special key (applicable to all DatabaseValue types) to
+      // segregate admin values from public scrutiny.  Until then ...
+      db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));
+      return (RedisToken.integer(fieldsAdded));
+    }
   }
 }

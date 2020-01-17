@@ -22,23 +22,21 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(2)
 @Name('mset')
-export class MsetCommand implements IRespCommand {
+export class MsetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      // params() must be an even number
-      if (request.getParams().length % 2 !== 0) {
-        resolve(RedisToken.error('ERR wrong number of arguments for mset'));
-      } else {
-        for (let index = 0; index < request.getParams().length; index += 2) {
-          const key: string = request.getParam(index);
-          const value: string = request.getParam(index + 1);
-          this.logger.debug(`Setting key ${key} to "${value}"`);
-          db.put(key, new DatabaseValue(DataType.STRING, value));
-        }
-        resolve(RedisToken.responseOk());
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    // params() must be an even number
+    if (request.getParams().length % 2 !== 0) {
+      return (RedisToken.error('ERR wrong number of arguments for mset'));
+    } else {
+      for (let index = 0; index < request.getParams().length; index += 2) {
+        const key: string = request.getParam(index);
+        const value: string = request.getParam(index + 1);
+        this.logger.debug(`Setting key ${key} to "${value}"`);
+        db.put(key, new DatabaseValue(DataType.STRING, value));
       }
-    });
+      return (RedisToken.responseOk());
+    }
   }
 }

@@ -15,17 +15,15 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('publish')
-export class PublishCommand implements IRespCommand {
+export class PublishCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const channel: string = request.getParam(0);
-      const message: string = request.getParam(1);
-      this.logger.debug(`Publishing to channel "${channel}" > "${message}"`);
-      const responses: number = request.getServerContext().publish(channel, message);
-      this.logger.debug(`The message was delivered to ${responses} client(s)`);
-      resolve(RedisToken.integer(responses));
-    });
+  public execSync(request: IRequest): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const channel: string = request.getParam(0);
+    const message: string = request.getParam(1);
+    this.logger.debug(`Publishing to channel "${channel}" > "${message}"`);
+    const responses: number = request.getServerContext().publish(channel, message);
+    this.logger.debug(`The message was delivered to ${responses} client(s)`);
+    return (RedisToken.integer(responses));
   }
 }

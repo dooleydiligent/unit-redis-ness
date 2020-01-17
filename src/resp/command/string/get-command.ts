@@ -20,19 +20,17 @@ import { IRespCommand } from '../resp-command';
  * An error is returned if the value stored at key is not a string,
  * because GET only handles string values
  */
-export class GetCommand implements IRespCommand {
+export class GetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      const key = request.getParam(0);
-      this.logger.debug(`Getting ${key} from the db`);
-      const item = db.get(key);
-      this.logger.debug(`Got ${item} by key ${key} from the db`);
-      if (item) {
-        resolve(item);
-      } else {
-        resolve(RedisToken.nullString());
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    const key = request.getParam(0);
+    this.logger.debug(`Getting ${key} from the db`);
+    const item = db.get(key);
+    this.logger.debug(`Got ${item} by key ${key} from the db`);
+    if (item) {
+      return (item);
+    } else {
+      return (RedisToken.nullString());
+    }
   }
 }

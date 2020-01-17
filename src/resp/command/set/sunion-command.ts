@@ -45,23 +45,22 @@ import { IRespCommand } from '../resp-command';
  */
 // NOTE: We don't supply a data type because sunionstore can overwrite the first param
 // even if it is not a SET
-export class SUnionCommand implements IRespCommand {
+export class SUnionCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(maxParams: number, minParams: number, name: string) {
+    super();
     this.constructor.prototype.maxParams = maxParams;
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      switch (request.getCommand().toLowerCase()) {
-        case 'sunionstore':
-          resolve(this.sunionstore(request, db));
-        default:
-          resolve(this.sunion(request, db));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    switch (request.getCommand().toLowerCase()) {
+      case 'sunionstore':
+        return (this.sunionstore(request, db));
+      default:
+        return (this.sunion(request, db));
+    }
   }
   private sunion(request: IRequest, db: Database): RedisToken {
     const result: RedisToken[] = this.union(0, request, db);

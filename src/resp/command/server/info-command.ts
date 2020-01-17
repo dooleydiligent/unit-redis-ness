@@ -10,7 +10,8 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(0)
 @Name('info')
-export class InfoCommand implements IRespCommand {
+
+export class InfoCommand extends IRespCommand {
   private static SHARP = '# ';
   private static SEPARATOR = ':';
   private static DELIMITER = '\r\n';
@@ -25,27 +26,23 @@ export class InfoCommand implements IRespCommand {
   private static SECTION_REPLICATION = 'replication';
   private static SECTION_SERVER = 'server';
   private logger: Logger = new Logger(module.id);
-
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`executeDBRequest(${request}, ${db})`);
-      const sections: any = {};
-      this.logger.debug(`request is ${request.constructor.name}`, request);
-      if (request.getParams().length > 0) {
-        const section = request.getParam(0).toString();
-        if (this.allSections().indexOf(section.toLowerCase()) > -1) {
-          sections[section] = this.section(section, request.getServerContext());
-        } else {
-          resolve(RedisToken.string(' '));
-          return;
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`executeDBRequest(${request}, ${db})`);
+    const sections: any = {};
+    this.logger.debug(`request is ${request.constructor.name}`, request);
+    if (request.getParams().length > 0) {
+      const section = request.getParam(0).toString();
+      if (this.allSections().indexOf(section.toLowerCase()) > -1) {
+        sections[section] = this.section(section, request.getServerContext());
       } else {
-        for (const section of this.allSections()) {
-          sections[section] = this.section(section, request.getServerContext());
-        }
+        return (RedisToken.string(' '));
       }
-      resolve(RedisToken.string(this.makeString(sections)));
-    });
+    } else {
+      for (const section of this.allSections()) {
+        sections[section] = this.section(section, request.getServerContext());
+      }
+    }
+    return (RedisToken.string(this.makeString(sections)));
   }
   private allSections(): string[] {
     return [InfoCommand.SECTION_SERVER, InfoCommand.SECTION_REPLICATION, InfoCommand.SECTION_CLIENTS,
@@ -95,7 +92,7 @@ export class InfoCommand implements IRespCommand {
         if (sections[section][subkey].constructor.name === 'String') {
           result += `${subkey}${InfoCommand.SEPARATOR}${sections[section][subkey]}${InfoCommand.DELIMITER}`;
         } else {
-//          result += `${subkey}${InfoCommand.SEPARATOR}`;
+          //          result += `${subkey}${InfoCommand.SEPARATOR}`;
           for (const sskey of Object.keys(sections[section][subkey])) {
             result += `${sskey}${InfoCommand.SEPARATOR}\t${sections[section][subkey][sskey]}${InfoCommand.DELIMITER}`;
           }

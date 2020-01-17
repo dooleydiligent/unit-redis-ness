@@ -71,7 +71,7 @@ export class RespServerContext extends EventEmitter implements IServerContext {
     if (!db) {
       db = this.databases.put(`_${id}`, new Database());
     }
-    this.logger.debug(`getDatabase _${id} is ${this.databases.get(`_${id}`)}`);
+    this.logger.debug(`getDatabase _${id}`);
     return this.databases.get(`_${id}`);
   }
   public getString(sha1: string): string {

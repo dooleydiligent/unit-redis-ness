@@ -35,22 +35,20 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('getset')
-export class GetSetCommand implements IRespCommand {
+export class GetSetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      let result: RedisToken;
-      const dbValue: DatabaseValue = db.get(key);
-      if (!dbValue) {
-        result = RedisToken.nullString();
-      } else {
-        result = RedisToken.string(dbValue.getString());
-      }
-      const newValue: string = request.getParam(1);
-      db.put(key, new DatabaseValue(DataType.STRING, newValue));
-      resolve(result);
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    let result: RedisToken;
+    const dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      result = RedisToken.nullString();
+    } else {
+      result = RedisToken.string(dbValue.getString());
+    }
+    const newValue: string = request.getParam(1);
+    db.put(key, new DatabaseValue(DataType.STRING, newValue));
+    return (result);
   }
 }

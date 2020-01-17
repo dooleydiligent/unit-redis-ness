@@ -29,23 +29,21 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(3)
 @MinParams(3)
 @Name('zcount')
-export class ZCountCommand implements IRespCommand {
+export class ZCountCommand extends IRespCommand {
   private DEFAULT_ERROR = 'ERR min or max is not a float';
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const skey: string = request.getParam(0);
-      const sMin: string = request.getParam(1);
-      const sMax: string = request.getParam(2);
-      if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
-        resolve(RedisToken.error(this.DEFAULT_ERROR));
-      } else {
-        let result: number = 0;
-        const dbKey: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-        result = dbKey.getSortedSet().count(Number(sMin), Number(sMax));
-        resolve(RedisToken.integer(result));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const skey: string = request.getParam(0);
+    const sMin: string = request.getParam(1);
+    const sMax: string = request.getParam(2);
+    if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
+      return (RedisToken.error(this.DEFAULT_ERROR));
+    } else {
+      let result: number = 0;
+      const dbKey: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+      result = dbKey.getSortedSet().count(Number(sMin), Number(sMax));
+      return (RedisToken.integer(result));
+    }
   }
 }

@@ -35,37 +35,34 @@ export class BRPoplPushCommand extends RPoplPushCommand {
     super();
     this.logger = new Logger(module.id);
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
-      const timeout: string = request.getParam(request.getParams().length - 1);
-      // Run rpoplpush
-      const result: RedisToken = this.process(request, db);
-      if (result !== RedisToken.nullString()) {
-        resolve(result);
-      } else {
-        const eventNames: string[] = [];
-        const eventCallbacks: any = {};
-        const srcKey = request.getParam(0);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${srcKey}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${srcKey}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${srcKey}`);
-        eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${srcKey}`);
-        const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
-        timedEvent.on('timeout', () => {
-          this.logger.debug(`Timeout`);
-          this.removeListeners(timedEvent, eventCallbacks);
-          resolve(RedisToken.nullString());
-        });
-        for (const eventName of eventNames) {
-          this.logger.debug(`Adding listener for ${eventName}`);
-          eventCallbacks[eventName] = () => {
-            this.logger.debug(`Received event ${eventName}`);
-            resolve(this.process(request, db));
-          };
-          timedEvent.on(eventName, eventCallbacks[eventName]);
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    const timeout: string = request.getParam(request.getParams().length - 1);
+    // Run rpoplpush
+    const result: RedisToken = this.process(request, db);
+    if (result === RedisToken.nullString()) {
+      const eventNames: string[] = [];
+      const eventCallbacks: any = {};
+      const srcKey = request.getParam(0);
+      eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${srcKey}`);
+      eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${srcKey}`);
+      eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${srcKey}`);
+      eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${srcKey}`);
+      const timedEvent: TimedEmitter = new TimedEmitter(Number(timeout), eventNames, request.getServerContext());
+      timedEvent.on('timeout', () => {
+        this.logger.debug(`Timeout`);
+        this.removeListeners(timedEvent, eventCallbacks);
+        return (RedisToken.nullString());
+      });
+      for (const eventName of eventNames) {
+        this.logger.debug(`Adding listener for ${eventName}`);
+        eventCallbacks[eventName] = () => {
+          this.logger.debug(`Received event ${eventName}`);
+          return (this.process(request, db));
+        };
+        timedEvent.on(eventName, eventCallbacks[eventName]);
       }
-    });
+    }
+    return (result);
   }
   private removeListeners(timedEvent: TimedEmitter, events: any) {
     for (const eName of Object.keys(events)) {

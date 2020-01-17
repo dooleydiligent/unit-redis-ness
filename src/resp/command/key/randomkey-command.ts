@@ -18,15 +18,13 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(0)
 @MinParams(0)
 @Name('randomkey')
-export class RandomKeyCommand implements IRespCommand {
+export class RandomKeyCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      this.logger.debug(`There are ${db.keys().length} keys in the database`);
-      const randomNumber: number = Math.floor(Math.random() * (db.keys().length));
-      this.logger.debug(`Selected random number ${randomNumber}: ${db.keys()[randomNumber]}`);
-      resolve(RedisToken.string(db.keys()[randomNumber]));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    this.logger.debug(`There are ${db.keys().length} keys in the database`);
+    const randomNumber: number = Math.floor(Math.random() * (db.keys().length));
+    this.logger.debug(`Selected random number ${randomNumber}: ${db.keys()[randomNumber]}`);
+    return (RedisToken.string(db.keys()[randomNumber]));
   }
 }

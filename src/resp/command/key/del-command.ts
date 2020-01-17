@@ -18,18 +18,16 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(1)
 @Name('del')
-export class DelCommand implements IRespCommand {
+export class DelCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let counter = 0;
-      for (const key of request.getParams()) {
-        if (db.remove(key)) {
-          ++counter;
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let counter = 0;
+    for (const key of request.getParams()) {
+      if (db.remove(key)) {
+        ++counter;
       }
-      resolve(RedisToken.integer(counter));
-    });
+    }
+    return (RedisToken.integer(counter));
   }
 }

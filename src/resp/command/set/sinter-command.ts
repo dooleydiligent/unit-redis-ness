@@ -52,26 +52,25 @@ import { IRespCommand } from '../resp-command';
  */
 // NOTE: We don't supply a data type because sinterstore can overwrite the first param
 // even if it is not a SET
-export class SInterCommand implements IRespCommand {
+export class SInterCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(maxParams: number, minParams: number, name: string) {
+    super();
     this.constructor.prototype.maxParams = maxParams;
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      switch (request.getCommand().toLowerCase()) {
-        case 'sinterstore':
-          const result: RedisToken = this.sinterstore(request, db);
-          this.logger.debug(`sinterstore result is %s`, result);
-          resolve(result);
-          break;
-        default:
-          resolve(this.sinter(request, db));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    switch (request.getCommand().toLowerCase()) {
+      case 'sinterstore':
+        const result: RedisToken = this.sinterstore(request, db);
+        this.logger.debug(`sinterstore result is %s`, result);
+        return (result);
+        break;
+      default:
+        return (this.sinter(request, db));
+    }
   }
   private sinter(request: IRequest, db: Database): RedisToken {
     const result: RedisToken[] = this.intersection(0, request, db);

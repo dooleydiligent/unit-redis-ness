@@ -21,16 +21,14 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('zcard')
-export class ZCardCommand implements IRespCommand {
+export class ZCardCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const zkey: string = request.getParam(0);
-      let result: number = 0;
-      const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-      result = dbKey.getSortedSet().card();
-      resolve(RedisToken.integer(result));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const zkey: string = request.getParam(0);
+    let result: number = 0;
+    const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
+    result = dbKey.getSortedSet().card();
+    return (RedisToken.integer(result));
   }
 }

@@ -17,17 +17,15 @@ import { IRespCommand } from './resp-command';
 @MinParams(0)
 @MaxParams(0)
 @Name('discard')
-export class DiscardCommand implements IRespCommand {
-  protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      if (!request.getSession().inTransaction()) {
-        resolve(RedisToken.error(`ERR DISCARD without MULTI`));
-      } else {
-        request.getSession().abortTransaction();
-        resolve(RedisToken.responseOk());
-      }
-    });
+export class DiscardCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    if (!request.getSession().inTransaction()) {
+      return (RedisToken.error(`ERR DISCARD without MULTI`));
+    } else {
+      request.getSession().abortTransaction();
+      return (RedisToken.responseOk());
+    }
   }
 }

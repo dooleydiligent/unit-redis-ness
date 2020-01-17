@@ -26,22 +26,20 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('rename')
-export class RenameCommand implements IRespCommand {
+export class RenameCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const oldKey: string = request.getParam(0);
-      const newKey: string = request.getParam(1);
-      const dbValue: DatabaseValue = db.get(oldKey);
-      if (!dbValue) {
-        this.logger.debug(`key ${oldKey} does not exist`);
-        resolve(RedisToken.error('ERR no such key'));
-      } else {
-        db.rename(oldKey, newKey);
-        this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
-        resolve(RedisToken.responseOk());
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const oldKey: string = request.getParam(0);
+    const newKey: string = request.getParam(1);
+    const dbValue: DatabaseValue = db.get(oldKey);
+    if (!dbValue) {
+      this.logger.debug(`key ${oldKey} does not exist`);
+      return (RedisToken.error('ERR no such key'));
+    } else {
+      db.rename(oldKey, newKey);
+      this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
+      return (RedisToken.responseOk());
+    }
   }
 }
