@@ -118,4 +118,39 @@ describe('script-command test', () => {
     response = await sendCommand(client, ['get', 'bull:some_queue:id']);
     expect(response).to.equal('1');
   });
+  it('should fail when we attampt to EVAL an invalid script', async () => {
+    response = await sendCommand(client, ['eval', '-- Invalid\r\nscript']);
+    expect(response).to.equal('ReplyError: ERR Parsing script');
+  });
+  it('should leverage the LUA bit library for bit AND op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.band(5, 1) return val ',  '0'])
+    // expect(response).to.equal(1);
+  });
+  it('should leverage the LUA bit library for bit OR op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.bor(5, 1) return val ',  '0'])
+    expect(response).to.equal(5);
+  });
+  it('should leverage the LUA bit library for bit XOR op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.bxor(5, 3) return val ',  '0'])
+    expect(response).to.equal(6);
+  });
+  it('should leverage the LUA bit library for bit NOT op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.bnot(5) return val ',  '0'])
+    expect(response).to.equal(-6);
+  });
+  it('should leverage the LUA bit library for bit LSHIFT op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.lshift(5, 1) return val ',  '0'])
+    console.log(`5 lshift 1 eq ${5 << 1}`)
+    expect(response).to.equal(10);
+  });
+  it('should leverage the LUA bit library for bit RSHIFT op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.rshift(-5, 1) return val ',  '0'])
+    console.log(`-5 rshift 1 eq ${-5 >> 1}`)
+    expect(response).to.equal(-3);
+  });
+  it('should leverage the LUA bit library for bit ARSHIFT op', async () => {
+    response = await sendCommand(client, ['eval', 'local val = bit.arshift(5, 1) return val ',  '0'])
+    console.log(`5 arshift 1 eq ${-5 >>> 1}`)
+    expect(response).to.equal(2);
+  });
 });

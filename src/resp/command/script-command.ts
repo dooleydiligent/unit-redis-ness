@@ -1,5 +1,6 @@
 import { MaxParams, MinParams, Name } from '../../decorators';
 import { Logger } from '../../logger';
+import LuaBitLib from '../../lua/bit/lua-bit';
 import { DefaultRequest } from '../../server/default-request';
 import { IRequest } from '../../server/request';
 import { IServerContext } from '../../server/server-context';
@@ -8,7 +9,6 @@ import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { RespSerialize } from '../protocol/resp-serialize';
 import { IRespCommand } from './resp-command';
-
 /* tslint:disable-next-line */
 const fengari = require('fengari');
 const lua = fengari.lua;
@@ -61,7 +61,6 @@ export class ScriptCommand extends IRespCommand {
         } else {
           return (RedisToken.error(`ERR Parsing script`));
         }
-        break;
       case 'evalsha':
         sha1 = request.getParam(0);
         const code: string = request.getServerContext().getScript(sha1);
@@ -70,7 +69,6 @@ export class ScriptCommand extends IRespCommand {
         } else {
           return (this.executeLua(sha1, request));
         }
-        break;
       default:
         switch (request.getParam(0)) {
           case 'load':
@@ -81,7 +79,6 @@ export class ScriptCommand extends IRespCommand {
             } else {
               return (RedisToken.error(`ERR Parsing script`));
             }
-            break;
           case 'exists':
             // array 0/1
             const exists: any = request.getServerContext().getScript(request.getParam(1));
@@ -90,7 +87,6 @@ export class ScriptCommand extends IRespCommand {
             return (RedisToken.array([
               RedisToken.integer(request.getServerContext().scriptExists(request.getParam(1)) ? 1 : 0)
             ]));
-            break;
           case 'flush':
           case 'kill':
           case 'debug':
@@ -99,18 +95,6 @@ export class ScriptCommand extends IRespCommand {
         }
     }
   }
-
-  /*
-  const thread_status = {
-    LUA_OK:        0,
-    LUA_YIELD:     1,
-    LUA_ERRRUN:    2,
-    LUA_ERRSYNTAX: 3,
-    LUA_ERRMEM:    4,
-    LUA_ERRGCMM:   5,
-    LUA_ERRERR:    6
-  };
-*/
   /**
    * Attempt to parse a lua script.
    * Returns a sha1 and stores the script if it can
@@ -129,22 +113,13 @@ export class ScriptCommand extends IRespCommand {
       let info: string = 'Unknown LUA error %s';
       switch (loadStatus) {
         case lua.LUA_YIELD: //     1,
-          info = 'LUA YIELD Error evaluating: "%s"';
-          break;
         case lua.LUA_ERRRUN:  //    2,
-          info = 'LUA RUN Error evaluating: "%s"';
-          break;
         case lua.LUA_ERRSYNTAX: // 3,
-          info = 'LUA SYNTAX Error evaluating: "%s"';
-          break;
         case lua.LUA_ERRMEM: //   4,
-          info = 'LUA MEMORY Error: evaluating "%s"';
-          break;
         case lua.LUA_ERRGCMM: //  5,
-          info = 'LUA GC Error: evaluating "%s"';
-          break;
         case lua.LUA_ERRERR: //   6
-          info = 'LUA ERR Error: evaluating "%s"';
+        default:
+          info = `LUA ERR Error: code ${loadStatus} evaluating "%s"`;
           break;
       }
       return null;
@@ -199,18 +174,8 @@ export class ScriptCommand extends IRespCommand {
       lua.lua_seti(L, -2, index + 1);
     }
     lua.lua_setglobal(L, fengari.to_luastring('KEYS'));
-    ///
-    ///
-    ///
     // push the global redis reference
     this.logger.debug(`Creating reference to REDIS`);
-    // this.logger.debug(`Setting globals the flua way`);
-    // this.flua_setglobals(L, {
-    //   redis: {
-    //     call: this.callcmd
-    //   }
-    // });
-    ///
     lua.lua_createtable(L, 0, 1);
     lua.lua_pushstring(L, 'call');
     lua.lua_pushjsfunction(L, (LIB: any) => {
@@ -249,16 +214,12 @@ export class ScriptCommand extends IRespCommand {
         }
       }
       this.logger.debug(`LUA starting call to ${cmd} (${args})`);
-      // callcmd(command: string, ...params: any[]): Promise<any> {
       this.logger.debug(`RCALL redis with ${cmd} and %s`, args);
       if (this.serverContext && this.session) {
         const execcommand: IRespCommand = this.serverContext.getCommand(cmd);
-        // this.logger.debug(`Executing command "${command}"`);
         const rqst: IRequest = new DefaultRequest(this.serverContext, this.session, cmd, args);
         const response: any = execcommand.execSync(rqst);
-        // this.logger.debug(`command response is %j`, response);
         const serializedResponse: string = new RespSerialize(response).serialize();
-        // this.logger.debug(`Serialized Response is "%j"`, serializedResponse);
         const parser: any = new Parser({
           returnBuffers: false,
           returnError: (err: any) => {
@@ -310,12 +271,9 @@ export class ScriptCommand extends IRespCommand {
     });
     lua.lua_rawset(L, -3);
     lua.lua_setglobal(L, 'redis');
-    ///
-
-    this.loadBitLib(L);
+    LuaBitLib.LoadLibrary(L);
 
     this.logger.debug(`executeLua: Validating lua script "<script>"`);
-    // const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${tables}\n${code}`));
     const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
     if (loadStatus !== lua.LUA_OK) {
       this.logger.warn(`Unexpected error parsing sha1: "${sha1}"`);
@@ -323,7 +281,7 @@ export class ScriptCommand extends IRespCommand {
     }
     this.logger.debug(`Calling script "{script}" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`);
     const ok = lua.lua_call(L, 0, lua.LUA_MULTRET);
-    if (ok === undefined) { // A string return
+    if (ok === undefined) {
       this.logger.debug(`The LUA call was undefined`);
       const stack: number = lua.lua_gettop(L);
       this.logger.debug(`The stack top is ${stack}`);
@@ -339,105 +297,6 @@ export class ScriptCommand extends IRespCommand {
     this.logger.debug(`Releasing lua state`);
     lua.lua_close(L);
     return returnValue;
-  }
-  /* tslint:disable:no-bitwise */
-  private loadBitLib(L: any) {
-    this.logger.debug(`Assembling lua bit library`);
-    const band = (x1: number, x2: number) => x1 & x2;
-    // See http://bitop.luajit.org/
-    const bor = (x1: number, x2: number) => x1 | x2;
-    const bxor = (x1: any, x2: any) => x1 ^ x2;
-    const bnot = (x1: any) => ~x1;
-    const lshift = (x1: any, x2: any) => x1 << x2;
-    const rshift = (x1: any, x2: any) => x1 >> x2;
-    const arshift = (x1: any, x2: any) => x1 >>> x2;
-    // const bit: any = {
-    //   arshift,
-    //   band,
-    //   bnot,
-    //   bor,
-    //   bxor,
-    //   lshift,
-    //   rshift
-    // };
-    const bit: any = {
-      band
-    };
-
-    lua.lua_createtable(L, Object.keys(bit).length, 1);
-    for (const key of Object.keys(bit)) {
-      lua.lua_pushstring(L, key);
-      lua.lua_pushjsfunction(L, (LIB: any) => {
-        const n = lua.lua_gettop(LIB);
-        const args = new Array(n);
-
-        this.logger.debug(`lua_pushjsfunction pushing ${n} args`);
-
-        for (let i = 0; i < n; i++) {
-          let value: any;
-          switch (lua.lua_type(LIB, i + 1)) {
-            case lua.LUA_TNIL:
-              value = null;
-              break;
-            case lua.LUA_TNUMBER:
-              this.logger.debug(`lua_type is TNUMBER`);
-              value = lua.lua_tonumber(LIB, i + 1);
-              // Numbers are always integer to redis
-              value = parseInt(value, 10);
-              break;
-            case lua.LUA_TBOOLEAN:
-              this.logger.debug(`lua_type is TBOOLEAN`);
-              value = lua.lua_toboolean(LIB, i + 1);
-              break;
-            case lua.LUA_TSTRING:
-              this.logger.debug(`lua_type is TSTRING`);
-              value = lua.lua_tojsstring(LIB, i + 1);
-              break;
-            case lua.LUA_TTABLE:
-              this.logger.warn(`Not prepared to readtable`);
-              // value = this.flua_readtable(L, i + 1);
-              break;
-          }
-          args[i] = value;
-          this.logger.debug(`pushjs setting arg[${i}] to "%s"`, value);
-        }
-        //
-        this.logger.debug(`Calling ${key} with %s`, ...args);
-        const returned: any = bit[key].call(null, ...args);
-
-        this.logger.debug(`LUA call returned ${returned}: %j`, returned);
-        if (returned !== null && returned !== undefined) {
-          this.logger.debug(`return value is ${returned.constructor.name}`);
-        } else {
-          this.logger.debug(`return value is null or undefined`);
-        }
-
-        switch (true) {
-          case (returned === undefined || returned === null):
-            this.logger.debug(`Push nil`);
-            lua.lua_pushnil(LIB);
-            break;
-          case (returned.constructor.name === 'String'):
-            this.logger.debug(`Push string`);
-            lua.lua_pushstring(LIB, returned);
-            break;
-          case (returned.constructor.name === 'Number'):
-            this.logger.debug(`Push number`);
-            lua.lua_pushnumber(LIB, returned);
-            break;
-          case (returned.constructor.name === 'Boolean'):
-            this.logger.debug(`Push boolean`);
-            lua.lua_pushboolean(LIB, returned);
-            break;
-          default:
-            this.logger.warn(`Not prepared to push type "${returned.constructor.name}": %j`, returned);
-        }
-        this.logger.debug(`returned.length is ${Array.isArray(returned) ? returned.length : 1}`);
-        return (Array.isArray(returned) ? returned.length : 1);
-      });
-    }
-    lua.lua_rawset(L, -3);
-    lua.lua_setglobal(L, 'bit');
   }
   private collectResults(L: any, top: number): RedisToken {
     let value: any;

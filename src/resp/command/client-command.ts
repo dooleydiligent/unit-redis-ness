@@ -136,16 +136,12 @@ export class ClientCommand extends IRespCommand {
     switch (request.getParam(0).toLowerCase()) {
       case 'getname':
         return (this.getName(request));
-        break;
       case 'setname':
         return (this.setName(request));
-        break;
       case 'id':
         return (this.getId(request));
-        break;
       case 'list':
         return (this.getList(request));
-        break;
       default:
         return (RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0))));
     }
