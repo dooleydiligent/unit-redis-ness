@@ -1,6 +1,6 @@
 {
   "name": "unit-redis-ness",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A typescript implementation of redis to facilitate unit testing",
   "main": "dist/server/resp-server.js",
   "messages": [
