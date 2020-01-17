@@ -150,6 +150,7 @@ export class CommandSuite {
     this.addCommand('publish', new PublishCommand());
     this.addCommand('subscribe', new SubscribeCommand());
     this.addCommand('unsubscribe', new UnsubscribeCommand());
+    this.addCommand('hmset', new HsetCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

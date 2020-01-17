@@ -1,4 +1,4 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { Blocking, DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { TimedEmitter } from '../../../timed-emitter';
@@ -25,6 +25,7 @@ import { RPoplPushCommand } from './rpoplpush-command';
  * ### Pattern: Circular list
  * Please see the pattern description in the [RPOPLPUSH]{@link RPoplPushCommand} documentation.
  */
+@Blocking(true)
 @DbDataType(DataType.LIST)
 @MinParams(3)
 @MaxParams(3)
@@ -35,14 +36,12 @@ export class BRPoplPushCommand extends RPoplPushCommand {
     super();
     this.logger = new Logger(module.id);
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
+    return new Promise((resolve) => {
       const timeout: string = request.getParam(request.getParams().length - 1);
       // Run rpoplpush
       const result: RedisToken = this.process(request, db);
-      if (result !== RedisToken.nullString()) {
-        resolve(result);
-      } else {
+      if (result === RedisToken.nullString()) {
         const eventNames: string[] = [];
         const eventCallbacks: any = {};
         const srcKey = request.getParam(0);
@@ -64,6 +63,8 @@ export class BRPoplPushCommand extends RPoplPushCommand {
           };
           timedEvent.on(eventName, eventCallbacks[eventName]);
         }
+      } else {
+        resolve(result);
       }
     });
   }

@@ -18,21 +18,19 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('lpop')
-export class LPopCommand implements IRespCommand {
+export class LPopCommand extends IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      resolve(this.process(request, db, key));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken>  {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    return (this.process(request, db, key));
   }
   protected process(request: IRequest, db: Database, key: string): RedisToken {
     const list: DatabaseValue = db.get(key);
     this.logger.debug(`Getting list "${key}"`);
     if (!list) {
       this.logger.debug(`LIST ${key} does not exist.  Returning NIL`);
-      return(RedisToken.nullString());
+      return (RedisToken.nullString());
     } else {
       this.logger.debug(`BEFORE shift LIST is "%j`, list.getList());
       const result: any = list.getList().shift();
@@ -42,7 +40,7 @@ export class LPopCommand implements IRespCommand {
         db.remove(key);
       }
       this.logger.debug(`Returning element ${result}`);
-      return(RedisToken.string(result));
+      return (RedisToken.string(result));
     }
   }
 }

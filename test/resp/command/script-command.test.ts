@@ -1,4 +1,6 @@
 import { fail } from 'assert';
+import * as path from 'path';
+import * as fs from 'fs';
 import { expect } from 'chai';
 import 'mocha';
 import * as net from 'net';
@@ -97,4 +99,23 @@ describe('script-command test', () => {
     response = await sendCommand(client, ['eval', 'return { true, false, false}', '0']);
     expect(response).to.eql([1, null, null]);
   })
+  it('should be able to execute a representative BULL script', async () => {
+    response = await sendCommand(client, ['flushall']);
+    const luaScriptPath = path.join(__dirname, '../../resources/bull.lua');
+    console.log(`trying to load ${luaScriptPath}`);
+    const luaScript = fs.readFileSync(luaScriptPath, 'utf8');
+    const args: string[] = ['6', 'bull:some_queue:wait', 'bull:some_queue:paused', 'bull:some_queue:meta-paused', 'bull:some_queue:id', 'bull:some_queue:delayed', 'bull:some_queue:priority', 'bull:some_queue:', '', 'S1234_last_first', '{"trackid":"9405503699300066833313","filingKey":"S1234_last_first","name":"S1234_last_first","message":"Waiting to start"}', '{"delay":15,"attempts":1,"timestamp":1579142712160}', '1579142712160', '15', '1579142712175', '0', 'LPUSH', '9f187ecc-d502-4287-9f23-9978e6c2d67e'];
+    response = await sendCommand(client, ['eval', luaScript, ...args]);
+    expect(response).to.equal('1');
+    response = await sendCommand(client, ['keys', '*']);
+    expect(response.sort()).to.eql(['bull:some_queue:1', 'bull:some_queue:delayed', 'bull:some_queue:id']);
+    response = await sendCommand(client, ['type', 'bull:some_queue:delayed']);
+    expect(response).to.equal('zset');
+    response = await sendCommand(client, ['type', 'bull:some_queue:id']);
+    expect(response).to.equal('string');
+    response = await sendCommand(client, ['type', 'bull:some_queue:1']);
+    expect(response).to.equal('hash');
+    response = await sendCommand(client, ['get', 'bull:some_queue:id']);
+    expect(response).to.equal('1');
+  });
 });

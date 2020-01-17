@@ -43,28 +43,25 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('select')
-export class SelectCommand implements IRespCommand {
+export class SelectCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+  public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    return new Promise((resolve) => {
-      const id: any = Number(request.getParam(0));
-      this.logger.debug(`DB Index is ${id}`);
-      if (isNaN(id)) {
-        resolve(RedisToken.error('ERR invalid DB index'));
-      } else {
-        if (id > -1) {
-          if (id < 16) {
-            request.getSession().setCurrentDb(id);
-          } else {
-            resolve(RedisToken.error('ERR DB index is out of range'));
-            return;
-          }
+    const id: any = Number(request.getParam(0));
+    this.logger.debug(`DB Index is ${id}`);
+    if (isNaN(id)) {
+      return (RedisToken.error('ERR invalid DB index'));
+    } else {
+      if (id > -1) {
+        if (id < 16) {
+          request.getSession().setCurrentDb(id);
         } else {
-          resolve(RedisToken.error('ERR DB index is out of range'));
+          return (RedisToken.error('ERR DB index is out of range'));
         }
-        resolve(RedisToken.responseOk());
+      } else {
+        return (RedisToken.error('ERR DB index is out of range'));
       }
-    });
+      return (RedisToken.responseOk());
+    }
   }
 }

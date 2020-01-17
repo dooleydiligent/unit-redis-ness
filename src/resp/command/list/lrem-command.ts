@@ -48,79 +48,77 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(3)
 @MinParams(3)
 @Name('lrem')
-export class LRemCommand implements IRespCommand {
+export class LRemCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let result: number = 0;
-      const key: string = request.getParam(0);
-      const list: DatabaseValue = db.get(key);
-      this.logger.debug(`Getting list "${key}"`);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let result: number = 0;
+    const key: string = request.getParam(0);
+    const list: DatabaseValue = db.get(key);
+    this.logger.debug(`Getting list "${key}"`);
 
-      const count: any = Number(request.getParam(1));
-      this.logger.debug(`Evaluating count: ${request.getParam(1)} = ${count}`);
-      if (isNaN(count) || count !== parseInt(String(count), 10)) {
-        this.logger.debug(`Invalid count value`);
-        resolve(RedisToken.error('ERR value is not an integer or out of range'));
+    const count: any = Number(request.getParam(1));
+    this.logger.debug(`Evaluating count: ${request.getParam(1)} = ${count}`);
+    if (isNaN(count) || count !== parseInt(String(count), 10)) {
+      this.logger.debug(`Invalid count value`);
+      return (RedisToken.error('ERR value is not an integer or out of range'));
+    } else {
+      if (!list) {
+        this.logger.debug(`LIST ${key} does not exist.  Returning ${result}`);
+        return (RedisToken.integer(result));
       } else {
-        if (!list) {
-          this.logger.debug(`LIST ${key} does not exist.  Returning ${result}`);
-          resolve(RedisToken.integer(result));
-        } else {
-          const value: string = request.getParam(2);
+        const value: string = request.getParam(2);
 
-          const matching: number[] = [];
-          for (let index = 0; index < list.getList().length; index++) {
-            if (list.getList()[index] === value) {
-              matching.push(index);
-            }
+        const matching: number[] = [];
+        for (let index = 0; index < list.getList().length; index++) {
+          if (list.getList()[index] === value) {
+            matching.push(index);
           }
-          this.logger.debug(`Matching elements found at indices: %j`, matching);
-          const toremove: number[] = [];
-          // tslint:disable-next-line
-          for (let index = 0; index < matching.length; index++) {
-            let remove: boolean = false;
-            switch (true) {
-              case count > 0:
-                remove = true;
-                break;
-              case count < 0:
-                if (matching[index] >= (matching.length + count)) {
-                  this.logger.debug(`COUNT < 0: if ${matching[index]} >= ${matching.length} + ${count} - remove element ${list.getList()[matching[index]]}`);
-                  remove = true;
-                }
-                break;
-              default:
-                // remove all matching elements
-                remove = true;
-            }
-            if (remove) {
-              // list.getList().splice(Number(matching[index]), 1);
-              toremove.push(matching[index]);
-              if (count !== 0 && Math.abs(count) === toremove.length) {
-                break;
-              }
-            }
-          }
-          this.logger.debug(`Removing elements [${toremove.join(',')}] like "${value}" from [%s]`, list.getList());
-          while (toremove.length) {
-            const item = toremove.pop();
-            this.logger.debug(`Remove item ${item}: ${list.getList()[Number(item)]}`);
-            list.getList().splice(Number(item), 1);
-            result++;
-          }
-          this.logger.debug(`Removed ${result} elements from key "${key}"`);
-          if (list.getList().length > 0) {
-            const check: DatabaseValue = db.put(key, list);
-            this.logger.debug(`The final list is [%s]`, check.getList());
-          } else {
-            db.remove(key);
-            this.logger.debug(`ZERO length list ${key} removed from the db`);
-          }
-          resolve(RedisToken.integer(result));
         }
+        this.logger.debug(`Matching elements found at indices: %j`, matching);
+        const toremove: number[] = [];
+        // tslint:disable-next-line
+        for (let index = 0; index < matching.length; index++) {
+          let remove: boolean = false;
+          switch (true) {
+            case count > 0:
+              remove = true;
+              break;
+            case count < 0:
+              if (matching[index] >= (matching.length + count)) {
+                this.logger.debug(`COUNT < 0: if ${matching[index]} >= ${matching.length} + ${count} - remove element ${list.getList()[matching[index]]}`);
+                remove = true;
+              }
+              break;
+            default:
+              // remove all matching elements
+              remove = true;
+          }
+          if (remove) {
+            // list.getList().splice(Number(matching[index]), 1);
+            toremove.push(matching[index]);
+            if (count !== 0 && Math.abs(count) === toremove.length) {
+              break;
+            }
+          }
+        }
+        this.logger.debug(`Removing elements [${toremove.join(',')}] like "${value}" from [%s]`, list.getList());
+        while (toremove.length) {
+          const item = toremove.pop();
+          this.logger.debug(`Remove item ${item}: ${list.getList()[Number(item)]}`);
+          list.getList().splice(Number(item), 1);
+          result++;
+        }
+        this.logger.debug(`Removed ${result} elements from key "${key}"`);
+        if (list.getList().length > 0) {
+          const check: DatabaseValue = db.put(key, list);
+          this.logger.debug(`The final list is [%s]`, check.getList());
+        } else {
+          db.remove(key);
+          this.logger.debug(`ZERO length list ${key} removed from the db`);
+        }
+        return (RedisToken.integer(result));
       }
-    });
+    }
   }
 }

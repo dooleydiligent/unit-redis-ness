@@ -15,8 +15,7 @@ import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
 export { sendCommand } from '../client';
-// // tslint:disable-next-line
-// const safeId = require('generate-safe-id');
+
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
 
@@ -54,31 +53,25 @@ export class RespServer extends EventEmitter {
   public receive(session: Session, message: any): void {
     // convert message to RedisToken
     const parser = new Parser({
-      response: message,
       returnBuffers: false,
       returnError: (err: any) => {
-        this.logger.warn(`returnError: `, err);
+        this.logger.warn(`returnError: "%j"`, err);
       },
-      returnReply: (command: any) => {
+      returnReply: async (command: any) => {
         this.logger.debug(`returnReply: command is ${command}`);
         session.setLastCommand(command);
-        parser.response = new ArrayRedisToken(command);
+        const request: IRequest = this.parseMessage(new ArrayRedisToken(command), session);
+        // look up the command in commandsuite
+        const execcommand: IRespCommand = this.serverContext.getCommand(request.getCommand());
+        this.logger.debug(`Executing command "${request.getCommand()}"`);
+        const resultToken = await execcommand.execSync(request);
+        this.logger.debug(`Response from "${request.getCommand()}, ${request.getParams()}" is %s`, resultToken);
+        // send the result back to the client
+        session.publish(resultToken);
       },
       stringNumbers: true
     });
     parser.execute(message);
-    this.logger.debug(`Parsed client command is : ${parser.response}`);
-    const result = this.parseMessage(parser.response, session);
-    this.logger.debug(`Parsed client message is ${result}`);
-    // look up the command in commandsuite
-    const execcommand: IRespCommand = this.serverContext.getCommand(result.getCommand());
-    this.logger.debug(`Command is ${result.getCommand()}: ${util.inspect(execcommand)}`);
-    execcommand.execute(result)
-      .then((resultToken: RedisToken) => {
-        this.logger.debug(`resultToken is ${resultToken}`);
-        // send the result back to the client
-        session.publish(resultToken);
-      });
   }
   /**
    * start the redis server

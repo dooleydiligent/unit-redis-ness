@@ -33,13 +33,11 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('rpop')
-export class RPopCommand implements IRespCommand {
+export class RPopCommand extends IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      resolve(this.process(request, db, request.getParam(0)));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    return (this.process(request, db, request.getParam(0)));
   }
   protected process(request: IRequest, db: Database, key: string): RedisToken {
     const list: DatabaseValue = db.get(key);

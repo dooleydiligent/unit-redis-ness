@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -144,15 +144,13 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,7 +206,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,7 +226,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,39 +285,37 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('exists')
-export class ExpireCommand implements IRespCommand {
+export class ExpireCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let response = 0;
-      const key: string = request.getParam(0);
-      let dbValue: DatabaseValue = db.get(key);
-      if (!dbValue) {
-        this.logger.debug(`key ${key} does not exist`);
-        resolve(RedisToken.integer(response));
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let response = 0;
+    const key: string = request.getParam(0);
+    let dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      this.logger.debug(`key ${key} does not exist`);
+      return (RedisToken.integer(response));
+    } else {
+      const newTtl: string = request.getParam(1);
+      if (isNaN(Number(newTtl)) || Number(newTtl) &gt; parseInt(newTtl, 10)) {
+        this.logger.debug(`ttl ${newTtl} is invalid`);
+        return (RedisToken.error('ERR value is not an integer or out of range'));
       } else {
-        const newTtl: string = request.getParam(1);
-        if (isNaN(Number(newTtl)) || Number(newTtl) &gt; parseInt(newTtl, 10)) {
-          this.logger.debug(`ttl ${newTtl} is invalid`);
-          resolve(RedisToken.error('ERR value is not an integer or out of range'));
-        } else {
-          this.logger.debug(`Setting expiredAt to ${Number(newTtl) * 1000} on ${key}`);
-          const ttlVal: number = Number(newTtl) &lt; 1 ? -1 : new Date().getTime() + (Number(newTtl) * 1000);
-          dbValue = db.put(key, dbValue.setExpiredAt(ttlVal));
-          this.logger.debug(`Updated key is %j`, dbValue);
-          response = 1;
+        this.logger.debug(`Setting expiredAt to ${Number(newTtl) * 1000} on ${key}`);
+        const ttlVal: number = Number(newTtl) &lt; 1 ? -1 : new Date().getTime() + (Number(newTtl) * 1000);
+        dbValue = db.put(key, dbValue.setExpiredAt(ttlVal));
+        this.logger.debug(`Updated key is %j`, dbValue);
+        response = 1;
 &nbsp;
-          if (dbValue.getExpiredAt() &lt; 0) {
-            this.logger.debug(`Key ${key} is effectively deleted - returning ${response}`);
-            resolve(RedisToken.integer(response));
-          } else {
-            this.logger.debug(`${request.getCommand()}.execute ttl set to ${dbValue.getExpiredAt()}`);
-            resolve(RedisToken.integer(response));
-          }
+        if (dbValue.getExpiredAt() &lt; 0) {
+          this.logger.debug(`Key ${key} is effectively deleted - returning ${response}`);
+          return (RedisToken.integer(response));
+        } else {
+          this.logger.debug(`${request.getCommand()}.execute ttl set to ${dbValue.getExpiredAt()}`);
+          return (RedisToken.integer(response));
         }
       }
-    });
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -331,7 +325,7 @@ export class ExpireCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:49:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

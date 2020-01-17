@@ -31,29 +31,27 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(1)
 @Name('mget')
-export class MGetCommand implements IRespCommand {
+export class MGetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const results: RedisToken[] = [];
-      for (const key of request.getParams()) {
-        this.logger.debug(`Getting key ${key}`);
-        const dbValue: DatabaseValue = db.get(key);
-        if (dbValue) {
-          if (dbValue.getType() !== DataType.STRING) {
-            this.logger.debug(`Ignoring type ${dbValue.getType} for key ${key}`);
-            results.push(RedisToken.nullString());
-          } else {
-            this.logger.debug(`Saving ${key} value ${dbValue.getString()}`);
-            results.push(RedisToken.string(dbValue.getString()));
-          }
-        } else {
-          this.logger.debug(`Key ${key} does not exist`);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const results: RedisToken[] = [];
+    for (const key of request.getParams()) {
+      this.logger.debug(`Getting key ${key}`);
+      const dbValue: DatabaseValue = db.get(key);
+      if (dbValue) {
+        if (dbValue.getType() !== DataType.STRING) {
+          this.logger.debug(`Ignoring type ${dbValue.getType} for key ${key}`);
           results.push(RedisToken.nullString());
+        } else {
+          this.logger.debug(`Saving ${key} value ${dbValue.getString()}`);
+          results.push(RedisToken.string(dbValue.getString()));
         }
+      } else {
+        this.logger.debug(`Key ${key} does not exist`);
+        results.push(RedisToken.nullString());
       }
-      resolve(RedisToken.array(results));
-    });
+    }
+    return (RedisToken.array(results));
   }
 }

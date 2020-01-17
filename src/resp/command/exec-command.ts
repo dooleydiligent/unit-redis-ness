@@ -1,4 +1,4 @@
-import { MaxParams, MinParams, Name } from '../../decorators';
+import { Blocking, MaxParams, MinParams, Name } from '../../decorators';
 import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { ICmdReq } from '../../server/session';
@@ -18,31 +18,30 @@ import { IRespCommand } from './resp-command';
  *
  * When using [WATCH]{@link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
  */
+@Blocking(true)
 @MinParams(0)
 @MaxParams(0)
 @Name('exec')
-export class ExecCommand implements IRespCommand {
-  protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      if (!request.getSession().inTransaction()) {
-        resolve(RedisToken.error(`ERR EXEC without MULTI`));
+export class ExecCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    if (!request.getSession().inTransaction()) {
+      return (RedisToken.error(`ERR EXEC without MULTI`));
+    } else {
+      if (request.getSession().isErrored()) {
+        request.getSession().abortTransaction();
+        return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
       } else {
-        if (request.getSession().isErrored()) {
-          request.getSession().abortTransaction();
-          resolve(RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
-        } else {
-          const commands: ICmdReq[] = request.getSession().getTransaction();
-          Promise.all(commands.map(async (cmdReq) => {
-            this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
-            return await cmdReq.command.execute(cmdReq.request, db);
-          })).
-            then((tokens: RedisToken[]) => {
-              resolve(RedisToken.array(tokens));
-            });
-        }
+        const commands: ICmdReq[] = request.getSession().getTransaction();
+        const tokens: any[] = [];
+        commands.map(async (cmdReq) => {
+          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+          const token = await cmdReq.command.execSync(cmdReq.request, db);
+          tokens.push(token);
+        });
+        return (RedisToken.array(tokens));
       }
-    });
+    }
   }
 }

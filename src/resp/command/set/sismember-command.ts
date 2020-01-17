@@ -22,16 +22,14 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('sismember')
-export class SIsMemberCommand implements IRespCommand {
+export class SIsMemberCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const skey: string = request.getParam(0);
-      const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
-      const exists = initial.getSet().has(request.getParam(1)) ? 1 : 0;
-      this.logger.debug(`${request.getCommand()}.execute returning ${exists}`);
-      resolve(RedisToken.integer(exists));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const skey: string = request.getParam(0);
+    const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
+    const exists = initial.getSet().has(request.getParam(1)) ? 1 : 0;
+    this.logger.debug(`${request.getCommand()}.execute returning ${exists}`);
+    return (RedisToken.integer(exists));
   }
 }

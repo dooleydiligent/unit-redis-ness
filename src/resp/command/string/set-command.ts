@@ -38,24 +38,22 @@ interface IParameters {
 @MaxParams(6)
 @MinParams(2)
 @Name('set')
-export class SetCommand implements IRespCommand {
+export class SetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      try {
-        const parameters: IParameters = this.parse(request);
-        const key: string = request.getParam(0).toString();
-        this.logger.debug(`Creating key ${key} with parameters %s`, parameters);
-        const value: DatabaseValue = this.parseValue(request, parameters);
-        const savedValue = this.saveValue(db, parameters, key, value);
-        resolve(savedValue && savedValue.toString() === value.toString() ?
-          RedisToken.responseOk() : RedisToken.nullString());
-      } catch (ex) {
-        this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
-        resolve(RedisToken.error(ex.message));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    try {
+      const parameters: IParameters = this.parse(request);
+      const key: string = request.getParam(0).toString();
+      this.logger.debug(`Creating key ${key} with parameters %s`, parameters);
+      const value: DatabaseValue = this.parseValue(request, parameters);
+      const savedValue = this.saveValue(db, parameters, key, value);
+      return (savedValue && savedValue.toString() === value.toString() ?
+        RedisToken.responseOk() : RedisToken.nullString());
+    } catch (ex) {
+      this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
+      return (RedisToken.error(ex.message));
+    }
   }
   private parse(request: IRequest): IParameters {
     const parameters: IParameters = {

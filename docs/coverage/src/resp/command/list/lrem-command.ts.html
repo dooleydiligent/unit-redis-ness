@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -181,16 +181,14 @@
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,7 +234,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -308,7 +305,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
@@ -359,80 +355,78 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(3)
 @MinParams(3)
 @Name('lrem')
-export class LRemCommand implements IRespCommand {
+export class LRemCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let result: number = 0;
-      const key: string = request.getParam(0);
-      const list: DatabaseValue = db.get(key);
-      this.logger.debug(`Getting list "${key}"`);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let result: number = 0;
+    const key: string = request.getParam(0);
+    const list: DatabaseValue = db.get(key);
+    this.logger.debug(`Getting list "${key}"`);
 &nbsp;
-      const count: any = Number(request.getParam(1));
-      this.logger.debug(`Evaluating count: ${request.getParam(1)} = ${count}`);
-      if (isNaN(count) || count !== parseInt(String(count), 10)) {
-        this.logger.debug(`Invalid count value`);
-        resolve(RedisToken.error('ERR value is not an integer or out of range'));
+    const count: any = Number(request.getParam(1));
+    this.logger.debug(`Evaluating count: ${request.getParam(1)} = ${count}`);
+    if (isNaN(count) || count !== parseInt(String(count), 10)) {
+      this.logger.debug(`Invalid count value`);
+      return (RedisToken.error('ERR value is not an integer or out of range'));
+    } else {
+      if (!list) {
+        this.logger.debug(`LIST ${key} does not exist.  Returning ${result}`);
+        return (RedisToken.integer(result));
       } else {
-        if (!list) {
-          this.logger.debug(`LIST ${key} does not exist.  Returning ${result}`);
-          resolve(RedisToken.integer(result));
-        } else {
-          const value: string = request.getParam(2);
+        const value: string = request.getParam(2);
 &nbsp;
-          const matching: number[] = [];
-          for (let index = 0; index &lt; list.getList().length; index++) {
-            if (list.getList()[index] === value) {
-              matching.push(index);
-            }
+        const matching: number[] = [];
+        for (let index = 0; index &lt; list.getList().length; index++) {
+          if (list.getList()[index] === value) {
+            matching.push(index);
           }
-          this.logger.debug(`Matching elements found at indices: %j`, matching);
-          const toremove: number[] = [];
-          // tslint:disable-next-line
-          for (let index = 0; index &lt; matching.length; index++) {
-            let remove: boolean = false;
-            switch (true) {
-              case count &gt; 0:
-                remove = true;
-                break;
-              case count &lt; 0:
-                if (matching[index] &gt;= (matching.length + count)) {
-                  this.logger.debug(`COUNT &lt; 0: if ${matching[index]} &gt;= ${matching.length} + ${count} - remove element ${list.getList()[matching[index]]}`);
-                  remove = true;
-                }
-                break;
-              default:
-                // remove all matching elements
-                remove = true;
-            }
-            if (remove) {
-              // list.getList().splice(Number(matching[index]), 1);
-              toremove.push(matching[index]);
-              if (count !== 0 &amp;&amp; Math.abs(count) === toremove.length) {
-                break;
-              }
-            }
-          }
-          this.logger.debug(`Removing elements [${toremove.join(',')}] like "${value}" from [%s]`, list.getList());
-          while (toremove.length) {
-            const item = toremove.pop();
-            this.logger.debug(`Remove item ${item}: ${list.getList()[Number(item)]}`);
-            list.getList().splice(Number(item), 1);
-            result++;
-          }
-          this.logger.debug(`Removed ${result} elements from key "${key}"`);
-          if (list.getList().length &gt; 0) {
-            const check: DatabaseValue = db.put(key, list);
-            this.logger.debug(`The final list is [%s]`, check.getList());
-          } else {
-            db.remove(key);
-            this.logger.debug(`ZERO length list ${key} removed from the db`);
-          }
-          resolve(RedisToken.integer(result));
         }
+        this.logger.debug(`Matching elements found at indices: %j`, matching);
+        const toremove: number[] = [];
+        // tslint:disable-next-line
+        for (let index = 0; index &lt; matching.length; index++) {
+          let remove: boolean = false;
+          switch (true) {
+            case count &gt; 0:
+              remove = true;
+              break;
+            case count &lt; 0:
+              if (matching[index] &gt;= (matching.length + count)) {
+                this.logger.debug(`COUNT &lt; 0: if ${matching[index]} &gt;= ${matching.length} + ${count} - remove element ${list.getList()[matching[index]]}`);
+                remove = true;
+              }
+              break;
+            default:
+              // remove all matching elements
+              remove = true;
+          }
+          if (remove) {
+            // list.getList().splice(Number(matching[index]), 1);
+            toremove.push(matching[index]);
+            if (count !== 0 &amp;&amp; Math.abs(count) === toremove.length) {
+              break;
+            }
+          }
+        }
+        this.logger.debug(`Removing elements [${toremove.join(',')}] like "${value}" from [%s]`, list.getList());
+        while (toremove.length) {
+          const item = toremove.pop();
+          this.logger.debug(`Remove item ${item}: ${list.getList()[Number(item)]}`);
+          list.getList().splice(Number(item), 1);
+          result++;
+        }
+        this.logger.debug(`Removed ${result} elements from key "${key}"`);
+        if (list.getList().length &gt; 0) {
+          const check: DatabaseValue = db.put(key, list);
+          this.logger.debug(`The final list is [%s]`, check.getList());
+        } else {
+          db.remove(key);
+          this.logger.debug(`ZERO length list ${key} removed from the db`);
+        }
+        return (RedisToken.integer(result));
       }
-    });
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -442,7 +436,7 @@ export class LRemCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:49:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

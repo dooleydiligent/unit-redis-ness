@@ -6,11 +6,9 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(0)
 @MinParams(0)
 @Name('ping')
-export class PingCommand implements IRespCommand {
+export class PingCommand extends IRespCommand {
   public static PONG: string = 'PONG';
-  public execute(request: IRequest): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      resolve(RedisToken.string(PingCommand.PONG));
-    });
+  public execSync(request: IRequest): RedisToken {
+    return (RedisToken.string(PingCommand.PONG));
   }
 }

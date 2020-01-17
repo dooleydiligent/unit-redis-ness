@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">98.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/63</span>
+                <span class='fraction'>63/64</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">98.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/62</span>
+                <span class='fraction'>62/63</span>
             </div>
         
             
@@ -197,8 +197,7 @@
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -207,7 +206,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,6 +254,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-yes">108x</span>
@@ -262,15 +262,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -393,26 +391,25 @@ import { IRespCommand } from '../resp-command';
  */
 // NOTE: We don't supply a data type because sinterstore can overwrite the first param
 // even if it is not a SET
-export class SInterCommand implements IRespCommand {
+export class SInterCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
   constructor(maxParams: number, minParams: number, name: string) {
+    super();
     this.constructor.prototype.maxParams = maxParams;
     this.constructor.prototype.minParams = minParams;
     this.constructor.prototype.name = name;
   }
-  public execute(request: IRequest, db: Database): Promise&lt;RedisToken&gt; {
-    return new Promise((resolve) =&gt; {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      switch (request.getCommand().toLowerCase()) {
-        case 'sinterstore':
-          const result: RedisToken = this.sinterstore(request, db);
-          this.logger.debug(`sinterstore result is %s`, result);
-          resolve(result);
-          break;
-        default:
-          resolve(this.sinter(request, db));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    switch (request.getCommand().toLowerCase()) {
+      case 'sinterstore':
+        const result: RedisToken = this.sinterstore(request, db);
+        this.logger.debug(`sinterstore result is %s`, result);
+        return (result);
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      default:
+        return (this.sinter(request, db));
+    }
   }
   private sinter(request: IRequest, db: Database): RedisToken {
     const result: RedisToken[] = this.intersection(0, request, db);
@@ -487,7 +484,7 @@ export class SInterCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:49:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

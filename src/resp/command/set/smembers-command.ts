@@ -22,21 +22,19 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('smembers')
-export class SMembersCommand implements IRespCommand {
+export class SMembersCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const skey: string = request.getParam(0);
-      const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
-      const values: RedisToken[] = [];
-      for (const item of initial.getSet()) {
-        values.push(RedisToken.string(item));
-      }
-      // Redis can return a list in any order
-      const retval = RedisToken.array(values);
-      this.logger.debug(`${request.getCommand()}.execute returning (%s)`, retval);
-      resolve(retval);
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const skey: string = request.getParam(0);
+    const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
+    const values: RedisToken[] = [];
+    for (const item of initial.getSet()) {
+      values.push(RedisToken.string(item));
+    }
+    // Redis can return a list in any order
+    const retval = RedisToken.array(values);
+    this.logger.debug(`${request.getCommand()}.execute returning (%s)`, retval);
+    return (retval);
   }
 }

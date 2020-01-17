@@ -34,19 +34,17 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(1)
 @Name('exists')
-export class ExistsCommand implements IRespCommand {
+export class ExistsCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let counter = 0;
-      for (const key of request.getParams()) {
-        if (db.exists(key)) {
-          ++counter;
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let counter = 0;
+    for (const key of request.getParams()) {
+      if (db.exists(key)) {
+        ++counter;
       }
-      this.logger.debug(`${request.getCommand()}.execute returning ${counter}`);
-      resolve(RedisToken.integer(counter));
-    });
+    }
+    this.logger.debug(`${request.getCommand()}.execute returning ${counter}`);
+    return (RedisToken.integer(counter));
   }
 }

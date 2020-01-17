@@ -37,25 +37,23 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(1)
 @MinParams(1)
 @Name('keys')
-export class KeysCommand implements IRespCommand {
+export class KeysCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const keys: any[] = [];
-      const pattern: string = request.getParam(0);
-      const re = new RegExp(`^${pattern.replace(/\?/g, '.').replace(/\*/g, '.*?')}$`);
-      this.logger.debug(`Searching for keys matching pattern /%s/`, re);
-      for (const key of db.keys()) {
-        if (re.test(key)) {
-          this.logger.debug(`Accepting ${key}`);
-          keys.push(RedisToken.string(key) as AbstractRedisToken<string>);
-        } else {
-          this.logger.debug(`Rejecting ${key}`);
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const keys: any[] = [];
+    const pattern: string = request.getParam(0);
+    const re = new RegExp(`^${pattern.replace(/\?/g, '.').replace(/\*/g, '.*?')}$`);
+    this.logger.debug(`Searching for keys matching pattern /%s/`, re);
+    for (const key of db.keys()) {
+      if (re.test(key)) {
+        this.logger.debug(`Accepting ${key}`);
+        keys.push(RedisToken.string(key) as AbstractRedisToken<string>);
+      } else {
+        this.logger.debug(`Rejecting ${key}`);
       }
-      // Keys are sorted alphabetically in redis
-      resolve(RedisToken.array(keys.sort((a, b) => a.getValue() < b.getValue() ? 0 : 1)));
-    });
+    }
+    // Keys are sorted alphabetically in redis
+    return (RedisToken.array(keys.sort((a, b) => a.getValue() < b.getValue() ? 0 : 1)));
   }
 }

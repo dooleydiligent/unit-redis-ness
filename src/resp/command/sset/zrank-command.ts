@@ -40,28 +40,26 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('zrank')
-export class ZRankCommand implements IRespCommand {
+export class ZRankCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      const member: string = request.getParam(1);
-      this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
-      const dbValue: DatabaseValue = db.get(key);
-      if (!dbValue) {
-        this.logger.debug(`Key ${key} not found`);
-        resolve(RedisToken.nullString());
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    const member: string = request.getParam(1);
+    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
+    const dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      this.logger.debug(`Key ${key} not found`);
+      return (RedisToken.nullString());
+    } else {
+      this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({ withScores: true }));
+      if (dbValue.getSortedSet().has(member)) {
+        const result: number = dbValue.getSortedSet().rank(member);
+        return (RedisToken.integer(result));
       } else {
-        this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({withScores: true}));
-        if (dbValue.getSortedSet().has(member)) {
-          const result: number = dbValue.getSortedSet().rank(member);
-          resolve(RedisToken.integer(result));
-        } else {
-          this.logger.debug(`Member ${member} not found in key ${key}`);
-          resolve(RedisToken.nullString());
-        }
+        this.logger.debug(`Member ${member} not found in key ${key}`);
+        return (RedisToken.nullString());
       }
-    });
+    }
   }
 }

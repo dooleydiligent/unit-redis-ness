@@ -16,9 +16,9 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(0)
 @MinParams(0)
 @Name('flushall')
-export class FlushAllCommand implements IRespCommand {
+export class FlushAllCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+  public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     for (let i = 0; i < 16; i++) {
       const mydb = request.getServerContext().getDatabase(i);
@@ -28,8 +28,6 @@ export class FlushAllCommand implements IRespCommand {
         mydb.remove(key);
       }
     }
-    return new Promise((resolve) => {
-      resolve(RedisToken.responseOk());
-    });
+    return (RedisToken.responseOk());
   }
 }

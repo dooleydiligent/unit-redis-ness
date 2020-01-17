@@ -4,10 +4,8 @@ import { RedisToken } from '../../protocol/redis-token';
 import { IRespCommand } from '../resp-command';
 
 @Name('quit')
-export class QuitCommand implements IRespCommand {
-  public execute(request: IRequest): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      resolve(RedisToken.responseOk());
-    });
+export class QuitCommand extends IRespCommand {
+  public execSync(request: IRequest): RedisToken {
+    return (RedisToken.responseOk());
   }
 }

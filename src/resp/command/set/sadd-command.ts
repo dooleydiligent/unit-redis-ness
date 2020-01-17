@@ -27,25 +27,23 @@ import { IRespCommand } from './../resp-command';
 @MaxParams(-1)
 @MinParams(2)
 @Name('sadd')
-export class SAddCommand implements IRespCommand {
+export class SAddCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const skey: string = request.getParam(0);
-      const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
-      const originalSet: Set<any> = initial.getSet();
-      const initialCount: number = originalSet.size;
-      this.logger.debug(`Initial key length of ${skey} is ${initialCount}`);
-      for (let index = 1; index < request.getParams().length; index++) {
-        const newValue = request.getParam(index);
-        if (!originalSet.has(newValue)) {
-          originalSet.add(newValue);
-        }
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const skey: string = request.getParam(0);
+    const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
+    const originalSet: Set<any> = initial.getSet();
+    const initialCount: number = originalSet.size;
+    this.logger.debug(`Initial key length of ${skey} is ${initialCount}`);
+    for (let index = 1; index < request.getParams().length; index++) {
+      const newValue = request.getParam(index);
+      if (!originalSet.has(newValue)) {
+        originalSet.add(newValue);
       }
-      this.logger.debug(`Final key length of ${skey} is ${originalSet.size}`);
-      db.put(skey, DatabaseValue.set(originalSet));
-      resolve(RedisToken.integer(originalSet.size - initialCount));
-    });
+    }
+    this.logger.debug(`Final key length of ${skey} is ${originalSet.size}`);
+    db.put(skey, DatabaseValue.set(originalSet));
+    return (RedisToken.integer(originalSet.size - initialCount));
   }
 }

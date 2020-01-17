@@ -1,4 +1,4 @@
-import { DbDataType } from '../../../decorators';
+import { Blocking, DbDataType } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { TimedEmitter } from '../../../timed-emitter';
@@ -36,6 +36,7 @@ import { RedisToken } from '../../protocol/redis-token';
  * 2) "c"
  * ```
  */
+@Blocking(true)
 @DbDataType(DataType.LIST)
 export class BRPopCommand extends RPopCommand {
   protected logger: Logger;
@@ -46,9 +47,9 @@ export class BRPopCommand extends RPopCommand {
     this.constructor.prototype.name = name;
     this.logger = new Logger(module.id);
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    return new Promise((resolve: any) => {
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
+    return new Promise((resolve) => {
+      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const timeout: string = request.getParam(request.getParams().length - 1);
       // Check all source keys first
       const results: RedisToken[] = [];
@@ -64,7 +65,7 @@ export class BRPopCommand extends RPopCommand {
       if (results.length > 0) {
         resolve(RedisToken.array(results));
       } else {
-        const eventNames: string[] = [ ];
+        const eventNames: string[] = [];
         const eventCallbacks: any = {};
         for (let index = 0; index < request.getParams().length - 1; index++) {
           const key = request.getParam(index);
@@ -89,6 +90,7 @@ export class BRPopCommand extends RPopCommand {
           };
           timedEvent.on(eventName, eventCallbacks[eventName]);
         }
+//        resolve(RedisToken.array(results));
       }
     });
   }

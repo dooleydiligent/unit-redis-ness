@@ -128,29 +128,27 @@ import { IRespCommand } from './resp-command';
 @MaxParams(4)
 @MinParams(1)
 @Name('client')
-export class ClientCommand implements IRespCommand {
+export class ClientCommand extends IRespCommand {
   public static DEFAULT_ERROR = `ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      switch (request.getParam(0).toLowerCase()) {
-        case 'getname':
-          resolve(this.getName(request));
-          break;
-        case 'setname':
-          resolve(this.setName(request));
-          break;
-        case 'id':
-          resolve(this.getId(request));
-          break;
-        case 'list':
-          resolve(this.getList(request));
-          break;
-        default:
-          resolve(RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0))));
-      }
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    switch (request.getParam(0).toLowerCase()) {
+      case 'getname':
+        return (this.getName(request));
+        break;
+      case 'setname':
+        return (this.setName(request));
+        break;
+      case 'id':
+        return (this.getId(request));
+        break;
+      case 'list':
+        return (this.getList(request));
+        break;
+      default:
+        return (RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0))));
+    }
   }
   private getName(request: IRequest): RedisToken {
     if (request.getParams().length === 1) {

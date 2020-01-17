@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -107,7 +107,11 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -117,7 +121,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,7 +131,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,7 +142,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,14 +153,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as util from 'util';
 import { DataType } from './resp/data/data-type';
 &nbsp;
+// tslint:disable:ban-types
 const debugLog = util.debuglog('decorators');
 /**
  * Apply a DataType to the command
@@ -167,7 +174,6 @@ const debugLog = util.debuglog('decorators');
  */
 export const DbDataType = (dataType: DataType ) =&gt; {
   debugLog(`DbDataType: ${dataType}`);
-  // tslint:disable-next-line
   return (constructor: Function) =&gt; {
     constructor.prototype.dataType = dataType;
   };
@@ -178,7 +184,6 @@ export const DbDataType = (dataType: DataType ) =&gt; {
  */
 export const Name = (name: string) =&gt; {
   debugLog(`Name: ${name}`);
-  // tslint:disable-next-line
   return (constructor: Function) =&gt; {
     constructor.prototype.name = name;
   };
@@ -190,7 +195,6 @@ export const Name = (name: string) =&gt; {
  */
 export const MinParams = (minParams: number) =&gt; {
   debugLog(`MinParams: ${minParams}`);
-  // tslint:disable-next-line
   return (constructor: Function) =&gt; {
     constructor.prototype.minParams = minParams;
   };
@@ -202,9 +206,14 @@ export const MinParams = (minParams: number) =&gt; {
  */
 export const MaxParams = (maxParams: number) =&gt; {
   debugLog(`MaxParams: ${maxParams}`);
-  // tslint:disable-next-line
   return (constructor: Function) =&gt; {
     constructor.prototype.maxParams = maxParams;
+  };
+};
+export const Blocking = (blocking: boolean ) =&gt; {
+  debugLog(`Blocking: ${blocking}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.blocking = blocking;
   };
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -214,7 +223,7 @@ export const MaxParams = (maxParams: number) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:49:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

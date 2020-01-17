@@ -1,4 +1,4 @@
-import { DbDataType } from '../../../decorators';
+import { Blocking, DbDataType } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { TimedEmitter } from '../../../timed-emitter';
@@ -40,6 +40,7 @@ import { LPopCommand } from './lpop-command';
  * The timeout argument is interpreted as an integer value specifying the maximum number of
  * seconds to block. A timeout of zero can be used to block indefinitely.
  */
+@Blocking(true)
 @DbDataType(DataType.LIST)
 export class BLPopCommand extends LPopCommand {
   protected logger: Logger;
@@ -50,8 +51,8 @@ export class BLPopCommand extends LPopCommand {
     this.constructor.prototype.name = name;
     this.logger = new Logger(module.id);
   }
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
+  public execSync(request: IRequest, db: Database): Promise<RedisToken> {
+    return new Promise((resolve) => {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const timeout: string = request.getParam(request.getParams().length - 1);
       // Check all source keys first
@@ -93,6 +94,7 @@ export class BLPopCommand extends LPopCommand {
           };
           timedEvent.on(eventName, eventCallbacks[eventName]);
         }
+//        resolve(RedisToken.array(results));
       }
     });
   }

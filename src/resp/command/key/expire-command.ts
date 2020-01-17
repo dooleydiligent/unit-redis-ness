@@ -52,38 +52,36 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('exists')
-export class ExpireCommand implements IRespCommand {
+export class ExpireCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      let response = 0;
-      const key: string = request.getParam(0);
-      let dbValue: DatabaseValue = db.get(key);
-      if (!dbValue) {
-        this.logger.debug(`key ${key} does not exist`);
-        resolve(RedisToken.integer(response));
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    let response = 0;
+    const key: string = request.getParam(0);
+    let dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      this.logger.debug(`key ${key} does not exist`);
+      return (RedisToken.integer(response));
+    } else {
+      const newTtl: string = request.getParam(1);
+      if (isNaN(Number(newTtl)) || Number(newTtl) > parseInt(newTtl, 10)) {
+        this.logger.debug(`ttl ${newTtl} is invalid`);
+        return (RedisToken.error('ERR value is not an integer or out of range'));
       } else {
-        const newTtl: string = request.getParam(1);
-        if (isNaN(Number(newTtl)) || Number(newTtl) > parseInt(newTtl, 10)) {
-          this.logger.debug(`ttl ${newTtl} is invalid`);
-          resolve(RedisToken.error('ERR value is not an integer or out of range'));
-        } else {
-          this.logger.debug(`Setting expiredAt to ${Number(newTtl) * 1000} on ${key}`);
-          const ttlVal: number = Number(newTtl) < 1 ? -1 : new Date().getTime() + (Number(newTtl) * 1000);
-          dbValue = db.put(key, dbValue.setExpiredAt(ttlVal));
-          this.logger.debug(`Updated key is %j`, dbValue);
-          response = 1;
+        this.logger.debug(`Setting expiredAt to ${Number(newTtl) * 1000} on ${key}`);
+        const ttlVal: number = Number(newTtl) < 1 ? -1 : new Date().getTime() + (Number(newTtl) * 1000);
+        dbValue = db.put(key, dbValue.setExpiredAt(ttlVal));
+        this.logger.debug(`Updated key is %j`, dbValue);
+        response = 1;
 
-          if (dbValue.getExpiredAt() < 0) {
-            this.logger.debug(`Key ${key} is effectively deleted - returning ${response}`);
-            resolve(RedisToken.integer(response));
-          } else {
-            this.logger.debug(`${request.getCommand()}.execute ttl set to ${dbValue.getExpiredAt()}`);
-            resolve(RedisToken.integer(response));
-          }
+        if (dbValue.getExpiredAt() < 0) {
+          this.logger.debug(`Key ${key} is effectively deleted - returning ${response}`);
+          return (RedisToken.integer(response));
+        } else {
+          this.logger.debug(`${request.getCommand()}.execute ttl set to ${dbValue.getExpiredAt()}`);
+          return (RedisToken.integer(response));
         }
       }
-    });
+    }
   }
 }

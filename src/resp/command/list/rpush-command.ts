@@ -26,30 +26,28 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(-1)
 @MinParams(2)
 @Name('rpush')
-export class RPushCommand implements IRespCommand {
+export class RPushCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      let list: DatabaseValue = db.get(key);
-      this.logger.debug(`Getting list "${key}"`);
-      if (!list) {
-        this.logger.debug(`Creating new list: "${key}"`);
-        list = new DatabaseValue(DataType.LIST, []);
-      }
-      for (let index = 1; index < request.getParams().length; index++) {
-        const element = request.getParam(index);
-        this.logger.debug(`PUSHING element "${element}" to list "${key}"`);
-        list.getList().push(element);
-      }
-      const size: number = list.getList().length;
-      db.put(key, list);
-      for (let index = 1; index < request.getParams().length; index++) {
-        request.getServerContext().emit(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
-      }
-      this.logger.debug(`Returning list ${key} size ${size}`);
-      resolve(RedisToken.integer(size));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    let list: DatabaseValue = db.get(key);
+    this.logger.debug(`Getting list "${key}"`);
+    if (!list) {
+      this.logger.debug(`Creating new list: "${key}"`);
+      list = new DatabaseValue(DataType.LIST, []);
+    }
+    for (let index = 1; index < request.getParams().length; index++) {
+      const element = request.getParam(index);
+      this.logger.debug(`PUSHING element "${element}" to list "${key}"`);
+      list.getList().push(element);
+    }
+    const size: number = list.getList().length;
+    db.put(key, list);
+    for (let index = 1; index < request.getParams().length; index++) {
+      request.getServerContext().emit(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+    }
+    this.logger.debug(`Returning list ${key} size ${size}`);
+    return (RedisToken.integer(size));
   }
 }

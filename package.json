@@ -1,6 +1,6 @@
 {
   "name": "unit-redis-ness",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A typescript implementation of redis to facilitate unit testing",
   "main": "dist/server/resp-server.js",
   "messages": [
@@ -16,10 +16,10 @@
   ],
   "homepage": "https://dooleydiligent.github.io/unit-redis-ness/",
   "scripts": {
-    "build": "npm run clean && npm run lint && npm run doc && npm run makeindex && npm test && tsc -p .",
+    "build": "npm run clean && npm run lint && npm run doc && npm run makeindex && node_modules/.bin/changelog all -m >CHANGELOG.raw && npm test && tsc -p .",
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage .nyc_output test-unit-redis-ness/node_modules docs/*/*",
     "doc": "typedoc --mode file --out docs/doc --theme minimal --target ES6 --ignoreCompilerErrors --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
-    "makeindex": "echo \"<HTML><HEAD><TITLE>${npm_package_name}-v${npm_package_version}</TITLE><link rel='icon' href='./doc/images/dooley.ico'></HEAD><BODY>${npm_package_description}<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br><a href='./mochawesome/mochawesome.html'>Mochawesome Report</a></BODY></HTML>\" > docs/index.html",
+    "makeindex": "echo \"<HTML><HEAD><TITLE>${npm_package_name}-v${npm_package_version}</TITLE><link rel='icon' href='./doc/images/dooley.ico'></HEAD><BODY>${npm_package_description}<br><a href='./coverage/index.html'>Code Coverage</a><br><a href='./doc/index.html'>Documentation</a><br><a href='./mochawesome/mochawesome.html'>Mochawesome Report</a><br></BODY></HTML>\" > docs/index.html",
     "lint": "tslint --project . --format prose",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
     "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs/mochawesome --recursive --exit test",
@@ -30,7 +30,8 @@
     "url": "https://github.com/dooleydiligent/unit-redis-ness"
   },
   "keywords": [
-    "redist",
+    "redis",
+    "lua",
     "typescript"
   ],
   "author": "lane holcombe",
@@ -38,6 +39,10 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "fengari": "^0.1.4",
+    "fengari-interop": "^0.1.2",
+    "fengari-node-cli": "^0.1.0",
+    "fengari-web": "^0.1.4",
+    "flua": "^0.2.2",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
   },
@@ -50,6 +55,7 @@
     "@types/sinon": "^7.5.1",
     "assert": "^2.0.0",
     "chai": "^4.2.0",
+    "changelog": "^1.4.2",
     "deep-equal": "^2.0.1",
     "generate-safe-id": "^1.0.3",
     "mocha": "^6.2.2",

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.08% </span>
+                <span class="strong">81.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/37</span>
+                <span class='fraction'>31/38</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">80.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/35</span>
+                <span class='fraction'>29/36</span>
             </div>
         
             
@@ -132,9 +132,12 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,12 +205,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../../decorators';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Blocking, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { TimedEmitter } from '../../../timed-emitter';
@@ -225,12 +229,13 @@ import { IRespCommand } from '../resp-command';
  * Array reply: The 'subscribe' keyword followed by [channel name, aggregate subscribe count]
  * for each channel supplied.
  */
+@Blocking(true)
 @MaxParams(-1)
 @MinParams(1)
 @Name('subscribe')
-export class SubscribeCommand implements IRespCommand {
+export class SubscribeCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest): Promise&lt;RedisToken&gt; {
+  public execSync(request: IRequest): Promise&lt;RedisToken&gt;  {
     return new Promise((resolve) =&gt; {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const channels: string[] = [];
@@ -253,7 +258,7 @@ export class SubscribeCommand implements IRespCommand {
 <span class="cstat-no" title="statement not covered" >              this.logger.debug(`Timeout on channel "${name}"`);</span>
 <span class="cstat-no" title="statement not covered" >              removeListener(name, timedEvent, request.getSession().getSubscription(name));</span>
               // reinstate these listeners
-<span class="cstat-no" title="statement not covered" >              this.execute(request);</span>
+<span class="cstat-no" title="statement not covered" >              this.execSync(request);</span>
             }
           });
           this.logger.debug(`Adding listener for channel "${channel}"`);
@@ -273,11 +278,12 @@ export class SubscribeCommand implements IRespCommand {
           response.push(RedisToken.integer(request.getSession().getSubscriptionNames().length));
           request.getSession().publish(RedisToken.array(response));
         }
-        // This will not resolve until unsubscribe is called on all of the channels in this request
+        // This will not return until unsubscribe is called on all of the channels in this request
         // TODO: actually resolve this when required
+        // return (RedisToken.responseOk());
       } else {
         // I'm only guessing this is the proper response
-<span class="cstat-no" title="statement not covered" >        resolve(RedisToken.responseOk());</span>
+<span class="cstat-no" title="statement not covered" >        return (RedisToken.responseOk());</span>
       }
     });
   }
@@ -289,7 +295,7 @@ export class SubscribeCommand implements IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 15 2020 21:00:51 GMT-0500 (Eastern Standard Time)
+                at Fri Jan 17 2020 13:49:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,6 +1,7 @@
 import * as util from 'util';
 import { DataType } from './resp/data/data-type';
 
+// tslint:disable:ban-types
 const debugLog = util.debuglog('decorators');
 /**
  * Apply a DataType to the command
@@ -8,7 +9,6 @@ const debugLog = util.debuglog('decorators');
  */
 export const DbDataType = (dataType: DataType ) => {
   debugLog(`DbDataType: ${dataType}`);
-  // tslint:disable-next-line
   return (constructor: Function) => {
     constructor.prototype.dataType = dataType;
   };
@@ -19,7 +19,6 @@ export const DbDataType = (dataType: DataType ) => {
  */
 export const Name = (name: string) => {
   debugLog(`Name: ${name}`);
-  // tslint:disable-next-line
   return (constructor: Function) => {
     constructor.prototype.name = name;
   };
@@ -31,7 +30,6 @@ export const Name = (name: string) => {
  */
 export const MinParams = (minParams: number) => {
   debugLog(`MinParams: ${minParams}`);
-  // tslint:disable-next-line
   return (constructor: Function) => {
     constructor.prototype.minParams = minParams;
   };
@@ -43,8 +41,13 @@ export const MinParams = (minParams: number) => {
  */
 export const MaxParams = (maxParams: number) => {
   debugLog(`MaxParams: ${maxParams}`);
-  // tslint:disable-next-line
   return (constructor: Function) => {
     constructor.prototype.maxParams = maxParams;
+  };
+};
+export const Blocking = (blocking: boolean ) => {
+  debugLog(`Blocking: ${blocking}`);
+  return (constructor: Function) => {
+    constructor.prototype.blocking = blocking;
   };
 };

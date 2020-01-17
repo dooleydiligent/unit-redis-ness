@@ -16,17 +16,15 @@ import { IRespCommand } from './resp-command';
 @MinParams(0)
 @MaxParams(0)
 @Name('multi')
-export class MultiCommand implements IRespCommand {
-  protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve: any) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      if (!request.getSession().inTransaction()) {
-        request.getSession().startTransaction();
-        resolve(RedisToken.responseOk());
-      } else {
-        resolve(RedisToken.error(`ERR MULTI calls can not be nested`));
-      }
-    });
+export class MultiCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    if (!request.getSession().inTransaction()) {
+      request.getSession().startTransaction();
+      return (RedisToken.responseOk());
+    } else {
+      return (RedisToken.error(`ERR MULTI calls can not be nested`));
+    }
   }
 }

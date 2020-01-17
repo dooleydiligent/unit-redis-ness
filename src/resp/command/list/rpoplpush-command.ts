@@ -80,13 +80,11 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('rpoplpush')
-export class RPoplPushCommand implements IRespCommand {
+export class RPoplPushCommand extends IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      resolve(this.process(request, db));
-    });
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken>  {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    return (this.process(request, db));
   }
   protected process(request: IRequest, db: Database): RedisToken {
     const src: string = request.getParam(0);

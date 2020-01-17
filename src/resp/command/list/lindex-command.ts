@@ -23,29 +23,27 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('lindex')
-export class LIndexCommand implements IRespCommand {
+export class LIndexCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
-    return new Promise((resolve) => {
-      this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-      const key: string = request.getParam(0);
-      const list: DatabaseValue = db.get(key);
-      this.logger.debug(`Getting list "${key}"`);
-      if (!list) {
-        this.logger.debug(`LIST ${key} does not exist.  Returning NIL`);
-        resolve(RedisToken.nullString());
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    const list: DatabaseValue = db.get(key);
+    this.logger.debug(`Getting list "${key}"`);
+    if (!list) {
+      this.logger.debug(`LIST ${key} does not exist.  Returning NIL`);
+      return (RedisToken.nullString());
+    } else {
+      const index: string = request.getParam(1);
+      if (isNaN(Number(index)) || Number(index) !== parseInt(index, 10)) {
+        return (RedisToken.error('ERR value is not an integer or out of range'));
       } else {
-        const index: string = request.getParam(1);
-        if (isNaN(Number(index)) || Number(index) !== parseInt(index, 10)) {
-          resolve(RedisToken.error('ERR value is not an integer or out of range'));
-        } else {
-          const len: number = Number(index) < 0 && Math.abs(Number(index)) < list.getList().length ?
-            list.getList().length + 1 + Number(index) : Number(index) + 1;
-          const value: any = list.getList().slice(Number(index), len);
-          this.logger.debug(`Returning element "${value}", "%s"`, typeof value);
-          resolve(RedisToken.string(value));
-        }
+        const len: number = Number(index) < 0 && Math.abs(Number(index)) < list.getList().length ?
+          list.getList().length + 1 + Number(index) : Number(index) + 1;
+        const value: any = list.getList().slice(Number(index), len);
+        this.logger.debug(`Returning element "${value}", "%s"`, typeof value);
+        return (RedisToken.string(value));
       }
-    });
+    }
   }
 }

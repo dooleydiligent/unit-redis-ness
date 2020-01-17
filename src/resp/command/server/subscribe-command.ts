@@ -1,4 +1,4 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
+import { Blocking, MaxParams, MinParams, Name } from '../../../decorators';
 import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { TimedEmitter } from '../../../timed-emitter';
@@ -16,12 +16,13 @@ import { IRespCommand } from '../resp-command';
  * Array reply: The 'subscribe' keyword followed by [channel name, aggregate subscribe count]
  * for each channel supplied.
  */
+@Blocking(true)
 @MaxParams(-1)
 @MinParams(1)
 @Name('subscribe')
-export class SubscribeCommand implements IRespCommand {
+export class SubscribeCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest): Promise<RedisToken> {
+  public execSync(request: IRequest): Promise<RedisToken>  {
     return new Promise((resolve) => {
       this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
       const channels: string[] = [];
@@ -44,7 +45,7 @@ export class SubscribeCommand implements IRespCommand {
               this.logger.debug(`Timeout on channel "${name}"`);
               removeListener(name, timedEvent, request.getSession().getSubscription(name));
               // reinstate these listeners
-              this.execute(request);
+              this.execSync(request);
             }
           });
           this.logger.debug(`Adding listener for channel "${channel}"`);
@@ -64,11 +65,12 @@ export class SubscribeCommand implements IRespCommand {
           response.push(RedisToken.integer(request.getSession().getSubscriptionNames().length));
           request.getSession().publish(RedisToken.array(response));
         }
-        // This will not resolve until unsubscribe is called on all of the channels in this request
+        // This will not return until unsubscribe is called on all of the channels in this request
         // TODO: actually resolve this when required
+        // return (RedisToken.responseOk());
       } else {
         // I'm only guessing this is the proper response
-        resolve(RedisToken.responseOk());
+        return (RedisToken.responseOk());
       }
     });
   }

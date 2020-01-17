@@ -20,23 +20,21 @@ import { IRespCommand } from '../resp-command';
 @MaxParams(2)
 @MinParams(2)
 @Name('hget')
-export class HgetCommand implements IRespCommand {
+export class HgetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execute(request: IRequest, db: Database): Promise<RedisToken> {
+  public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // Get the original HASH
-    return new Promise((resolve) => {
-      const item: DatabaseValue = db.get(request.getParam(0));
-      if (!item) {
-        resolve(RedisToken.nullString());
+    const item: DatabaseValue = db.get(request.getParam(0));
+    if (!item) {
+      return (RedisToken.nullString());
+    } else {
+      const hash = item.getHash();
+      if (!hash[request.getParam(1)]) {
+        return (RedisToken.nullString());
       } else {
-        const hash = item.getHash();
-        if (!hash[request.getParam(1)]) {
-          resolve(RedisToken.nullString());
-        } else {
-          resolve(RedisToken.string(hash[request.getParam(1)]));
-        }
+        return (RedisToken.string(hash[request.getParam(1)]));
       }
-    });
+    }
   }
 }
