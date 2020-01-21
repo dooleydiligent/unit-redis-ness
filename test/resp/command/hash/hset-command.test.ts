@@ -5,8 +5,7 @@ import * as net from 'net';
 import * as sinon from 'sinon';
 import { RespServer } from '../../../../src/server/resp-server';
 import { sendCommand } from '../../../common.test';
-// tslint:disable-next-line
-const safeId = require('generate-safe-id');
+
 let lastId = '';
 describe('hset command test', () => {
   let respServer: RespServer;
@@ -33,7 +32,7 @@ describe('hset command test', () => {
    * Functional testing of the hset command
    */
   it('should require a minimum of 3 parameters', async () => {
-    const uniqueKey = safeId();
+    const uniqueKey = `KEY${new Date().getTime()}`;
     expect(uniqueKey).not.to.equal(lastId);
     lastId = uniqueKey;
     let response = await sendCommand(new net.Socket(), ['hset', uniqueKey]);
@@ -44,14 +43,14 @@ describe('hset command test', () => {
     expect(response).to.equal(1);
   });
   it('should only accept an odd number of parameters', async () => {
-    const uniqueKey = safeId();
+    const uniqueKey = `newKey${new Date().getTime()}`;
     expect(uniqueKey).not.to.equal(lastId);
     lastId = uniqueKey;
     const response = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one2', 'two', 'fail'])
     expect(response).to.match(/ReplyError: ERR wrong number of arguments for hm?set/i);
   });
   it('should only report added fields', async () => {
-    const uniqueKey = safeId();
+    const uniqueKey = `key3${new Date().getTime()}`;
     expect(uniqueKey).not.to.equal(lastId);
     lastId = uniqueKey;
     let response = await sendCommand(new net.Socket(), ['hset', uniqueKey, 'one', 'six']);

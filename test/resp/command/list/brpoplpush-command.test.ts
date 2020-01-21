@@ -59,5 +59,22 @@ describe('brpoplpush-command test', () => {
             done();
           });
       });
-  })
+  });
+  it('should wait indefinitely (28 days) for a value to be available',  (done) => {
+    const startTime = process.hrtime.bigint();
+    sendCommand(client, ['brpoplpush', 'newpoplpushkey', 'newpoplpopkey', '0'])
+    .then((response: any) => {
+      expect(response).to.equal('newvalue1');
+      const endTime = process.hrtime.bigint();
+      console.log(`Duration is ${Number(endTime) - Number(startTime)}`);
+      expect(Number(endTime - startTime)).to.be.greaterThan(4000000000);
+      done();
+    });
+    setTimeout(() => {
+      sendCommand(new net.Socket(), ['lpush', 'newpoplpushkey', 'newvalue1', 'newvalue2', 'newvalue3'])
+      .then((response: any) => {
+        expect(response).to.equal(3);
+      });
+    }, 4000);
+  }).timeout(5000);
 });

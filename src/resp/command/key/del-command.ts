@@ -14,7 +14,6 @@ import { IRespCommand } from '../resp-command';
  * RETURNS:
  * Integer reply: The number of keys that were removed.
  */
-@DbDataType(DataType.STRING)
 @MaxParams(-1)
 @MinParams(1)
 @Name('del')

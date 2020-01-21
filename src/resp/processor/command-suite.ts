@@ -8,12 +8,14 @@ import { SelectCommand } from '../command/db/select-command';
 import { DiscardCommand } from '../command/discard-command';
 import { ExecCommand } from '../command/exec-command';
 import { HgetCommand } from '../command/hash/hget-command';
+import { HgetallCommand } from '../command/hash/hgetall-command';
 import { HsetCommand } from '../command/hash/hset-command';
 import { DelCommand } from '../command/key/del-command';
 import { ExistsCommand } from '../command/key/exists-command';
 import { ExpireCommand } from '../command/key/expire-command';
 import { KeysCommand } from '../command/key/keys-command';
 import { MoveCommand } from '../command/key/move-command';
+import { PExpireCommand } from '../command/key/pexpire-command';
 import { RandomKeyCommand } from '../command/key/randomkey-command';
 import { RenameCommand } from '../command/key/rename-command';
 import { RenameNxCommand } from '../command/key/renamenx-command';
@@ -59,8 +61,10 @@ import { ZCardCommand } from '../command/sset/zcard-command';
 import { ZCountCommand } from '../command/sset/zcount-command';
 import { ZIncrByCommand } from '../command/sset/zincrby-command';
 import { ZRangeCommand } from '../command/sset/zrange-command';
+import { ZRangeByScoreCommand } from '../command/sset/zrangebyscore-command';
 import { ZRankCommand } from '../command/sset/zrank-command';
 import { ZRemCommand } from '../command/sset/zrem-command';
+import { ZScoreCommand } from '../command/sset/zscore-command';
 import { GetCommand } from '../command/string/get-command';
 import { GetSetCommand } from '../command/string/getset-command';
 import { IncrCommand } from '../command/string/incr-command';
@@ -151,6 +155,11 @@ export class CommandSuite {
     this.addCommand('subscribe', new SubscribeCommand());
     this.addCommand('unsubscribe', new UnsubscribeCommand());
     this.addCommand('hmset', new HsetCommand());
+    // 2020-01-17 v1.0.10
+    this.addCommand('hgetall', new HgetallCommand());
+    this.addCommand('zrangebyscore', new ZRangeByScoreCommand());
+    this.addCommand('zscore', new ZScoreCommand());
+    this.addCommand('pexpire', new PExpireCommand());
   }
   public getCommand(name: string): IRespCommand {
     const gotCommand = this.commands.get(name.toLowerCase());

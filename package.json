@@ -38,11 +38,8 @@
   "license": "MIT",
   "dependencies": {
     "crypto": "^1.0.1",
-    "fengari": "^0.1.4",
-    "fengari-interop": "^0.1.2",
-    "fengari-node-cli": "^0.1.0",
-    "fengari-web": "^0.1.4",
-    "flua": "^0.2.2",
+    "fengari": "git+ssh://github.com/fengari-lua/fengari.git",
+    "redis-parser": "^3.0.0",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
   },
@@ -57,13 +54,12 @@
     "chai": "^4.2.0",
     "changelog": "^1.4.2",
     "deep-equal": "^2.0.1",
-    "generate-safe-id": "^1.0.3",
     "mocha": "^6.2.2",
     "mochawesome": "^4.1.0",
     "net": "^1.0.2",
     "nyc": "^15.0.0",
-    "redis-parser": "^3.0.0",
     "sinon": "^8.0.2",
+    "source-map-support": "^0.5.16",
     "testdouble": "^3.12.4",
     "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
@@ -82,7 +78,8 @@
       ".ts"
     ],
     "require": [
-      "ts-node/register"
+      "ts-node/register",
+      "source-map-support/register"
     ],
     "reporter": [
       "text-summary",

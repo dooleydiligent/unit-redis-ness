@@ -391,6 +391,8 @@ export class SortedSet implements Iterable<SortedSet> {
     //   max (number)
     //   options (object, optional)
     //     withScores (bool, optional, default false)
+    const maxExclusive: boolean = options && !!options.maxExclusive;
+    const minExclusive: boolean = options && !!options.minExclusive;
 
     if (!this.length) {
       return [];
@@ -409,7 +411,7 @@ export class SortedSet implements Iterable<SortedSet> {
       max = Infinity;
     }
 
-    if (min <= this._head.next[0].next.value && max >= this._tail.value) {
+    if (!minExclusive && min <= this._head.next[0].next.value && !maxExclusive && max >= this._tail.value) {
       return this.toArray({ withScores: options.withScores });
     }
 
@@ -422,11 +424,31 @@ export class SortedSet implements Iterable<SortedSet> {
 
     if (options.withScores) {
       for (; node && node.value <= max; node = node.next[0].next) {
-        result.push([node.key, node.value]);
+        let pushit: boolean = true;
+        if (minExclusive && node.value === min) {
+          pushit = false;
+        } else {
+          if (maxExclusive && node.value === max) {
+            pushit = false;
+          }
+        }
+        if (pushit) {
+          result.push([node.key, node.value]);
+        }
       }
     } else {
       for (; node && node.value <= max; node = node.next[0].next) {
-        result.push(node.key);
+        let pushit: boolean = true;
+        if (minExclusive && node.value === min) {
+          pushit = false;
+        } else {
+          if (maxExclusive && node.value === max) {
+            pushit = false;
+          }
+        }
+        if (pushit) {
+          result.push(node.key);
+        }
       }
     }
 

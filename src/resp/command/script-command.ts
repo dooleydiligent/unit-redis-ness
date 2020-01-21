@@ -3,8 +3,9 @@ import { Logger } from '../../logger';
 import LuaBitLib from '../../lua/bit/lua-bit';
 import { DefaultRequest } from '../../server/default-request';
 import { IRequest } from '../../server/request';
-import { IServerContext } from '../../server/server-context';
-import { Session } from '../../server/session';
+// import { IServerContext } from '../../server/server-context';
+// import { Session } from '../../server/session';
+import LuaRedisLib from '../../lua/call/lua-redis';
 import { Database } from '../data/database';
 import { RedisToken } from '../protocol/redis-token';
 import { RespSerialize } from '../protocol/resp-serialize';
@@ -16,8 +17,6 @@ const lauxlib = fengari.lauxlib;
 const lualib = fengari.lualib;
 /* tslint:disable-next-line */
 const Parser = require('redis-parser');
-/* tslint:disable-next-line */
-const flua = require('flua');
 /**
  * ### Available since 2.6.0.
  * ### SCRIPT LOAD script
@@ -42,14 +41,15 @@ const flua = require('flua');
 @MinParams(1)
 @Name('script')
 export class ScriptCommand extends IRespCommand {
+  private static HELPERS = `local unpack = table.unpack\r\nlocal pack = table.pack`;
   private logger: Logger = new Logger(module.id);
   private DEFAULT_ERROR: string = 'ERR Unknown subcommand or wrong number of arguments for \'%s\'. Try SCRIPT HELP.';
-  private serverContext: IServerContext | null = null;
-  private session: Session | null = null;
+  // private serverContext: IServerContext | null = null;
+  // private session: Session | null = null;
   public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    this.serverContext = request.getServerContext();
-    this.session = request.getSession();
+    // this.serverContext = request.getServerContext();
+    // this.session = request.getSession();
     let sha1: string | null;
     switch (request.getCommand().toLowerCase()) {
       case 'eval':
@@ -98,6 +98,7 @@ export class ScriptCommand extends IRespCommand {
   /**
    * Attempt to parse a lua script.
    * Returns a sha1 and stores the script if it can
+   * Adds some helper function(s) to the top of the script
    * @param request the client request
    * @returns
    */
@@ -135,7 +136,8 @@ export class ScriptCommand extends IRespCommand {
     // Validate the 2nd parameter
     // evalsha sha1 <key_count> ...keys ...argv
     // eval code <key_count> ...keys ...argv
-    const code: string = request.getServerContext().getScript(sha1);
+    const code: string = `${ScriptCommand.HELPERS}\r\n${request.getServerContext().getScript(sha1)}`;
+
     const keycount: string = request.getParam(1);
     this.logger.debug(`key count %s`, keycount);
     if (isNaN(Number(keycount))) {
@@ -144,41 +146,57 @@ export class ScriptCommand extends IRespCommand {
     if (Number(keycount) < 0) {
       return RedisToken.error('ERR Number of keys can\'t be negative');
     }
-    const keys: string[] = [];
-    const argv: string[] = [];
-    for (let index = 2; index < request.getParams().length; index++) {
-      if (index > Number(keycount) + 1) {
-        argv.push(request.getParam(index));
-      } else {
-        keys.push(request.getParam(index));
-      }
-    }
+
     // Setup the script
     const L: any = lauxlib.luaL_newstate();
     this.logger.debug(`executeLua: Opening lua libraries`);
     lualib.luaL_openlibs(L);
-    this.logger.debug(`Creating ARGV table`);
-    lua.lua_createtable(L, argv.length, 0);
-    // Reverse the value array
-    for (let index = argv.length - 1; index > -1; index--) {
-      lua.lua_pushstring(L, argv[index]);
-      lua.lua_seti(L, -2, index + 1);
-    }
+    // this.createLuaTable(L, 'ARGV', argv);
+    // this.createLuaTable(L, 'KEYS', keys);
+    // this.createRedisCallback(L);
+    LuaBitLib.LoadLibrary(L);
 
-    lua.lua_setglobal(L, fengari.to_luastring('ARGV'));
+    LuaRedisLib.LoadLibrary(L, request);
 
-    this.logger.debug(`Creating KEYS tables`);
-    lua.lua_createtable(L, keys.length, 0);
-    for (let index = keys.length - 1; index > -1; index--) {
-      lua.lua_pushstring(L, keys[index]);
-      lua.lua_seti(L, -2, index + 1);
+    this.logger.debug(`executeLua(): Validating lua script "%s"`, code);
+    const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
+    if (loadStatus !== lua.LUA_OK) {
+      const er: any = lauxlib.luaL_error(L, fengari.to_luastring('Unexpected error parsing error (%s)'), code);
+      returnValue = RedisToken.error(er);
+      this.logger.warn(er);
+    } else {
+      this.logger.debug(`Calling script "${code}"`);
+      const stack: number = lua.lua_gettop(L);
+      this.logger.debug(`The stack top is ${stack}`);
+      const ok = lua.lua_call(L, 0, lua.LUA_MULTRET);
+      if (ok === undefined) {
+        this.logger.debug(`The LUA call was ok`);
+        if (stack === 0) {
+          returnValue = RedisToken.nullString();
+        } else {
+          returnValue = this.lua_print(L);
+          //        returnValue = this.collectResults(L, stack);
+        }
+      } else {
+        this.logger.warn(`The LUA call was NOT OK: ${ok}`);
+        const er: any = lauxlib.luaL_error(L, fengari.to_luastring('processing error (%s)'), code);
+        returnValue = RedisToken.error(er);
+        this.logger.warn(er);
+      }
     }
-    lua.lua_setglobal(L, fengari.to_luastring('KEYS'));
-    // push the global redis reference
+    this.logger.debug(`Releasing lua state`);
+    lua.lua_close(L);
+    return returnValue;
+  }
+/*
+  private createRedisCallback(L: any) {
     this.logger.debug(`Creating reference to REDIS`);
     lua.lua_createtable(L, 0, 1);
     lua.lua_pushstring(L, 'call');
     lua.lua_pushjsfunction(L, (LIB: any) => {
+      const stack: number = lua.lua_gettop(L);
+      this.logger.debug(`lua_pushjsfunction() start - stack top is ${stack}`);
+
       const n = lua.lua_gettop(LIB);
       const args = new Array(n - 1);
       let cmd: any;
@@ -188,17 +206,21 @@ export class ScriptCommand extends IRespCommand {
         let value: any;
         switch (lua.lua_type(LIB, i + 1)) {
           case lua.LUA_TNIL:
+            this.logger.debug(`RCALL: LUA_TNIL`);
             value = null;
             break;
           case lua.LUA_TNUMBER:
             value = lua.lua_tonumber(LIB, i + 1);
-            value = parseInt(value, 10);
+            value = Number(parseInt(value, 10));
+            this.logger.debug(`RCALL: LUA_TNUMBER: ${value}`);
             break;
           case lua.LUA_TBOOLEAN:
             value = lua.lua_toboolean(LIB, i + 1);
+            this.logger.debug(`RCALL: LUA_TBOOLEAN: ${value}`);
             break;
           case lua.LUA_TSTRING:
             value = lua.lua_tojsstring(LIB, i + 1);
+            this.logger.debug(`RCALL: LUA_TSTRING: ${value}`);
             break;
           case lua.LUA_TTABLE:
             this.logger.warn(`Not prepared to readtable`);
@@ -219,6 +241,7 @@ export class ScriptCommand extends IRespCommand {
         const execcommand: IRespCommand = this.serverContext.getCommand(cmd);
         const rqst: IRequest = new DefaultRequest(this.serverContext, this.session, cmd, args);
         const response: any = execcommand.execSync(rqst);
+        this.logger.debug(`Type of response is ${response.constructor.name}`);
         const serializedResponse: string = new RespSerialize(response).serialize();
         const parser: any = new Parser({
           returnBuffers: false,
@@ -241,81 +264,86 @@ export class ScriptCommand extends IRespCommand {
         } else {
           this.logger.debug(`return value is null or undefined`);
         }
-        //      this.pushany(L, returned);
-        switch (true) {
-          case (returned === undefined || returned === null):
-            this.logger.debug(`Push nil`);
-            lua.lua_pushnil(LIB);
-            break;
-          case (returned.constructor.name === 'String'):
-            this.logger.debug(`Push string`);
-            lua.lua_pushstring(LIB, returned);
-            break;
-          case (returned.constructor.name === 'Number'):
-            this.logger.debug(`Push number`);
-            lua.lua_pushnumber(LIB, returned);
-            break;
-          case (returned.constructor.name === 'Boolean'):
-            this.logger.debug(`Push boolean`);
-            lua.lua_pushboolean(LIB, returned);
-            break;
-          default:
-            this.logger.warn(`Not prepared to push type "${returned.constructor.name}": %j`, returned);
+        if (Array.isArray(returned) && returned.length === 0) {
+          this.logger.debug(`Pushing NIL into empty returned array`);
+          returned.push(null);
         }
+        this.pushany(L, returned);
         this.logger.debug(`returned.length is ${Array.isArray(returned) ? returned.length : 1}`);
       } else {
         this.logger.warn(`ServerContext or Session was not initialized`);
         return RedisToken.error(`ServerContext or Session was not initialized`);
       }
+      this.logger.debug(`Returning ${Array.isArray(returned) ? returned.length : 1}`);
       return (Array.isArray(returned) ? returned.length : 1);
     });
     lua.lua_rawset(L, -3);
     lua.lua_setglobal(L, 'redis');
-    LuaBitLib.LoadLibrary(L);
-
-    this.logger.debug(`executeLua: Validating lua script "<script>"`);
-    const loadStatus = lauxlib.luaL_loadstring(L, fengari.to_luastring(`${code}`));
-    if (loadStatus !== lua.LUA_OK) {
-      this.logger.warn(`Unexpected error parsing sha1: "${sha1}"`);
-      throw new Error(`Unexpected error parsing sha1: "${sha1}"`);
+  }
+  private pushany(L: any, element: any) {
+    switch (true) {
+      case (element === undefined || element === null):
+        this.logger.debug(`Push nil`);
+        lua.lua_pushnil(L);
+        break;
+      case (element.constructor.name === 'String'):
+        this.logger.debug(`Push string ${element}`);
+        lua.lua_pushstring(L, element);
+        break;
+      case (element.constructor.name === 'Number'):
+        this.logger.debug(`Push number: ${element}`);
+        lua.lua_pushstring(L, element);
+        break;
+      case (element.constructor.name === 'Boolean'):
+        this.logger.debug(`Push boolean: ${element}`);
+        lua.lua_pushboolean(L, element);
+        break;
+      case (element.constructor.name === 'Array'):
+        this.pushtable(L, element);
+        break;
+      default:
+        this.logger.warn(`Not prepared to push type "${element.constructor.name}": %j`, element);
+        throw new Error(`Not prepared to push type "${element.constructor.name}": ${element}`);
     }
-    this.logger.debug(`Calling script "{script}" with ARGV: ${JSON.stringify(argv)} and KEYS: ${JSON.stringify(keys)}`);
-    const ok = lua.lua_call(L, 0, lua.LUA_MULTRET);
-    if (ok === undefined) {
-      this.logger.debug(`The LUA call was undefined`);
-      const stack: number = lua.lua_gettop(L);
-      this.logger.debug(`The stack top is ${stack}`);
-      if (stack === 0) {
-        returnValue = RedisToken.nullString();
-      } else {
-        returnValue = this.collectResults(L, stack);
-      }
-    } else {
-      this.logger.warn(`The LUA call was NOT OK: ${ok}`);
-      returnValue = RedisToken.error(lauxlib.luaL_error(L, lua.to_luastring('processing error (%s)'), code));
+  }
+  private pushtable(L: any, table: any[]) {
+    this.logger.debug(`pushtable(L, %j)`, table);
+    this.logger.debug(`Table length is ${table.length}`);
+    lua.lua_createtable(L, 0, table.length);
+    for (let counter = 0; counter < table.length; counter++) {
+      this.pushany(L, table[counter]);
+      lua.lua_rawseti(L, -2, counter + 1);
     }
-    this.logger.debug(`Releasing lua state`);
-    lua.lua_close(L);
-    return returnValue;
+  }
+  private createLuaTable(L: any, tableName: string, tableArray: string[]) {
+    this.logger.debug(`Creating ${tableName} table`);
+    lua.lua_createtable(L, tableArray.length, 0);
+    // Reverse the value array
+    for (let index = tableArray.length - 1; index > -1; index--) {
+      lua.lua_pushstring(L, tableArray[index]);
+      lua.lua_seti(L, -2, index + 1);
+    }
+    lua.lua_setglobal(L, fengari.to_luastring(tableName));
   }
   private collectResults(L: any, top: number): RedisToken {
+    this.logger.debug(`collectResults(L, ${top})`);
     let value: any;
-    const result: any[] = [];
-    for (let i = 1; i <= top; i++) {  /* repeat for each level */
+    const result: RedisToken[] = [];
+    for (let i = 1; i <= top; i++) {  / * repeat for each level * /
       const t: number = lua.lua_type(L, i);
       switch (t) {
-        case lua.LUA_TNUMBER:  /* numbers */
+        case lua.LUA_TNUMBER:  / * numbers * /
           value = lua.lua_tonumber(L, i);
           value = parseInt(value, 10);
           result.push(RedisToken.integer(value));
           this.logger.debug(`NUMBER: '%s'`, value);
           break;
-        case lua.LUA_TSTRING:  /* strings */
+        case lua.LUA_TSTRING:  / * strings * /
           value = this.stringFrom(lua.lua_tostring(L, i));
           result.push(RedisToken.string(value));
           this.logger.debug(`STRING: '%s'`, value);
           break;
-        case lua.LUA_TBOOLEAN:  /* booleans */
+        case lua.LUA_TBOOLEAN:  / * booleans * /
           value = lua.lua_toboolean(L, i);
           result.push(RedisToken.boolean(value));
           this.logger.debug(`BOOLEAN: '%s'`, value);
@@ -325,45 +353,12 @@ export class ScriptCommand extends IRespCommand {
           result.push(RedisToken.nullString());
           this.logger.debug(`NIL: null`);
           break;
-        case lua.LUA_TTABLE:  /* other values */
-          value = [];
-          this.logger.debug(`Invoking luaL_len against i`);
-          const size = lauxlib.luaL_len(L, i);
-          this.logger.debug(`Table ${i} size is ${size}`);
-          /* table is in the stack at index 'i' */
-          let elementValue: any;
-          let elementToken: RedisToken;
-          lua.lua_pushnil(L);  /* first key */
-          while (lua.lua_next(L, i) !== 0) {
-            this.logger.debug(`Traversing table`);
-            switch (lua.lua_type(L, -1)) {
-              case lua.LUA_TNUMBER:  /* numbers */
-                elementValue = this.stringFrom(lua.lua_tostring(L, -1));
-                elementToken = RedisToken.integer(parseInt(elementValue, 10));
-                break;
-              case lua.LUA_TBOOLEAN:
-                elementValue = lua.lua_toboolean(L, -1);
-                if (elementValue) {
-                  elementToken = RedisToken.integer(1);
-                } else {
-                  elementToken = RedisToken.nullString();
-                }
-                this.logger.debug(`TABLE BOOLEAN: '%s'`, elementValue);
-                break;
-              default:
-                elementValue = this.stringFrom(lua.lua_tostring(L, -1));
-                elementToken = RedisToken.string(elementValue);
-            }
-            this.logger.debug(`ELEMENT: '%s'`, elementValue);
-            /* removes 'value'; keeps 'key' for next iteration */
-            lua.lua_pop(L, 1);
-            elementValue = '';
-            value.push(elementToken);
-          }
+        case lua.LUA_TTABLE:
+          value = this.collectTable(L);
           // reverse the returned values - feels awkward though
           result.push(RedisToken.array(value.reverse()));
           break;
-        default:
+        default:   / * other values * /
           const typenameString: string = this.stringFrom(lua.lua_typename(L, t));
           this.logger.warn(`Unexpected type ${typenameString}`);
           return RedisToken.error(`Unexpected type ${typenameString}`);
@@ -375,6 +370,51 @@ export class ScriptCommand extends IRespCommand {
       return RedisToken.array(result);
     }
   }
+  */
+ private collectTable(L: any): RedisToken[] {
+  this.logger.debug(`collectTable(L)`);
+  let values: RedisToken[] = [];
+  lua.lua_pushnil(L);
+  let value: any;
+  while (lua.lua_next(L, -2) !== 0) {
+    const luaType: number = lua.lua_type(L, -1);
+    switch (luaType) {
+      case lua.LUA_TNIL:
+        values = [];
+        this.logger.debug(`NIL: null resets table contents`);
+        break;
+      case lua.LUA_TNUMBER:
+        value = this.stringFrom(lua.lua_tostring(L, -1));
+        this.logger.debug(`FOUND NUMBER: ${value}`);
+        values.push(RedisToken.integer(Number(parseInt(value, 10))));
+        break;
+      case lua.LUA_TBOOLEAN:
+        value = lua.lua_toboolean(L, -1);
+        this.logger.debug(`FOUND BOOLEAN ${value}`);
+        if (value) {
+          values.push(RedisToken.integer(1));
+        } else {
+          values.push(RedisToken.nullString());
+        }
+        break;
+      case lua.LUA_TSTRING:
+        value = this.stringFrom(lua.lua_tostring(L, -1));
+        this.logger.debug(`FOUND STRING ${value}`);
+        values.push(RedisToken.string(value));
+        break;
+      case lua.LUA_TTABLE:
+        this.logger.debug(`FOUND EMBEDDED TABLE`);
+        values.push(RedisToken.array(this.collectTable(L).reverse()));
+        break;
+      default:
+        values.push(RedisToken.error(`Can't manage luaType ${luaType} in collectTable(L)`));
+        // throw new Error(`Can't manage luaType: ${luaType}`);
+    }
+    lua.lua_pop(L, 1);
+  }
+  return values;
+}
+
   private stringFrom(element: any[]): string {
     let elementValue: string = '';
     if (element) {
@@ -383,5 +423,101 @@ export class ScriptCommand extends IRespCommand {
       });
     }
     return elementValue;
+  }
+  private lua_print(L: any): RedisToken {
+    const results: any[] = [];
+    this.logger.debug(`lua_print(L)`);
+    let wxReturnStr: string = '';
+    let tempString: string = '';
+    const nargs: number = lua.lua_gettop(L);
+
+    for (let i = 1; i <= nargs; i++) {
+      const type: number = lua.lua_type(L, i);
+      switch (type) {
+        case lua.LUA_TNIL:
+          this.logger.debug(`Found LUA_TNIL`);
+          results.push(RedisToken.nullString());
+          break;
+        case lua.LUA_TBOOLEAN:
+          this.logger.debug(`Processing LUA_TBOOLEAN`);
+          tempString = (Boolean(this.stringFrom(lua.lua_toboolean(L, i))) ? 'true' : 'false');
+          results.push(RedisToken.boolean(Boolean(tempString)));
+          break;
+        case lua.LUA_TNUMBER:
+          this.logger.debug(`Processing LUA_TNUMBER`);
+          tempString = String(parseInt(lua.lua_tonumber(L, i), 10));
+          results.push(RedisToken.integer(Number(tempString)));
+          break;
+        case lua.LUA_TSTRING:
+          this.logger.debug(`Processing LUA_TSTRING`);
+          tempString = this.stringFrom(lua.lua_tostring(L, i));
+          // if (!isNaN(Number(tempString))) {
+          //   this.logger.debug(`Adjusting ${tempString} to integer-like string`);
+          //   tempString = String(parseInt(tempString, 10));
+          // }
+          results.push(RedisToken.string(tempString));
+          break;
+        case lua.LUA_TTABLE:
+          this.logger.debug(`Processing LUA_TTABLE`);
+          const values: RedisToken[] = [];
+          let value: any;
+          lua.lua_pushnil(L);
+          while (lua.lua_next(L, -2) !== 0) {
+            const luaType: number = lua.lua_type(L, -1);
+            switch (luaType) {
+              case lua.LUA_TNIL:
+                values.push(RedisToken.nullString());
+                this.logger.debug(`NIL: null should reset table contents`);
+                break;
+              case lua.LUA_TNUMBER:
+                value = this.stringFrom(lua.lua_tostring(L, -1));
+                this.logger.debug(`FOUND NUMBER: ${value}`);
+                values.push(RedisToken.integer(Number(parseInt(value, 10))));
+                break;
+              case lua.LUA_TBOOLEAN:
+                value = lua.lua_toboolean(L, -1);
+                this.logger.debug(`FOUND BOOLEAN ${value}`);
+                if (value) {
+                  values.push(RedisToken.integer(1));
+                } else {
+                  values.push(RedisToken.nullString());
+                }
+                break;
+              case lua.LUA_TSTRING:
+                value = this.stringFrom(lua.lua_tostring(L, -1));
+                this.logger.debug(`FOUND STRING ${value}`);
+                values.push(RedisToken.string(value));
+                break;
+              case lua.LUA_TTABLE:
+                this.logger.debug(`FOUND TABLE`);
+                values.push(RedisToken.array(this.collectTable(L).reverse()));
+                break;
+              default:
+                throw new Error(`Can't manage luaType: ${luaType}`);
+            }
+            lua.lua_pop(L, 1);
+          }
+          while (values.length) {
+            results.push(values.pop());
+          }
+          //
+          break;
+        default:
+          tempString = lua.lua_typename(L, type);
+          results.push(RedisToken.string(`Unknown type ${tempString}`));
+          break;
+      }
+      wxReturnStr += tempString + '\n';
+      tempString = '';
+    }
+    lua.lua_pop(L, nargs);
+    this.logger.debug(`lua_print(L): STACK (${results.length}) is: ${wxReturnStr}`);
+    if (results.length === 0) {
+      return RedisToken.nullString();
+    }
+    if (results.length === 1) {
+      return results[0];
+    }
+    return RedisToken.array(results);
   }
 }

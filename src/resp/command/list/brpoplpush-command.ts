@@ -64,6 +64,7 @@ export class BRPoplPushCommand extends RPoplPushCommand {
           timedEvent.on(eventName, eventCallbacks[eventName]);
         }
       } else {
+        this.logger.debug(`Resolving ${result}`);
         resolve(result);
       }
     });

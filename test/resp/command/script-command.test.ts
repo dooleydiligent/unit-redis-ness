@@ -122,35 +122,48 @@ describe('script-command test', () => {
     response = await sendCommand(client, ['eval', '-- Invalid\r\nscript']);
     expect(response).to.equal('ReplyError: ERR Parsing script');
   });
-  it('should leverage the LUA bit library for bit AND op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.band(5, 1) return val ',  '0'])
-    // expect(response).to.equal(1);
+  it('should be able to return a NULL value from a lua script', async () => {
+    response = await sendCommand(client, ['eval', 'local val = nil return val', '0']);
+    expect(response).to.equal(null);
   });
-  it('should leverage the LUA bit library for bit OR op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.bor(5, 1) return val ',  '0'])
-    expect(response).to.equal(5);
+  xit('should not return table values after the first NIL is encountered and return integers not floats', async () => {
+    response = await sendCommand(client, ['eval', "return {1,2,3.3333,somekey='somevalue','foo',nil,'bar'}", '0']);
+    expect(response).to.eql([1,2,3,'foo']);
+    // The actual response is correct for 3.3333
+    // However somekey, which should NOT be returned, *is* returned
+    // Also, the nil value is not encountered (maybe fengari tosses it out?),
+    // and so the final 'bar' is returned when it shuold not.
   });
-  it('should leverage the LUA bit library for bit XOR op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.bxor(5, 3) return val ',  '0'])
-    expect(response).to.equal(6);
+  xit('should support the unpack lua command', async () => {
+    response = await sendCommand(client, ['zadd', 'myzset', '1', 'one']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['zadd', 'myzset', '2', 'two']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['zadd', 'myzset', '3', 'three']);
+    expect(response).to.equal(1);
+    response = await sendCommand(client, ['eval', 'local jobs = redis.call("zrangebyscore", "myzset", 0, 10, "limit", 0, 1000)\r\nreturn unpack(jobs)', '0']);
+    expect(response).to.equal('one');
   });
-  it('should leverage the LUA bit library for bit NOT op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.bnot(5) return val ',  '0'])
-    expect(response).to.equal(-6);
+  it('should return a table with embedded calls to redis', async () => {
+    const key = `key-${new Date().getTime()}`;
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['hset', key, 'one', '1', 'two', '2', 'three', '3']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['hgetall', key ]);
+    expect(response).to.eql(['one','1', 'two', '2', 'three', '3']);
+    const script = `local rcall = redis.call\r\nlocal jobkey = "${key}"\r\nlocal jobId = "123"\r\nreturn {"test", rcall("HGETALL", jobkey), jobId}`;
+    response = await sendCommand(client, ['eval', script, '0'])
+    console.log(`Response is `, response);
+    expect(response).to.eql([['one','1', 'two', '2', 'three', '3'], '123']);
+//    return {rcall("HGETALL", jobKey), jobId}
   });
-  it('should leverage the LUA bit library for bit LSHIFT op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.lshift(5, 1) return val ',  '0'])
-    console.log(`5 lshift 1 eq ${5 << 1}`)
-    expect(response).to.equal(10);
+  it('should convert values properly', async () => {
+    response = await sendCommand(client, ['eval', "return {1,2,{3,'Hello World!'}}", '0']);
+    expect(response).to.eql([1,2,[3,'Hello World!']]);
   });
-  it('should leverage the LUA bit library for bit RSHIFT op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.rshift(-5, 1) return val ',  '0'])
-    console.log(`-5 rshift 1 eq ${-5 >> 1}`)
-    expect(response).to.equal(-3);
-  });
-  it('should leverage the LUA bit library for bit ARSHIFT op', async () => {
-    response = await sendCommand(client, ['eval', 'local val = bit.arshift(5, 1) return val ',  '0'])
-    console.log(`5 arshift 1 eq ${-5 >>> 1}`)
-    expect(response).to.equal(2);
+  it('should return embedded tables from embedded calls', async () => {
+    response = await sendCommand(client, ['eval', "return {1,2,{3,bit.bxor(5,3)}}", '0']);
+    expect(response).to.eql([1,2,[3,6]]);
   });
 });
