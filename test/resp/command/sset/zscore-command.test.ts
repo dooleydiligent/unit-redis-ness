@@ -32,6 +32,8 @@ describe('zscore-command test', () => {
    * Functional testing of the zscore command
    */
   it('should return the score of a zset member', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
     response = await sendCommand(client, ['zadd', 'zset', '10', 'one']);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['zscore', 'zset', 'one']);

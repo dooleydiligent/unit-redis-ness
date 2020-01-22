@@ -2,7 +2,7 @@
 --require ts-node/register
 --full-trace
 --bail
---timeout=5000
+--timeout=10000
 test/**/*.test.ts test/*.test.ts
 
 

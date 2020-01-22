@@ -77,6 +77,9 @@ export class RespServerContext extends EventEmitter implements IServerContext {
   public getString(sha1: string): string {
     return this.scripts.get(sha1);
   }
+  public flush(): void {
+    this.scripts.clear();
+  }
   /**
    * Calculate and return the sha1 of code.  Store the code
    * using sha1 as the key.

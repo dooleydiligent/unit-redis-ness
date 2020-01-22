@@ -15,6 +15,7 @@ export interface IServerContext extends EventEmitter {
   getCommand(name: string): IRespCommand;
   getValue(key: string): any;
   putValue(key: string, value: any): void;
+  flush(): void;
   removeValue(key: string): any;
   scriptExists(sha1: string): boolean;
   getScript(sha1: string): string;

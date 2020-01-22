@@ -4,11 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "addjob": "ts-node -e 'import { BullTest, IJob, JobOp } from \"./src/bull-queue\";const j = {factor1: 200, factor2: 300, operation: JobOp.MULTIPLY} as IJob;const b=new BullTest();b.queueJob(j);'",
+    "start": "ts-node -e 'import { BullTest } from \"./src/bull-queue\";const b=new BullTest();b.work();'",
     "test": "mocha --recursive --exit test"
   },
+  "jobs": [
+    {
+      "factor1": 100,
+      "factor2": 200,
+      "operation": 2
+    }
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bull": "^3.12.0",
     "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.4",
@@ -20,6 +30,6 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "unit-redis-ness": "^1.0.0"
+    "bull": "^3.12.1"
   }
 }

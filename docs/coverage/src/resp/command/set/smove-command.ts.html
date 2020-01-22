@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.3% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/33</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.81% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/31</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -158,35 +158,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -225,34 +225,34 @@ import { IRespCommand } from '../resp-command';
 @Name('smove')
 export class SMoveCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-    const skeyFrom: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const skeyTo: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-    const skeyName: string = <span class="cstat-no" title="statement not covered" >request.getParam(2);</span>
-    const dbFrom: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(skeyFrom, new DatabaseValue(DataType.SET, new Set()));</span>
-    const dbTo: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(skeyTo, new DatabaseValue(DataType.SET, new Set()));</span>
-    let result = <span class="cstat-no" title="statement not covered" >0;</span>
-<span class="cstat-no" title="statement not covered" >    if (dbFrom.getSet().has(skeyName)) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`deleting ${skeyFrom}.${skeyName} from %j`, dbFrom.getSet().entries());</span>
-<span class="cstat-no" title="statement not covered" >      dbFrom.getSet().delete(skeyName);</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`after delete, ${skeyFrom} is %j`, dbFrom.getSet().entries());</span>
-<span class="cstat-no" title="statement not covered" >      if (!dbTo.getSet().has(skeyName)) {</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`adding ${skeyTo}.${skeyName} to %j`, dbTo.getSet().entries());</span>
-<span class="cstat-no" title="statement not covered" >        dbTo.getSet().add(skeyName);</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`saving ${skeyTo} %j`, dbTo.getSet().entries());</span>
-<span class="cstat-no" title="statement not covered" >        db.put(skeyTo, DatabaseValue.set(dbTo.getSet()));</span>
-<span class="cstat-no" title="statement not covered" >        result = 1;</span>
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const skeyFrom: string = request.getParam(0);
+    const skeyTo: string = request.getParam(1);
+    const skeyName: string = request.getParam(2);
+    const dbFrom: DatabaseValue = db.getOrDefault(skeyFrom, new DatabaseValue(DataType.SET, new Set()));
+    const dbTo: DatabaseValue = db.getOrDefault(skeyTo, new DatabaseValue(DataType.SET, new Set()));
+    let result = 0;
+    if (dbFrom.getSet().has(skeyName)) {
+      this.logger.debug(`deleting ${skeyFrom}.${skeyName} from %j`, dbFrom.getSet().entries());
+      dbFrom.getSet().delete(skeyName);
+      this.logger.debug(`after delete, ${skeyFrom} is %j`, dbFrom.getSet().entries());
+      if (!dbTo.getSet().has(skeyName)) {
+        this.logger.debug(`adding ${skeyTo}.${skeyName} to %j`, dbTo.getSet().entries());
+        dbTo.getSet().add(skeyName);
+        this.logger.debug(`saving ${skeyTo} %j`, dbTo.getSet().entries());
+        db.put(skeyTo, DatabaseValue.set(dbTo.getSet()));
+        result = 1;
       } else {
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`${skeyTo}.${skeyName} already exists`);</span>
-<span class="cstat-no" title="statement not covered" >        result = 1;</span>
+        this.logger.debug(`${skeyTo}.${skeyName} already exists`);
+        result = 1;
       }
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());</span>
-<span class="cstat-no" title="statement not covered" >      db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));</span>
+      this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());
+      db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));
     } else {
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);</span>
+      this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);
     }
-<span class="cstat-no" title="statement not covered" >    return (RedisToken.integer(result));</span>
+    return (RedisToken.integer(result));
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +262,7 @@ export class SMoveCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 21 2020 07:19:19 GMT-0500 (Eastern Standard Time)
+                at Wed Jan 22 2020 13:23:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

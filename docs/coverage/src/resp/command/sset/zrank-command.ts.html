@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.13% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/23</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -165,24 +165,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,23 +231,23 @@ import { IRespCommand } from '../resp-command';
 @Name('zrank')
 export class ZRankCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-    const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const member: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);</span>
-    const dbValue: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(key);</span>
-<span class="cstat-no" title="statement not covered" >    if (!dbValue) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Key ${key} not found`);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.nullString());</span>
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    const member: string = request.getParam(1);
+    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
+    const dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      this.logger.debug(`Key ${key} not found`);
+      return (RedisToken.nullString());
     } else {
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({ withScores: true }));</span>
-<span class="cstat-no" title="statement not covered" >      if (dbValue.getSortedSet().has(member)) {</span>
-        const result: number = <span class="cstat-no" title="statement not covered" >dbValue.getSortedSet().rank(member);</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.integer(result));</span>
+      this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({ withScores: true }));
+      if (dbValue.getSortedSet().has(member)) {
+        const result: number = dbValue.getSortedSet().rank(member);
+        return (RedisToken.integer(result));
       } else {
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Member ${member} not found in key ${key}`);</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.nullString());</span>
+        this.logger.debug(`Member ${member} not found in key ${key}`);
+        return (RedisToken.nullString());
       }
     }
   }
@@ -259,7 +259,7 @@ export class ZRankCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 21 2020 07:19:19 GMT-0500 (Eastern Standard Time)
+                at Wed Jan 22 2020 13:23:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

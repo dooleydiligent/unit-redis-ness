@@ -111,9 +111,9 @@ export class CommandSuite {
     this.addCommand('zrange', new ZRangeCommand());
     this.addCommand('zrem', new ZRemCommand());
     this.addCommand('type', new TypeCommand());
-    this.addCommand('script', new ScriptCommand());
-    this.addCommand('eval', new ScriptCommand());
-    this.addCommand('evalsha', new ScriptCommand());
+    this.addCommand('script', new ScriptCommand(2, 1, 'script'));
+    this.addCommand('eval', new ScriptCommand(-1, 2, 'eval'));
+    this.addCommand('evalsha', new ScriptCommand(-1, 2, 'evalsha'));
     this.addCommand('expire', new ExpireCommand());
     this.addCommand('rename', new RenameCommand());
     this.addCommand('flushdb', new FlushDbCommand());

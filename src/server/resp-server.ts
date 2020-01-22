@@ -26,8 +26,6 @@ const Parser = require('redis-parser');
  * Listens, by default, to env.DEFAULT_HOST (localhost) on port env.DEFAULT_PORT (6379)
  */
 export class RespServer extends EventEmitter {
-  private static BUFFER_SIZE = 1024 * 1024;
-  private static MAX_FRAME_SIZE = RespServer.BUFFER_SIZE * 100;
   private static DEFAULT_HOST = process.env.REDIS_HOST || 'localhost';
   private static DEFAULT_PORT = process.env.REDIS_PORT ||  6379;
 

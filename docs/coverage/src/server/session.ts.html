@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.27% </span>
+                <span class="strong">91.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/37</span>
+                <span class='fraction'>34/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.54% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.27% </span>
+                <span class="strong">91.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/37</span>
+                <span class='fraction'>34/37</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -158,10 +158,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,26 +177,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -219,9 +219,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">641x</span>
-<span class="cline-any cline-yes">621x</span>
-<span class="cline-any cline-yes">621x</span>
+<span class="cline-any cline-yes">902x</span>
+<span class="cline-any cline-yes">882x</span>
+<span class="cline-any cline-yes">882x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -266,24 +266,24 @@ export abstract class Session {
   public abstract getLastCommand(): string;
   public abstract setLastCommand(command: string): void;
 &nbsp;
-  public <span class="fstat-no" title="function not covered" >isSubscribed(</span>channel: string): boolean {
-<span class="cstat-no" title="statement not covered" >    return this.subscriptions.exists(channel);</span>
+  public isSubscribed(channel: string): boolean {
+    return this.subscriptions.exists(channel);
   }
-  public <span class="fstat-no" title="function not covered" >subscribe(</span>channel: string, emitter: TimedEmitter): void {
-<span class="cstat-no" title="statement not covered" >    this.subscriptions.put(channel, emitter);</span>
+  public subscribe(channel: string, emitter: TimedEmitter): void {
+    this.subscriptions.put(channel, emitter);
   }
-  public <span class="fstat-no" title="function not covered" >getSubscription(</span>channel: string): TimedEmitter {
-<span class="cstat-no" title="statement not covered" >    return this.subscriptions.get(channel);</span>
+  public getSubscription(channel: string): TimedEmitter {
+    return this.subscriptions.get(channel);
   }
-  public <span class="fstat-no" title="function not covered" >unSubscribe(</span>channel: string): void {
-<span class="cstat-no" title="statement not covered" >    if (this.isSubscribed(channel)) {</span>
-      const emitter: TimedEmitter = <span class="cstat-no" title="statement not covered" >this.subscriptions.get(channel);</span>
-<span class="cstat-no" title="statement not covered" >      emitter.off(channel, emitter.callback);</span>
-<span class="cstat-no" title="statement not covered" >      this.subscriptions.remove(channel);</span>
+  public unSubscribe(channel: string): void {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isSubscribed(channel)) {
+      const emitter: TimedEmitter = this.subscriptions.get(channel);
+      emitter.off(channel, emitter.callback);
+      this.subscriptions.remove(channel);
     }
   }
-  public <span class="fstat-no" title="function not covered" >getSubscriptionNames(</span>): string[] {
-<span class="cstat-no" title="statement not covered" >    return this.subscriptions.keys();</span>
+  public getSubscriptionNames(): string[] {
+    return this.subscriptions.keys();
   }
   public setError(): void {
     this.errored = true;
@@ -334,7 +334,7 @@ export abstract class Session {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 21 2020 07:19:19 GMT-0500 (Eastern Standard Time)
+                at Wed Jan 22 2020 13:23:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

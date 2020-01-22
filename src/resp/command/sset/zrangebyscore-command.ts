@@ -96,7 +96,7 @@ export class ZRangeByScoreCommand extends IRespCommand {
     if (min === '-inf') {
       min = -Infinity;
     } else {
-      if (min === '+inf') {
+      if (min === '+inf' || min === 'inf') {
         min = +Infinity;
       } else {
         min = Number(min);
@@ -109,7 +109,7 @@ export class ZRangeByScoreCommand extends IRespCommand {
     if (max === '-inf') {
       max = -Infinity;
     } else {
-      if (max === '+inf') {
+      if (max === '+inf' || max === 'inf') {
         max = +Infinity;
       } else {
         max = Number(max);

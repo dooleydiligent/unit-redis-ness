@@ -1,4 +1,5 @@
 import { Logger } from '../logger';
+import { RedisToken } from '../resp/protocol/redis-token';
 import { IRequest } from './request';
 import { IServerContext } from './server-context';
 import { Session } from './session';

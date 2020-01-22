@@ -14,6 +14,7 @@ describe('script-command test', () => {
   let response: any;
   const code: string = 'return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]';
   const sha1: string = 'a42059b356c875f0717db19a51f6aaca9ae659ea';
+  const embeddedkey = `key-${new Date().getTime()}`;
   before((done) => {
     respServer = new RespServer();
     respServer.on('ready', async () => {
@@ -118,9 +119,10 @@ describe('script-command test', () => {
     response = await sendCommand(client, ['get', 'bull:some_queue:id']);
     expect(response).to.equal('1');
   });
-  it('should fail when we attampt to EVAL an invalid script', async () => {
+  it('should fail when we attempt to EVAL an invalid script', async () => {
     response = await sendCommand(client, ['eval', '-- Invalid\r\nscript']);
-    expect(response).to.equal('ReplyError: ERR Parsing script');
+    // Validated against redis
+    expect(response).to.equal('ReplyError: ERR wrong number of arguments for \'eval\' command');
   });
   it('should be able to return a NULL value from a lua script', async () => {
     response = await sendCommand(client, ['eval', 'local val = nil return val', '0']);
@@ -134,29 +136,24 @@ describe('script-command test', () => {
     // Also, the nil value is not encountered (maybe fengari tosses it out?),
     // and so the final 'bar' is returned when it shuold not.
   });
-  xit('should support the unpack lua command', async () => {
-    response = await sendCommand(client, ['zadd', 'myzset', '1', 'one']);
-    expect(response).to.equal(1);
-    response = await sendCommand(client, ['zadd', 'myzset', '2', 'two']);
-    expect(response).to.equal(1);
-    response = await sendCommand(client, ['zadd', 'myzset', '3', 'three']);
-    expect(response).to.equal(1);
-    response = await sendCommand(client, ['eval', 'local jobs = redis.call("zrangebyscore", "myzset", 0, 10, "limit", 0, 1000)\r\nreturn unpack(jobs)', '0']);
-    expect(response).to.equal('one');
-  });
   it('should return a table with embedded calls to redis', async () => {
-    const key = `key-${new Date().getTime()}`;
     response = await sendCommand(client, ['flushall']);
     expect(response).to.equal('OK');
-    response = await sendCommand(client, ['hset', key, 'one', '1', 'two', '2', 'three', '3']);
+    response = await sendCommand(client, ['hset', embeddedkey, 'one', '1', 'two', '2', 'three', '3']);
     expect(response).to.equal(3);
-    response = await sendCommand(client, ['hgetall', key ]);
+    response = await sendCommand(client, ['hgetall', embeddedkey ]);
     expect(response).to.eql(['one','1', 'two', '2', 'three', '3']);
-    const script = `local rcall = redis.call\r\nlocal jobkey = "${key}"\r\nlocal jobId = "123"\r\nreturn {"test", rcall("HGETALL", jobkey), jobId}`;
-    response = await sendCommand(client, ['eval', script, '0'])
-    console.log(`Response is `, response);
-    expect(response).to.eql([['one','1', 'two', '2', 'three', '3'], '123']);
-//    return {rcall("HGETALL", jobKey), jobId}
+    response = await sendCommand(client, ['eval', `local j = redis.call("HGETALL", "${embeddedkey}") return { j, "SAMPLE" }`, '0'])
+    // Validated with redis
+    expect(response).to.eql( [ 'SAMPLE', [ 'one', '1', 'two', '2', 'three', '3' ]]);
+  });
+  it('should support the unpack lua command', async () => {
+    response = await sendCommand(client, ['flushall']);
+    expect(response).to.equal('OK');
+    response = await sendCommand(client, ['hset', embeddedkey, 'one', '1', 'two', '2', 'three', '3']);
+    expect(response).to.equal(3);
+    response = await sendCommand(client, ['eval', `return { unpack(redis.call("hgetall", "${embeddedkey}")) }`, '0']);
+    expect(response).to.eql( ['one', '1', 'two', '2', 'three', '3'] );
   });
   it('should convert values properly', async () => {
     response = await sendCommand(client, ['eval', "return {1,2,{3,'Hello World!'}}", '0']);

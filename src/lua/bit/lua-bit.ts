@@ -10,10 +10,7 @@ export default class LuaBitLib {
     this.logger.debug(`Assembling lua bit library`);
     const band = (x1: any, x2: any) => x1 & x2;
     const bor = (x1: any, x2: any) => x1 | x2;
-    const bxor = (x1: any, x2: any) => {
-      console.log(`bxor(${x1}, ${x2}) = ${x1 ^ x2}`);
-      return x1 ^ x2;
-    };
+    const bxor = (x1: any, x2: any) => x1 ^ x2;
     const bnot = (x1: any) => ~x1;
     const lshift = (x1: any, x2: any) => x1 << x2;
     const rshift = (x1: any, x2: any) => x1 >> x2;

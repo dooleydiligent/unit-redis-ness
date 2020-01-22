@@ -2507,6 +2507,9 @@ img {
 			<a href="classes/luabitlib.html" class="tsd-kind-icon">Lua<wbr>Bit<wbr>Lib</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="classes/luaredislib.html" class="tsd-kind-icon">Lua<wbr>Redis<wbr>Lib</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="classes/mgetcommand.html" class="tsd-kind-icon">MGet<wbr>Command</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -2998,6 +3001,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 							<li class="tsd-kind-class tsd-is-not-exported"><a href="classes/level.html" class="tsd-kind-icon">Level</a></li>
 							<li class="tsd-kind-class"><a href="classes/logger.html" class="tsd-kind-icon">Logger</a></li>
 							<li class="tsd-kind-class"><a href="classes/luabitlib.html" class="tsd-kind-icon">Lua<wbr>Bit<wbr>Lib</a></li>
+							<li class="tsd-kind-class"><a href="classes/luaredislib.html" class="tsd-kind-icon">Lua<wbr>Redis<wbr>Lib</a></li>
 							<li class="tsd-kind-class"><a href="classes/mgetcommand.html" class="tsd-kind-icon">MGet<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/movecommand.html" class="tsd-kind-icon">Move<wbr>Command</a></li>
 							<li class="tsd-kind-class"><a href="classes/msetcommand.html" class="tsd-kind-icon">Mset<wbr>Command</a></li>
@@ -3102,9 +3106,9 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">Parser<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;redis-parser&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/client.ts#L5">src/client.ts:5</a></li>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/resp/command/script-command.ts#L18">src/resp/command/script-command.ts:18</a></li>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/resp-server.ts#L20">src/server/resp-server.ts:20</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/client.ts#L5">src/client.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/lua/call/lua-redis.ts#L9">src/lua/call/lua-redis.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/resp-server.ts#L20">src/server/resp-server.ts:20</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3114,7 +3118,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">debug<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;util.debuglog(&#x27;decorators&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L5">src/decorators.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L5">src/decorators.ts:5</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3148,8 +3152,9 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">fengari<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;fengari&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/lua/bit/lua-bit.ts#L5">src/lua/bit/lua-bit.ts:5</a></li>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/resp/command/script-command.ts#L13">src/resp/command/script-command.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/lua/bit/lua-bit.ts#L5">src/lua/bit/lua-bit.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/lua/call/lua-redis.ts#L12">src/lua/call/lua-redis.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/resp/command/script-command.ts#L9">src/resp/command/script-command.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3159,7 +3164,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lauxlib<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lauxlib</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/resp/command/script-command.ts#L15">src/resp/command/script-command.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/resp/command/script-command.ts#L11">src/resp/command/script-command.ts:11</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3169,7 +3174,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="classes/logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;new Logger(module.id)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/client.ts#L6">src/client.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/client.ts#L6">src/client.ts:6</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3179,8 +3184,9 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lua<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lua</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/lua/bit/lua-bit.ts#L6">src/lua/bit/lua-bit.ts:6</a></li>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/resp/command/script-command.ts#L14">src/resp/command/script-command.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/lua/bit/lua-bit.ts#L6">src/lua/bit/lua-bit.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/lua/call/lua-redis.ts#L13">src/lua/call/lua-redis.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/resp/command/script-command.ts#L10">src/resp/command/script-command.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3190,7 +3196,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">lualib<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;fengari.lualib</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/resp/command/script-command.ts#L16">src/resp/command/script-command.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/resp/command/script-command.ts#L12">src/resp/command/script-command.ts:12</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3200,7 +3206,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PlatformPath</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;path&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/worker.import.js#L2">src/server/worker.import.js:2</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/worker.import.js#L2">src/server/worker.import.js:2</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3210,7 +3216,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">previous<wbr>Listener<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/client.ts#L8">src/client.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/client.ts#L8">src/client.ts:8</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3220,7 +3226,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 				<div class="tsd-signature tsd-kind-icon">resp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;resp&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/default-session.ts#L11">src/server/default-session.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/default-session.ts#L11">src/server/default-session.ts:11</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3237,7 +3243,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L48">src/decorators.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L48">src/decorators.ts:48</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3260,7 +3266,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L10">src/decorators.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L10">src/decorators.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3293,7 +3299,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L42">src/decorators.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L42">src/decorators.ts:42</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3327,7 +3333,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L31">src/decorators.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L31">src/decorators.ts:31</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3361,7 +3367,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/decorators.ts#L20">src/decorators.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/decorators.ts#L20">src/decorators.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3394,7 +3400,7 @@ describe(<span class="hljs-string">'Some test suite'</span>, <span class="hljs-f
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/client.ts#L10">src/client.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/client.ts#L10">src/client.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

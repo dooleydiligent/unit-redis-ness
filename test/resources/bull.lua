@@ -34,18 +34,6 @@
       ARGV[10] LIFO
       ARGV[11] token
 ]]
-local function dump(o)
-  if type(o) == 'table' then
-    local s = '{ '
-    for k,v in pairs(o) do
-       if type(k) ~= 'number' then k = '"'..k..'"' end
-       s = s .. '['..k..'] = ' .. dump(v) .. ','
-    end
-    return s .. '} '
- else
-    return tostring(o)
- end
-end
 
 print 'LUA SCRIPT: inside the script'
 print('LUA SCRIPT: redis', dump(redis))
@@ -56,6 +44,7 @@ local jobIdKey
 local rcall = redis.call
 print('LUA SCRIPT:  calling "INCR"')
 local jobCounter = rcall("INCR", KEYS[4])
+jobCounter = math.floor(jobCounter)
 print('LUA SCRIPT: jobCounter is', jobCounter);
 if ARGV[2] == "" then
   jobId = jobCounter

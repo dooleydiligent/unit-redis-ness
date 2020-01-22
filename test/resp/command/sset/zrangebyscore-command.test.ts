@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import { RespServer } from '../../../../src/server/resp-server';
 import { sendCommand } from '../../../common.test';
 
-describe('zrange-command test', () => {
+describe('zrangebyscore-command test', () => {
   let respServer: RespServer;
   const client: net.Socket = new net.Socket();
   let response: any;
@@ -56,11 +56,13 @@ describe('zrange-command test', () => {
     expect(response).to.eql([]);
   });
   it('should recognize invalid min parameter', async () => {
-    response = await sendCommand(client, ['zrangebyscore', 'myzset', 'inf', '+inf']);
+    // NOTE: 'inf' is NOT invalid to redis
+    response = await sendCommand(client, ['zrangebyscore', 'myzset', 'inx', '+inf']);
     expect(response).to.equal('ReplyError: ERR min or max is not a float');
   });
   it('should recognize invalid max parameter', async () => {
-    response = await sendCommand(client, ['zrangebyscore', 'myzset', '-inf', 'inf']);
+    // NOTE: 'inf' is NOT invalid to redis
+    response = await sendCommand(client, ['zrangebyscore', 'myzset', '-inf', 'int']);
     expect(response).to.equal('ReplyError: ERR min or max is not a float');
   });
   it('should recognize the WITHSCORES option', async () => {

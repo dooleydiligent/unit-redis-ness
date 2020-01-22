@@ -1,9 +1,17 @@
+1.0.11 / 2020-01-22
+===================
+
+  * Install fengari direct from git to get latest code
+  * Implemented HGETALL, ZSCORE, ZRANGEBYSCORE, and PEXPIRE
+  * Implemented LUA BIT library
+  * Validated test suite against redis 5.0.5
+  * Validated against BULL
+
 1.0.9 / 2020-01-15
 ==================
 
   * Post release rebuild
   * Fixing master
-  * Post release build?
 
 1.0.8 / 2020-01-14
 ==================

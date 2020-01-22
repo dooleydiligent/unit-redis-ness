@@ -2384,6 +2384,9 @@ img {
 					<a href="iservercontext.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="iservercontext.html#flush" class="tsd-kind-icon">flush</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="iservercontext.html#getclientcount" class="tsd-kind-icon">get<wbr>Client<wbr>Count</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -2506,6 +2509,7 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="iservercontext.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="iservercontext.html#emit" class="tsd-kind-icon">emit</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="iservercontext.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="iservercontext.html#flush" class="tsd-kind-icon">flush</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="iservercontext.html#getclientcount" class="tsd-kind-icon">get<wbr>Client<wbr>Count</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="iservercontext.html#getclients" class="tsd-kind-icon">get<wbr>Clients</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="iservercontext.html#getcommand" class="tsd-kind-icon">get<wbr>Command</a></li>
@@ -2564,7 +2568,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L8">src/server/server-context.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L8">src/server/server-context.ts:8</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2674,6 +2678,23 @@ img {
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="flush" class="tsd-anchor"></a>
+				<h3>flush</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">flush<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L18">src/server/server-context.ts:18</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="getclientcount" class="tsd-anchor"></a>
 				<h3>get<wbr>Client<wbr>Count</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -2683,7 +2704,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L14">src/server/server-context.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L14">src/server/server-context.ts:14</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2700,7 +2721,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L13">src/server/server-context.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L13">src/server/server-context.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../classes/dictionary.html" class="tsd-signature-type">Dictionary</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../classes/session.html" class="tsd-signature-type">Session</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2717,7 +2738,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L15">src/server/server-context.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L15">src/server/server-context.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2740,7 +2761,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L10">src/server/server-context.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L10">src/server/server-context.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2763,7 +2784,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L11">src/server/server-context.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L11">src/server/server-context.ts:11</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2799,7 +2820,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L12">src/server/server-context.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L12">src/server/server-context.ts:12</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2816,7 +2837,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L20">src/server/server-context.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L21">src/server/server-context.ts:21</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2839,7 +2860,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L16">src/server/server-context.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L16">src/server/server-context.ts:16</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3142,7 +3163,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L22">src/server/server-context.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L23">src/server/server-context.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3168,7 +3189,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L17">src/server/server-context.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L17">src/server/server-context.ts:17</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3244,7 +3265,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L9">src/server/server-context.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L9">src/server/server-context.ts:9</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3313,7 +3334,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L18">src/server/server-context.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L19">src/server/server-context.ts:19</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3336,7 +3357,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L19">src/server/server-context.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L20">src/server/server-context.ts:20</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3384,7 +3405,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/5b1e402/src/server/server-context.ts#L21">src/server/server-context.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/dooleydiligent/unit-redis-ness/blob/90e1dcd/src/server/server-context.ts#L22">src/server/server-context.ts:22</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

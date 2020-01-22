@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.08% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.83% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -161,32 +161,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
@@ -234,20 +234,20 @@ export class IncrCommand extends IRespCommand {
   public execSync(request: IRequest, db: Database): RedisToken {
     this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     let value: DatabaseValue = db.get(request.getParam(0));
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!value) {
+    if (!value) {
       value = DatabaseValue.string(String(this.sign * 1));
     } else {
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`The original value is ${value.getString()}`);</span>
-<span class="cstat-no" title="statement not covered" >      if (Math.abs(Number(value.getString())) &lt; Number.MAX_SAFE_INTEGER) {</span>
-        const newValue: number = <span class="cstat-no" title="statement not covered" >Number(value.getString()) + this.sign;</span>
-        const ttl: number = <span class="cstat-no" title="statement not covered" >value.timeToLiveMillis(Number(new Date().getTime()));</span>
-<span class="cstat-no" title="statement not covered" >        value = new DatabaseValue(</span>
+      this.logger.debug(`The original value is ${value.getString()}`);
+      if (Math.abs(Number(value.getString())) &lt; Number.MAX_SAFE_INTEGER) {
+        const newValue: number = Number(value.getString()) + this.sign;
+        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+        value = new DatabaseValue(
           DataType.STRING,
           String(newValue),
-          ttl !== -1 ? ttl : undefined);
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`The ${this.sign ? 'INCR' : 'DECR'} value is ${value.getString()}`);</span>
+          ttl !== -1 ? <span class="branch-0 cbranch-no" title="branch not covered" >ttl </span>: undefined);
+        this.logger.debug(`The ${this.sign ? 'INCR' : <span class="branch-1 cbranch-no" title="branch not covered" >'DECR'}</span> value is ${value.getString()}`);
       } else {
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.error(`ERR increment or decrement would overflow`));</span>
+        return (RedisToken.error(`ERR increment or decrement would overflow`));
       }
     }
     db.put(request.getParam(0), value);
@@ -262,7 +262,7 @@ export class IncrCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 21 2020 07:19:19 GMT-0500 (Eastern Standard Time)
+                at Wed Jan 22 2020 13:23:06 GMT-0500 (Eastern Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

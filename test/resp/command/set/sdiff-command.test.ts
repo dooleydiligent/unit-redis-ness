@@ -48,7 +48,7 @@ describe('sdiff-command test', () => {
     response = await sendCommand(client, ['sadd', 'key3', 'a', 'c', 'e']);
     expect(response).to.equal(3);
     response = await sendCommand(client, ['sdiff', 'key1', 'key2', 'key3']);
-    expect(response).to.eql(['b', 'd']);
+    expect(response.sort()).to.eql(['b', 'd']);
   });
   it('should ignore non-list keys', async () => {
     response = await sendCommand(client, ['set', 'list', '1']);
@@ -56,6 +56,6 @@ describe('sdiff-command test', () => {
     response = await sendCommand(client, ['zadd', 'zset', '2', 'three']);
     expect(response).to.equal(1);
     response = await sendCommand(client, ['sdiff', 'key1', 'key2', 'key3']);
-    expect(response).to.eql(['b', 'd']);
+    expect(response.sort()).to.eql(['b', 'd']);
   })
 });

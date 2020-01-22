@@ -13,6 +13,16 @@ const fengari = require('fengari');
 const lua = fengari.lua;
 
 export default class LuaRedisLib {
+  public static stringFrom(element: any[]): string {
+    let elementValue: string = '';
+    if (element) {
+      element.forEach((c) => {
+        elementValue += String.fromCharCode(c);
+      });
+    }
+    return elementValue;
+  }
+
   public static LoadLibrary(L: any, request: IRequest): void {
     this.logger.debug(`Assembling lua redis library`);
 
@@ -28,7 +38,6 @@ export default class LuaRedisLib {
     }
     this.createLuaTable(L, 'ARGV', argv);
     this.createLuaTable(L, 'KEYS', keys);
-    // this.createRedisCallback(L);
 
     const redis: any = {
       call: () => {
@@ -46,7 +55,7 @@ export default class LuaRedisLib {
               break;
             case lua.LUA_TNUMBER:
               value = lua.lua_tonumber(L, i + 1);
-              value = Number(parseInt(value, 10));
+              value = String(Number(parseInt(value, 10)));
               this.logger.debug(`RCALL: LUA_TNUMBER: ${value}`);
               break;
             case lua.LUA_TBOOLEAN:
@@ -106,10 +115,15 @@ export default class LuaRedisLib {
           this.logger.debug(`Pushing NIL into empty returned array`);
           returned.push(null);
         }
+        // if (Array.isArray(returned)) {
+        //   this.logger.debug(`Preserving returned value(s) %j`, returned);
+        //   request.getResponses().push(returned);
+        // }
+
         this.pushany(L, returned);
         this.logger.debug(`returned.length is ${Array.isArray(returned) ? returned.length : 1}`);
         this.logger.debug(`Returning ${Array.isArray(returned) ? returned.length : 1}`);
-        return (Array.isArray(returned) ? returned.length : 1);
+        return (String(Array.isArray(returned) ? returned.length : 1));
       }
     };
 
@@ -118,33 +132,42 @@ export default class LuaRedisLib {
     this.logger.debug(`Registering redis lib function "call"`);
     lua.lua_pushstring(L, 'call');
     lua.lua_pushjsfunction(L, (LIB: any) => {
+      // This is the entry point for redis.call()
+      // Which we call below with redis['call'].call(null, ...args);
       const n = lua.lua_gettop(LIB);
       const args = new Array(n);
-
+      const stringArgs = new Array(n - 1);
+      let cmd: string = '';
       for (let i = 0; i < n; i++) {
         let value: any;
         value = lua.lua_tonumber(LIB, i + 1);
-        // Numbers are always integer to redis
-        // value = parseInt(value, 10);
         args[i] = value;
+        if (i === 0) {
+          cmd = LuaRedisLib.stringFrom(lua.lua_tostring(LIB, i + 1));
+        } else {
+          stringArgs[i - 1] = LuaRedisLib.stringFrom(lua.lua_tostring(LIB, i + 1));
+        }
       }
-      this.logger.debug(`REDIS calling "call" with %j`, args);
+      this.logger.debug(`lua_pushjsfunction: REDIS calling '${cmd}' with %j`, stringArgs);
 
-      const returned: any = redis['call'].call(null, ...args);
-
-      this.logger.debug(`REDIS "call" returned ${returned}: %j`, returned);
-      this.logger.debug(`return value is ${returned ? returned.constructor.name : 'not defined'}`);
+      const callReturn: any = redis.call.call(null, ...args);
+      // callReturn is the number of arguments that were pushed to the stack by lua
+      this.logger.debug(`lua_pushjsfunction: REDIS "call" returned ${callReturn}: %j`, callReturn);
+      this.logger.debug(`lua_pushjsfunction: return value is ${callReturn ? callReturn.constructor.name : 'not defined'}`);
 
       switch (true) {
-        case (returned && returned.constructor.name === 'Number'):
-          this.logger.debug(`Push number (as string)`);
-          lua.lua_pushstring(LIB, String(parseInt(String(returned), 10)));
+        case (callReturn && callReturn.constructor.name === 'Number'):
+          // callReturn is the number of arguments that were pushed to the stack by lua
+          this.logger.debug(`lua_pushjsfunction: Pushing returned argument count ${callReturn} as number`);
+          lua.lua_pushnumber(LIB, callReturn);
           break;
         default:
-          this.logger.warn(`Not prepared to push type %j`, returned);
+          this.logger.warn(`Ignore:  Not pushing type "${callReturn ? callReturn.constructor.name : 'null or undefined'} %j`, callReturn);
       }
-      this.logger.debug(`returned.length is ${Array.isArray(returned) ? returned.length : 1}`);
-      return (Array.isArray(returned) ? returned.length : 1);
+      this.logger.debug(
+        `lua_pushjsfunction: callReturn.length is ${Array.isArray(callReturn) ?
+          callReturn.length : 1}`);
+      return (Array.isArray(callReturn) ? callReturn.length : 1);
     });
     lua.lua_rawset(L, -3);
     //    }
@@ -171,10 +194,15 @@ export default class LuaRedisLib {
         break;
       case (element.constructor.name === 'String'):
         this.logger.debug(`Push string ${element}`);
+        if (!isNaN(Number(element))) {
+          this.logger.debug(`Converting ${element} to integer`);
+          element = String(parseInt(element, 10));
+        }
         lua.lua_pushstring(L, element);
         break;
       case (element.constructor.name === 'Number'):
-        this.logger.debug(`Push number: ${element}`);
+        element = String(parseInt(String(element), 10));
+        this.logger.debug(`Push number: ${element} as string`);
         lua.lua_pushstring(L, element);
         break;
       case (element.constructor.name === 'Boolean'):
