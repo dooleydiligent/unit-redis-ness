@@ -38,7 +38,7 @@
   "license": "MIT",
   "dependencies": {
     "crypto": "^1.0.1",
-    "fengari": "git+ssh://github.com/fengari-lua/fengari.git",
+    "fengari": "^0.1.4",
     "redis-parser": "^3.0.0",
     "redis-sorted-set": "^2.0.0",
     "resp": "^0.1.1"
