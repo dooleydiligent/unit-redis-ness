@@ -32,10 +32,10 @@ export class RespServer extends EventEmitter {
   private logger: Logger = new Logger(module.id);
   private server: net.Server = net.createServer();
   private serverContext: IServerContext;
-  constructor() {
+  constructor(hostArg?: string, portArg?: number) {
     super();
-    const host = RespServer.DEFAULT_HOST;
-    const port = Number(RespServer.DEFAULT_PORT);
+    const host = hostArg || RespServer.DEFAULT_HOST;
+    const port = portArg || Number(RespServer.DEFAULT_PORT);
     const commandSuite = new CommandSuite();
     this.serverContext = new RespServerContext(host, port, commandSuite);
   }
