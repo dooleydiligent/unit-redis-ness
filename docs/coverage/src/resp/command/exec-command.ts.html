@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,17 +110,13 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,36 +130,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Blocking, MaxParams, MinParams, Name } from '../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../logger';</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Blocking, MaxParams, MinParams, Name } from '../../decorators';
+import { Logger } from '../../logger';
 import { IRequest } from '../../server/request';
 import { ICmdReq } from '../../server/session';
 import { Database } from '../data/database';
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from './resp-command';</span>
+import { RedisToken } from '../protocol/redis-token';
+import { IRespCommand } from './resp-command';
 /**
  * ### Available since 1.2.0.
  * ### EXEC
@@ -175,25 +181,25 @@ import { Database } from '../data/database';
 @MinParams(0)
 @MaxParams(0)
 @Name('exec')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >E</span>xecCommand </span>extends IRespCommand {</span></span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-<span class="cstat-no" title="statement not covered" >    if (!request.getSession().inTransaction()) {</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.error(`ERR EXEC without MULTI`));</span>
+export class ExecCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    if (!request.getSession().inTransaction()) {
+      return (RedisToken.error(`ERR EXEC without MULTI`));
     } else {
-<span class="cstat-no" title="statement not covered" >      if (request.getSession().isErrored()) {</span>
-<span class="cstat-no" title="statement not covered" >        request.getSession().abortTransaction();</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));</span>
+      if (request.getSession().isErrored()) {
+        request.getSession().abortTransaction();
+        return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
       } else {
-        const commands: ICmdReq[] = <span class="cstat-no" title="statement not covered" >request.getSession().getTransaction();</span>
-        const tokens: any[] = <span class="cstat-no" title="statement not covered" >[];</span>
-<span class="cstat-no" title="statement not covered" >        commands.map(<span class="fstat-no" title="function not covered" >async (c</span>mdReq) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);</span>
-          const token = <span class="cstat-no" title="statement not covered" >await cmdReq.command.execSync(cmdReq.request, db);</span>
-<span class="cstat-no" title="statement not covered" >          tokens.push(token);</span>
+        const commands: ICmdReq[] = request.getSession().getTransaction();
+        const tokens: any[] = [];
+        commands.map(async (cmdReq) =&gt; {
+          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+          const token = await cmdReq.command.execSync(cmdReq.request, db);
+          tokens.push(token);
         });
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.array(tokens));</span>
+        return (RedisToken.array(tokens));
       }
     }
   }
@@ -204,10 +210,9 @@ import { Database } from '../data/database';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {

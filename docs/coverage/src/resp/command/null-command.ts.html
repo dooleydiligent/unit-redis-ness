@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -75,40 +81,40 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Name } from '../../decorators';</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Name } from '../../decorators';
 import { IRequest } from '../../server/request';
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from './resp-command';</span>
+import { RedisToken } from '../protocol/redis-token';
+import { IRespCommand } from './resp-command';
 &nbsp;
 @Name('null')
-<span class="cstat-no" title="statement not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >NullCommand </span>extends IRespCommand {</span></span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest): RedisToken {
-<span class="cstat-no" title="statement not covered" >    request.getSession().setError();</span>
-    let params: string = <span class="cstat-no" title="statement not covered" >'';</span>
-<span class="cstat-no" title="statement not covered" >    request.getParams().forEach(<span class="fstat-no" title="function not covered" >(p</span>aram) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      params += '`' + param + '`, ';</span>
+export class NullCommand extends IRespCommand {
+  public execSync(request: IRequest): RedisToken {
+    request.getSession().setError();
+    let params: string = '';
+    request.getParams().forEach((param) =&gt; {
+      params += '`' + param + '`, ';
     });
-    const response: string = <span class="cstat-no" title="statement not covered" >'ERR unknown command `' + request.getCommand() +</span>
+    const response: string = 'ERR unknown command `' + request.getCommand() +
       '`, with args beginning with: ' + params;
-<span class="cstat-no" title="statement not covered" >    return (RedisToken.error(response));</span>
+    return (RedisToken.error(response));
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -117,10 +123,9 @@ import { IRequest } from '../../server/request';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {

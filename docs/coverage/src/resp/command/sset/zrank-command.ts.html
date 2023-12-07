@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -122,16 +128,14 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,37 +168,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-<span class="cstat-no" title="statement not covered" >import { DataType } from '../../data/data-type';</span>
+import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
 import { DatabaseValue } from '../../data/database-value';
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from '../resp-command';
 /**
  * ### Available since 2.0.0.
  * ### ZRANK key member
@@ -229,25 +235,25 @@ import { DatabaseValue } from '../../data/database-value';
 @MaxParams(2)
 @MinParams(2)
 @Name('zrank')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >Z</span>RankCommand </span>extends IRespCommand {</span></span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-    const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const member: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);</span>
-    const dbValue: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(key);</span>
-<span class="cstat-no" title="statement not covered" >    if (!dbValue) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Key ${key} not found`);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.nullString());</span>
+export class ZRankCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    const key: string = request.getParam(0);
+    const member: string = request.getParam(1);
+    this.logger.debug(`Getting zrank for member ${member} of key ${key}`);
+    const dbValue: DatabaseValue = db.get(key);
+    if (!dbValue) {
+      this.logger.debug(`Key ${key} not found`);
+      return (RedisToken.nullString());
     } else {
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({ withScores: true }));</span>
-<span class="cstat-no" title="statement not covered" >      if (dbValue.getSortedSet().has(member)) {</span>
-        const result: number = <span class="cstat-no" title="statement not covered" >dbValue.getSortedSet().rank(member);</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.integer(result));</span>
+      this.logger.debug(`The sorted set is %s`, dbValue.getSortedSet().toArray({ withScores: true }));
+      if (dbValue.getSortedSet().has(member)) {
+        const result: number = dbValue.getSortedSet().rank(member);
+        return (RedisToken.integer(result));
       } else {
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Member ${member} not found in key ${key}`);</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.nullString());</span>
+        this.logger.debug(`Member ${member} not found in key ${key}`);
+        return (RedisToken.nullString());
       }
     }
   }
@@ -258,10 +264,9 @@ import { DatabaseValue } from '../../data/database-value';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {

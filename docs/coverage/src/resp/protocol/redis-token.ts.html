@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,84 +103,84 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">230x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">372x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { ArrayRedisToken } from './array-redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { ErrorRedisToken } from './error-redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { NumberRedisToken } from './number-redis-token';</span>
+<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ArrayRedisToken } from './array-redis-token';
+import { ErrorRedisToken } from './error-redis-token';
+import { NumberRedisToken } from './number-redis-token';
 import { RedisTokenType } from './redis-token-type';
-<span class="cstat-no" title="statement not covered" >import { StatusRedisToken } from './status-redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { StringRedisToken } from './string-redis-token';</span>
+import { StatusRedisToken } from './status-redis-token';
+import { StringRedisToken } from './string-redis-token';
 &nbsp;
 /**
  * An abstract wrapper for RESP Protocol messages.
  * See {@link RedisTokenType}
  */
-<span class="cstat-no" title="statement not covered" >export abstract class R</span>edisToken {
-  public <span class="fstat-no" title="function not covered" >static </span>nullString(): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return RedisToken.NULL_STRING;</span>
+export abstract class RedisToken {
+  public static nullString(): RedisToken {
+    return RedisToken.NULL_STRING;
   }
-  public <span class="fstat-no" title="function not covered" >static </span>responseOk(): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return RedisToken.RESPONSE_OK;</span>
+  public static responseOk(): RedisToken {
+    return RedisToken.RESPONSE_OK;
   }
-  public <span class="fstat-no" title="function not covered" >static </span>status(str: string): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return new StatusRedisToken(str);</span>
+  public static status(str: string): RedisToken {
+    return new StatusRedisToken(str);
   }
-  public <span class="fstat-no" title="function not covered" >static </span>string(str: string): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return new StringRedisToken(str);</span>
+  public static string(str: string): RedisToken {
+    return new StringRedisToken(str);
   }
   public <span class="fstat-no" title="function not covered" >static </span>boolean(tf: boolean): RedisToken {
 <span class="cstat-no" title="statement not covered" >    return new NumberRedisToken(tf ? 1 : 0);</span>
   }
-  public <span class="fstat-no" title="function not covered" >static </span>integer(i: number): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return new NumberRedisToken(i);</span>
+  public static integer(i: number): RedisToken {
+    return new NumberRedisToken(i);
   }
-  public <span class="fstat-no" title="function not covered" >static </span>array(redisTokens: any[]): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return new ArrayRedisToken(redisTokens);</span>
+  public static array(redisTokens: any[]): RedisToken {
+    return new ArrayRedisToken(redisTokens);
   }
-  public <span class="fstat-no" title="function not covered" >static </span>error(str: string): RedisToken {
-<span class="cstat-no" title="statement not covered" >    return new ErrorRedisToken(str);</span>
+  public static error(str: string): RedisToken {
+    return new ErrorRedisToken(str);
   }
-  private static <span class="cstat-no" title="statement not covered" >NULL_STRING: RedisToken = RedisToken.string('');</span>
-  private static <span class="cstat-no" title="statement not covered" >RESPONSE_OK: RedisToken = RedisToken.status('OK');</span>
+  private static NULL_STRING: RedisToken = RedisToken.string('');
+  private static RESPONSE_OK: RedisToken = RedisToken.status('OK');
   public abstract getType(): RedisTokenType;
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -183,10 +189,9 @@ import { RedisTokenType } from './redis-token-type';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {

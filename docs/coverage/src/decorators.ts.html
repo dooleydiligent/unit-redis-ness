@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,40 +116,29 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">67x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,41 +146,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as util from 'util';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as util from 'util';
 import { DataType } from './resp/data/data-type';
 &nbsp;
 // tslint:disable:ban-types
-const debugLog = <span class="cstat-no" title="statement not covered" >util.debuglog('decorators');</span>
+const debugLog = util.debuglog('decorators');
 /**
  * Apply a DataType to the command
  * @param dataType DataType required by the command
  */
-export const <span class="cstat-no" title="statement not covered" >DbDataType = <span class="fstat-no" title="function not covered" >(d</span>ataType: DataType ) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  debugLog(`DbDataType: ${dataType}`);</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>onstructor: Function) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    constructor.prototype.dataType = dataType;</span>
+export const DbDataType = (dataType: DataType ) =&gt; {
+  debugLog(`DbDataType: ${dataType}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.dataType = dataType;
   };
 };
 /**
  * Apply a command name to the instantiated IRespCommand
  * @param name The name of the class
  */
-export const <span class="cstat-no" title="statement not covered" >Name = <span class="fstat-no" title="function not covered" >(n</span>ame: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  debugLog(`Name: ${name}`);</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>onstructor: Function) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    constructor.prototype.name = name;</span>
+export const Name = (name: string) =&gt; {
+  debugLog(`Name: ${name}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.name = name;
   };
 };
 /**
@@ -193,10 +199,10 @@ export const <span class="cstat-no" title="statement not covered" >Name = <span 
  * -1 if it is not supplied on the command
  * @param minParams The minimum number of parameters required
  */
-export const <span class="cstat-no" title="statement not covered" >MinParams = <span class="fstat-no" title="function not covered" >(m</span>inParams: number) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  debugLog(`MinParams: ${minParams}`);</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>onstructor: Function) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    constructor.prototype.minParams = minParams;</span>
+export const MinParams = (minParams: number) =&gt; {
+  debugLog(`MinParams: ${minParams}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.minParams = minParams;
   };
 };
 /**
@@ -204,16 +210,16 @@ export const <span class="cstat-no" title="statement not covered" >MinParams = <
  * -1 if it is not supplied on the command
  * @param maxParams The maxixmum number of parameters supported
  */
-export const <span class="cstat-no" title="statement not covered" >MaxParams = <span class="fstat-no" title="function not covered" >(m</span>axParams: number) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  debugLog(`MaxParams: ${maxParams}`);</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>onstructor: Function) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    constructor.prototype.maxParams = maxParams;</span>
+export const MaxParams = (maxParams: number) =&gt; {
+  debugLog(`MaxParams: ${maxParams}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.maxParams = maxParams;
   };
 };
-export const <span class="cstat-no" title="statement not covered" >Blocking = <span class="fstat-no" title="function not covered" >(b</span>locking: boolean ) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  debugLog(`Blocking: ${blocking}`);</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>onstructor: Function) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    constructor.prototype.blocking = blocking;</span>
+export const Blocking = (blocking: boolean ) =&gt; {
+  debugLog(`Blocking: ${blocking}`);
+  return (constructor: Function) =&gt; {
+    constructor.prototype.blocking = blocking;
   };
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -222,10 +228,9 @@ export const <span class="cstat-no" title="statement not covered" >Blocking = <s
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../prettify.js"></script>
         <script>
             window.onload = function () {

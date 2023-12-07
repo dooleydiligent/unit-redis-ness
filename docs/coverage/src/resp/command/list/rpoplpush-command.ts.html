@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -173,14 +179,14 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,48 +261,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-<span class="cstat-no" title="statement not covered" >import { DataType } from '../../data/data-type';</span>
+import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
-<span class="cstat-no" title="statement not covered" >import { DatabaseValue } from '../../data/database-value';</span>
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+import { DatabaseValue } from '../../data/database-value';
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from '../resp-command';
 /**
  * ### Available since 1.2.0.
  * ### RPOPLPUSH source destination
@@ -371,37 +377,37 @@ import { Database } from '../../data/database';
 @MaxParams(2)
 @MinParams(2)
 @Name('rpoplpush')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >R</span>PoplPushCommand </span>extends IRespCommand {</span></span>
-  protected <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken | Promise&lt;RedisToken&gt;  {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-<span class="cstat-no" title="statement not covered" >    return (this.process(request, db));</span>
+export class RPoplPushCommand extends IRespCommand {
+  protected logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken | Promise&lt;RedisToken&gt;  {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    return (this.process(request, db));
   }
-  protected <span class="fstat-no" title="function not covered" >process(</span>request: IRequest, db: Database): RedisToken {
-    const src: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
-    const dst: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`process(src: ${src}, dst: ${dst})`);</span>
-    const dbSrcList: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(src);</span>
-<span class="cstat-no" title="statement not covered" >    if (!dbSrcList) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`src list is empty`);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.nullString());</span>
+  protected process(request: IRequest, db: Database): RedisToken {
+    const src: string = request.getParam(0);
+    const dst: string = request.getParam(1);
+    this.logger.debug(`process(src: ${src}, dst: ${dst})`);
+    const dbSrcList: DatabaseValue = db.get(src);
+    if (!dbSrcList) {
+      this.logger.debug(`src list is empty`);
+      return (RedisToken.nullString());
     } else {
-      const dbDstList: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`src list is %s`, dbDstList.getList());</span>
-      const member: any = <span class="cstat-no" title="statement not covered" >dbSrcList.getList().pop();</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Member is ${member}`);</span>
-<span class="cstat-no" title="statement not covered" >      dbDstList.getList().unshift(member);</span>
-<span class="cstat-no" title="statement not covered" >      db.put(dst, dbDstList);</span>
+      const dbDstList: DatabaseValue = db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));
+      this.logger.debug(`src list is %s`, dbDstList.getList());
+      const member: any = dbSrcList.getList().pop();
+      this.logger.debug(`Member is ${member}`);
+      dbDstList.getList().unshift(member);
+      db.put(dst, dbDstList);
       // Fire events on dst?
-<span class="cstat-no" title="statement not covered" >      if (dst !== src) {</span>
-<span class="cstat-no" title="statement not covered" >        if (dbSrcList.getList().length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >          db.put(src, dbSrcList);</span>
+      if (dst !== src) {
+        if (dbSrcList.getList().length &gt; 0) {
+          db.put(src, dbSrcList);
           // fire events on src?
         } else {
-<span class="cstat-no" title="statement not covered" >          db.remove(src);</span>
+          db.remove(src);
         }
       }
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.string(member));</span>
+      return (RedisToken.string(member));
     }
   }
 }
@@ -411,10 +417,9 @@ import { Database } from '../../data/database';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {

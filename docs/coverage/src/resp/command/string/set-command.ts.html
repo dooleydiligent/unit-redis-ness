@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/60</span>
+                <span class='fraction'>60/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/57</span>
+                <span class='fraction'>57/57</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -182,15 +188,15 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,100 +228,100 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">81x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as util from 'util';</span>
-<span class="cstat-no" title="statement not covered" >import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as util from 'util';
+import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-<span class="cstat-no" title="statement not covered" >import { DataType } from '../../data/data-type';</span>
+import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
-<span class="cstat-no" title="statement not covered" >import { DatabaseValue } from '../../data/database-value';</span>
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+import { DatabaseValue } from '../../data/database-value';
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from '../resp-command';
 interface IParameters {
   ifExists: boolean;
   ifNotExists: boolean;
@@ -347,89 +353,89 @@ interface IParameters {
 @MaxParams(6)
 @MinParams(2)
 @Name('set')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >S</span>etCommand </span>extends IRespCommand {</span></span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const parameters: IParameters = <span class="cstat-no" title="statement not covered" >this.parse(request);</span>
-      const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0).toString();</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Creating key ${key} with parameters %s`, parameters);</span>
-      const value: DatabaseValue = <span class="cstat-no" title="statement not covered" >this.parseValue(request, parameters);</span>
-      const savedValue = <span class="cstat-no" title="statement not covered" >this.saveValue(db, parameters, key, value);</span>
-<span class="cstat-no" title="statement not covered" >      return (savedValue &amp;&amp; savedValue.toString() === value.toString() ?</span>
+export class SetCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
+    try {
+      const parameters: IParameters = this.parse(request);
+      const key: string = request.getParam(0).toString();
+      this.logger.debug(`Creating key ${key} with parameters %s`, parameters);
+      const value: DatabaseValue = this.parseValue(request, parameters);
+      const savedValue = this.saveValue(db, parameters, key, value);
+      return (savedValue &amp;&amp; savedValue.toString() === value.toString() ?
         RedisToken.responseOk() : RedisToken.nullString());
     } catch (ex) {
-<span class="cstat-no" title="statement not covered" >      this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.error(ex.message));</span>
+      this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
+      return (RedisToken.error(ex.message));
     }
   }
-  private <span class="fstat-no" title="function not covered" >parse(</span>request: IRequest): IParameters {
-    const parameters: IParameters = <span class="cstat-no" title="statement not covered" >{</span>
+  private parse(request: IRequest): IParameters {
+    const parameters: IParameters = {
       ifExists: false,
       ifNotExists: false,
       ttl: null
     };
-<span class="cstat-no" title="statement not covered" >    if (request.getLength() &gt; 2) {</span>
-<span class="cstat-no" title="statement not covered" >      for (let i = <span class="cstat-no" title="statement not covered" >2;</span> i &lt; request.getLength(); i++) {</span>
-        const option: string = <span class="cstat-no" title="statement not covered" >request.getParam(i);</span>
-<span class="cstat-no" title="statement not covered" >        if (this.match('EX', option)) {</span>
-<span class="cstat-no" title="statement not covered" >          if (parameters.ttl != null) {</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error('ERR syntax error');</span>
+    if (request.getLength() &gt; 2) {
+      for (let i = 2; i &lt; request.getLength(); i++) {
+        const option: string = request.getParam(i);
+        if (this.match('EX', option)) {
+          if (parameters.ttl != null) {
+            throw new Error('ERR syntax error');
           }
-<span class="cstat-no" title="statement not covered" >          parameters.ttl = (this.parseTtl(request, ++i) * 1000);</span>
-        } else <span class="cstat-no" title="statement not covered" >if (this.match('PX', option)) {</span>
-<span class="cstat-no" title="statement not covered" >          if (parameters.ttl != null) {</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error('ERR syntax error');</span>
+          parameters.ttl = (this.parseTtl(request, ++i) * 1000);
+        } else if (this.match('PX', option)) {
+          if (parameters.ttl != null) {
+            throw new Error('ERR syntax error');
           }
-<span class="cstat-no" title="statement not covered" >          parameters.ttl = this.parseTtl(request, ++i);</span>
-        } else <span class="cstat-no" title="statement not covered" >if (this.match('NX', option)) {</span>
-<span class="cstat-no" title="statement not covered" >          if (parameters.ifExists) {</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error('ERR syntax error');</span>
+          parameters.ttl = this.parseTtl(request, ++i);
+        } else if (this.match('NX', option)) {
+          if (parameters.ifExists) {
+            throw new Error('ERR syntax error');
           }
-<span class="cstat-no" title="statement not covered" >          parameters.ifNotExists = true;</span>
-        } else <span class="cstat-no" title="statement not covered" >if (this.match('XX', option)) {</span>
-<span class="cstat-no" title="statement not covered" >          if (parameters.ifNotExists) {</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error('ERR syntax error');</span>
+          parameters.ifNotExists = true;
+        } else if (this.match('XX', option)) {
+          if (parameters.ifNotExists) {
+            throw new Error('ERR syntax error');
           }
-<span class="cstat-no" title="statement not covered" >          parameters.ifExists = true;</span>
+          parameters.ifExists = true;
         } else {
-<span class="cstat-no" title="statement not covered" >          throw new Error('ERR syntax error');</span>
+          throw new Error('ERR syntax error');
         }
       }
     }
-<span class="cstat-no" title="statement not covered" >    return parameters;</span>
+    return parameters;
   }
-  private <span class="fstat-no" title="function not covered" >match(</span>str: string, option: string): boolean {
-<span class="cstat-no" title="statement not covered" >    return str.toLowerCase() === option.toString().toLowerCase();</span>
+  private match(str: string, option: string): boolean {
+    return str.toLowerCase() === option.toString().toLowerCase();
   }
-  private <span class="fstat-no" title="function not covered" >parseTtl(</span>request: IRequest, i: number): number {
-    const ttlOption: string = <span class="cstat-no" title="statement not covered" >request.getParam(i);</span>
-    const value: number = <span class="cstat-no" title="statement not covered" >parseInt(ttlOption.toString(), 10);</span>
-<span class="cstat-no" title="statement not covered" >    if (value &lt; 1) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new Error(`ERR invalid expire time in set`);</span>
+  private parseTtl(request: IRequest, i: number): number {
+    const ttlOption: string = request.getParam(i);
+    const value: number = parseInt(ttlOption.toString(), 10);
+    if (value &lt; 1) {
+      throw new Error(`ERR invalid expire time in set`);
     }
-<span class="cstat-no" title="statement not covered" >    return value;</span>
+    return value;
   }
-  private <span class="fstat-no" title="function not covered" >parseValue(</span>request: IRequest, parameters: IParameters): DatabaseValue {
-    const value: DatabaseValue = <span class="cstat-no" title="statement not covered" >new DatabaseValue(</span>
+  private parseValue(request: IRequest, parameters: IParameters): DatabaseValue {
+    const value: DatabaseValue = new DatabaseValue(
       DataType.STRING,
       request.getParam(1).toString(),
       parameters.ttl ? new Date().getTime() + parameters.ttl : undefined);
-<span class="cstat-no" title="statement not covered" >    return value;</span>
+    return value;
   }
-  private <span class="fstat-no" title="function not covered" >saveValue(</span>db: Database, params: IParameters, key: string, value: DatabaseValue): DatabaseValue {
+  private saveValue(db: Database, params: IParameters, key: string, value: DatabaseValue): DatabaseValue {
     let savedValue: DatabaseValue;
-<span class="cstat-no" title="statement not covered" >    if (params.ifExists) {</span>
-<span class="cstat-no" title="statement not covered" >      savedValue = db.putIfPresent(key, value);</span>
-    } else <span class="cstat-no" title="statement not covered" >if (params.ifNotExists) {</span>
-<span class="cstat-no" title="statement not covered" >      savedValue = db.putIfAbsent(key, value);</span>
+    if (params.ifExists) {
+      savedValue = db.putIfPresent(key, value);
+    } else if (params.ifNotExists) {
+      savedValue = db.putIfAbsent(key, value);
     } else {
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Setting ${util.inspect(key)} to ${util.inspect(value)}`);</span>
-<span class="cstat-no" title="statement not covered" >      savedValue = db.put(key, value);</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Returning ${util.inspect(savedValue)}`);</span>
+      this.logger.debug(`Setting ${util.inspect(key)} to ${util.inspect(value)}`);
+      savedValue = db.put(key, value);
+      this.logger.debug(`Returning ${util.inspect(savedValue)}`);
     }
-<span class="cstat-no" title="statement not covered" >    return savedValue;</span>
+    return savedValue;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -438,10 +444,9 @@ interface IParameters {
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {

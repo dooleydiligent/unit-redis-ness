@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/51</span>
+                <span class='fraction'>51/51</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -164,77 +170,65 @@
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,94 +236,106 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as os from 'os';</span>
-<span class="cstat-no" title="statement not covered" >import { MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as os from 'os';
+import { MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
 import { IServerContext } from '../../../server/server-context';
 import { Database } from '../../data/database';
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from '../resp-command';
 &nbsp;
 @MaxParams(1)
 @MinParams(0)
 @Name('info')
 &nbsp;
-<span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >I</span>nfoCommand<span class="cstat-no" title="statement not covered" > </span>extends IRespCommand {</span></span>
-  private static <span class="cstat-no" title="statement not covered" >SHARP = '# ';</span>
-  private static <span class="cstat-no" title="statement not covered" >SEPARATOR = ':';</span>
-  private static <span class="cstat-no" title="statement not covered" >DELIMITER = '\r\n';</span>
+export class InfoCommand extends IRespCommand {
+  private static SHARP = '# ';
+  private static SEPARATOR = ':';
+  private static DELIMITER = '\r\n';
 &nbsp;
-  private static <span class="cstat-no" title="statement not covered" >SECTION_KEYSPACE = 'keyspace';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_COMMANDSTATS = 'commandstats';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_CPU = 'cpu';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_STATS = 'stats';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_PERSISTENCE = 'persistence';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_MEMORY = 'memory';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_CLIENTS = 'clients';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_REPLICATION = 'replication';</span>
-  private static <span class="cstat-no" title="statement not covered" >SECTION_SERVER = 'server';</span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`executeDBRequest(${request}, ${db})`);</span>
-    const sections: any = <span class="cstat-no" title="statement not covered" >{};</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`request is ${request.constructor.name}`, request);</span>
-<span class="cstat-no" title="statement not covered" >    if (request.getParams().length &gt; 0) {</span>
-      const section = <span class="cstat-no" title="statement not covered" >request.getParam(0).toString();</span>
-<span class="cstat-no" title="statement not covered" >      if (this.allSections().indexOf(section.toLowerCase()) &gt; -1) {</span>
-<span class="cstat-no" title="statement not covered" >        sections[section] = this.section(section, request.getServerContext());</span>
+  private static SECTION_KEYSPACE = 'keyspace';
+  private static SECTION_COMMANDSTATS = 'commandstats';
+  private static SECTION_CPU = 'cpu';
+  private static SECTION_STATS = 'stats';
+  private static SECTION_PERSISTENCE = 'persistence';
+  private static SECTION_MEMORY = 'memory';
+  private static SECTION_CLIENTS = 'clients';
+  private static SECTION_REPLICATION = 'replication';
+  private static SECTION_SERVER = 'server';
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`executeDBRequest(${request}, ${db})`);
+    const sections: any = {};
+    this.logger.debug(`request is ${request.constructor.name}`, request);
+    if (request.getParams().length &gt; 0) {
+      const section = request.getParam(0).toString();
+      if (this.allSections().indexOf(section.toLowerCase()) &gt; -1) {
+        sections[section] = this.section(section, request.getServerContext());
       } else {
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.string(' '));</span>
+        return (RedisToken.string(' '));
       }
     } else {
-<span class="cstat-no" title="statement not covered" >      for (const section of this.allSections()) {</span>
-<span class="cstat-no" title="statement not covered" >        sections[section] = this.section(section, request.getServerContext());</span>
+      for (const section of this.allSections()) {
+        sections[section] = this.section(section, request.getServerContext());
       }
     }
-<span class="cstat-no" title="statement not covered" >    return (RedisToken.string(this.makeString(sections)));</span>
+    return (RedisToken.string(this.makeString(sections)));
   }
-  private <span class="fstat-no" title="function not covered" >allSections(</span>): string[] {
-<span class="cstat-no" title="statement not covered" >    return [InfoCommand.SECTION_SERVER, InfoCommand.SECTION_REPLICATION, InfoCommand.SECTION_CLIENTS,</span>
+  private allSections(): string[] {
+    return [InfoCommand.SECTION_SERVER, InfoCommand.SECTION_REPLICATION, InfoCommand.SECTION_CLIENTS,
     InfoCommand.SECTION_MEMORY, InfoCommand.SECTION_PERSISTENCE, InfoCommand.SECTION_STATS, InfoCommand.SECTION_CPU,
     InfoCommand.SECTION_COMMANDSTATS, InfoCommand.SECTION_KEYSPACE];
   }
-  private <span class="fstat-no" title="function not covered" >section(</span>section: string, ctx: IServerContext): any {
-<span class="cstat-no" title="statement not covered" >    switch (section.toLowerCase()) {</span>
+  private section(section: string, ctx: IServerContext): any {
+    switch (section.toLowerCase()) {
       case InfoCommand.SECTION_SERVER:
-<span class="cstat-no" title="statement not covered" >        return this.server(ctx);</span>
+        return this.server(ctx);
       case InfoCommand.SECTION_CLIENTS:
-<span class="cstat-no" title="statement not covered" >        return this.clients(ctx);</span>
+        return this.clients(ctx);
       case InfoCommand.SECTION_MEMORY:
-<span class="cstat-no" title="statement not covered" >        return this.memory(ctx);</span>
+        return this.memory(ctx);
       case InfoCommand.SECTION_STATS:
       case InfoCommand.SECTION_CPU:
       case InfoCommand.SECTION_COMMANDSTATS:
@@ -337,11 +343,11 @@ import { Database } from '../../data/database';
       case InfoCommand.SECTION_REPLICATION:
       case InfoCommand.SECTION_PERSISTENCE:
       default:
-<span class="cstat-no" title="statement not covered" >        return { section: 'Not Implemented' };</span>
+        return { section: 'Not Implemented' };
     }
   }
-  private <span class="fstat-no" title="function not covered" >server(</span>ctx: IServerContext): any {
-<span class="cstat-no" title="statement not covered" >    return {</span>
+  private server(ctx: IServerContext): any {
+    return {
       server: {
         redis_version: '1.0.1',
         // tslint:disable-next-line
@@ -351,31 +357,31 @@ import { Database } from '../../data/database';
       }
     };
   }
-  private <span class="fstat-no" title="function not covered" >clients(</span>ctx: IServerContext): any {
-<span class="cstat-no" title="statement not covered" >    return { connected_clients: `${ctx.getClients()}` };</span>
+  private clients(ctx: IServerContext): any {
+    return { connected_clients: `${ctx.getClients()}` };
   }
-  private <span class="fstat-no" title="function not covered" >memory(</span>ctx: IServerContext): any {
-<span class="cstat-no" title="statement not covered" >    return { memory_use: process.memoryUsage() };</span>
+  private memory(ctx: IServerContext): any {
+    return { memory_use: process.memoryUsage() };
   }
-  private <span class="fstat-no" title="function not covered" >makeString(</span>sections: any): string {
-    let result = <span class="cstat-no" title="statement not covered" >'';</span>
-<span class="cstat-no" title="statement not covered" >    for (const section of Object.keys(sections)) {</span>
-<span class="cstat-no" title="statement not covered" >      result += `${InfoCommand.SHARP}${section}${InfoCommand.DELIMITER}`;</span>
-<span class="cstat-no" title="statement not covered" >      for (const subkey of Object.keys(sections[section])) {</span>
-<span class="cstat-no" title="statement not covered" >        if (sections[section][subkey].constructor.name === 'String') {</span>
-<span class="cstat-no" title="statement not covered" >          result += `${subkey}${InfoCommand.SEPARATOR}${sections[section][subkey]}${InfoCommand.DELIMITER}`;</span>
+  private makeString(sections: any): string {
+    let result = '';
+    for (const section of Object.keys(sections)) {
+      result += `${InfoCommand.SHARP}${section}${InfoCommand.DELIMITER}`;
+      for (const subkey of Object.keys(sections[section])) {
+        if (sections[section][subkey].constructor.name === 'String') {
+          result += `${subkey}${InfoCommand.SEPARATOR}${sections[section][subkey]}${InfoCommand.DELIMITER}`;
         } else {
           //          result += `${subkey}${InfoCommand.SEPARATOR}`;
-<span class="cstat-no" title="statement not covered" >          for (const sskey of Object.keys(sections[section][subkey])) {</span>
-<span class="cstat-no" title="statement not covered" >            result += `${sskey}${InfoCommand.SEPARATOR}\t${sections[section][subkey][sskey]}${InfoCommand.DELIMITER}`;</span>
+          for (const sskey of Object.keys(sections[section][subkey])) {
+            result += `${sskey}${InfoCommand.SEPARATOR}\t${sections[section][subkey][sskey]}${InfoCommand.DELIMITER}`;
           }
-<span class="cstat-no" title="statement not covered" >          result += `${InfoCommand.DELIMITER}`;</span>
+          result += `${InfoCommand.DELIMITER}`;
         }
       }
-<span class="cstat-no" title="statement not covered" >      result += InfoCommand.DELIMITER;</span>
+      result += InfoCommand.DELIMITER;
     }
-<span class="cstat-no" title="statement not covered" >    result += InfoCommand.DELIMITER;</span>
-<span class="cstat-no" title="statement not covered" >    return result;</span>
+    result += InfoCommand.DELIMITER;
+    return result;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -384,10 +390,9 @@ import { Database } from '../../data/database';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {

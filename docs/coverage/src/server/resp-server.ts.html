@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/90</span>
+                <span class='fraction'>70/90</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>7/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">56.52% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>13/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">77.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/89</span>
+                <span class='fraction'>69/89</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -231,26 +237,26 @@
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L175'></a><a href='#L175'>175</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,19 +264,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,49 +289,49 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">872x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">872x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,53 +339,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -388,10 +394,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -402,29 +408,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">875x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { EventEmitter } from 'events';</span>
-<span class="cstat-no" title="statement not covered" >import * as net from 'net';</span>
-<span class="cstat-no" title="statement not covered" >import * as util from 'util';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../logger';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { EventEmitter } from 'events';
+import * as net from 'net';
+import * as util from 'util';
+import { Logger } from '../logger';
 import { IRespCommand } from '../resp/command/resp-command';
-<span class="cstat-no" title="statement not covered" >import { CommandSuite } from '../resp/processor/command-suite';</span>
-<span class="cstat-no" title="statement not covered" >import { ArrayRedisToken } from '../resp/protocol/array-redis-token';</span>
+import { CommandSuite } from '../resp/processor/command-suite';
+import { ArrayRedisToken } from '../resp/protocol/array-redis-token';
 import { RedisToken } from '../resp/protocol/redis-token';
-<span class="cstat-no" title="statement not covered" >import { RedisTokenType } from '../resp/protocol/redis-token-type';</span>
+import { RedisTokenType } from '../resp/protocol/redis-token-type';
 import { UnknownRedisToken } from '../resp/protocol/unknown-redis-token';
-<span class="cstat-no" title="statement not covered" >import { DefaultRequest } from './default-request';</span>
-<span class="cstat-no" title="statement not covered" >import { DefaultSession } from './default-session';</span>
+import { DefaultRequest } from './default-request';
+import { DefaultSession } from './default-session';
 import { IRequest } from './request';
-<span class="cstat-no" title="statement not covered" >import { RespServerContext } from './resp-server-context';</span>
+import { RespServerContext } from './resp-server-context';
 import { IServerContext } from './server-context';
 import { Session } from './session';
-<span class="cstat-no" title="statement not covered" >export { <span class="cstat-no" title="statement not covered" >s</span>endCommand } from '../client';</span>
+export { <span class="fstat-no" title="function not covered" >sendCommand </span>} from '../client';
 &nbsp;
 /* tslint:disable-next-line */
-const Parser = <span class="cstat-no" title="statement not covered" >require('redis-parser');</span>
+const Parser = require('redis-parser');
 &nbsp;
 /**
  * The redis server.
@@ -432,19 +438,19 @@ const Parser = <span class="cstat-no" title="statement not covered" >require('re
  *
  * Listens, by default, to env.DEFAULT_HOST (localhost) on port env.DEFAULT_PORT (6379)
  */
-<span class="cstat-no" title="statement not covered" >export class R</span>espServer extends EventEmitter {
-  private static <span class="cstat-no" title="statement not covered" >DEFAULT_HOST = process.env.REDIS_HOST || 'localhost';</span>
-  private static <span class="cstat-no" title="statement not covered" >DEFAULT_PORT = process.env.REDIS_PORT ||  6379;</span>
+export class RespServer extends EventEmitter {
+  private static DEFAULT_HOST = process.env.REDIS_HOST || 'localhost';
+  private static DEFAULT_PORT = process.env.REDIS_PORT ||  6379;
 &nbsp;
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  private <span class="cstat-no" title="statement not covered" >server: net.Server = net.createServer();</span>
+  private logger: Logger = new Logger(module.id);
+  private server: net.Server = net.createServer();
   private serverContext: IServerContext;
-<span class="fstat-no" title="function not covered" >  constructor() {</span>
-<span class="cstat-no" title="statement not covered" >    super();</span>
-    const host = <span class="cstat-no" title="statement not covered" >RespServer.DEFAULT_HOST;</span>
-    const port = <span class="cstat-no" title="statement not covered" >Number(RespServer.DEFAULT_PORT);</span>
-    const commandSuite = <span class="cstat-no" title="statement not covered" >new CommandSuite();</span>
-<span class="cstat-no" title="statement not covered" >    this.serverContext = new RespServerContext(host, port, commandSuite);</span>
+  constructor() {
+    super();
+    const host = RespServer.DEFAULT_HOST;
+    const port = Number(RespServer.DEFAULT_PORT);
+    const commandSuite = new CommandSuite();
+    this.serverContext = new RespServerContext(host, port, commandSuite);
   }
   /**
    * Receive the client request, convert it to RESP format,
@@ -455,117 +461,117 @@ const Parser = <span class="cstat-no" title="statement not covered" >require('re
    * @param session The client session (including socket)
    * @param message The client request
    */
-  public <span class="fstat-no" title="function not covered" >receive(</span>session: Session, message: any): void {
+  public receive(session: Session, message: any): void {
     // convert message to RedisToken
-    const parser = <span class="cstat-no" title="statement not covered" >new Parser({</span>
+    const parser = new Parser({
       returnBuffers: false,
       returnError: <span class="fstat-no" title="function not covered" >(e</span>rr: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >        this.logger.warn(`returnError: "%j"`, err);</span>
       },
-      returnReply: <span class="fstat-no" title="function not covered" >async (c</span>ommand: any) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`returnReply: command is ${command}`);</span>
-<span class="cstat-no" title="statement not covered" >        session.setLastCommand(command);</span>
-        const request: IRequest = <span class="cstat-no" title="statement not covered" >this.parseMessage(new ArrayRedisToken(command), session);</span>
+      returnReply: async (command: any) =&gt; {
+        this.logger.debug(`returnReply: command is ${command}`);
+        session.setLastCommand(command);
+        const request: IRequest = this.parseMessage(new ArrayRedisToken(command), session);
         // look up the command in commandsuite
-        const execcommand: IRespCommand = <span class="cstat-no" title="statement not covered" >this.serverContext.getCommand(request.getCommand());</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Executing command "${request.getCommand()}"`);</span>
-        const resultToken = <span class="cstat-no" title="statement not covered" >await execcommand.execSync(request);</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Response from "${request.getCommand()}, ${request.getParams()}" is %s`, resultToken);</span>
+        const execcommand: IRespCommand = this.serverContext.getCommand(request.getCommand());
+        this.logger.debug(`Executing command "${request.getCommand()}"`);
+        const resultToken = await execcommand.execSync(request);
+        this.logger.debug(`Response from "${request.getCommand()}, ${request.getParams()}" is %s`, resultToken);
         // send the result back to the client
-<span class="cstat-no" title="statement not covered" >        session.publish(resultToken);</span>
+        session.publish(resultToken);
       },
       stringNumbers: true
     });
-<span class="cstat-no" title="statement not covered" >    parser.execute(message);</span>
+    parser.execute(message);
   }
   /**
    * start the redis server
    */
-  public <span class="fstat-no" title="function not covered" >start(</span>): void {
-<span class="cstat-no" title="statement not covered" >    this.server.on('listening', <span class="fstat-no" title="function not covered" >(l</span>istener: any) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.server.on('connection', <span class="fstat-no" title="function not covered" >(s</span>ocket: net.Socket) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`\n\nCONNECTION\n\n`);</span>
-<span class="cstat-no" title="statement not covered" >        this.registerConnection(socket);</span>
+  public start(): void {
+    this.server.on('listening', (listener: any) =&gt; {
+      this.server.on('connection', (socket: net.Socket) =&gt; {
+        this.logger.debug(`\n\nCONNECTION\n\n`);
+        this.registerConnection(socket);
       });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.emit('ready');</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.info(`redis-server: Listening on ${this.serverContext.getHost()}:${this.serverContext.getPort()}`);</span>
+      this.emit('ready');
+      this.logger.info(`redis-server: Listening on ${this.serverContext.getHost()}:${this.serverContext.getPort()}`);
     });
-<span class="cstat-no" title="statement not covered" >    this.server.listen(this.serverContext.getPort(), this.serverContext.getHost());</span>
+    this.server.listen(this.serverContext.getPort(), this.serverContext.getHost());
   }
   /**
    * stop the redis server
    */
-  public async <span class="fstat-no" title="function not covered" >stop(</span>) {
-<span class="cstat-no" title="statement not covered" >    this.logger.info(`redis-server: Shutting down`);</span>
-<span class="cstat-no" title="statement not covered" >    await this.server.close();</span>
-<span class="cstat-no" title="statement not covered" >    this.emit('closed');</span>
+  public async stop() {
+    this.logger.info(`redis-server: Shutting down`);
+    await this.server.close();
+    this.emit('closed');
   }
   /**
    * Register a client socket connection
    * @param socket client socket
    */
-  private <span class="fstat-no" title="function not covered" >registerConnection(</span>socket: net.Socket | any) {
+  private registerConnection(socket: net.Socket | any) {
     // Generate the socketId
-    const key = <span class="cstat-no" title="statement not covered" >`${socket.remoteAddress}:${socket.remotePort}`;</span>
+    const key = `${socket.remoteAddress}:${socket.remotePort}`;
     let newSession: Session;
-<span class="cstat-no" title="statement not covered" >    if (!!socket.id) {</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!!socket.id) {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`FOUND SESSION: ${socket.id}`);</span>
 <span class="cstat-no" title="statement not covered" >      newSession = this.serverContext.getClients().get(socket.id);</span>
     } else {
-      (<span class="cstat-no" title="statement not covered" >socket as net.Socket).setKeepAlive(true);</span>
-<span class="cstat-no" title="statement not covered" >      newSession = new DefaultSession(key, socket);</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.info(`registering connection ${newSession.getId()}`);</span>
-<span class="cstat-no" title="statement not covered" >      newSession.putValue('ID', newSession.getId());</span>
-<span class="cstat-no" title="statement not covered" >      socket.id = newSession.getId();</span>
-<span class="cstat-no" title="statement not covered" >      this.serverContext.addClient(newSession.getId(), newSession);</span>
+      (socket as net.Socket).setKeepAlive(true);
+      newSession = new DefaultSession(key, socket);
+      this.logger.info(`registering connection ${newSession.getId()}`);
+      newSession.putValue('ID', newSession.getId());
+      socket.id = newSession.getId();
+      this.serverContext.addClient(newSession.getId(), newSession);
     }
-<span class="cstat-no" title="statement not covered" >    socket.on('close', <span class="fstat-no" title="function not covered" >(h</span>adError: boolean) =&gt; {</span>
+    socket.on('close', <span class="fstat-no" title="function not covered" >(h</span>adError: boolean) =&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`Closing socket ${socket.id}`);</span>
 <span class="cstat-no" title="statement not covered" >      this.serverContext.removeClient(socket.id);</span>
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET CLOSE: ERROR ${hadError}`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on('data', <span class="fstat-no" title="function not covered" >(c</span>hunk: any) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Receive message from ${socket.id}`);</span>
-<span class="cstat-no" title="statement not covered" >      this.receive(newSession, chunk);</span>
+    socket.on('data', (chunk: any) =&gt; {
+      this.logger.debug(`Receive message from ${socket.id}`);
+      this.receive(newSession, chunk);
     });
-<span class="cstat-no" title="statement not covered" >    socket.on('connect', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on('connect', <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`THE SOCKET IS CONNECTED`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on('drain', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on('drain', <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET DRAIN`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on(`end`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on(`end`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET END`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on(`error`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on(`error`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET ERROR`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on(`ready`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on(`ready`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET READY`);</span>
     });
-<span class="cstat-no" title="statement not covered" >    socket.on(`timeout`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+    socket.on(`timeout`, <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      this.logger.debug(`SOCKET TIMEOUT`);</span>
     });
   }
 &nbsp;
-  private <span class="fstat-no" title="function not covered" >parseMessage(</span>message: ArrayRedisToken, session: Session): IRequest {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${session.getId()}: parseMessage `, util.inspect(message));</span>
-<span class="cstat-no" title="statement not covered" >    switch (message.getType()) {</span>
+  private parseMessage(message: ArrayRedisToken, session: Session): IRequest {
+    this.logger.debug(`${session.getId()}: parseMessage `, util.inspect(message));
+    switch (message.getType()) {
       case RedisTokenType.ARRAY:
-<span class="cstat-no" title="statement not covered" >        return this.parseArray(message, session);</span>
-      case RedisTokenType.UNKNOWN:
+        return this.parseArray(message, session);
+<span class="branch-1 cbranch-no" title="branch not covered" >      case RedisTokenType.UNKNOWN:</span>
 <span class="cstat-no" title="statement not covered" >        return this.parseLine(message as any as UnknownRedisToken, session);</span>
-      default:
+<span class="branch-2 cbranch-no" title="branch not covered" >      default:</span>
 <span class="cstat-no" title="statement not covered" >        this.logger.warn(`Found RedisTokenType: ${message.getType()}`);</span>
 <span class="cstat-no" title="statement not covered" >        return new DefaultRequest(this.serverContext, session, message.toString(), []);</span>
     }
   }
-  private <span class="fstat-no" title="function not covered" >parseArray(</span>message: ArrayRedisToken, session: Session): DefaultRequest {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`parseArray(${message}, ${session.getId()})`);</span>
-    const params: string[] = <span class="cstat-no" title="statement not covered" >this.toParams(message);</span>
-    const command: string = <span class="cstat-no" title="statement not covered" >params.shift() || '';</span>
-<span class="cstat-no" title="statement not covered" >    return new DefaultRequest(this.serverContext, session, command, params);</span>
+  private parseArray(message: ArrayRedisToken, session: Session): DefaultRequest {
+    this.logger.debug(`parseArray(${message}, ${session.getId()})`);
+    const params: string[] = this.toParams(message);
+    const command: string = params.shift() || <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+    return new DefaultRequest(this.serverContext, session, command, params);
   }
   private <span class="fstat-no" title="function not covered" >parseLine(</span>message: UnknownRedisToken, session: Session): DefaultRequest {
     const command: string = <span class="cstat-no" title="statement not covered" >message.getValue();</span>
@@ -575,8 +581,8 @@ const Parser = <span class="cstat-no" title="statement not covered" >require('re
     }
 <span class="cstat-no" title="statement not covered" >    return new DefaultRequest(this.serverContext, session, params[0].toString(), params);</span>
   }
-  private <span class="fstat-no" title="function not covered" >toParams(</span>message: ArrayRedisToken): string[] {
-<span class="cstat-no" title="statement not covered" >    return message.getValue();</span>
+  private toParams(message: ArrayRedisToken): string[] {
+    return message.getValue();
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -585,10 +591,9 @@ const Parser = <span class="cstat-no" title="statement not covered" >require('re
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {

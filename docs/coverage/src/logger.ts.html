@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,7 +120,7 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,52 +132,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11914x</span>
+<span class="cline-any cline-yes">11914x</span>
+<span class="cline-any cline-yes">11913x</span>
+<span class="cline-any cline-yes">11913x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11913x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11914x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4748x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11914x</span>
+<span class="cline-any cline-yes">24661x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11914x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">29483x</span>
+<span class="cline-any cline-yes">4822x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24661x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29483x</span>
+<span class="cline-any cline-yes">4995x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24488x</span>
+<span class="cline-any cline-yes">1175x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as util from 'util';</span>
+<span class="cline-any cline-yes">29483x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as util from 'util';
 /**
  * A simple logger.  Supports info, and warn without any configuration
  *
@@ -183,49 +189,49 @@
  * ```
  *
  */
-<span class="cstat-no" title="statement not covered" >export class L</span>ogger {
+export class Logger {
   private logger: (msg: string, ...param: any[]) =&gt; void;
   /**
    * Initialize a logger
    * @param modname Should always be the value module.id
    */
-<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >m</span>odname: string)</span> {
-<span class="cstat-no" title="statement not covered" >    if (this.modname) {</span>
-<span class="cstat-no" title="statement not covered" >      this.modname = this.modname.split(/\//).pop() || this.modname;</span>
-<span class="cstat-no" title="statement not covered" >      this.modname = this.modname.substring(0, this.modname.lastIndexOf('.'));</span>
+  constructor(public modname: string) {
+    if (this.modname) {
+      this.modname = this.modname.split(/\//).pop() || <span class="branch-1 cbranch-no" title="branch not covered" >this.modname;</span>
+      this.modname = this.modname.substring(0, this.modname.lastIndexOf('.'));
     } else {
-<span class="cstat-no" title="statement not covered" >      throw new Error('You must initialize the logger with module.id');</span>
+      throw new Error('You must initialize the logger with module.id');
     }
-<span class="cstat-no" title="statement not covered" >    this.logger = util.debuglog(this.modname);</span>
+    this.logger = util.debuglog(this.modname);
   }
-  public <span class="cstat-no" title="statement not covered" >info = <span class="fstat-no" title="function not covered" >(m</span>essage: string, ...args: any[]) =&gt; {</span>
+  public info = (message: string, ...args: any[]) =&gt; {
     // tslint:disable-next-line
-<span class="cstat-no" title="statement not covered" >    console.info(this.format('info', message, true, args));</span>
+    console.info(this.format('info', message, true, args));
   }
-  public <span class="cstat-no" title="statement not covered" >debug = <span class="fstat-no" title="function not covered" >(m</span>essage: string, ...args: any[]) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    this.logger(this.format('debug', message, false, args));</span>
+  public debug = (message: string, ...args: any[]) =&gt; {
+    this.logger(this.format('debug', message, false, args));
   }
-  public <span class="cstat-no" title="statement not covered" >warn = <span class="fstat-no" title="function not covered" >(m</span>essage: string, ...args: any[]) =&gt; {</span>
+  public warn = (message: string, ...args: any[]) =&gt; {
     // tslint:disable-next-line
-<span class="cstat-no" title="statement not covered" >    console.warn(this.format('warn', message, true, args));</span>
+    console.warn(this.format('warn', message, true, args));
   }
-  private <span class="fstat-no" title="function not covered" >format(</span>level: string, message: string, showName: boolean, args: any[]): string {
+  private format(level: string, message: string, showName: boolean, args: any[]): string {
     let formatString;
-<span class="cstat-no" title="statement not covered" >    if (showName) {</span>
-<span class="cstat-no" title="statement not covered" >      formatString = util.format(</span>
+    if (showName) {
+      formatString = util.format(
         '%s %d: %s - [%s] - %s', this.modname.toUpperCase(),
         process.pid, new Date().toISOString(), level, message);
     } else {
-<span class="cstat-no" title="statement not covered" >      formatString = util.format('%s - [%s] - %s', new Date().toISOString(), level, message);</span>
+      formatString = util.format('%s - [%s] - %s', new Date().toISOString(), level, message);
     }
-<span class="cstat-no" title="statement not covered" >    if (/%s/gm.test(formatString)) {</span>
-<span class="cstat-no" title="statement not covered" >      formatString = util.format(formatString, args);</span>
+    if (/%s/gm.test(formatString)) {
+      formatString = util.format(formatString, args);
     } else {
-<span class="cstat-no" title="statement not covered" >      if (/%j/gm.test(formatString)) {</span>
-<span class="cstat-no" title="statement not covered" >        formatString = util.format(formatString, util.inspect(args));</span>
+      if (/%j/gm.test(formatString)) {
+        formatString = util.format(formatString, util.inspect(args));
       }
     }
-<span class="cstat-no" title="statement not covered" >    return formatString;</span>
+    return formatString;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -234,10 +240,9 @@
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../prettify.js"></script>
         <script>
             window.onload = function () {

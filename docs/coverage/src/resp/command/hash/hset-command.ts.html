@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/37</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,16 +132,14 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,56 +157,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
+import { Logger } from '../../../logger';
 import { IRequest } from '../../../server/request';
-<span class="cstat-no" title="statement not covered" >import { DataType } from '../../data/data-type';</span>
+import { DataType } from '../../data/data-type';
 import { Database } from '../../data/database';
-<span class="cstat-no" title="statement not covered" >import { DatabaseValue } from '../../data/database-value';</span>
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+import { DatabaseValue } from '../../data/database-value';
+import { RedisToken } from '../../protocol/redis-token';
+import { IRespCommand } from '../resp-command';
 &nbsp;
 /**
  * Available since v2.0.0
@@ -222,45 +228,45 @@ import { Database } from '../../data/database';
 @MaxParams(-1)
 @MinParams(3)
 @Name('hset')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >H</span>setCommand </span>extends IRespCommand {</span></span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
+export class HsetCommand extends IRespCommand {
+  private logger: Logger = new Logger(module.id);
+  public execSync(request: IRequest, db: Database): RedisToken {
+    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
     // params() must be an odd number
-<span class="cstat-no" title="statement not covered" >    if (request.getParams().length % 2 !== 1) {</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.error('ERR wrong number of arguments for hset'));</span>
+    if (request.getParams().length % 2 !== 1) {
+      return (RedisToken.error('ERR wrong number of arguments for hset'));
     } else {
       // Get the original HASH
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Getting database key ${request.getParam(0)}`);</span>
-      let item: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(request.getParam(0));</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`ITEM is ${item}`, item);</span>
-      let fieldsAdded: number = <span class="cstat-no" title="statement not covered" >0;</span>
-<span class="cstat-no" title="statement not covered" >      if (!item) {</span>
-<span class="cstat-no" title="statement not covered" >        item = new DatabaseValue(DataType.HASH, {});</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Instantiated new EMPTY_HASH`, item);</span>
+      this.logger.debug(`Getting database key ${request.getParam(0)}`);
+      let item: DatabaseValue = db.get(request.getParam(0));
+      this.logger.debug(`ITEM is ${item}`, item);
+      let fieldsAdded: number = 0;
+      if (!item) {
+        item = new DatabaseValue(DataType.HASH, {});
+        this.logger.debug(`Instantiated new EMPTY_HASH`, item);
       }
-      const hash = <span class="cstat-no" title="statement not covered" >item.getHash();</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Hash is `, item);</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Processing ${request.getParams().length} params`);</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));</span>
-<span class="cstat-no" title="statement not covered" >      for (let index = <span class="cstat-no" title="statement not covered" >1;</span> index &lt; request.getParams().length; index += 2) {</span>
-        const field = <span class="cstat-no" title="statement not covered" >request.getParam(index);</span>
-        const value = <span class="cstat-no" title="statement not covered" >request.getParam(index + 1);</span>
-<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Got field ${field} with value ${value}`);</span>
-<span class="cstat-no" title="statement not covered" >        if (!hash[field]) {</span>
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(`Adding field ${field}`);</span>
-<span class="cstat-no" title="statement not covered" >          ++fieldsAdded;</span>
+      const hash = item.getHash();
+      this.logger.debug(`Hash is `, item);
+      this.logger.debug(`Processing ${request.getParams().length} params`);
+      this.logger.debug(`hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
+      for (let index = 1; index &lt; request.getParams().length; index += 2) {
+        const field = request.getParam(index);
+        const value = request.getParam(index + 1);
+        this.logger.debug(`Got field ${field} with value ${value}`);
+        if (!hash[field]) {
+          this.logger.debug(`Adding field ${field}`);
+          ++fieldsAdded;
         } else {
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);</span>
+          this.logger.debug(`Replacing field ${field} - was ${hash[field]}`);
         }
-<span class="cstat-no" title="statement not covered" >        hash[field] = value;</span>
+        hash[field] = value;
       }
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));</span>
+      this.logger.debug(`NOW hash has ${Object.keys(hash).length} key(s)`, Object.keys(hash));
       // If the has already had an expiredAt value it might have been replaced here
       // TODO: Create a special key (applicable to all DatabaseValue types) to
       // segregate admin values from public scrutiny.  Until then ...
-<span class="cstat-no" title="statement not covered" >      db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.integer(fieldsAdded));</span>
+      db.put(request.getParam(0), new DatabaseValue(DataType.HASH, hash));
+      return (RedisToken.integer(fieldsAdded));
     }
   }
 }
@@ -270,10 +276,9 @@ import { Database } from '../../data/database';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Feb 02 2020 16:34:59 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-07T23:09:02.773Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
