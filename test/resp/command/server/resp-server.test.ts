@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import { RespServer } from '../../../../src/server/resp-server';
 import { sendCommand } from '../../../common.test';
 
-describe('resp-server test', () => {
+describe.only('resp-server test', () => {
   let respServer: RespServer;
   let client: net.Socket;
   beforeEach(() => {
@@ -52,6 +52,27 @@ describe('resp-server test', () => {
           fail(`Unexpected error during connection`, err.stack);
         })
         client.connect(Number(process.env.REDIS_PORT || 6379), process.env.REDIS_HOST || 'localhost', () => {
+        });
+      });
+      respServer.start();
+    });
+    it('should accept connections on alternate ${env.REDIS_PORT}', (done) => {
+      process.env.REDIS_PORT = "1234";
+      respServer = new RespServer();
+      respServer.on('ready', () => {
+        const client = new net.Socket();
+        client.on('ready', (data: any) => {
+          respServer.on('closed', () => {
+            done();
+          })
+          respServer.stop();
+        });
+        client.on('connect', (data: any) => {
+        });
+        client.on('error', (err) => {
+          fail(`Unexpected error during connection`, err.stack);
+        })
+        client.connect(Number(process.env.REDIS_PORT), process.env.REDIS_HOST || 'localhost', () => {
         });
       });
       respServer.start();
