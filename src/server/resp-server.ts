@@ -37,7 +37,7 @@ export class RespServer extends EventEmitter {
     const host = RespServer.DEFAULT_HOST;
     const port = Number(RespServer.DEFAULT_PORT);
     const commandSuite = new CommandSuite();
-    console.warn(`\tPORT is ${port}`);
+    // console.warn(`\tPORT is ${port}`);
     this.serverContext = new RespServerContext(host, port, commandSuite);
   }
   /**
