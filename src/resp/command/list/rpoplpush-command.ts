@@ -1,11 +1,12 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * ### Available since 1.2.0.
  * ### RPOPLPUSH source destination
@@ -77,40 +78,63 @@ import { IRespCommand } from '../resp-command';
  * a message is lost the item is still in the queue and will be processed at the next iteration.
  */
 @DbDataType(DataType.LIST)
-@MaxParams(2)
-@MinParams(2)
-@Name('rpoplpush')
+@maxParams(2)
+@minParams(2)
+@name("rpoplpush")
 export class RPoplPushCommand extends IRespCommand {
   protected logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken>  {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    return (this.process(request, db));
+
+  public execSync(request: IRequest, db: Database): RedisToken | Promise<RedisToken> {
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      return this.process(
+          request,
+          db
+      );
   }
+
   protected process(request: IRequest, db: Database): RedisToken {
-    const src: string = request.getParam(0);
-    const dst: string = request.getParam(1);
-    this.logger.debug(`process(src: ${src}, dst: ${dst})`);
-    const dbSrcList: DatabaseValue = db.get(src);
-    if (!dbSrcList) {
-      this.logger.debug(`src list is empty`);
-      return (RedisToken.nullString());
-    } else {
-      const dbDstList: DatabaseValue = db.getOrDefault(dst, new DatabaseValue(DataType.LIST, []));
-      this.logger.debug(`src list is %s`, dbDstList.getList());
+      const src: string = request.getParam(0),
+          dst: string = request.getParam(1);
+      this.logger.debug(`process(src: ${src}, dst: ${dst})`);
+      const dbSrcList: DatabaseValue = db.get(src);
+      if (!dbSrcList) {
+          this.logger.debug("src list is empty");
+          return RedisToken.nullString();
+      }
+
+      const dbDstList: DatabaseValue = db.getOrDefault(
+          dst,
+          new DatabaseValue(
+              DataType.LIST,
+              []
+          )
+      );
+      this.logger.debug(
+          "src list is %s",
+          dbDstList.getList()
+      );
       const member: any = dbSrcList.getList().pop();
       this.logger.debug(`Member is ${member}`);
       dbDstList.getList().unshift(member);
-      db.put(dst, dbDstList);
+      db.put(
+          dst,
+          dbDstList
+      );
       // Fire events on dst?
       if (dst !== src) {
-        if (dbSrcList.getList().length > 0) {
-          db.put(src, dbSrcList);
-          // fire events on src?
-        } else {
-          db.remove(src);
-        }
+          if (dbSrcList.getList().length > 0) {
+              db.put(
+                  src,
+                  dbSrcList
+              );
+              // Fire events on src?
+          } else {
+              db.remove(src);
+          }
       }
-      return (RedisToken.string(member));
-    }
+      return RedisToken.string(member);
   }
 }

@@ -1,11 +1,11 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
 
 /**
  * ### Available since 2.0.0
@@ -17,24 +17,28 @@ import { IRespCommand } from '../resp-command';
  * present in the hash or key does not exist.
  */
 @DbDataType(DataType.HASH)
-@MaxParams(2)
-@MinParams(2)
-@Name('hget')
+@maxParams(2)
+@minParams(2)
+@name("hget")
 export class HgetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    // Get the original HASH
-    const item: DatabaseValue = db.get(request.getParam(0));
-    if (!item) {
-      return (RedisToken.nullString());
-    } else {
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      // Get the original HASH
+      const item: DatabaseValue = db.get(request.getParam(0));
+      if (!item) {
+          return RedisToken.nullString();
+      }
+
       const hash = item.getHash();
       if (!hash[request.getParam(1)]) {
-        return (RedisToken.nullString());
-      } else {
-        return (RedisToken.string(hash[request.getParam(1)]));
+          return RedisToken.nullString();
       }
-    }
+
+      return RedisToken.string(hash[request.getParam(1)]);
   }
 }

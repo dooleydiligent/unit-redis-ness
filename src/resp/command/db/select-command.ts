@@ -1,9 +1,10 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { maxParams, minParams, name } from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {Database} from "../../data/database";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * ### Available since 1.0.0.
  * ### SELECT index
@@ -40,28 +41,32 @@ import { IRespCommand } from '../resp-command';
  * Return value
  * Simple string reply
  */
-@MaxParams(1)
-@MinParams(1)
-@Name('select')
+@maxParams(1)
+@minParams(1)
+@name("select")
 export class SelectCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const id: any = Number(request.getParam(0));
-    this.logger.debug(`DB Index is ${id}`);
-    if (isNaN(id)) {
-      return (RedisToken.error('ERR invalid DB index'));
-    } else {
-      if (id > -1) {
-        if (id < 16) {
-          request.getSession().setCurrentDb(id);
-        } else {
-          return (RedisToken.error('ERR DB index is out of range'));
-        }
-      } else {
-        return (RedisToken.error('ERR DB index is out of range'));
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      const id: any = Number(request.getParam(0));
+      this.logger.debug(`DB Index is ${id}`);
+      if (isNaN(id)) {
+          return RedisToken.error("ERR invalid DB index");
       }
-      return (RedisToken.responseOk());
-    }
+
+      if (id > -1) {
+          if (id < 16) {
+              request.getSession().setCurrentDb(id);
+          } else {
+              return RedisToken.error("ERR DB index is out of range");
+          }
+      } else {
+          return RedisToken.error("ERR DB index is out of range");
+      }
+      return RedisToken.responseOk();
   }
 }

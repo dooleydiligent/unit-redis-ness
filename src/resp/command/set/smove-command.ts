@@ -1,11 +1,12 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * Available since 1.0.0.
  *
@@ -29,38 +30,75 @@ import { IRespCommand } from '../resp-command';
  * 0 if the element is not a member of source and no operation was performed.
  */
 @DbDataType(DataType.SET)
-@MaxParams(3)
-@MinParams(3)
-@Name('smove')
+@maxParams(3)
+@minParams(3)
+@name("smove")
 export class SMoveCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const skeyFrom: string = request.getParam(0);
-    const skeyTo: string = request.getParam(1);
-    const skeyName: string = request.getParam(2);
-    const dbFrom: DatabaseValue = db.getOrDefault(skeyFrom, new DatabaseValue(DataType.SET, new Set()));
-    const dbTo: DatabaseValue = db.getOrDefault(skeyTo, new DatabaseValue(DataType.SET, new Set()));
-    let result = 0;
-    if (dbFrom.getSet().has(skeyName)) {
-      this.logger.debug(`deleting ${skeyFrom}.${skeyName} from %j`, dbFrom.getSet().entries());
-      dbFrom.getSet().delete(skeyName);
-      this.logger.debug(`after delete, ${skeyFrom} is %j`, dbFrom.getSet().entries());
-      if (!dbTo.getSet().has(skeyName)) {
-        this.logger.debug(`adding ${skeyTo}.${skeyName} to %j`, dbTo.getSet().entries());
-        dbTo.getSet().add(skeyName);
-        this.logger.debug(`saving ${skeyTo} %j`, dbTo.getSet().entries());
-        db.put(skeyTo, DatabaseValue.set(dbTo.getSet()));
-        result = 1;
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      const skeyFrom: string = request.getParam(0),
+          skeyTo: string = request.getParam(1),
+          skeyName: string = request.getParam(2),
+          dbFrom: DatabaseValue = db.getOrDefault(
+              skeyFrom,
+              new DatabaseValue(
+                  DataType.SET,
+                  new Set()
+              )
+          ),
+          dbTo: DatabaseValue = db.getOrDefault(
+              skeyTo,
+              new DatabaseValue(
+                  DataType.SET,
+                  new Set()
+              )
+          );
+      let result = 0;
+      if (dbFrom.getSet().has(skeyName)) {
+          this.logger.debug(
+              `deleting ${skeyFrom}.${skeyName} from %j`,
+              dbFrom.getSet().entries()
+          );
+          dbFrom.getSet().delete(skeyName);
+          this.logger.debug(
+              `after delete, ${skeyFrom} is %j`,
+              dbFrom.getSet().entries()
+          );
+          if (!dbTo.getSet().has(skeyName)) {
+              this.logger.debug(
+                  `adding ${skeyTo}.${skeyName} to %j`,
+                  dbTo.getSet().entries()
+              );
+              dbTo.getSet().add(skeyName);
+              this.logger.debug(
+                  `saving ${skeyTo} %j`,
+                  dbTo.getSet().entries()
+              );
+              db.put(
+                  skeyTo,
+                  DatabaseValue.set(dbTo.getSet())
+              );
+              result = 1;
+          } else {
+              this.logger.debug(`${skeyTo}.${skeyName} already exists`);
+              result = 1;
+          }
+          this.logger.debug(
+              `saving ${skeyFrom} %j`,
+              dbFrom.getSet().entries()
+          );
+          db.put(
+              skeyFrom,
+              DatabaseValue.set(dbFrom.getSet())
+          );
       } else {
-        this.logger.debug(`${skeyTo}.${skeyName} already exists`);
-        result = 1;
+          this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);
       }
-      this.logger.debug(`saving ${skeyFrom} %j`, dbFrom.getSet().entries());
-      db.put(skeyFrom, DatabaseValue.set(dbFrom.getSet()));
-    } else {
-      this.logger.debug(`Did not find ${skeyFrom}.${skeyName}`);
-    }
-    return (RedisToken.integer(result));
+      return RedisToken.integer(result);
   }
 }

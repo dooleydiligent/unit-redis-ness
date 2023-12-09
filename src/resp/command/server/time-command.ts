@@ -1,7 +1,7 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
-import { IRequest } from '../../../server/request';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { maxParams, minParams, name } from "../../../decorators";
+import {IRequest} from "../../../server/request";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
 
 /**
  * Available since v2.6.0
@@ -14,16 +14,15 @@ import { IRespCommand } from '../resp-command';
  * unix time in seconds.
  * microseconds.
  */
-@MaxParams(0)
-@MinParams(0)
-@Name('time')
+@maxParams(0)
+@minParams(0)
+@name("time")
 export class TimeCommand extends IRespCommand {
-  public execSync(request: IRequest): RedisToken {
-    const currentTime: number[] = process.hrtime();
-    return (RedisToken.array(
-      [
-        RedisToken.string(String(currentTime[0])),
-        RedisToken.string(String(currentTime[1]))
-      ]));
-  }
+    public execSync(request: IRequest): RedisToken {
+        const currentTime: number[] = process.hrtime();
+        return RedisToken.array([
+            RedisToken.string(String(currentTime[0])),
+            RedisToken.string(String(currentTime[1]))
+        ]);
+    }
 }

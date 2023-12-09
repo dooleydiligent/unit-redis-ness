@@ -1,12 +1,13 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { SortedSet } from '../../data/sorted-set';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {SortedSet} from "../../data/sorted-set";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * ### Available since 1.0.5.
  * ### ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
@@ -67,112 +68,137 @@ import { IRespCommand } from '../resp-command';
  * ```
  */
 @DbDataType(DataType.ZSET)
-@MaxParams(7)
-@MinParams(3)
-@Name('zrangebyscore')
+@maxParams(7)
+@minParams(3)
+@name("zrangebyscore")
 export class ZRangeByScoreCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const zkey: string = request.getParam(0);
-    this.logger.debug(`Zkey is ${zkey}`);
-    let min: any = String(request.getParam(1)).toLowerCase();
-    this.logger.debug(`min is ${min}`);
-    let max: any = String(request.getParam(2)).toLowerCase();
-    this.logger.debug(`max is ${max}`);
-    let withScores: boolean = false;
-    let minExclusive: boolean = false;
-    let maxExclusive: boolean = false;
-    if (min.startsWith('(')) {
-      minExclusive = true;
-      min = min.substring(1);
-      this.logger.debug(`Setting minExclusive.`);
-    }
-    if (max.startsWith('(')) {
-      maxExclusive = true;
-      max = max.substring(1);
-      this.logger.debug(`Setting maxExclusive.`);
-    }
-    if (min === '-inf') {
-      min = -Infinity;
-    } else {
-      if (min === '+inf' || min === 'inf') {
-        min = +Infinity;
-      } else {
-        min = Number(min);
-      }
-    }
-    this.logger.debug(`min is now ${min}`);
-    if (isNaN(min)) {
-      return RedisToken.error(`ERR min or max is not a float`);
-    }
-    if (max === '-inf') {
-      max = -Infinity;
-    } else {
-      if (max === '+inf' || max === 'inf') {
-        max = +Infinity;
-      } else {
-        max = Number(max);
-      }
-    }
-    this.logger.debug(`max is now ${max}`);
-    if (isNaN(max)) {
-      return RedisToken.error(`ERR min or max is not a float`);
-    }
-    let offset: number = 0;
-    let count: any = '';
-    if (request.getParams().length >= 4) {
-      if (request.getParam(3).toLowerCase() === 'withscores') {
-        this.logger.debug(`Set WITHSCORES`);
-        withScores = true;
-      }
-      if (!withScores || request.getParams().length >= 5) {
-        if (request.getParam(withScores ? 4 : 3).toLowerCase() !== 'limit') {
-          this.logger.debug(`Param ${withScores ? 4 : 3} is ${request.getParam(withScores ? 4 : 3)}`);
-          return RedisToken.error(`ERR syntax error`);
-        }
-        if (request.getParams().length - (withScores ? 4 : 3) > 0) {
-          if (request.getParams().length - (withScores ? 4 : 3) !== 3) {
-            this.logger.debug(`Param count is ${request.getParams().length}`);
-            return RedisToken.error(`ERR syntax error`);
-          }
-          offset = Number(request.getParam(request.getParams().length - 2));
-          count = Number(request.getParam(request.getParams().length - 1));
-          if (isNaN(offset) || isNaN(count)) {
-            this.logger.debug(`offset is ${offset}, count is ${count}`);
-            return RedisToken.error(`ERR value is not an integer or out of range`);
-          }
-        }
-      }
-    }
 
-    const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-    if (count === '') {
-      count = dbKey.getSortedSet().length;
-    }
-    const scores: any[] = [];
-    const options: any = {
-      maxExclusive,
-      minExclusive,
-      withScores
-    };
-    const set: any[] = dbKey.getSortedSet().rangeByScore(Number(min), Number(max), options);
-    for (let index = offset; index < (count < 0 ? set.length : offset + count); index++) {
-      if (index >= set.length) {
-        break;
+  public execSync(request: IRequest, db: Database): RedisToken {
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      const zkey: string = request.getParam(0);
+      this.logger.debug(`Zkey is ${zkey}`);
+      let min: any = String(request.getParam(1)).toLowerCase();
+      this.logger.debug(`min is ${min}`);
+      let max: any = String(request.getParam(2)).toLowerCase();
+      this.logger.debug(`max is ${max}`);
+      let maxExclusive: boolean = false,
+          minExclusive: boolean = false,
+          withScores: boolean = false;
+      if (min.startsWith("(")) {
+          minExclusive = true;
+          min = min.substring(1);
+          this.logger.debug("Setting minExclusive.");
       }
-      if (set[index].constructor.name === 'Array') {
-        this.logger.debug(`pushing ${set[index][0]}, ${set[index][1]}}`);
-        scores.push(
-          RedisToken.string(set[index][0]),
-          RedisToken.string(set[index][1])
-        );
+      if (max.startsWith("(")) {
+          maxExclusive = true;
+          max = max.substring(1);
+          this.logger.debug("Setting maxExclusive.");
+      }
+      if (min === "-inf") {
+          min = -Infinity;
+      } else if (min === "+inf" || min === "inf") {
+          min = Number(Infinity);
       } else {
-        scores.push(RedisToken.string(set[index]));
+          min = Number(min);
       }
-    }
-    const finalValues = RedisToken.array(scores);
-    this.logger.debug(`Returning array %s`, finalValues);
-    return (finalValues);
+      this.logger.debug(`min is now ${min}`);
+      if (isNaN(min)) {
+          return RedisToken.error("ERR min or max is not a float");
+      }
+      if (max === "-inf") {
+          max = -Infinity;
+      } else if (max === "+inf" || max === "inf") {
+          max = Number(Infinity);
+      } else {
+          max = Number(max);
+      }
+      this.logger.debug(`max is now ${max}`);
+      if (isNaN(max)) {
+          return RedisToken.error("ERR min or max is not a float");
+      }
+      let count: any = "",
+          offset: number = 0;
+      if (request.getParams().length >= 4) {
+          if (request.getParam(3).toLowerCase() === "withscores") {
+              this.logger.debug("Set WITHSCORES");
+              withScores = true;
+          }
+          if (!withScores || request.getParams().length >= 5) {
+              if (request.getParam(withScores
+                  ? 4
+                  : 3).toLowerCase() !== "limit") {
+                  this.logger.debug(`Param ${withScores
+                      ? 4
+                      : 3} is ${request.getParam(withScores
+                      ? 4
+                      : 3)}`);
+                  return RedisToken.error("ERR syntax error");
+              }
+              if (request.getParams().length - (withScores
+                  ? 4
+                  : 3) > 0) {
+                  if (request.getParams().length - (withScores
+                      ? 4
+                      : 3) !== 3) {
+                      this.logger.debug(`Param count is ${request.getParams().length}`);
+                      return RedisToken.error("ERR syntax error");
+                  }
+                  offset = Number(request.getParam(request.getParams().length - 2));
+                  count = Number(request.getParam(request.getParams().length - 1));
+                  if (isNaN(offset) || isNaN(count)) {
+                      this.logger.debug(`offset is ${offset}, count is ${count}`);
+                      return RedisToken.error("ERR value is not an integer or out of range");
+                  }
+              }
+          }
+      }
+
+      const dbKey: DatabaseValue = db.getOrDefault(
+          zkey,
+          new DatabaseValue(
+              DataType.ZSET,
+              new SortedSet()
+          )
+      );
+      if (count === "") {
+          count = dbKey.getSortedSet().length;
+      }
+      const scores: any[] = [],
+          options: any = {
+              maxExclusive,
+              minExclusive,
+              withScores
+          },
+          set: any[] = dbKey.getSortedSet().rangeByScore(
+              Number(min),
+              Number(max),
+              options
+          );
+      for (let index = offset; index < (count < 0
+          ? set.length
+          : offset + count); index++) {
+          if (index >= set.length) {
+              break;
+          }
+          if (set[index].constructor.name === "Array") {
+              this.logger.debug(`pushing ${set[index][0]}, ${set[index][1]}}`);
+              scores.push(
+                  RedisToken.string(set[index][0]),
+                  RedisToken.string(set[index][1])
+              );
+          } else {
+              scores.push(RedisToken.string(set[index]));
+          }
+      }
+      const finalValues = RedisToken.array(scores);
+      this.logger.debug(
+          "Returning array %s",
+          finalValues
+      );
+      return finalValues;
   }
 }

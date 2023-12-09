@@ -1,11 +1,11 @@
-import { Name } from '../../../decorators';
-import { IRequest } from '../../../server/request';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {Name} from "../../../decorators";
+import {IRequest} from "../../../server/request";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
 
-@Name('quit')
+@name("quit")
 export class QuitCommand extends IRespCommand {
-  public execSync(request: IRequest): RedisToken {
-    return (RedisToken.responseOk());
-  }
+    public execSync(request: IRequest): RedisToken {
+        return RedisToken.responseOk();
+    }
 }

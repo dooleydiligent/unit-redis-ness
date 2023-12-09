@@ -1,9 +1,10 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { maxParams, minParams, name } from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {Database} from "../../data/database";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * Available since v1.0.0
  *
@@ -31,20 +32,24 @@ import { IRespCommand } from '../resp-command';
  * multiple times and existing are counted multiple times.
  */
 
-@MaxParams(-1)
-@MinParams(1)
-@Name('exists')
+@maxParams(-1)
+@minParams(1)
+@name("exists")
 export class ExistsCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let counter = 0;
-    for (const key of request.getParams()) {
-      if (db.exists(key)) {
-        ++counter;
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      let counter = 0;
+      for (const key of request.getParams()) {
+          if (db.exists(key)) {
+              ++counter;
+          }
       }
-    }
-    this.logger.debug(`${request.getCommand()}.execute returning ${counter}`);
-    return (RedisToken.integer(counter));
+      this.logger.debug(`${request.getCommand()}.execute returning ${counter}`);
+      return RedisToken.integer(counter);
   }
 }

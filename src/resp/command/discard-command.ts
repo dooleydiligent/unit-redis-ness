@@ -1,9 +1,9 @@
-import { MaxParams, MinParams, Name } from '../../decorators';
-import { Logger } from '../../logger';
-import { IRequest } from '../../server/request';
-import { Database } from '../data/database';
-import { RedisToken } from '../protocol/redis-token';
-import { IRespCommand } from './resp-command';
+import { Database } from "../data/database";
+import { Logger } from "../../logger";
+import { RedisToken } from "../protocol/redis-token";
+import { IRequest } from "../../server/request";
+import { IRespCommand } from "./resp-command";
+
 /**
  * ### Available since 2.0.0.
  * ### DISCARD
@@ -14,18 +14,22 @@ import { IRespCommand } from './resp-command';
  * ### Return value
  * Simple string reply: always OK.
  */
-@MinParams(0)
-@MaxParams(0)
-@Name('discard')
+@minParams(0)
+@maxParams(0)
+@name("discard")
 export class DiscardCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    if (!request.getSession().inTransaction()) {
-      return (RedisToken.error(`ERR DISCARD without MULTI`));
-    } else {
-      request.getSession().abortTransaction();
-      return (RedisToken.responseOk());
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        if (!request.getSession().inTransaction()) {
+            return RedisToken.error("ERR DISCARD without MULTI");
+        }
+
+        request.getSession().abortTransaction();
+        return RedisToken.responseOk();
     }
-  }
 }

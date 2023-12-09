@@ -1,10 +1,11 @@
-import { Blocking, MaxParams, MinParams, Name } from '../../decorators';
-import { Logger } from '../../logger';
-import { IRequest } from '../../server/request';
-import { ICmdReq } from '../../server/session';
-import { Database } from '../data/database';
-import { RedisToken } from '../protocol/redis-token';
-import { IRespCommand } from './resp-command';
+import { Database } from "../data/database";
+import { IRequest } from "../../server/request";
+import { ICmdReq } from "../../server/session";
+import { blocking } from "../../decorators";
+import { Logger } from "../../logger";
+import { IRespCommand } from "./resp-command";
+import { RedisToken } from "../protocol/redis-token";
+
 /**
  * ### Available since 1.2.0.
  * ### EXEC
@@ -18,30 +19,34 @@ import { IRespCommand } from './resp-command';
  *
  * When using [WATCH]{@link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
  */
-@Blocking(true)
-@MinParams(0)
-@MaxParams(0)
-@Name('exec')
+@blocking(true)
+@minParams(0)
+@maxParams(0)
+@name("exec")
 export class ExecCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    if (!request.getSession().inTransaction()) {
-      return (RedisToken.error(`ERR EXEC without MULTI`));
-    } else {
-      if (request.getSession().isErrored()) {
-        request.getSession().abortTransaction();
-        return (RedisToken.error(`EXECABORT Transaction discarded because of previous errors.`));
-      } else {
-        const commands: ICmdReq[] = request.getSession().getTransaction();
-        const tokens: any[] = [];
-        commands.map(async (cmdReq) => {
-          this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
-          const token = await cmdReq.command.execSync(cmdReq.request, db);
-          tokens.push(token);
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        if (!request.getSession().inTransaction()) {
+            return RedisToken.error("ERR EXEC without MULTI");
+        } else if (request.getSession().isErrored()) {
+            request.getSession().abortTransaction();
+            return RedisToken.error("EXECABORT Transaction discarded because of previous errors.");
+        }
+        const commands: ICmdReq[] = request.getSession().getTransaction(),
+            tokens: any[] = [];
+        commands.map(async(cmdReq) => {
+            this.logger.debug(`Executing transaction command ${cmdReq.request.getCommand()}`);
+            const token = await cmdReq.command.execSync(
+                cmdReq.request,
+                db
+            );
+            tokens.push(token);
         });
-        return (RedisToken.array(tokens));
-      }
+        return RedisToken.array(tokens);
     }
-  }
 }

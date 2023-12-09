@@ -1,15 +1,15 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
 
 @DbDataType(DataType.STRING)
-@MaxParams(1)
-@MinParams(1)
-@Name('get')
+@maxParams(1)
+@minParams(1)
+@name("get")
 
 /**
  * ### Available since 1.0.0.
@@ -22,15 +22,16 @@ import { IRespCommand } from '../resp-command';
  */
 export class GetCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    const key = request.getParam(0);
-    this.logger.debug(`Getting ${key} from the db`);
-    const item = db.get(key);
-    this.logger.debug(`Got ${item} by key ${key} from the db`);
-    if (item) {
-      return (item);
-    } else {
-      return (RedisToken.nullString());
-    }
+      const key = request.getParam(0);
+      this.logger.debug(`Getting ${key} from the db`);
+      const item = db.get(key);
+      this.logger.debug(`Got ${item} by key ${key} from the db`);
+      if (item) {
+          return item;
+      }
+
+      return RedisToken.nullString();
   }
 }

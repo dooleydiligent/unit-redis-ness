@@ -1,12 +1,13 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { SortedSet } from '../../data/sorted-set';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {SortedSet} from "../../data/sorted-set";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * Available since 1.2.0.
  *
@@ -86,61 +87,89 @@ import { IRespCommand } from '../resp-command';
  *
  */
 @DbDataType(DataType.ZSET)
-@MaxParams(-1)
-@MinParams(3)
-@Name('zadd')
+@maxParams(-1)
+@minParams(3)
+@name("zadd")
 export class ZaddCommand extends IRespCommand {
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    // params() must be an odd number
-    if (request.getParams().length % 2 !== 1) {
-      return (RedisToken.error('ERR syntax error'));
-    } else {
-      try {
-        const zkey: string = request.getParam(0);
-        const initial: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-        const initialCount = initial.getSortedSet().keys().length;
-        this.logger.debug(`Initial key length of ${zkey} is ${initialCount}`);
-        const result: DatabaseValue = db.merge(zkey, this.parseInput(request),
-          (oldValue: DatabaseValue, newValue: DatabaseValue): DatabaseValue => {
-            const merge: SortedSet = new SortedSet();
-            this.logger.debug(
-              `Callback: adding ${oldValue.getSortedSet().keys().length} keys from OldValue [%j]`,
-              oldValue.getSortedSet().toArray({ withScores: true }));
-            merge.addAll(oldValue.getSortedSet());
-            this.logger.debug(
-              `Callback: adding ${newValue.getSortedSet().keys().length} keys from NewValue [%j]`,
-              newValue.getSortedSet().toArray({ withScores: true }));
-            merge.addAll(newValue.getSortedSet());
-            return DatabaseValue.zset(merge);
-          });
-        this.logger.debug(`Final key length of ${zkey} is ${result.getSortedSet().keys().length}`);
-        this.logger.debug(`The sorted set is %s`, result.getSortedSet().toArray({ withScores: true }));
-        return (RedisToken.integer(result.getSortedSet().keys().length - initialCount));
-      } catch (ex) {
-        return (RedisToken.error(ex.message));
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          request.getParams()
+      );
+      // Params() must be an odd number
+      if (request.getParams().length % 2 !== 1) {
+          return RedisToken.error("ERR syntax error");
       }
-    }
+
+      try {
+          const zkey: string = request.getParam(0),
+              initial: DatabaseValue = db.getOrDefault(
+                  zkey,
+                  new DatabaseValue(
+                      DataType.ZSET,
+                      new SortedSet()
+                  )
+              ),
+              initialCount = initial.getSortedSet().keys().length;
+          this.logger.debug(`Initial key length of ${zkey} is ${initialCount}`);
+          const result: DatabaseValue = db.merge(
+              zkey,
+              this.parseInput(request),
+              (oldValue: DatabaseValue, newValue: DatabaseValue): DatabaseValue => {
+                  const merge: SortedSet = new SortedSet();
+                  this.logger.debug(
+                      `Callback: adding ${oldValue.getSortedSet().keys().length} keys from OldValue [%j]`,
+                      oldValue.getSortedSet().toArray({"withScores": true})
+                  );
+                  merge.addAll(oldValue.getSortedSet());
+                  this.logger.debug(
+                      `Callback: adding ${newValue.getSortedSet().keys().length} keys from NewValue [%j]`,
+                      newValue.getSortedSet().toArray({"withScores": true})
+                  );
+                  merge.addAll(newValue.getSortedSet());
+                  return DatabaseValue.zset(merge);
+              }
+          );
+          this.logger.debug(`Final key length of ${zkey} is ${result.getSortedSet().keys().length}`);
+          this.logger.debug(
+              "The sorted set is %s",
+              result.getSortedSet().toArray({"withScores": true})
+          );
+          return RedisToken.integer(result.getSortedSet().keys().length - initialCount);
+      } catch (ex) {
+          return RedisToken.error(ex.message);
+      }
   }
+
   private parseInput(request: IRequest): DatabaseValue {
-    this.logger.debug(`Parsing input: %s`, request.getParams());
-    const set: SortedSet = new SortedSet();
-    let value: string = '';
-    for (let i = 1; i < request.getParams().length; i += 2) {
-      const key: string = request.getParam(i + 1);
-      try {
-        value = request.getParam(i);
-        if (isNaN(Number(value))) {
-          throw new Error(`ERR Cannot parse ${value} for param ${key}`);
-        }
-        this.logger.debug(`sortedSet.add(${key}, ${value})`);
-        set.add(key, Number(value));
-      } catch (ex) {
-        this.logger.warn(`Exception parsing param ${i}: ${value}: %s`, ex);
-        throw new Error('ERR value is not a valid float');
+      this.logger.debug(
+          "Parsing input: %s",
+          request.getParams()
+      );
+      const set: SortedSet = new SortedSet();
+      let value: string = "";
+      for (let i = 1; i < request.getParams().length; i += 2) {
+          const key: string = request.getParam(i + 1);
+          try {
+              value = request.getParam(i);
+              if (isNaN(Number(value))) {
+                  throw new Error(`ERR Cannot parse ${value} for param ${key}`);
+              }
+              this.logger.debug(`sortedSet.add(${key}, ${value})`);
+              set.add(
+                  key,
+                  Number(value)
+              );
+          } catch (ex) {
+              this.logger.warn(
+                  `Exception parsing param ${i}: ${value}: %s`,
+                  ex
+              );
+              throw new Error("ERR value is not a valid float");
+          }
       }
-    }
-    return DatabaseValue.zset(set);
+      return DatabaseValue.zset(set);
   }
 }

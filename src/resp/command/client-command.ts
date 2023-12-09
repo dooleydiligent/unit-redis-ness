@@ -1,12 +1,13 @@
-import * as util from 'util';
-import { MaxParams, MinParams, Name } from '../../decorators';
-import { Dictionary } from '../../dictionary';
-import { Logger } from '../../logger';
-import { IRequest } from '../../server/request';
-import { Session } from '../../server/session';
-import { Database } from '../data/database';
-import { RedisToken } from '../protocol/redis-token';
-import { IRespCommand } from './resp-command';
+import * as util from "util";
+import { maxParams, minParams, name } from "../../decorators";
+import { Database } from "../data/database";
+import { Dictionary } from "../../dictionary";
+import { IRequest } from "../../server/request";
+import { IRespCommand } from "./resp-command";
+import { Logger } from "../../logger";
+import { RedisToken } from "../protocol/redis-token";
+import { Session } from "../../server/session";
+
 /**
  * ### Available since 2.6.9.
  * ### Client supports the following parameters:
@@ -125,98 +126,131 @@ import { IRespCommand } from './resp-command';
  * ### Return value:
  * Simple string reply: OK if the connection name was successfully set.
  */
-@MaxParams(4)
-@MinParams(1)
-@Name('client')
 export class ClientCommand extends IRespCommand {
-  public static DEFAULT_ERROR = `ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP`;
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    switch (request.getParam(0).toLowerCase()) {
-      case 'getname':
-        return (this.getName(request));
-      case 'setname':
-        return (this.setName(request));
-      case 'id':
-        return (this.getId(request));
-      case 'list':
-        return (this.getList(request));
-      default:
-        return (RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0))));
-    }
-  }
-  private getName(request: IRequest): RedisToken {
-    if (request.getParams().length === 1) {
-      const name = request.getSession().getName();
-      if (!name) {
-        return RedisToken.nullString();
-      } else {
-        return RedisToken.string(name);
-      }
-    } else {
-      return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
-    }
-  }
-  private setName(request: IRequest): RedisToken {
-    if (request.getParams().length !== 2) {
-      return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
-    }
-    this.logger.debug(`Testing [${request.getParam(1)}] for whitespace`);
-    const hasWhiteSpace = /\s/gm.test(request.getParam(1));
-    if (hasWhiteSpace) {
-      return RedisToken.error(`ERR Client names cannot contain spaces, newlines or special characters.`);
-    }
-    request.getSession().setName(request.getParam(1));
-    return RedisToken.responseOk();
-  }
-  private getId(request: IRequest): RedisToken {
-    if (request.getParams().length === 1) {
-      const name = 7;
-      // TODO: Get the index of the server-assigned client id from servercontext
-      // .getValue('ID');
-      return RedisToken.integer(name);
-    } else {
-      return RedisToken.error(util.format(ClientCommand.DEFAULT_ERROR, request.getParam(0)));
-    }
-  }
-  private getList(request: IRequest): RedisToken {
-    this.logger.debug(`getList(${request})`);
-    if (request.getParams().length === 1) {
-      const clientList: string[] = [];
-      const clients: Dictionary<Session, Session> = request.getServerContext().getClients();
-      this.logger.debug(`clients is ${clients}`);
-      for (const client of clients) {
-        this.logger.debug(`client is:`, client);
-        this.logger.debug(`Got client: ${client}`, client);
-        clientList.push(
-          util.format(`id=%s name=%s addr=%s fd=%s age=%d idle=%d flags=%s ` +
-            `db=%d sub=%d psub=%d multi=%d qbuf=%d qbuf-free=%d obl=%d oll=` +
-            `%d omem=%d events=%s cmd=%s`,
-            client.getId(),
-            client.getName(),
-            client.getAddress(),
-            client.getValue('FD'),
-            client.getValue('AGE'),
-            client.getValue('IDLE'),
-            client.getValue('FLAGS'),
-            client.getCurrentDb(),
-            client.getValue('SUB'),
-            client.getValue('PSUB'),
-            client.getValue('MULTI'),
-            client.getValue('QBUF'),
-            client.getValue('QBUF-FREE'),
-            client.getValue('OBL'),
-            client.getValue('OLL'),
-            client.getValue('OMEM'),
-            client.getValue('EVENTS'),
-            client.getLastCommand()
-          )
+    maxParams = 4
+
+    minParams = 1
+
+    name = "client"
+
+    public static DEFAULT_ERROR = "ERR Unknown subcommand or wrong number of arguments for '%s'. Try CLIENT HELP";
+
+    private logger: Logger = new Logger(module.id);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public execSync(request: IRequest, _db?: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
         );
-      }
-      return RedisToken.string(clientList.join('\n') + '\n');
-    } else {
-      return RedisToken.error('ERR syntax error');
+        switch (request.getParam(0).toLowerCase()) {
+        case "getname":
+            return this.getName(request);
+        case "setname":
+            return this.setName(request);
+        case "id":
+            return this.getId(request);
+        case "list":
+            return this.getList(request);
+        default:
+            return RedisToken.error(util.format(
+                ClientCommand.DEFAULT_ERROR,
+                request.getParam(0)
+            ));
+        }
     }
-  }
+
+    private getName(request: IRequest): RedisToken {
+        if (request.getParams().length === 1) {
+            const myname = request.getSession().getName();
+            if (!myname) {
+                return RedisToken.nullString();
+            }
+
+            return RedisToken.string(myname);
+        }
+
+        return RedisToken.error(util.format(
+            ClientCommand.DEFAULT_ERROR,
+            request.getParam(0)
+        ));
+    }
+
+    private setName(request: IRequest): RedisToken {
+        if (request.getParams().length !== 2) {
+            return RedisToken.error(util.format(
+                ClientCommand.DEFAULT_ERROR,
+                request.getParam(0)
+            ));
+        }
+        this.logger.debug(`Testing [${request.getParam(1)}] for whitespace`);
+        const hasWhiteSpace = (/\s/ugm).test(request.getParam(1));
+        if (hasWhiteSpace) {
+            return RedisToken.error("ERR Client names cannot contain spaces, newlines or special characters.");
+        }
+        request.getSession().setName(request.getParam(1));
+        return RedisToken.responseOk();
+    }
+
+    private getId(request: IRequest): RedisToken {
+        if (request.getParams().length === 1) {
+            const myname = 7;
+
+            /*
+             * TODO: Get the index of the server-assigned client id from servercontext
+             * .getValue('ID');
+             */
+            return RedisToken.integer(myname);
+        }
+
+        return RedisToken.error(util.format(
+            ClientCommand.DEFAULT_ERROR,
+            request.getParam(0)
+        ));
+    }
+
+    private getList(request: IRequest): RedisToken {
+        this.logger.debug(`getList(${request})`);
+        if (request.getParams().length === 1) {
+            const clientList: string[] = [],
+                clients: Dictionary<Session, Session> = request.getServerContext().getClients();
+            this.logger.debug(`clients is ${clients}`);
+            for (const client of clients) {
+                this.logger.debug(
+                    "client is:",
+                    client
+                );
+                this.logger.debug(
+                    `Got client: ${client}`,
+                    client
+                );
+                clientList.push(util.format(
+                    "id=%s name=%s addr=%s fd=%s age=%d idle=%d flags=%s " +
+                    "db=%d sub=%d psub=%d multi=%d qbuf=%d qbuf-free=%d obl=%d oll=" +
+                    "%d omem=%d events=%s cmd=%s",
+                    client.getId(),
+                    client.getName(),
+                    client.getAddress(),
+                    client.getValue("FD"),
+                    client.getValue("AGE"),
+                    client.getValue("IDLE"),
+                    client.getValue("FLAGS"),
+                    client.getCurrentDb(),
+                    client.getValue("SUB"),
+                    client.getValue("PSUB"),
+                    client.getValue("MULTI"),
+                    client.getValue("QBUF"),
+                    client.getValue("QBUF-FREE"),
+                    client.getValue("OBL"),
+                    client.getValue("OLL"),
+                    client.getValue("OMEM"),
+                    client.getValue("EVENTS"),
+                    client.getLastCommand()
+                ));
+            }
+            return RedisToken.string(`${clientList.join("\n")}\n`);
+        }
+
+        return RedisToken.error("ERR syntax error");
+    }
 }
