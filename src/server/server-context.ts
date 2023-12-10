@@ -1,8 +1,9 @@
-import { EventEmitter } from 'events';
-import { Dictionary } from '../dictionary';
-import { IRespCommand } from '../resp/command/resp-command';
-import { Database } from '../resp/data/database';
-import { Session } from './session';
+
+import { Database } from "../resp/data/database";
+import { Dictionary } from "../dictionary";
+import { EventEmitter } from "events";
+import { IRespCommand } from "../resp/command/resp-command";
+import { Session } from "./session";
 
 export interface IServerContext extends EventEmitter {
   addClient(clientId: string, clientSession: Session): void;

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>9/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>9/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,8 +99,14 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,29 +126,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+&nbsp;
 /**
  * Available since 1.0.0.
  *
@@ -155,21 +169,28 @@ import { IRespCommand } from '../resp-command';
  * Simple string reply: type of key, or none when key does not exist.
  */
 &nbsp;
-@MaxParams(1)
-@MinParams(1)
-@Name('type')
 export class TypeCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    const dbField: DatabaseValue = db.get(key);
-    if (dbField) {
-      return (RedisToken.string(dbField.getType()));
-    } else {
-      return (RedisToken.string(DataType.NONE));
+    public maxParams = 1
+&nbsp;
+    public minParams = 1
+&nbsp;
+    public name = "type"
+&nbsp;
+    private logger: Logger = new Logger(module.id);
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(</span>
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0),</span>
+            dbField: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(key);</span>
+<span class="cstat-no" title="statement not covered" >        if (dbField) {</span>
+<span class="cstat-no" title="statement not covered" >            return RedisToken.string(dbField.getType());</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return RedisToken.string(DataType.NONE);</span>
     }
-  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -178,7 +199,7 @@ export class TypeCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-07T23:09:02.773Z
+                at 2023-12-10T15:35:19.055Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

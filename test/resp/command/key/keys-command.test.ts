@@ -1,46 +1,95 @@
-import { fail } from 'assert';
-import { expect } from 'chai';
-import 'mocha';
-import * as net from 'net';
-import * as sinon from 'sinon';
-import { RespServer } from '../../../../src/server/resp-server';
-import { sendCommand } from '../../../common.test';
+import {fail} from "assert";
+import {expect} from "chai";
+import "mocha";
+import * as net from "net";
+import * as sinon from "sinon";
+import {RespServer} from "../../../../src/server/resp-server";
+import {sendCommand} from "../../../common.test";
 
-describe('keys-command test', () => {
-  let respServer: RespServer;
-  const client: net.Socket = new net.Socket();
-  let response: any;
-  before((done) => {
-    respServer = new RespServer();
-    respServer.on('ready', async () => {
-      await sendCommand(client, ['flushall']);
-      done();
-    });
-    respServer.start();
-  });
-  beforeEach(() => {
-    sinon.createSandbox();
-  });
+describe(
+    "keys-command test",
+    () => {
+        let respServer: RespServer;
+        const client: net.Socket = new net.Socket();
+        let response: any;
+        before((done) => {
+            respServer = new RespServer();
+            respServer.on(
+                "ready",
+                async() => {
+                    await sendCommand(
+                        client,
+                        ["flushall"]
+                    );
+                    done();
+                }
+            );
+            respServer.start();
+        });
+        beforeEach(() => {
+            sinon.createSandbox();
+        });
 
-  afterEach(() => {
-    sinon.restore();
-  });
+        afterEach(() => {
+            sinon.restore();
+        });
 
-  after(async () => {
-    await respServer.stop();
-  });
-  /**
-   * Functional testing of the keys command
-   */
-  it('should retrieve keys by glob patterns', async () => {
-    response = await sendCommand(client, ['mset', 'firstname', 'Jack', 'lastname', 'Stuntman', 'age', '35']);
-    expect(response).to.equal('OK');
-    response = await sendCommand(client, ['keys', '*name*']);
-    expect(response.sort()).to.eql(['firstname', 'lastname']);
-    response = await sendCommand(client, ['keys', 'a??']);
-    expect(response).to.eql(['age']);
-    response = await sendCommand(client, ['keys', '*']);
-    // NOTE: There does not appear to be a guarantee of order
-    expect(response.sort()).to.eql(['age', 'firstname', 'lastname']);
-  });
-});
+        after(async() => {
+            await respServer.stop();
+        });
+
+        /**
+         * Functional testing of the keys command
+         */
+        it(
+            "should retrieve keys by glob patterns",
+            async() => {
+                response = await sendCommand(
+                    client,
+                    [
+                        "mset",
+                        "firstname",
+                        "Jack",
+                        "lastname",
+                        "Stuntman",
+                        "age",
+                        "35"
+                    ]
+                );
+                expect(response).to.equal("OK");
+                response = await sendCommand(
+                    client,
+                    [
+                        "keys",
+                        "*name*"
+                    ]
+                );
+                expect(response.sort()).to.eql([
+                    "firstname",
+                    "lastname"
+                ]);
+                response = await sendCommand(
+                    client,
+                    [
+                        "keys",
+                        "a??"
+                    ]
+                );
+                expect(response).to.eql(["age"]);
+                response = await sendCommand(
+                    client,
+                    [
+                        "keys",
+                        "*"
+                    ]
+                );
+                // NOTE: There does not appear to be a guarantee of order
+                expect(response.sort()).to.eql([
+                    "age",
+                    "firstname",
+                    "lastname"
+                ]);
+            }
+        );
+    }
+);

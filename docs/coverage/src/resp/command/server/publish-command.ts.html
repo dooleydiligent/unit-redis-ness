@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>8/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>8/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,8 +92,17 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -107,25 +116,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+&nbsp;
 /**
  * ### Available since 2.0.0.
  * ### PUBLISH channel message
@@ -135,20 +155,30 @@ import { IRespCommand } from '../resp-command';
  * ### Return value
  * Integer reply: the number of clients that received the message.
  */
-@MaxParams(2)
-@MinParams(2)
-@Name('publish')
 export class PublishCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const channel: string = request.getParam(0);
-    const message: string = request.getParam(1);
-    this.logger.debug(`Publishing to channel "${channel}" &gt; "${message}"`);
-    const responses: number = request.getServerContext().publish(channel, message);
-    this.logger.debug(`The message was delivered to ${responses} client(s)`);
-    return (RedisToken.integer(responses));
-  }
+    public maxParams = 2
+&nbsp;
+    public minParams = 2
+&nbsp;
+    public name = "publish"
+&nbsp;
+    private logger: Logger = new Logger(module.id);
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest): RedisToken {
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(</span>
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const channel: string = <span class="cstat-no" title="statement not covered" >request.getParam(0),</span>
+            message: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Publishing to channel "${channel}" &gt; "${message}"`);</span>
+        const responses: number = <span class="cstat-no" title="statement not covered" >request.getServerContext().publish(</span>
+            channel,
+            message
+        );
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`The message was delivered to ${responses} client(s)`);</span>
+<span class="cstat-no" title="statement not covered" >        return RedisToken.integer(responses);</span>
+    }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -157,7 +187,7 @@ export class PublishCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-07T23:09:02.773Z
+                at 2023-12-10T15:35:19.055Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

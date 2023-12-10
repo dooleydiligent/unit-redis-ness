@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>11/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">45.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>11/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -112,8 +112,24 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,37 +154,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from './../resp-command';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "./../resp-command";
+&nbsp;
 /**
  * ### Available since 1.0.0.
  * ### SADD key member [member ...]
@@ -186,29 +220,46 @@ import { IRespCommand } from './../resp-command';
  * &gt;= 2.4: Accepts multiple member arguments. Redis versions before 2.4 are only able to add a
  * single member per call. **unit-redis-ness implements the 2.4 version of this command.**
  */
-@DbDataType(DataType.SET)
-@MaxParams(-1)
-@MinParams(2)
-@Name('sadd')
 export class SAddCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const skey: string = request.getParam(0);
-    const initial: DatabaseValue = db.getOrDefault(skey, new DatabaseValue(DataType.SET, new Set()));
-    const originalSet: Set&lt;any&gt; = initial.getSet();
-    const initialCount: number = originalSet.size;
-    this.logger.debug(`Initial key length of ${skey} is ${initialCount}`);
-    for (let index = 1; index &lt; request.getParams().length; index++) {
-      const newValue = request.getParam(index);
-      if (!originalSet.has(newValue)) {
-        originalSet.add(newValue);
-      }
+    public DbDataType = DataType.SET
+&nbsp;
+    public maxParams = -1
+&nbsp;
+    public minParams = 2
+&nbsp;
+    public name = "sadd"
+&nbsp;
+    private logger: Logger = new Logger(module.id);
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(</span>
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const skey: string = <span class="cstat-no" title="statement not covered" >request.getParam(0),</span>
+            initial: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.getOrDefault(</span>
+                skey,
+                new DatabaseValue(
+                    DataType.SET,
+                    new Set()
+                )
+            ),
+            originalSet: Set&lt;any&gt; = <span class="cstat-no" title="statement not covered" >initial.getSet(),</span>
+            initialCount: number = <span class="cstat-no" title="statement not covered" >originalSet.size;</span>
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Initial key length of ${skey} is ${initialCount}`);</span>
+<span class="cstat-no" title="statement not covered" >        for (let index = <span class="cstat-no" title="statement not covered" >1;</span> index &lt; request.getParams().length; index++) {</span>
+            const newValue = <span class="cstat-no" title="statement not covered" >request.getParam(index);</span>
+<span class="cstat-no" title="statement not covered" >            if (!originalSet.has(newValue)) {</span>
+<span class="cstat-no" title="statement not covered" >                originalSet.add(newValue);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Final key length of ${skey} is ${originalSet.size}`);</span>
+<span class="cstat-no" title="statement not covered" >        db.put(</span>
+            skey,
+            DatabaseValue.set(originalSet)
+        );
+<span class="cstat-no" title="statement not covered" >        return RedisToken.integer(originalSet.size - initialCount);</span>
     }
-    this.logger.debug(`Final key length of ${skey} is ${originalSet.size}`);
-    db.put(skey, DatabaseValue.set(originalSet));
-    return (RedisToken.integer(originalSet.size - initialCount));
-  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -217,7 +268,7 @@ export class SAddCommand extends IRespCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-07T23:09:02.773Z
+                at 2023-12-10T15:35:19.055Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

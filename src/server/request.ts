@@ -1,5 +1,5 @@
-import { IServerContext } from './server-context';
-import { Session } from './session';
+import {IServerContext} from "./server-context";
+import {Session} from "./session";
 
 export interface IRequest {
   getCommand(): string;

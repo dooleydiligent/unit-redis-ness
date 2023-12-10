@@ -1,9 +1,9 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { Database } from "../../data/database";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+
 /**
  * ### Available since 1.0.0.
  * ### SELECT index
@@ -17,15 +17,15 @@ import { IRespCommand } from '../resp-command';
  *
  * Selectable Redis databases are a form of namespacing: all databases are still
  * persisted in the same RDB / AOF file. However different databases can have keys
- * with the same name, and commands like [FLUSHDB]{@link FlushDbCommand},
- * [SWAPDB]{@link SwapDbCommand} or [RANDOMKEY]{@link RandomKeyCommand} work on specific
+ * with the same name, and commands like {@link resp/command/db/flushdb-command.FlushDbCommand | FLUSHDB},
+ * See: SWAPDB - (not implemented) or {@link resp/command/key/randomkey-command.RandomKeyCommand | RANDOMKEY} work on specific
  * databases.
  *
  * In practical terms, Redis databases should be used to separate different keys
  * belonging to the same application (if needed), and not to use a single Redis
  * instance for multiple unrelated applications.
  *
- * When using Redis Cluster, the [SELECT]{@link SelectCommand} command cannot be used, since Redis Cluster
+ * When using Redis Cluster, the {@link resp/command/db/select-command.SelectCommand | SELECT} command cannot be used, since Redis Cluster
  * only supports database zero. In the case of a Redis Cluster, having multiple
  * databases would be useless and an unnecessary source of complexity. Commands
  * operating atomically on a single database would not be possible with the Redis
@@ -34,34 +34,41 @@ import { IRespCommand } from '../resp-command';
  * Since the currently selected database is a property of the connection, clients
  * should track the currently selected database and re-select it on reconnection.
  * While there is no command in order to query the selected database in the current
- * connection, the [CLIENT LIST]{@link ClientCommand} output shows, for each client, the currently selected
+ * connection, the [CLIENT LIST]{@link resp/command/client-command.ClientCommand} output shows, for each client, the currently selected
  * database.
  *
  * Return value
  * Simple string reply
  */
-@MaxParams(1)
-@MinParams(1)
-@Name('select')
 export class SelectCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const id: any = Number(request.getParam(0));
-    this.logger.debug(`DB Index is ${id}`);
-    if (isNaN(id)) {
-      return (RedisToken.error('ERR invalid DB index'));
-    } else {
-      if (id > -1) {
-        if (id < 16) {
-          request.getSession().setCurrentDb(id);
-        } else {
-          return (RedisToken.error('ERR DB index is out of range'));
+    public maxParams = 1
+
+    public minParams = 1
+
+    public name = "select"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const id: any = Number(request.getParam(0));
+        this.logger.debug(`DB Index is ${id}`);
+        if (isNaN(id)) {
+            return RedisToken.error("ERR invalid DB index");
         }
-      } else {
-        return (RedisToken.error('ERR DB index is out of range'));
-      }
-      return (RedisToken.responseOk());
+
+        if (id > -1) {
+            if (id < 16) {
+                request.getSession().setCurrentDb(id);
+            } else {
+                return RedisToken.error("ERR DB index is out of range");
+            }
+        } else {
+            return RedisToken.error("ERR DB index is out of range");
+        }
+        return RedisToken.responseOk();
     }
-  }
 }

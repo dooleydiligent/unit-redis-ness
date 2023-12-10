@@ -1,10 +1,10 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+
 /**
  * Available since v1.0.0
  *
@@ -14,19 +14,26 @@ import { IRespCommand } from '../resp-command';
  * RETURNS:
  * Integer reply: The number of keys that were removed.
  */
-@MaxParams(-1)
-@MinParams(1)
-@Name('del')
 export class DelCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let counter = 0;
-    for (const key of request.getParams()) {
-      if (db.remove(key)) {
-        ++counter;
-      }
+    public maxParams = -1
+
+    public minParams = 1
+
+    public name = "del"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        let counter = 0;
+        for (const key of request.getParams()) {
+            if (db.remove(key)) {
+                ++counter;
+            }
+        }
+        return RedisToken.integer(counter);
     }
-    return (RedisToken.integer(counter));
-  }
 }

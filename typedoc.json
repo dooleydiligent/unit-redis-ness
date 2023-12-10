@@ -1,0 +1,10 @@
+{
+    "entryPointStrategy": "expand",
+    "entryPoints": [
+        "./src"
+    ],
+    "exclude": [
+        "test",
+        "node_modules"
+    ]
+}

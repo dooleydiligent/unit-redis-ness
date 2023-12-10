@@ -1,11 +1,11 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
+
 /**
  * Available since v1.0.0
  *
@@ -31,36 +31,53 @@ import { IRespCommand } from '../resp-command';
  * Return value
  * Integer reply: the value of key after the increment
  */
-@DbDataType(DataType.STRING)
-@MaxParams(1)
-@MinParams(1)
-@Name('incr')
 export class IncrCommand extends IRespCommand {
+  public dbDataType = DataType.STRING
+
+  public maxParams = 1
+
+  public minParams = 1
+
+  public name = "incr"
+
   private logger: Logger = new Logger(module.id);
+
   constructor(public sign: number) {
-    super();
+      super();
   }
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let value: DatabaseValue = db.get(request.getParam(0));
-    if (!value) {
-      value = DatabaseValue.string(String(this.sign * 1));
-    } else {
-      this.logger.debug(`The original value is ${value.getString()}`);
-      if (Math.abs(Number(value.getString())) < Number.MAX_SAFE_INTEGER) {
-        const newValue: number = Number(value.getString()) + this.sign;
-        const ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
-        value = new DatabaseValue(
-          DataType.STRING,
-          String(newValue),
-          ttl !== -1 ? ttl : undefined);
-        this.logger.debug(`The ${this.sign ? 'INCR' : 'DECR'} value is ${value.getString()}`);
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          ...request.getParams()
+      );
+      let value: DatabaseValue = db.get(request.getParam(0));
+      if (!value) {
+          value = DatabaseValue.string(String(Number(this.sign)));
       } else {
-        return (RedisToken.error(`ERR increment or decrement would overflow`));
+          this.logger.debug(`The original value is ${value.getString()}`);
+          if (Math.abs(Number(value.getString())) < Number.MAX_SAFE_INTEGER) {
+              const newValue: number = Number(value.getString()) + this.sign,
+                  ttl: number = value.timeToLiveMillis(Number(new Date().getTime()));
+              value = new DatabaseValue(
+                  DataType.STRING,
+                  String(newValue),
+                  ttl !== -1
+                      ? ttl
+                      : undefined
+              );
+              this.logger.debug(`The ${this.sign
+                  ? "INCR"
+                  : "DECR"} value is ${value.getString()}`);
+          } else {
+              return RedisToken.error("ERR increment or decrement would overflow");
+          }
       }
-    }
-    db.put(request.getParam(0), value);
-    this.logger.debug(`Returning ${value.getString()}`);
-    return (RedisToken.integer(Number(value.getString())));
+      db.put(
+          request.getParam(0),
+          value
+      );
+      this.logger.debug(`Returning ${value.getString()}`);
+      return RedisToken.integer(Number(value.getString()));
   }
 }

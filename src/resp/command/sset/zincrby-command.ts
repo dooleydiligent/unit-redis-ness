@@ -1,12 +1,12 @@
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { SortedSet } from '../../data/sorted-set';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { SortedSet } from "../../data/sorted-set";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+
 /**
  * Available since 1.2.0.
  *
@@ -30,33 +30,55 @@ import { IRespCommand } from '../resp-command';
  * represented as string.
  *
  */
-@DbDataType(DataType.ZSET)
-@MaxParams(3)
-@MinParams(3)
-@Name('zincrby')
 export class ZIncrByCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const zkey: string = request.getParam(0);
-    const zIncr: string = request.getParam(1);
-    const zmember: string = request.getParam(2);
-    if (isNaN(Number(zIncr))) {
-      return (RedisToken.error('ERR value is not a valid float'));
-    } else {
-      let score: number = 0;
-      const dbKey: DatabaseValue = db.getOrDefault(zkey, new DatabaseValue(DataType.ZSET, new SortedSet()));
-      if (!dbKey.getSortedSet().has(zmember)) {
-        this.logger.debug(`Creating new ZSET ${zkey} member ${zmember}`);
-        dbKey.getSortedSet().add(zmember, 0);
-      }
-      this.logger.debug(`Incrementing existing ZSET ${zkey} member ${zmember}`);
-      dbKey.getSortedSet().incrBy(Number(zIncr), zmember);
+    public DbDataType = DataType.ZSET
 
-      score = dbKey.getSortedSet().score(zmember);
-      this.logger.debug(`Saving ZSET ${zkey} as %s`, dbKey.getSortedSet().toArray({ withScores: true }));
-      db.put(zkey, dbKey);
-      return (RedisToken.string(String(score)));
+    public maxParams = 3
+
+    public minParams = 3
+
+    public name = "zincrby"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const zkey: string = request.getParam(0),
+            zIncr: string = request.getParam(1),
+            zmember: string = request.getParam(2);
+        if (isNaN(Number(zIncr))) {
+            return RedisToken.error("ERR value is not a valid float");
+        }
+
+        let score: number = 0;
+        const dbKey: DatabaseValue = db.getOrDefault(
+            zkey,
+            new DatabaseValue(
+                DataType.ZSET,
+                new SortedSet()
+            )
+        );
+        if (!dbKey.getSortedSet().has(zmember)) {
+            this.logger.debug(`Creating new ZSET ${zkey} member ${zmember}`);
+            dbKey.getSortedSet().add(
+                zmember,
+                0
+            );
+        }
+        this.logger.debug(`Incrementing existing ZSET ${zkey} member ${zmember}`);
+        dbKey.getSortedSet().incrBy(
+            Number(zIncr),
+            zmember
+        );
+
+        score = dbKey.getSortedSet().score(zmember);
+        db.put(
+            zkey,
+            dbKey
+        );
+        return RedisToken.string(String(score));
     }
-  }
 }

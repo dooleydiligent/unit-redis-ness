@@ -1,10 +1,10 @@
-import { MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+
 /**
  * ### Available since 1.0.0.
  * ### TTL key
@@ -39,20 +39,27 @@ import { IRespCommand } from '../resp-command';
  * ```
  */
 
-@MaxParams(1)
-@MinParams(1)
-@Name('ttl')
 export class TtlCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    let ttl: number = -2;
-    const key: string = request.getParam(0);
-    this.logger.debug(`Getting dbValue ${key}`);
-    const dbKey: DatabaseValue = db.get(key);
-    if (dbKey) {
-      ttl = dbKey.timeToLiveSeconds(new Date().getTime());
+    public maxParams = 1
+
+    public minParams = 1
+
+    public name = "ttl"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        let ttl: number = -2;
+        const key: string = request.getParam(0);
+        this.logger.debug(`Getting dbValue ${key}`);
+        const dbKey: DatabaseValue = db.get(key);
+        if (dbKey) {
+            ttl = dbKey.timeToLiveSeconds(new Date().getTime());
+        }
+        return RedisToken.integer(ttl);
     }
-    return (RedisToken.integer(ttl));
-  }
 }

@@ -1,17 +1,17 @@
-import * as util from 'util';
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import * as util from "util";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 interface IParameters {
-  ifExists: boolean;
-  ifNotExists: boolean;
-  ttl: number | null;
+    ifExists: boolean;
+    ifNotExists: boolean;
+    ttl: number | null;
 }
+
 /**
  * Available (in this form) since v2.6.12
  *
@@ -34,92 +34,153 @@ interface IParameters {
  *
  * Note that XX or NX can be specified multiple times without change in behavior
  */
-@DbDataType(DataType.STRING)
-@MaxParams(6)
-@MinParams(2)
-@Name('set')
 export class SetCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
-  public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    try {
-      const parameters: IParameters = this.parse(request);
-      const key: string = request.getParam(0).toString();
-      this.logger.debug(`Creating key ${key} with parameters %s`, parameters);
-      const value: DatabaseValue = this.parseValue(request, parameters);
-      const savedValue = this.saveValue(db, parameters, key, value);
-      return (savedValue && savedValue.toString() === value.toString() ?
-        RedisToken.responseOk() : RedisToken.nullString());
-    } catch (ex) {
-      this.logger.warn(`Exception processing request SET ${request.getParams()}`, ex);
-      return (RedisToken.error(ex.message));
-    }
-  }
-  private parse(request: IRequest): IParameters {
-    const parameters: IParameters = {
-      ifExists: false,
-      ifNotExists: false,
-      ttl: null
-    };
-    if (request.getLength() > 2) {
-      for (let i = 2; i < request.getLength(); i++) {
-        const option: string = request.getParam(i);
-        if (this.match('EX', option)) {
-          if (parameters.ttl != null) {
-            throw new Error('ERR syntax error');
-          }
-          parameters.ttl = (this.parseTtl(request, ++i) * 1000);
-        } else if (this.match('PX', option)) {
-          if (parameters.ttl != null) {
-            throw new Error('ERR syntax error');
-          }
-          parameters.ttl = this.parseTtl(request, ++i);
-        } else if (this.match('NX', option)) {
-          if (parameters.ifExists) {
-            throw new Error('ERR syntax error');
-          }
-          parameters.ifNotExists = true;
-        } else if (this.match('XX', option)) {
-          if (parameters.ifNotExists) {
-            throw new Error('ERR syntax error');
-          }
-          parameters.ifExists = true;
-        } else {
-          throw new Error('ERR syntax error');
+    public dbDataType = DataType.STRING
+
+    public maxParams = 6
+
+    public minParams = 2
+
+    public name = "set"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        try {
+            const parameters: IParameters = this.parse(request),
+                key: string = request.getParam(0).toString();
+            this.logger.debug(
+                `Creating key ${key} with parameters %s`,
+                `${parameters}`
+            );
+            const value: DatabaseValue = this.parseValue(
+                request,
+                parameters
+            ),
+                savedValue = this.saveValue(
+                    db,
+                    parameters,
+                    key,
+                    value
+                );
+            return savedValue && savedValue.toString() === value.toString()
+                ? RedisToken.responseOk()
+                : RedisToken.nullString();
+        } catch (ex: any) {
+            this.logger.warn(
+                `Exception processing request SET ${request.getParams()}`,
+                ex
+            );
+            return RedisToken.error(ex.message);
         }
-      }
     }
-    return parameters;
-  }
-  private match(str: string, option: string): boolean {
-    return str.toLowerCase() === option.toString().toLowerCase();
-  }
-  private parseTtl(request: IRequest, i: number): number {
-    const ttlOption: string = request.getParam(i);
-    const value: number = parseInt(ttlOption.toString(), 10);
-    if (value < 1) {
-      throw new Error(`ERR invalid expire time in set`);
+
+    private parse(request: IRequest): IParameters {
+        const parameters: IParameters = {
+            "ifExists": false,
+            "ifNotExists": false,
+            "ttl": null
+        };
+        if (request.getLength() > 2) {
+            for (let i = 2; i < request.getLength(); i++) {
+                const option: string = request.getParam(i);
+                if (this.match(
+                    "EX",
+                    option
+                )) {
+                    if (parameters.ttl != null) {
+                        throw new Error("ERR syntax error");
+                    }
+                    parameters.ttl = this.parseTtl(
+                        request,
+                        ++i
+                    ) * 1000;
+                } else if (this.match(
+                    "PX",
+                    option
+                )) {
+                    if (parameters.ttl != null) {
+                        throw new Error("ERR syntax error");
+                    }
+                    parameters.ttl = this.parseTtl(
+                        request,
+                        ++i
+                    );
+                } else if (this.match(
+                    "NX",
+                    option
+                )) {
+                    if (parameters.ifExists) {
+                        throw new Error("ERR syntax error");
+                    }
+                    parameters.ifNotExists = true;
+                } else if (this.match(
+                    "XX",
+                    option
+                )) {
+                    if (parameters.ifNotExists) {
+                        throw new Error("ERR syntax error");
+                    }
+                    parameters.ifExists = true;
+                } else {
+                    throw new Error("ERR syntax error");
+                }
+            }
+        }
+        return parameters;
     }
-    return value;
-  }
-  private parseValue(request: IRequest, parameters: IParameters): DatabaseValue {
-    const value: DatabaseValue = new DatabaseValue(
-      DataType.STRING,
-      request.getParam(1).toString(),
-      parameters.ttl ? new Date().getTime() + parameters.ttl : undefined);
-    return value;
-  }
-  private saveValue(db: Database, params: IParameters, key: string, value: DatabaseValue): DatabaseValue {
-    let savedValue: DatabaseValue;
-    if (params.ifExists) {
-      savedValue = db.putIfPresent(key, value);
-    } else if (params.ifNotExists) {
-      savedValue = db.putIfAbsent(key, value);
-    } else {
-      this.logger.debug(`Setting ${util.inspect(key)} to ${util.inspect(value)}`);
-      savedValue = db.put(key, value);
-      this.logger.debug(`Returning ${util.inspect(savedValue)}`);
+
+    private match(str: string, option: string): boolean {
+        return str.toLowerCase() === option.toString().toLowerCase();
     }
-    return savedValue;
-  }
+
+    private parseTtl(request: IRequest, i: number): number {
+        const ttlOption: string = request.getParam(i),
+            value: number = parseInt(
+                ttlOption.toString(),
+                10
+            );
+        if (value < 1) {
+            throw new Error("ERR invalid expire time in set");
+        }
+        return value;
+    }
+
+    private parseValue(request: IRequest, parameters: IParameters): DatabaseValue {
+        const value: DatabaseValue = new DatabaseValue(
+            DataType.STRING,
+            request.getParam(1).toString(),
+            parameters.ttl
+                ? new Date().getTime() + parameters.ttl
+                : undefined
+        );
+        return value;
+    }
+
+    private saveValue(db: Database, params: IParameters, key: string, value: DatabaseValue): DatabaseValue {
+        let savedValue: DatabaseValue;
+        if (params.ifExists) {
+            savedValue = db.putIfPresent(
+                key,
+                value
+            );
+        } else if (params.ifNotExists) {
+            savedValue = db.putIfAbsent(
+                key,
+                value
+            );
+        } else {
+            this.logger.debug(`Setting ${util.inspect(key)} to ${util.inspect(value)}`);
+            savedValue = db.put(
+                key,
+                value
+            );
+            this.logger.debug(`Returning ${util.inspect(savedValue)}`);
+        }
+        return savedValue;
+    }
 }

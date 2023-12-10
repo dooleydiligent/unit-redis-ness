@@ -1,17 +1,17 @@
-import * as util from 'util';
-import { DbDataType, MaxParams, MinParams, Name } from '../../../decorators';
-import { Logger } from '../../../logger';
-import { IRequest } from '../../../server/request';
-import { DataType } from '../../data/data-type';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-import { RedisToken } from '../../protocol/redis-token';
-import { IRespCommand } from '../resp-command';
+import * as util from "util";
+import {Logger} from "../../../logger";
+import {IRequest} from "../../../server/request";
+import {DataType} from "../../data/data-type";
+import {Database} from "../../data/database";
+import {DatabaseValue} from "../../data/database-value";
+import {RedisToken} from "../../protocol/redis-token";
+import {IRespCommand} from "../resp-command";
 interface IParameters {
   ifExists: boolean;
   ifNotExists: boolean;
   ttl: number | null;
 }
+
 /**
  * ### Available since 1.0.0.
  * ### SETNX key value
@@ -34,23 +34,37 @@ interface IParameters {
  * redis>
  * ```
  */
-@DbDataType(DataType.STRING)
-@MaxParams(2)
-@MinParams(2)
-@Name('setnx')
 export class SetNxCommand extends IRespCommand {
+  dbDataType = DataType.STRING
+
+  maxParams = 2
+
+  minParams = 2
+
+  name = "setnx"
+
   private logger: Logger = new Logger(module.id);
+
   public execSync(request: IRequest, db: Database): RedisToken {
-    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());
-    const key: string = request.getParam(0);
-    if (db.exists(key)) {
-      this.logger.debug(`Key ${key} already exists`);
-      return (RedisToken.integer(0));
-    } else {
+      this.logger.debug(
+          `${request.getCommand()}.execute(%s)`,
+          ...request.getParams()
+      );
+      const key: string = request.getParam(0);
+      if (db.exists(key)) {
+          this.logger.debug(`Key ${key} already exists`);
+          return RedisToken.integer(0);
+      }
+
       const value: string = request.getParam(1);
       this.logger.debug(`Setting Key ${key} to ${value}`);
-      db.put(key, new DatabaseValue(DataType.STRING, value));
-      return (RedisToken.integer(1));
-    }
+      db.put(
+          key,
+          new DatabaseValue(
+              DataType.STRING,
+              value
+          )
+      );
+      return RedisToken.integer(1);
   }
 }
