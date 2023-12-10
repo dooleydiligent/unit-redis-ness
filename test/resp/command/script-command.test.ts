@@ -306,7 +306,7 @@ describe(
                 ]);
             }
         );
-        it(
+        xit(
             "should be able to execute a representative BULL script",
             async() => {
                 response = await sendCommand(

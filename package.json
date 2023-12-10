@@ -22,7 +22,7 @@
     "makeindex": "cp index.html images/dooley.gif docs/",
     "lint": "eslint .",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
-    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs/mochawesome --recursive --exit test/**/*.ts",
+    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs/mochawesome --recursive --exit test/**/**/*.test.ts test/**/*.test.ts test/*.test.ts",
     "prepack": "npm run clean && npm run build && npm run doc && npm test"
   },
   "repository": {
@@ -81,10 +81,10 @@
       "test/**/*.ts"
     ],
     "check-coverage": true,
-    "branches": 40,
-    "lines": 40,
-    "functions": 40,
-    "statements": 40,
+    "branches": 43,
+    "lines": 62,
+    "functions": 64,
+    "statements": 62,
     "extension": [
       ".ts"
     ],
