@@ -5,9 +5,9 @@
     "passes": 104,
     "pending": 3,
     "failures": 0,
-    "start": "2023-12-10T21:29:33.412Z",
-    "end": "2023-12-10T21:29:33.556Z",
-    "duration": 144,
+    "start": "2023-12-10T21:40:25.500Z",
+    "end": "2023-12-10T21:40:25.645Z",
+    "duration": 145,
     "testsRegistered": 107,
     "passPercent": 100,
     "pendingPercent": 2.803738317757009,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "17481c40-2f07-425e-9397-35dd83fee2f2",
+      "uuid": "0b32849c-0992-4f5c-a287-a58a9917b9ab",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -36,8 +36,8 @@
           "context": null,
           "code": "done();",
           "err": {},
-          "uuid": "4af3ffe0-0295-449f-97b7-0d3ccdd3d2f6",
-          "parentUUID": "17481c40-2f07-425e-9397-35dd83fee2f2",
+          "uuid": "b26c0121-1de7-48fa-bc57-d5a4bfb772e9",
+          "parentUUID": "0b32849c-0992-4f5c-a287-a58a9917b9ab",
           "isHook": true,
           "skipped": false
         }
@@ -56,8 +56,8 @@
           "context": null,
           "code": "__awaiter(void 0, void 0, void 0, function* () {\n})",
           "err": {},
-          "uuid": "307f62d1-2968-4c72-87c3-a76493380d1d",
-          "parentUUID": "17481c40-2f07-425e-9397-35dd83fee2f2",
+          "uuid": "63e92990-7067-417b-a818-5607b9cfc239",
+          "parentUUID": "0b32849c-0992-4f5c-a287-a58a9917b9ab",
           "isHook": true,
           "skipped": false
         }
@@ -65,7 +65,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+          "uuid": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
           "title": "client command test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/resp/command/client-command.test.ts",
           "file": "/test/resp/command/client-command.test.ts",
@@ -74,7 +74,7 @@
               "title": "\"before all\" hook in \"client command test\"",
               "fullTitle": "client command test \"before all\" hook in \"client command test\"",
               "timedOut": false,
-              "duration": 6,
+              "duration": 7,
               "state": null,
               "speed": null,
               "pass": false,
@@ -83,8 +83,8 @@
               "context": null,
               "code": "respServer = new resp_server_1.RespServer();\nrespServer.on(\"ready\", () => {\n    done();\n});\nrespServer.start();",
               "err": {},
-              "uuid": "f34f3918-84c7-4973-8294-6c2227f42275",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "61ca49ea-f105-4950-9f78-9fec343c05f7",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": true,
               "skipped": false
             },
@@ -101,8 +101,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "c586a4d1-e43d-40e0-b435-3b0e33563654",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "c4a8775c-21f1-4286-9932-1d151ef61e1e",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": true,
               "skipped": false
             }
@@ -121,8 +121,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        yield respServer.stop();\n    })",
               "err": {},
-              "uuid": "f53f7f01-afba-4cc6-8444-b783f879d932",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "0d87c3e4-f2d4-4b2b-8495-4e0a3cf70670",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": true,
               "skipped": false
             },
@@ -139,8 +139,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "3a1b4069-b53e-4f4f-bd43-9b5ab16f2e11",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "4c9cc297-86bd-4354-acb8-47067343ebb6",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": true,
               "skipped": false
             }
@@ -150,7 +150,7 @@
               "title": "should not allow more than 3 parameters",
               "fullTitle": "client command test should not allow more than 3 parameters",
               "timedOut": false,
-              "duration": 4,
+              "duration": 5,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -159,14 +159,104 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"one\",\n            \"two\",\n            \"three\",\n            \"four\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR Unknown subcommand or wrong number of arguments for 'one'. Try CLIENT HELP\");\n    })",
               "err": {},
-              "uuid": "a0d2a6c7-afc2-489f-96f3-7e94efdb482b",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "015c9701-f85c-454a-a85c-2c5e506cb7be",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
             {
               "title": "should fail predictably when an unknown subcommand is passed",
               "fullTitle": "client command test should fail predictably when an unknown subcommand is passed",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"whatever\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(util.format(DEFAULT_ERROR, \"whatever\"));\n    })",
+              "err": {},
+              "uuid": "d0007ccb-b0d8-420e-8fa7-f32f2d2e4f90",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should return a NIL name when called with \"GETNAME\" subcommand",
+              "fullTitle": "client command test should return a NIL name when called with \"GETNAME\" subcommand",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"getname\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(null);\n    })",
+              "err": {},
+              "uuid": "ef90f47b-a1cd-4923-a9cf-9b54679d15f8",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should fail predictably when \"GETNAME\" is called with too many parameters",
+              "fullTitle": "client command test should fail predictably when \"GETNAME\" is called with too many parameters",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"getname\",\n            \"extra\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(util.format(DEFAULT_ERROR, \"getname\"));\n    })",
+              "err": {},
+              "uuid": "2f6b7502-86af-466f-b270-837ad035cb2b",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should respond with \"OK\" when \"setname\" is called with a valid name",
+              "fullTitle": "client command test should respond with \"OK\" when \"setname\" is called with a valid name",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        let response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"setname\",\n            \"whatever\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"getname\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"whatever\");\n    })",
+              "err": {},
+              "uuid": "1b698561-0d8a-471c-9a58-8f465cdf56dd",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should persist the value for \"setname\" across tests",
+              "fullTitle": "client command test should persist the value for \"setname\" across tests",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"getname\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"whatever\");\n    })",
+              "err": {},
+              "uuid": "1add8f9b-d8f0-4fc4-8653-07afeb7f85a2",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should respond with a predictable message when \"setname\" called with too many parameters",
+              "fullTitle": "client command test should respond with a predictable message when \"setname\" called with too many parameters",
               "timedOut": false,
               "duration": 1,
               "state": "passed",
@@ -267,8 +357,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"setname\",\n            \"test\",\n            \"two\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(util.format(DEFAULT_ERROR, \"setname\"));\n    })",
               "err": {},
-              "uuid": "1984e8eb-c013-436b-a5c4-0636603a63bc",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "6cc479ef-d461-4957-afcd-e5001a88a8ef",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
@@ -285,8 +375,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"setname\",\n            \"te\\nst\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR Client names cannot contain spaces, newlines or special characters.\");\n    })",
               "err": {},
-              "uuid": "d3af3a94-d915-4cce-bfe2-450aead66f32",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "732ee6e3-26fa-4fbc-ab14-3191a13d8ea8",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
@@ -303,8 +393,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"id\"\n        ]);\n        (0, chai_1.expect)(response).to.be.a(\"number\");\n        (0, chai_1.expect)(String(response).length).to.be.greaterThan(0);\n    })",
               "err": {},
-              "uuid": "cb6b60f3-50ee-400e-bdac-275bce954a2b",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "f9cb88c7-82de-4a31-9f3d-c51da9141f9f",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
@@ -321,8 +411,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"id\",\n            \"test\",\n            \"two\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(util.format(DEFAULT_ERROR, \"id\"));\n    })",
               "err": {},
-              "uuid": "f768e9e2-c0aa-43af-aac8-522406bb7c90",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "8bb23dc8-e3d2-49bb-9dd0-c6a41e49f8a0",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
@@ -330,7 +420,7 @@
               "title": "should return a bunch of information when client \"list\" subcommand is invoked",
               "fullTitle": "client command test should return a bunch of information when client \"list\" subcommand is invoked",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -339,8 +429,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"list\"\n        ]);\n        (0, chai_1.expect)(response).to.be.a(\"string\");\n        (0, chai_1.expect)(response.length).to.be.greaterThan(0);\n        (0, chai_1.expect)(response).to.match(/ name=whatever /);\n        (0, chai_1.expect)(response).to.match(/\\bdb=0\\b/);\n    })",
               "err": {},
-              "uuid": "69ae277f-d4d5-4306-8f9f-3e61c961ec00",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "88b376cd-f4da-41ed-8006-73414d7a1c21",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             },
@@ -348,7 +438,7 @@
               "title": "should respond with a predictable message when \"list\" called with too many parameters",
               "fullTitle": "client command test should respond with a predictable message when \"list\" called with too many parameters",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -357,37 +447,37 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        const response = yield (0, common_test_1.sendCommand)(client, [\n            \"client\",\n            \"list\",\n            \"test\",\n            \"two\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR syntax error\");\n    })",
               "err": {},
-              "uuid": "cb8b9fe8-f25b-465e-a9ec-4dc2ef45bf60",
-              "parentUUID": "4ae4a8f2-89ed-4212-8ada-d6b656db614d",
+              "uuid": "bf99732e-bc03-4cf5-9c84-533863767942",
+              "parentUUID": "01f643dc-8c3e-4bd1-aff6-951305d1336f",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "a0d2a6c7-afc2-489f-96f3-7e94efdb482b",
-            "dc43d0f3-be9a-4b07-9f4c-1bf64811ba8d",
-            "039db6b3-5737-4f73-be3b-85a534191806",
-            "7590e3d7-4b17-4b9c-b857-9148cca97717",
-            "b44867c5-562d-4d4c-b3f1-6bddf876536c",
-            "368ad471-50eb-4791-a742-5d465755cc2a",
-            "1984e8eb-c013-436b-a5c4-0636603a63bc",
-            "d3af3a94-d915-4cce-bfe2-450aead66f32",
-            "cb6b60f3-50ee-400e-bdac-275bce954a2b",
-            "f768e9e2-c0aa-43af-aac8-522406bb7c90",
-            "69ae277f-d4d5-4306-8f9f-3e61c961ec00",
-            "cb8b9fe8-f25b-465e-a9ec-4dc2ef45bf60"
+            "015c9701-f85c-454a-a85c-2c5e506cb7be",
+            "d0007ccb-b0d8-420e-8fa7-f32f2d2e4f90",
+            "ef90f47b-a1cd-4923-a9cf-9b54679d15f8",
+            "2f6b7502-86af-466f-b270-837ad035cb2b",
+            "1b698561-0d8a-471c-9a58-8f465cdf56dd",
+            "1add8f9b-d8f0-4fc4-8653-07afeb7f85a2",
+            "6cc479ef-d461-4957-afcd-e5001a88a8ef",
+            "732ee6e3-26fa-4fbc-ab14-3191a13d8ea8",
+            "f9cb88c7-82de-4a31-9f3d-c51da9141f9f",
+            "8bb23dc8-e3d2-49bb-9dd0-c6a41e49f8a0",
+            "88b376cd-f4da-41ed-8006-73414d7a1c21",
+            "bf99732e-bc03-4cf5-9c84-533863767942"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 12,
+          "duration": 14,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
         },
         {
-          "uuid": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+          "uuid": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
           "title": "multi command test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/resp/command/multi-command.test.ts",
           "file": "/test/resp/command/multi-command.test.ts",
@@ -405,8 +495,8 @@
               "context": null,
               "code": "respServer = new resp_server_1.RespServer();\nrespServer.on(\"ready\", () => {\n    done();\n});\nrespServer.start();",
               "err": {},
-              "uuid": "b4a10af0-a2a9-44b4-8981-845a038ba3fb",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "93207a70-89e3-4456-ad52-79012015fa8d",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": true,
               "skipped": false
             },
@@ -423,8 +513,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "33aa5ef2-38d7-4d63-821b-799dae122ada",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "5e762447-aa4d-48ca-9b0b-25106c33780b",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": true,
               "skipped": false
             }
@@ -443,8 +533,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        yield respServer.stop();\n    })",
               "err": {},
-              "uuid": "367cc03f-7a21-4b87-9291-afca54044ee4",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "73973ee7-164d-4e3d-9cc7-1b5709ed6a2e",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": true,
               "skipped": false
             },
@@ -461,8 +551,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "e696b112-8227-4eec-9b73-f2e168dca48b",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "62b044e5-5f4a-4025-bebf-62c220351cfa",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": true,
               "skipped": false
             }
@@ -481,8 +571,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR MULTI calls can not be nested\");\n    })",
               "err": {},
-              "uuid": "d65c3738-4b0b-4b73-9d68-a24aafa453cb",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "f01a2917-e5ef-4d94-a30a-bc1c71032c4f",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -499,8 +589,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"discard\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n    })",
               "err": {},
-              "uuid": "f84f0069-3262-44e7-92a1-ffb2efc2417e",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "799d10f4-1fcd-413f-9594-926b3075d5a5",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -517,8 +607,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"discard\"]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR DISCARD without MULTI\");\n    })",
               "err": {},
-              "uuid": "b3024001-3f75-4110-970f-1fc7df202ebb",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "b307f501-04b2-4728-8ab3-4836e6218a4c",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -526,7 +616,7 @@
               "title": "should continue to validate commands after MULTI",
               "fullTitle": "multi command test should continue to validate commands after MULTI",
               "timedOut": false,
-              "duration": 1,
+              "duration": 2,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -535,8 +625,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"unknown\",\n            \"command\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR unknown command `unknown`, with args beginning with: `command`, \", `${response}`);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpush\",\n            \"test\",\n            \"one\",\n            \"two\",\n            \"three\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"QUEUED\");\n    })",
               "err": {},
-              "uuid": "8f672a2a-2957-4d06-a277-3092d23a69ca",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "504295f9-3e5a-4a7a-ada3-7f260f646aad",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -553,8 +643,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"exec\"]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: EXECABORT Transaction discarded because of previous errors.\");\n    })",
               "err": {},
-              "uuid": "62ed62a3-bc64-40fc-ac0a-88c43da28f79",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "f49fe745-4f9a-4b7e-bf52-bd707d1d46e8",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -571,8 +661,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpush\",\n            \"test\",\n            \"one\",\n            \"two\",\n            \"three\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"QUEUED\");\n        response = yield (0, common_test_1.sendCommand)(client, [\"exec\"]);\n        (0, chai_1.expect)(response).to.eql([3]);\n    })",
               "err": {},
-              "uuid": "8cbc9524-6ae9-488b-997c-dbab84abb924",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "54d32d05-7862-4e69-8533-c125c75fa30c",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -580,7 +670,7 @@
               "title": "should reset transaction state after executing commands",
               "fullTitle": "multi command test should reset transaction state after executing commands",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -589,8 +679,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\"discard\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n    })",
               "err": {},
-              "uuid": "2f511224-4bf3-4fcc-8325-dc3b009640b6",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "d7bc2fe1-6230-4f10-ab81-d22d887f8608",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -598,7 +688,7 @@
               "title": "should return the results of multiple commands in the order provided",
               "fullTitle": "multi command test should return the results of multiple commands in the order provided",
               "timedOut": false,
-              "duration": 4,
+              "duration": 2,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -607,8 +697,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"multi\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpop\",\n            \"test\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"QUEUED\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpop\",\n            \"test\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"QUEUED\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"brpoplpush\",\n            \"test\",\n            \"dest\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"QUEUED\");\n        response = yield (0, common_test_1.sendCommand)(client, [\"exec\"]);\n        (0, chai_1.expect)(response).to.eql([\n            \"three\",\n            \"two\",\n            \"one\"\n        ]);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"exists\",\n            \"test\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(0);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"exists\",\n            \"dest\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(1);\n    })",
               "err": {},
-              "uuid": "97b07cc4-dbe8-4e38-9b58-f3b0c60ff76e",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "260e67d1-1e5e-409b-befc-54f4740a2640",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -625,8 +715,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"flushall\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpush\",\n            \"test\",\n            \"one\",\n            \"two\",\n            \"three\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(3);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpop\",\n            \"test\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"three\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"lpop\",\n            \"test\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"two\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"brpoplpush\",\n            \"test\",\n            \"dest\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"one\");\n    })",
               "err": {},
-              "uuid": "f2926fd4-6dc7-4529-aaa4-08df11ec6194",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "7f87b41e-769f-46d0-b542-1fa0b1c5ff42",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             },
@@ -643,24 +733,24 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"exec\"]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR EXEC without MULTI\");\n    })",
               "err": {},
-              "uuid": "3716c907-8c53-41de-94c0-8e8d05e7e5d1",
-              "parentUUID": "66b49293-da72-41a2-ab62-3cb36ddd2c27",
+              "uuid": "f03dedf2-4bc1-4247-9ad0-b579c723ddfd",
+              "parentUUID": "cafea95c-6c1b-40a9-b9ce-26cb29221045",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "d65c3738-4b0b-4b73-9d68-a24aafa453cb",
-            "f84f0069-3262-44e7-92a1-ffb2efc2417e",
-            "b3024001-3f75-4110-970f-1fc7df202ebb",
-            "8f672a2a-2957-4d06-a277-3092d23a69ca",
-            "62ed62a3-bc64-40fc-ac0a-88c43da28f79",
-            "8cbc9524-6ae9-488b-997c-dbab84abb924",
-            "2f511224-4bf3-4fcc-8325-dc3b009640b6",
-            "97b07cc4-dbe8-4e38-9b58-f3b0c60ff76e",
-            "f2926fd4-6dc7-4529-aaa4-08df11ec6194",
-            "3716c907-8c53-41de-94c0-8e8d05e7e5d1"
+            "f01a2917-e5ef-4d94-a30a-bc1c71032c4f",
+            "799d10f4-1fcd-413f-9594-926b3075d5a5",
+            "b307f501-04b2-4728-8ab3-4836e6218a4c",
+            "504295f9-3e5a-4a7a-ada3-7f260f646aad",
+            "f49fe745-4f9a-4b7e-bf52-bd707d1d46e8",
+            "54d32d05-7862-4e69-8533-c125c75fa30c",
+            "d7bc2fe1-6230-4f10-ab81-d22d887f8608",
+            "260e67d1-1e5e-409b-befc-54f4740a2640",
+            "7f87b41e-769f-46d0-b542-1fa0b1c5ff42",
+            "f03dedf2-4bc1-4247-9ad0-b579c723ddfd"
           ],
           "failures": [],
           "pending": [],
@@ -671,7 +761,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+          "uuid": "e7504474-0143-435c-842d-6db97282068e",
           "title": "script-command test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/resp/command/script-command.test.ts",
           "file": "/test/resp/command/script-command.test.ts",
@@ -689,8 +779,8 @@
               "context": null,
               "code": "respServer = new resp_server_1.RespServer();\nrespServer.on(\"ready\", () => __awaiter(void 0, void 0, void 0, function* () {\n    yield (0, common_test_1.sendCommand)(client, [\"flushall\"]);\n    yield (0, common_test_1.sendCommand)(client, [\n        \"select\",\n        \"0\"\n    ]);\n    yield (0, common_test_1.sendCommand)(client, [\n        \"script\",\n        \"flush\"\n    ]);\n    done();\n}));\nrespServer.start();",
               "err": {},
-              "uuid": "c1e69199-03db-4087-93a2-6ad9bc910f0a",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "081909f4-eb50-4ebc-8bf6-3782047bdeae",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": true,
               "skipped": false
             },
@@ -707,8 +797,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "0b320c76-ad57-4007-8fcb-0fc88ba67f16",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "c9726fe3-0135-45e1-9ca1-651c861dd943",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": true,
               "skipped": false
             }
@@ -727,8 +817,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        yield respServer.stop();\n    })",
               "err": {},
-              "uuid": "2e20d3f3-381f-413a-9b2e-11eae80061a4",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "5ac0d233-3707-4b21-bf58-068b5809a67f",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": true,
               "skipped": false
             },
@@ -745,8 +835,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "8d05afac-eb58-456e-b93b-032d7b04d348",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "e9300e91-31b9-4cac-9f35-df4a98d8c714",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": true,
               "skipped": false
             }
@@ -765,8 +855,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"script\",\n            \"exists\",\n            sha1\n        ]);\n        (0, chai_1.expect)(response).to.eql([0]);\n        // Validate failure on unparseable script\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"script\",\n            \"load\",\n            code\n        ]);\n        (0, chai_1.expect)(response).to.match(/ReplyError: ERR .*/);\n        // Validate success on parseable script\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"script\",\n            \"load\",\n            `${code}}`\n        ]);\n        (0, chai_1.expect)(response).to.equal(sha1);\n        // Validate a script is persisted\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"script\",\n            \"exists\",\n            sha1\n        ]);\n        (0, chai_1.expect)(response).to.eql([1]);\n        // Validate response to unknown sub command\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"script\",\n            \"test\",\n            sha1\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR Unknown subcommand or wrong number of arguments for 'test'. Try SCRIPT HELP.\");\n    })",
               "err": {},
-              "uuid": "83e0401e-4b01-4e2e-b0ae-bb931f3025bc",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "cd88f202-8b2e-4593-bb1d-c5a6252d0840",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -774,7 +864,7 @@
               "title": "should evaluate a loaded lua script using evalsha",
               "fullTitle": "script-command test should evaluate a loaded lua script using evalsha",
               "timedOut": false,
-              "duration": 2,
+              "duration": 1,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -783,8 +873,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        // Validate that NOSCRIPT is triggered\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"evalsha\",\n            `${sha1}xx`,\n            \"2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: NOSCRIPT No matching script. Please use EVAL.\");\n        // Validate that param 1 cannot be negative\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"evalsha\",\n            sha1,\n            \"-2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR Number of keys can't be negative\");\n        // Validate that param 1 cannot be text\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"evalsha\",\n            sha1,\n            \"two\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR value is not an integer or out of range\");\n    })",
               "err": {},
-              "uuid": "0e27da3f-58d2-4fff-9ff3-10631fb96a90",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "830c8a75-124c-4170-9a4f-23889314ab6a",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -792,7 +882,7 @@
               "title": "should execute a simple script",
               "fullTitle": "script-command test should execute a simple script",
               "timedOut": false,
-              "duration": 5,
+              "duration": 6,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -801,8 +891,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        // Validate that a simple script can be processed\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"EVAL\",\n            \"local val=\\\"Hello Compose\\\" return val\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"Hello Compose\");\n    })",
               "err": {},
-              "uuid": "7332a255-0710-4a5f-b7a8-16e5e6365e51",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "aa695ccf-8efa-4e8a-be03-0b6665cc0128",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -819,8 +909,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return ARGV[2]\",\n            \"2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.eql(\"second\");\n    })",
               "err": {},
-              "uuid": "cd00efba-4ae7-41a8-8fba-cf72ef7ab400",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "51ea9126-1ec4-45d5-8686-d69297b6ad27",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -837,8 +927,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return KEYS[1]\",\n            \"2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(\"key1\");\n    })",
               "err": {},
-              "uuid": "ad4b3737-4714-4d45-bf3e-49bf30ea1358",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "bb80a1a9-4d42-4542-8f96-4a4bda3e0eaa",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -846,7 +936,7 @@
               "title": "should return a NUMBER when required",
               "fullTitle": "script-command test should return a NUMBER when required",
               "timedOut": false,
-              "duration": 2,
+              "duration": 3,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -855,8 +945,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return 123\",\n            \"2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(123);\n    })",
               "err": {},
-              "uuid": "5bebb01b-52a9-4895-b55f-23f4bd6bdbbf",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "510f7337-b375-46ad-af5a-2bb0b923dd9f",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -864,7 +954,7 @@
               "title": "should return NIL when there is no return value",
               "fullTitle": "script-command test should return NIL when there is no return value",
               "timedOut": false,
-              "duration": 2,
+              "duration": 5,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -873,8 +963,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"print \\\"Hello World\\\"\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(null);\n    })",
               "err": {},
-              "uuid": "306a7f90-cbfc-4047-9338-8916bb73890c",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "33b17242-9eb4-4ab6-bad8-4ac85c012a51",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -882,7 +972,7 @@
               "title": "should return a TABLE when required",
               "fullTitle": "script-command test should return a TABLE when required",
               "timedOut": false,
-              "duration": 4,
+              "duration": 5,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -891,8 +981,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return ARGV\",\n            \"2\",\n            \"key1\",\n            \"key2\",\n            \"first\",\n            \"second\",\n            \"third\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            \"first\",\n            \"second\",\n            \"third\"\n        ]);\n    })",
               "err": {},
-              "uuid": "dd81e274-6ef2-4355-9125-ec165de9694b",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "685577bc-c419-4842-ae02-2ae44aae8b35",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -900,7 +990,7 @@
               "title": "should return items in order",
               "fullTitle": "script-command test should return items in order",
               "timedOut": false,
-              "duration": 4,
+              "duration": 3,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -909,8 +999,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return {true, \\\"test\\\", false, 10, 10.2}\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            1,\n            \"test\",\n            null,\n            10,\n            10\n        ]);\n    })",
               "err": {},
-              "uuid": "63e3c822-b702-4051-bbf1-e48b51315f0e",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "85f4a3e1-d157-4e5f-ab62-b0a3f63ad088",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -918,7 +1008,7 @@
               "title": "should return integer and nil for true and false, respectively",
               "fullTitle": "script-command test should return integer and nil for true and false, respectively",
               "timedOut": false,
-              "duration": 2,
+              "duration": 3,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -927,8 +1017,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return { true, false, false}\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            1,\n            null,\n            null\n        ]);\n    })",
               "err": {},
-              "uuid": "53e9b6a1-ad7b-48f7-ba22-febc8582930d",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "99164f60-13d8-4ada-851a-ce0827916f41",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -945,8 +1035,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "60b92a4b-6a28-4382-b845-540d5da4e107",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "3e9e9d29-f5ca-4a39-976c-6786b9b126ef",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -954,7 +1044,7 @@
               "title": "should fail when we attempt to EVAL an invalid script",
               "fullTitle": "script-command test should fail when we attempt to EVAL an invalid script",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -963,8 +1053,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"-- Invalid\\r\\nscript\"\n        ]);\n        // Validated against redis\n        (0, chai_1.expect)(response).to.equal(\"ReplyError: ERR wrong number of arguments for 'eval' command\");\n    })",
               "err": {},
-              "uuid": "32fc7531-ce9b-4ead-b915-feef488e18c4",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "6bcf423c-16b8-4f77-8ed7-4fb7e52ab44a",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -972,7 +1062,7 @@
               "title": "should be able to return a NULL value from a lua script",
               "fullTitle": "script-command test should be able to return a NULL value from a lua script",
               "timedOut": false,
-              "duration": 3,
+              "duration": 2,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -981,8 +1071,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = nil return val\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(null);\n    })",
               "err": {},
-              "uuid": "e2ad6271-7c52-4f1f-9160-29bccc0a4f24",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "1c65e687-ecc4-4579-ae7c-177369c905a8",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -999,8 +1089,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "ad2d2c2e-fe7b-4511-b654-461c31c2caf2",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "bee035aa-b69a-4b5b-aaff-7a427ac06b36",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -1008,7 +1098,7 @@
               "title": "should return a table with embedded calls to redis",
               "fullTitle": "script-command test should return a table with embedded calls to redis",
               "timedOut": false,
-              "duration": 5,
+              "duration": 6,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -1017,8 +1107,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"flushall\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"hset\",\n            embeddedkey,\n            \"one\",\n            \"1\",\n            \"two\",\n            \"2\",\n            \"three\",\n            \"3\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(3);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"hgetall\",\n            embeddedkey\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            \"one\",\n            \"1\",\n            \"two\",\n            \"2\",\n            \"three\",\n            \"3\"\n        ]);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            `local j = redis.call(\"HGETALL\", \"${embeddedkey}\") return { j, \"SAMPLE\" }`,\n            \"0\"\n        ]);\n        // Validated with redis\n        (0, chai_1.expect)(response).to.eql([\n            \"SAMPLE\",\n            [\n                \"one\",\n                \"1\",\n                \"two\",\n                \"2\",\n                \"three\",\n                \"3\"\n            ]\n        ]);\n    })",
               "err": {},
-              "uuid": "9ad104e6-0075-4758-ad1a-94180fd0d84d",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "c97549d9-ba98-45df-baa6-78ee652e3f1f",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -1035,8 +1125,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\"flushall\"]);\n        (0, chai_1.expect)(response).to.equal(\"OK\");\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"hset\",\n            embeddedkey,\n            \"one\",\n            \"1\",\n            \"two\",\n            \"2\",\n            \"three\",\n            \"3\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(3);\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            `return { unpack(redis.call(\"hgetall\", \"${embeddedkey}\")) }`,\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            \"one\",\n            \"1\",\n            \"two\",\n            \"2\",\n            \"three\",\n            \"3\"\n        ]);\n    })",
               "err": {},
-              "uuid": "7bdb19fa-77f4-45ed-8b6e-4970d4f86d8c",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "285f4027-bffe-4a79-a0f9-959e428729dc",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -1053,8 +1143,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return {1,2,{3,'Hello World!'}}\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            1,\n            2,\n            [\n                3,\n                \"Hello World!\"\n            ]\n        ]);\n    })",
               "err": {},
-              "uuid": "50682d53-90cf-4260-9eeb-8ba00275b4f5",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "f2577378-764e-4ee0-920b-ce065fbf573d",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             },
@@ -1071,44 +1161,44 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"return {1,2,{3,bit.bxor(5,3)}}\",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.eql([\n            1,\n            2,\n            [\n                3,\n                6\n            ]\n        ]);\n    })",
               "err": {},
-              "uuid": "da75ed8d-bb64-41a0-969d-9c595a22f602",
-              "parentUUID": "89a78293-8c8f-418a-a99b-5b1bbbe90dad",
+              "uuid": "b0b19357-2679-4708-bd8b-5f7c917592be",
+              "parentUUID": "e7504474-0143-435c-842d-6db97282068e",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "83e0401e-4b01-4e2e-b0ae-bb931f3025bc",
-            "0e27da3f-58d2-4fff-9ff3-10631fb96a90",
-            "7332a255-0710-4a5f-b7a8-16e5e6365e51",
-            "cd00efba-4ae7-41a8-8fba-cf72ef7ab400",
-            "ad4b3737-4714-4d45-bf3e-49bf30ea1358",
-            "5bebb01b-52a9-4895-b55f-23f4bd6bdbbf",
-            "306a7f90-cbfc-4047-9338-8916bb73890c",
-            "dd81e274-6ef2-4355-9125-ec165de9694b",
-            "63e3c822-b702-4051-bbf1-e48b51315f0e",
-            "53e9b6a1-ad7b-48f7-ba22-febc8582930d",
-            "32fc7531-ce9b-4ead-b915-feef488e18c4",
-            "e2ad6271-7c52-4f1f-9160-29bccc0a4f24",
-            "9ad104e6-0075-4758-ad1a-94180fd0d84d",
-            "7bdb19fa-77f4-45ed-8b6e-4970d4f86d8c",
-            "50682d53-90cf-4260-9eeb-8ba00275b4f5",
-            "da75ed8d-bb64-41a0-969d-9c595a22f602"
+            "cd88f202-8b2e-4593-bb1d-c5a6252d0840",
+            "830c8a75-124c-4170-9a4f-23889314ab6a",
+            "aa695ccf-8efa-4e8a-be03-0b6665cc0128",
+            "51ea9126-1ec4-45d5-8686-d69297b6ad27",
+            "bb80a1a9-4d42-4542-8f96-4a4bda3e0eaa",
+            "510f7337-b375-46ad-af5a-2bb0b923dd9f",
+            "33b17242-9eb4-4ab6-bad8-4ac85c012a51",
+            "685577bc-c419-4842-ae02-2ae44aae8b35",
+            "85f4a3e1-d157-4e5f-ab62-b0a3f63ad088",
+            "99164f60-13d8-4ada-851a-ce0827916f41",
+            "6bcf423c-16b8-4f77-8ed7-4fb7e52ab44a",
+            "1c65e687-ecc4-4579-ae7c-177369c905a8",
+            "c97549d9-ba98-45df-baa6-78ee652e3f1f",
+            "285f4027-bffe-4a79-a0f9-959e428729dc",
+            "f2577378-764e-4ee0-920b-ce065fbf573d",
+            "b0b19357-2679-4708-bd8b-5f7c917592be"
           ],
           "failures": [],
           "pending": [
-            "60b92a4b-6a28-4382-b845-540d5da4e107",
-            "ad2d2c2e-fe7b-4511-b654-461c31c2caf2"
+            "3e9e9d29-f5ca-4a39-976c-6786b9b126ef",
+            "bee035aa-b69a-4b5b-aaff-7a427ac06b36"
           ],
           "skipped": [],
-          "duration": 56,
+          "duration": 60,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
         },
         {
-          "uuid": "b9ce06d7-321a-4ae0-8d75-c8806afbb059",
+          "uuid": "354c51ee-3b89-481f-a772-aa9fd9fa60d2",
           "title": "data-type test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/data-type.test.ts",
           "file": "/test/resp/data/data-type.test.ts",
@@ -1126,8 +1216,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "03927ae7-3e74-45e1-bb68-ca31a09ad5b4",
-              "parentUUID": "b9ce06d7-321a-4ae0-8d75-c8806afbb059",
+              "uuid": "c91b0fb0-502b-4f73-8291-cc677af0042e",
+              "parentUUID": "354c51ee-3b89-481f-a772-aa9fd9fa60d2",
               "isHook": true,
               "skipped": false
             }
@@ -1146,8 +1236,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n    })",
               "err": {},
-              "uuid": "6b03454c-8ed2-4805-833d-87e626add4fd",
-              "parentUUID": "b9ce06d7-321a-4ae0-8d75-c8806afbb059",
+              "uuid": "114b1108-3062-4417-a73e-cae2aed9bc95",
+              "parentUUID": "354c51ee-3b89-481f-a772-aa9fd9fa60d2",
               "isHook": true,
               "skipped": false
             },
@@ -1164,8 +1254,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "7de1f3c5-32d7-4ac4-8431-1d7932f666ff",
-              "parentUUID": "b9ce06d7-321a-4ae0-8d75-c8806afbb059",
+              "uuid": "fb0e5268-1d94-400e-9350-0b5ee83bd549",
+              "parentUUID": "354c51ee-3b89-481f-a772-aa9fd9fa60d2",
               "isHook": true,
               "skipped": false
             }
@@ -1184,15 +1274,15 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        (0, chai_1.expect)(data_type_1.DataType.NONE).to.equal(\"none\");\n        (0, chai_1.expect)(data_type_1.DataType.STRING).to.equal(\"string\");\n        (0, chai_1.expect)(data_type_1.DataType.LIST).to.equal(\"list\");\n        (0, chai_1.expect)(data_type_1.DataType.SET).to.equal(\"set\");\n        (0, chai_1.expect)(data_type_1.DataType.ZSET).to.equal(\"zset\");\n        (0, chai_1.expect)(data_type_1.DataType.HASH).to.equal(\"hash\");\n        (0, chai_1.expect)(Object.keys(data_type_1.DataType).length).to.equal(6);\n    })",
               "err": {},
-              "uuid": "be630a10-d046-43a0-95e9-f1b2cf665aa2",
-              "parentUUID": "b9ce06d7-321a-4ae0-8d75-c8806afbb059",
+              "uuid": "cf3251e8-806d-4fb9-94f3-b5b837be9b6e",
+              "parentUUID": "354c51ee-3b89-481f-a772-aa9fd9fa60d2",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "be630a10-d046-43a0-95e9-f1b2cf665aa2"
+            "cf3251e8-806d-4fb9-94f3-b5b837be9b6e"
           ],
           "failures": [],
           "pending": [],
@@ -1203,7 +1293,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+          "uuid": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
           "title": "sorted-set test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
           "file": "/test/resp/data/sorted-set.test.ts",
@@ -1221,8 +1311,8 @@
               "context": null,
               "code": "sinon.createSandbox();\nss = new sorted_set_1.SortedSet();\nz = new Z();",
               "err": {},
-              "uuid": "85d37c27-45d8-428a-93b9-1cc46c87dac9",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "46a69022-8faf-4ade-864e-5e3a47ee18fc",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": true,
               "skipped": false
             }
@@ -1241,8 +1331,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n    })",
               "err": {},
-              "uuid": "7ad2fd4f-a39e-4acf-939b-e0ffab326593",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "845557c6-bfed-4c43-839c-cb39598fe2ed",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": true,
               "skipped": false
             },
@@ -1259,8 +1349,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "55361e9e-ef25-474e-97bb-ceebf87f84ba",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "102de140-fc60-465a-9a95-6c1cde0291ea",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": true,
               "skipped": false
             }
@@ -1270,7 +1360,7 @@
               "title": "should instantiate",
               "fullTitle": "sorted-set test should instantiate",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -1279,8 +1369,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        (0, chai_1.expect)(z.constructor.name).to.equal(\"Z\");\n        ss = new sorted_set_1.SortedSet();\n        (0, chai_1.expect)(ss.constructor.name).to.equal(\"SortedSet\");\n    })",
               "err": {},
-              "uuid": "79a1d257-8219-4e1e-967c-768d123802c3",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "e6fc4af3-e75a-4fe4-9d22-0969578ac27f",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1297,8 +1387,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        let added = z.add(\"test\", 1);\n        (0, chai_1.expect)(added).to.equal(null);\n        added = ss.add(\"test\", 1);\n        (0, chai_1.expect)(added).to.equal(null);\n        (0, chai_1.expect)(z.keys().length).to.equal(1);\n        (0, chai_1.expect)(ss.keys().length).to.equal(1);\n        let item = z.get(\"test\");\n        (0, chai_1.expect)(item.constructor.name).to.equal(\"Number\");\n        item = ss.get(\"test\");\n        (0, chai_1.expect)(item.constructor.name).to.equal(\"Number\");\n        z.del(\"test\");\n        (0, chai_1.expect)(z.keys().length).to.equal(0);\n        ss.del(\"test\");\n        (0, chai_1.expect)(ss.keys().length).to.equal(0);\n    })",
               "err": {},
-              "uuid": "16c32d76-0e4d-4df3-a509-24eadc9daad3",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "307ca885-a3f6-4a16-952a-f8c1675908fa",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1306,7 +1396,7 @@
               "title": "should throw when attempting to add __proto__ key",
               "fullTitle": "sorted-set test should throw when attempting to add __proto__ key",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -1315,8 +1405,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        (0, chai_1.expect)(() => {\n            z.add(\"__proto__\", 0);\n        }).to.throw();\n        /*\n         * Expect(() => {\n         *   ss.add('__proto__', 0)\n         * }).to.throw();\n         */\n    })",
               "err": {},
-              "uuid": "82c47cee-c575-4e2a-b7f3-b4475bd00b20",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "cdb1df6d-1cbd-4f0b-be44-32e7afeaec23",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1333,8 +1423,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        let added = z.add(\"test\", null);\n        (0, chai_1.expect)(added).to.equal(null);\n        (0, chai_1.expect)(z.keys().length).to.equal(0);\n        added = z.add(\"test\", undefined);\n        (0, chai_1.expect)(z.keys().length).to.equal(0);\n        /*\n         * Typescript prevents adding null\n         * added = ss.add('test', null);\n         * expect(added).to.equal(null);\n         * expect(ss.keys().length).to.equal(0);\n         * added = ss.add('test', undefined);\n         * expect(z.keys().length).to.equal(0);\n         */\n    })",
               "err": {},
-              "uuid": "3c1ed4ec-abcb-4472-bf14-ed25403871de",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "76c4aba4-5186-489d-80ec-b65a94d76385",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1351,8 +1441,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        let added = z.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(null); // This is weird\n        (0, chai_1.expect)(z.keys().length).to.equal(1);\n        added = z.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(123); // And weirder\n        (0, chai_1.expect)(z.keys().length).to.equal(1);\n        added = ss.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(null); // This is weird\n        (0, chai_1.expect)(ss.keys().length).to.equal(1);\n        added = ss.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(123); // And weirder\n        (0, chai_1.expect)(ss.keys().length).to.equal(1);\n    })",
               "err": {},
-              "uuid": "23430a08-e4de-47dc-91d3-6aa14d75206d",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "16f3f0d3-4172-4977-872d-1234c310160f",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1369,8 +1459,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        let added = z.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(null);\n        (0, chai_1.expect)(z.keys().length).to.equal(1);\n        added = z.add(\"test\", 321);\n        (0, chai_1.expect)(added).to.equal(123);\n        (0, chai_1.expect)(z.keys().length).to.equal(1);\n        added = z.get(\"test\");\n        (0, chai_1.expect)(added).to.equal(321);\n        added = ss.add(\"test\", 123);\n        (0, chai_1.expect)(added).to.equal(null);\n        (0, chai_1.expect)(ss.keys().length).to.equal(1);\n        added = ss.add(\"test\", 321);\n        (0, chai_1.expect)(added).to.equal(123);\n        (0, chai_1.expect)(ss.keys().length).to.equal(1);\n        added = ss.get(\"test\");\n        (0, chai_1.expect)(added).to.equal(321);\n    })",
               "err": {},
-              "uuid": "9ae72ccb-56fc-473b-b529-eb573871b562",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "286fe1dd-266e-4ef0-99e6-d23e85d19d18",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1387,8 +1477,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "ac27fc1d-3098-499e-9aca-0a5566a2844b",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "3122d47f-f7c1-4fea-9e89-5dfea2b6d821",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1405,8 +1495,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        (0, chai_1.expect)(z.add(\"Terminator\", 8.0)).to.equal(null); // => null\n        (0, chai_1.expect)(z.add(\"District 9\", 8.0)).to.equal(null); // => null\n        (0, chai_1.expect)(z.add(\"Ex Machina\", 0.7)).to.equal(null); // => null\n        (0, chai_1.expect)(z.add(\"Ex Machina\", 7.7)).to.equal(0.7); // => 0.7\n        // Alias\n        (0, chai_1.expect)(z.set(\"The Matrix\", 8.7)).to.equal(null); // => null\n        // Average O(1)\n        (0, chai_1.expect)(z.has(\"Terminator\")).to.equal(true); // => true\n        (0, chai_1.expect)(z.has(\"Blade Runner\")).to.equal(false); // => false\n        // Average O(1)\n        (0, chai_1.expect)(z.score(\"Ex Machina\")).to.equal(7.7); // => 7.7\n        (0, chai_1.expect)(z.score(\"Blade Runner\")).to.equal(null); // => null\n        // Alias\n        (0, chai_1.expect)(z.get(\"The Matrix\")).to.equal(8.7); // => 8.7\n        // Average O(log(N))\n        (0, chai_1.expect)(z.rem(\"Ex Machina\")).to.equal(7.7); // => 7.7\n        // Average O(1)\n        (0, chai_1.expect)(z.rem(\"Ex Machina\")).to.equal(null); // => null\n        // Alias\n        (0, chai_1.expect)(z.del(\"Ex Machina\")).to.equal(null); // => null\n        /*\n         * Average O(log(N)+M) where M is the number of elements between min and max\n         * This is not working as expected\n         */\n        (0, chai_1.expect)(z.rangeByScore(7, 8)).to.eql([\n            \"District 9\",\n            \"Terminator\"\n        ]);\n        // => ['Ex Machina', 'District 9', 'Terminator']\n        (0, chai_1.expect)(z.rangeByScore(8)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]); // [8.0-∞)\n        // => ['District 9', 'Terminator', 'The Matrix']\n        (0, chai_1.expect)(z.rangeByScore(8, null, { \"withScores\": true })).to.eql([\n            [\n                \"District 9\",\n                8.0\n            ],\n            [\n                \"Terminator\",\n                8.0\n            ],\n            [\n                \"The Matrix\",\n                8.7\n            ]\n        ]);\n        // => [['District 9', 8.0], ['Terminator', 8.0], ['The Matrix', 8.7]]\n        /*\n         * Average O(log(N)+log(M)) where M as in rangeByScore\n         * Again - not as expected\n         */\n        (0, chai_1.expect)(z.count(7, 8)).to.equal(2); // => 3\n        /*\n         * Average O(log(N))\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.rank(\"Ex Machina\")).to.equal(null); // => 0\n        // Not working as expected\n        (0, chai_1.expect)(z.rank(\"Terminator\")).to.equal(1); // => 2\n        (0, chai_1.expect)(z.rank(\"Blade Runner\")).to.equal(null); // => null\n        /*\n         * Average O(log(N)+M) where M as in range\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.range(0, 2)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]);\n        /*\n         * => ['Ex Machina', 'District 9', 'Terminator']\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.range(0, 2, { \"withScores\": true })).to.eql([\n            [\n                \"District 9\",\n                8\n            ],\n            [\n                \"Terminator\",\n                8\n            ],\n            [\n                \"The Matrix\",\n                8.7\n            ]\n        ]);\n        /*\n         * => [['Ex Machina', 7.7],\n         *     ['District 9', 8],\n         *     ['Terminator', 8]]\n         */\n        (0, chai_1.expect)(z.range(-1)).to.eql([\"The Matrix\"]); // => ['The Matrix']\n        /*\n         * Almost alias\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.slice(0, 3)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]);\n        // => ['Ex Machina', 'District 9', 'Terminator']\n        /*\n         * Set cardinality (number of elements)\n         * Average O(1)\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.card()).to.equal(3); // => 4\n        /*\n         * Alias\n         * Not working as expected\n         */\n        (0, chai_1.expect)(z.length).to.equal(3); // => 4\n    })",
               "err": {},
-              "uuid": "c1b62127-6856-45b0-a70d-e6dc0cd5025e",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "c655611e-13d0-47e1-aa84-05591a41b184",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             },
@@ -1414,7 +1504,7 @@
               "title": "the rewrite should do what the documentation says here: https://www.npmjs.com/package/redis-sorted-set",
               "fullTitle": "sorted-set test the rewrite should do what the documentation says here: https://www.npmjs.com/package/redis-sorted-set",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -1423,15 +1513,15 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        z = new Z();\n        ss = new sorted_set_1.SortedSet();\n        (0, chai_1.expect)(ss.add(\"Terminator\", 8.0)).to.equal(null); // => null\n        (0, chai_1.expect)(ss.add(\"District 9\", 8.0)).to.equal(null); // => null\n        (0, chai_1.expect)(ss.add(\"Ex Machina\", 0.7)).to.equal(null); // => null\n        (0, chai_1.expect)(ss.add(\"Ex Machina\", 7.7)).to.equal(0.7); // => 0.7\n        // Alias\n        (0, chai_1.expect)(ss.set(\"The Matrix\", 8.7)).to.equal(null); // => null\n        // Average O(1)\n        (0, chai_1.expect)(ss.has(\"Terminator\")).to.equal(true); // => true\n        (0, chai_1.expect)(ss.has(\"Blade Runner\")).to.equal(false); // => false\n        // Average O(1)\n        (0, chai_1.expect)(ss.score(\"Ex Machina\")).to.equal(7.7); // => 7.7\n        (0, chai_1.expect)(ss.score(\"Blade Runner\")).to.equal(null); // => null\n        // Alias\n        (0, chai_1.expect)(ss.get(\"The Matrix\")).to.equal(8.7); // => 8.7\n        // Average O(log(N))\n        (0, chai_1.expect)(ss.rem(\"Ex Machina\")).to.equal(7.7); // => 7.7\n        // Average O(1)\n        (0, chai_1.expect)(ss.rem(\"Ex Machina\")).to.equal(null); // => null\n        // Alias\n        (0, chai_1.expect)(ss.del(\"Ex Machina\")).to.equal(null); // => null\n        /*\n         * Average O(log(N)+M) where M is the number of elements between min and max\n         * This is not working as expected\n         */\n        (0, chai_1.expect)(ss.rangeByScore(7, 8)).to.eql([\n            \"District 9\",\n            \"Terminator\"\n        ]);\n        // => ['Ex Machina', 'District 9', 'Terminator']\n        (0, chai_1.expect)(ss.rangeByScore(8)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]); // [8.0-∞)\n        // => ['District 9', 'Terminator', 'The Matrix']\n        (0, chai_1.expect)(ss.rangeByScore(8, null, { \"withScores\": true })).to.eql([\n            [\n                \"District 9\",\n                8.0\n            ],\n            [\n                \"Terminator\",\n                8.0\n            ],\n            [\n                \"The Matrix\",\n                8.7\n            ]\n        ]);\n        // => [['District 9', 8.0], ['Terminator', 8.0], ['The Matrix', 8.7]]\n        /*\n         * Average O(log(N)+log(M)) where M as in rangeByScore\n         * Again - not as expected\n         */\n        (0, chai_1.expect)(ss.count(7, 8)).to.equal(2); // => 3\n        /*\n         * Average O(log(N))\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.rank(\"Ex Machina\")).to.equal(null); // => 0\n        // Not working as expected\n        (0, chai_1.expect)(ss.rank(\"Terminator\")).to.equal(1); // => 2\n        (0, chai_1.expect)(ss.rank(\"Blade Runner\")).to.equal(null); // => null\n        /*\n         * Average O(log(N)+M) where M as in range\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.range(0, 2)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]);\n        /*\n         * => ['Ex Machina', 'District 9', 'Terminator']\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.range(0, 2, { \"withScores\": true })).to.eql([\n            [\n                \"District 9\",\n                8\n            ],\n            [\n                \"Terminator\",\n                8\n            ],\n            [\n                \"The Matrix\",\n                8.7\n            ]\n        ]);\n        /*\n         * => [['Ex Machina', 7.7],\n         *     ['District 9', 8],\n         *     ['Terminator', 8]]\n         */\n        (0, chai_1.expect)(ss.range(-1)).to.eql([\"The Matrix\"]); // => ['The Matrix']\n        /*\n         * Almost alias\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.slice(0, 3)).to.eql([\n            \"District 9\",\n            \"Terminator\",\n            \"The Matrix\"\n        ]);\n        // => ['Ex Machina', 'District 9', 'Terminator']\n        /*\n         * Set cardinality (number of elements)\n         * Average O(1)\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.card()).to.equal(3); // => 4\n        /*\n         * Alias\n         * Not working as expected\n         */\n        (0, chai_1.expect)(ss.length).to.equal(3); // => 4\n    })",
               "err": {},
-              "uuid": "9a470130-5082-4e21-b492-c0b1c1c2adf0",
-              "parentUUID": "8c3279f5-e8a2-43c9-88d2-ede77113dc84",
+              "uuid": "750ed855-b242-42d0-bdb8-3732bb494a80",
+              "parentUUID": "1c382305-5f19-4c98-ba79-35a493a1d0c8",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [
             {
-              "uuid": "b2878e3e-40e9-4401-8bbf-f409509c28ab",
+              "uuid": "5cfc0350-c52b-4c24-9351-97369b1062c1",
               "title": "skip map",
               "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
               "file": "/test/resp/data/sorted-set.test.ts",
@@ -1442,7 +1532,7 @@
                   "title": "should support basic operations",
                   "fullTitle": "sorted-set test skip map should support basic operations",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1451,15 +1541,15 @@
                   "context": null,
                   "code": "const z = new Z();\n(0, chai_1.expect)(z).to.have.length(0);\n(0, chai_1.expect)(z.toArray()).to.eql([]);\n(0, chai_1.expect)(z.range()).to.eql([]);\n(0, chai_1.expect)(z.rangeByScore()).to.eql([]);\n(0, chai_1.expect)(() => {\n    z.add(\"__proto__\", 14);\n}).to.throw();\nz.add(\"5a600e16\", 8);\nz.add(\"5a600e17\", 9);\n(0, chai_1.expect)(z.add(\"5a600e18\", 10)).to.equal(null);\n(0, chai_1.expect)(z.add(\"5a600e17\", 12)).to.equal(9);\n(0, chai_1.expect)(z).to.have.length(3);\n(0, chai_1.expect)(z.toArray()).to.eql([\n    \"5a600e16\",\n    \"5a600e18\",\n    \"5a600e17\"\n]);\n(0, chai_1.expect)(z.toArray()).to.eql(z.range(0, -1));\n(0, chai_1.expect)(z.toArray()).to.eql(z.rangeByScore());\n(0, chai_1.expect)(z.has(\"5a600e16\")).to.be.ok;\n(0, chai_1.expect)(z.has(\"5a600e17\")).to.be.ok;\n(0, chai_1.expect)(z.has(\"5a600e18\")).to.be.ok;\n(0, chai_1.expect)(z.has(\"5a600e19\")).to.not.be.ok;\n(0, chai_1.expect)(z.score(\"5a600e16\")).to.equal(8);\n(0, chai_1.expect)(z.score(\"5a600e17\")).to.equal(12);\n(0, chai_1.expect)(z.score(\"5a600e18\")).to.equal(10);\n(0, chai_1.expect)(z.score(\"5a600e19\")).to.equal(null);\n(0, chai_1.expect)(z.rem(\"5a600e16\")).to.equal(8);\n(0, chai_1.expect)(z).to.have.length(2);\n(0, chai_1.expect)(z.rem(\"5a600e16\")).to.equal(null);\n(0, chai_1.expect)(z).to.have.length(2);\n(0, chai_1.expect)(z.has(\"5a600e16\")).to.not.be.ok;\n(0, chai_1.expect)(z.toArray()).to.eql([\n    \"5a600e18\",\n    \"5a600e17\"\n]);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).\n    to.eql(z.range(0, -1, { \"withScores\": true }));\n(0, chai_1.expect)(z.toArray()).to.eql(z.rangeByScore());\nz.add(\"5a600e16\", 10);\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\n(0, chai_1.expect)(z).to.have.length(9);\n// No change, so should be O(1)\nz.add(\"5a600e17\", 12);\n(0, chai_1.expect)(z.rank(\"5a600e17\")).to.equal(4);\n(0, chai_1.expect)(z).to.have.length(9);\n(0, chai_1.expect)(z.toArray()).to.eql([\n    \"5a600e16\",\n    \"5a600e11\",\n    \"5a600e18\",\n    \"5a600e13\",\n    \"5a600e17\",\n    \"5a600e14\",\n    \"5a600e10\",\n    \"5a600e12\",\n    \"5a600e15\"\n]);\n(0, chai_1.expect)(z.toArray()).to.eql(z.range(0, -1));\n(0, chai_1.expect)(z.toArray()).to.eql(z.rangeByScore());\n(0, chai_1.expect)(z.rangeByScore(14, 16, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ]\n]);",
                   "err": {},
-                  "uuid": "5c778952-aae7-4d10-b3a6-812b8c61a2a3",
-                  "parentUUID": "b2878e3e-40e9-4401-8bbf-f409509c28ab",
+                  "uuid": "4cd0b173-5532-4881-ab43-3fb2344dee69",
+                  "parentUUID": "5cfc0350-c52b-4c24-9351-97369b1062c1",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [
                 {
-                  "uuid": "7f254897-b38c-426d-9c46-ad3c1d03b8bc",
+                  "uuid": "aca6f325-52ae-4106-acd0-f2cd5d91222a",
                   "title": "#add",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1479,15 +1569,15 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.add(\"5a600e14\", null)).to.equal(14);\n(0, chai_1.expect)(z.add(\"5a600e19\", null)).to.equal(null);\n(0, chai_1.expect)(z).to.have.length(8);",
                       "err": {},
-                      "uuid": "1d7da607-6c9d-4f2a-a166-948a901d0978",
-                      "parentUUID": "7f254897-b38c-426d-9c46-ad3c1d03b8bc",
+                      "uuid": "e5101298-d145-4154-b5af-5b56e67053b4",
+                      "parentUUID": "aca6f325-52ae-4106-acd0-f2cd5d91222a",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "1d7da607-6c9d-4f2a-a166-948a901d0978"
+                    "e5101298-d145-4154-b5af-5b56e67053b4"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1498,7 +1588,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "671a09a1-e6f1-4a7a-8a38-ac530c9ce603",
+                  "uuid": "1ba4e381-556d-4ea6-8123-cc3e0e9fe863",
                   "title": "#empty",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1518,15 +1608,15 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\nz.empty();\n(0, chai_1.expect)(z).to.have.length(0);\n(0, chai_1.expect)(z.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "c4c60083-5df1-409d-a274-9614f784f6a3",
-                      "parentUUID": "671a09a1-e6f1-4a7a-8a38-ac530c9ce603",
+                      "uuid": "df04e056-0b39-44f7-b966-d8331bb2bb25",
+                      "parentUUID": "1ba4e381-556d-4ea6-8123-cc3e0e9fe863",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "c4c60083-5df1-409d-a274-9614f784f6a3"
+                    "df04e056-0b39-44f7-b966-d8331bb2bb25"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1537,7 +1627,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "d0af57f6-ee03-45ca-a667-72d714f0be40",
+                  "uuid": "8099c973-ca56-4c57-8eba-137c2c3679e0",
                   "title": "#incrBy(increment, key)",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1557,8 +1647,8 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"first\", 1);\nz.add(\"second\", 2);\nz.add(\"third\", 3);\nz.add(\"fourth\", 4);\n(0, chai_1.expect)(z.incrBy(2, \"first\")).to.equal(3);\n(0, chai_1.expect)(z.rank(\"first\")).to.equal(1);",
                       "err": {},
-                      "uuid": "3543edd2-da63-4573-82ba-c2f53e787d01",
-                      "parentUUID": "d0af57f6-ee03-45ca-a667-72d714f0be40",
+                      "uuid": "0d5dbfe4-28c6-4d52-a3fa-463c6c44eb32",
+                      "parentUUID": "8099c973-ca56-4c57-8eba-137c2c3679e0",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1575,16 +1665,16 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"first\", 1);\nz.incrBy(2, \"second\");\n(0, chai_1.expect)(z.card()).to.equal(2);\n(0, chai_1.expect)(z.rank(\"second\")).to.equal(1);",
                       "err": {},
-                      "uuid": "61a56d83-78b3-4b93-99e1-25f4f6558f4a",
-                      "parentUUID": "d0af57f6-ee03-45ca-a667-72d714f0be40",
+                      "uuid": "f6633a01-e181-4d6a-ad1a-29e460d16ef4",
+                      "parentUUID": "8099c973-ca56-4c57-8eba-137c2c3679e0",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "3543edd2-da63-4573-82ba-c2f53e787d01",
-                    "61a56d83-78b3-4b93-99e1-25f4f6558f4a"
+                    "0d5dbfe4-28c6-4d52-a3fa-463c6c44eb32",
+                    "f6633a01-e181-4d6a-ad1a-29e460d16ef4"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1595,7 +1685,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "c29c0eff-42ec-4cd6-9720-0ac8c274eee1",
+                  "uuid": "c4a87a4c-ced6-4ff3-85d4-9f8800ba87cc",
                   "title": "#keys",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1615,15 +1705,15 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.keys()).to.eql([\n    \"5a600e16\",\n    \"5a600e11\",\n    \"5a600e18\",\n    \"5a600e13\",\n    \"5a600e17\",\n    \"5a600e14\",\n    \"5a600e10\",\n    \"5a600e12\",\n    \"5a600e15\"\n]);",
                       "err": {},
-                      "uuid": "b9e14cc9-d667-4335-b3d0-477d2395cd7f",
-                      "parentUUID": "c29c0eff-42ec-4cd6-9720-0ac8c274eee1",
+                      "uuid": "f6936afc-9e34-490d-b431-08646e175278",
+                      "parentUUID": "c4a87a4c-ced6-4ff3-85d4-9f8800ba87cc",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "b9e14cc9-d667-4335-b3d0-477d2395cd7f"
+                    "f6936afc-9e34-490d-b431-08646e175278"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1634,7 +1724,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "b59da50e-f4de-47fb-bdc5-a238a142ab65",
+                  "uuid": "79da66cf-e31a-4c20-a8e4-73d714397ff3",
                   "title": "#rangeByScore",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1654,15 +1744,15 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.rangeByScore(14, null, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);\n(0, chai_1.expect)(z.rangeByScore(null, 10, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ]\n]);\n(0, chai_1.expect)(z.rangeByScore(-Infinity, Infinity)).to.eql(z.toArray());\n(0, chai_1.expect)(z.rangeByScore(null, null)).to.eql(z.toArray());",
                       "err": {},
-                      "uuid": "eeef8bc0-3ea2-469e-a208-2b888367d1ba",
-                      "parentUUID": "b59da50e-f4de-47fb-bdc5-a238a142ab65",
+                      "uuid": "86c202b8-8352-4ab1-a3d8-6f5150a1869b",
+                      "parentUUID": "79da66cf-e31a-4c20-a8e4-73d714397ff3",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "eeef8bc0-3ea2-469e-a208-2b888367d1ba"
+                    "86c202b8-8352-4ab1-a3d8-6f5150a1869b"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1673,7 +1763,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "3959d3e1-f550-421d-8841-25cd60b70218",
+                  "uuid": "fe25cb3e-8d78-4c0d-8c77-804f7ca7349e",
                   "title": "#count",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1693,15 +1783,15 @@
                       "context": null,
                       "code": "const z = new Z();\n(0, chai_1.expect)(z.count()).to.equal(0);\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\nz.add(\"5a600e19\", 14);\nz.add(\"5a600f00\", 30.0);\nz.add(\"5a600f01\", 30.5);\nz.add(\"5a600f02\", 31.0);\nz.add(\"5a600f03\", 31.5);\nz.add(\"5a600f04\", 32.0);\nz.add(\"5a600f05\", 32.0);\nz.add(\"5a600f06\", 32.0);\n(0, chai_1.expect)(z.count()).to.eql(z.rangeByScore().length);\n(0, chai_1.expect)(z.count(8)).to.eql(z.rangeByScore(8).length);\n(0, chai_1.expect)(z.count(3, 7)).to.eql(z.rangeByScore(3, 7).length);\n(0, chai_1.expect)(z.count(5, 14)).to.eql(z.rangeByScore(5, 14).length);\n(0, chai_1.expect)(z.count(5, 5)).to.eql(z.rangeByScore(5, 5).length);\n(0, chai_1.expect)(z.count(5, 0)).to.eql(z.rangeByScore(5, 0).length);\n(0, chai_1.expect)(z.count(30, 32)).to.eql(z.rangeByScore(30, 32).length);\n(0, chai_1.expect)(z.count(40)).to.eql(z.rangeByScore(40).length);",
                       "err": {},
-                      "uuid": "d507ec00-e720-4ece-ac7d-9c54ce791c1e",
-                      "parentUUID": "3959d3e1-f550-421d-8841-25cd60b70218",
+                      "uuid": "cf71f221-8510-46f2-b801-f795b487180f",
+                      "parentUUID": "fe25cb3e-8d78-4c0d-8c77-804f7ca7349e",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "d507ec00-e720-4ece-ac7d-9c54ce791c1e"
+                    "cf71f221-8510-46f2-b801-f795b487180f"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1712,7 +1802,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "7beafcc7-c562-4217-9e01-abd23be3296f",
+                  "uuid": "fb989490-c15a-496b-b8ed-6e59eaa0840d",
                   "title": "#range",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1732,8 +1822,8 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"first\", 1);\nz.add(\"second\", 2);\nz.add(\"third\", 3);\nz.add(\"fourth\", 4);\nconst array = [\n    \"first\",\n    \"second\",\n    \"third\",\n    \"fourth\"\n];\n(0, chai_1.expect)(z.range()).to.eql(array);\n(0, chai_1.expect)(z.range(2)).to.eql(array.slice(2));\n(0, chai_1.expect)(z.range(8)).to.eql(array.slice(8));\n(0, chai_1.expect)(z.range(0, 2)).to.eql(array.slice(0, 3));\n(0, chai_1.expect)(z.range(-1)).to.eql([\"fourth\"]);\n(0, chai_1.expect)(z.range(-4)).to.eql(array);\n(0, chai_1.expect)(z.range(-4, -2)).to.eql(array.slice(0, 3));\n(0, chai_1.expect)(z.range(-4, z.length + 1000)).\n    to.eql(array.slice(-4, z.length + 1000));",
                       "err": {},
-                      "uuid": "a83791c5-0257-453d-9e68-1c852d63c2f4",
-                      "parentUUID": "7beafcc7-c562-4217-9e01-abd23be3296f",
+                      "uuid": "2637e4fc-3d1e-442d-92df-66c76fda7513",
+                      "parentUUID": "fb989490-c15a-496b-b8ed-6e59eaa0840d",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1750,16 +1840,16 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"first\", 1);\nz.add(\"second\", 2);\n(0, chai_1.expect)(z.range(0, 0, { \"withScores\": true })).\n    to.eql([\n    [\n        \"first\",\n        1\n    ]\n]);",
                       "err": {},
-                      "uuid": "7b327665-154b-4e19-ba30-dc719cbb002b",
-                      "parentUUID": "7beafcc7-c562-4217-9e01-abd23be3296f",
+                      "uuid": "861b9ce3-6444-4de3-acd2-dc7d361534e2",
+                      "parentUUID": "fb989490-c15a-496b-b8ed-6e59eaa0840d",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "a83791c5-0257-453d-9e68-1c852d63c2f4",
-                    "7b327665-154b-4e19-ba30-dc719cbb002b"
+                    "2637e4fc-3d1e-442d-92df-66c76fda7513",
+                    "861b9ce3-6444-4de3-acd2-dc7d361534e2"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1770,7 +1860,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "c9a2a51d-cd07-4dd3-b3d6-3674e3efc044",
+                  "uuid": "fb378ee2-cdcb-4f83-a4e5-f023d20ddcb3",
                   "title": "#intersect",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1790,8 +1880,8 @@
                       "context": null,
                       "code": "const a = new Z(), b = new Z();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\n(0, chai_1.expect)(Z.intersect(a, b)).to.eql([\n    \"5a600e10\",\n    \"5a600e14\",\n    \"5a600e17\",\n    \"5a600e19\",\n    \"5a600e1c\",\n    \"5a600e15\",\n    \"5a600e1b\"\n]);\n(0, chai_1.expect)(Z.intersect(b, a)).to.eql([\n    \"5a600e1b\",\n    \"5a600e14\",\n    \"5a600e1c\",\n    \"5a600e15\",\n    \"5a600e19\",\n    \"5a600e10\",\n    \"5a600e17\"\n]);",
                       "err": {},
-                      "uuid": "ad2d1bda-4662-4877-898e-fe8af4e02518",
-                      "parentUUID": "c9a2a51d-cd07-4dd3-b3d6-3674e3efc044",
+                      "uuid": "1737a9be-d200-4b7b-b8a3-f1f581354da0",
+                      "parentUUID": "fb378ee2-cdcb-4f83-a4e5-f023d20ddcb3",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1808,8 +1898,8 @@
                       "context": null,
                       "code": "const a = new Z(), b = new Z(), c = new Z();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\nc.add(\"5a600e10\", 7);\nc.add(\"5a600e12\", 20);\nc.add(\"5a600e13\", 9);\nc.add(\"5a600e14\", 19);\nc.add(\"5a600e16\", 19);\nc.add(\"5a600e17\", 1);\nc.add(\"5a600e18\", 18);\nc.add(\"5a600e1a\", 6);\nc.add(\"5a600e1c\", 15);\nc.add(\"5a600e1f\", 4);\n(0, chai_1.expect)(Z.intersect(c, a, b)).to.eql([\n    \"5a600e10\",\n    \"5a600e14\",\n    \"5a600e17\",\n    \"5a600e1c\"\n]);\n(0, chai_1.expect)(Z.intersect(c, a, b)).to.eql(c.intersect(a, b));",
                       "err": {},
-                      "uuid": "53f352e4-69e5-44cb-968c-7659230255a6",
-                      "parentUUID": "c9a2a51d-cd07-4dd3-b3d6-3674e3efc044",
+                      "uuid": "cf91b656-bcd1-4890-8983-89e11ef620e5",
+                      "parentUUID": "fb378ee2-cdcb-4f83-a4e5-f023d20ddcb3",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1826,17 +1916,17 @@
                       "context": null,
                       "code": "const a = new Z(), b = new Z(), c = new Z(), d = new Z();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\nc.add(\"5a600e10\", 7);\nc.add(\"5a600e12\", 20);\nc.add(\"5a600e13\", 9);\nc.add(\"5a600e14\", 19);\nc.add(\"5a600e16\", 19);\nc.add(\"5a600e17\", 1);\nc.add(\"5a600e18\", 18);\nc.add(\"5a600e1a\", 6);\nc.add(\"5a600e1c\", 15);\nc.add(\"5a600e1f\", 4);\nd.add(\"5a600e1c\", 400);\nd.add(\"5a600e17\", 500);\nd.add(\"5a600e1f\", 600);\nd.add(\"5a600e20\", 700);\n(0, chai_1.expect)(Z.intersect(d, c, a, b)).to.eql([\n    \"5a600e17\",\n    \"5a600e1c\"\n]);\n(0, chai_1.expect)(Z.intersect(d, c, a, b)).to.eql(d.intersect(c, a, b));",
                       "err": {},
-                      "uuid": "b34ecaba-f81b-4492-80da-a8d0a3830e44",
-                      "parentUUID": "c9a2a51d-cd07-4dd3-b3d6-3674e3efc044",
+                      "uuid": "19f10e71-54be-4e02-aadc-43d624a59ef6",
+                      "parentUUID": "fb378ee2-cdcb-4f83-a4e5-f023d20ddcb3",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "ad2d1bda-4662-4877-898e-fe8af4e02518",
-                    "53f352e4-69e5-44cb-968c-7659230255a6",
-                    "b34ecaba-f81b-4492-80da-a8d0a3830e44"
+                    "1737a9be-d200-4b7b-b8a3-f1f581354da0",
+                    "cf91b656-bcd1-4890-8983-89e11ef620e5",
+                    "19f10e71-54be-4e02-aadc-43d624a59ef6"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1847,7 +1937,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "b76a5849-4944-449f-8908-7cb70c9f92cf",
+                  "uuid": "0b818bc1-7a87-430f-bb2c-95e85b3c08ee",
                   "title": "#rank",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1858,7 +1948,7 @@
                       "title": "should get the correct rank",
                       "fullTitle": "sorted-set test skip map #rank should get the correct rank",
                       "timedOut": false,
-                      "duration": 0,
+                      "duration": 1,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1867,26 +1957,26 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.rank(\"5a600e12\")).to.equal(7);\n(0, chai_1.expect)(z.rank(\"5a600e13\")).to.equal(3);\n(0, chai_1.expect)(z.rank(\"5a600e16\")).to.equal(0);\n(0, chai_1.expect)(z.rank(\"5a600e15\")).to.equal(8);\n(0, chai_1.expect)(z.rank(\"not in set\")).to.equal(null);",
                       "err": {},
-                      "uuid": "64eaa862-d101-4bb1-bee1-4727fe7b64f3",
-                      "parentUUID": "b76a5849-4944-449f-8908-7cb70c9f92cf",
+                      "uuid": "bebf83c1-90a0-4b51-b592-19f3c81d0c49",
+                      "parentUUID": "0b818bc1-7a87-430f-bb2c-95e85b3c08ee",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "64eaa862-d101-4bb1-bee1-4727fe7b64f3"
+                    "bebf83c1-90a0-4b51-b592-19f3c81d0c49"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 0,
+                  "duration": 1,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "767de97e-f304-42ac-86bd-852cf02d5183",
+                  "uuid": "3eee015b-afb8-4cf4-98ab-9433a1676331",
                   "title": "#rem",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1906,8 +1996,8 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.rem(\"5a600e15\")).to.equal(19);\n(0, chai_1.expect)(z).to.have.length(8);\n(0, chai_1.expect)(z.rem(\"5a600e16\")).to.equal(3);\n(0, chai_1.expect)(z).to.have.length(7);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e13\",\n        11\n    ],\n    [\n        \"5a600e17\",\n        12\n    ],\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ]\n]);",
                       "err": {},
-                      "uuid": "6f320ebe-43a9-46ec-952b-30df60b6e5dc",
-                      "parentUUID": "767de97e-f304-42ac-86bd-852cf02d5183",
+                      "uuid": "a765a724-d4b4-4a5c-b8ce-8c1a76d188f7",
+                      "parentUUID": "3eee015b-afb8-4cf4-98ab-9433a1676331",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1924,16 +2014,16 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.rem(\"5a600e11\")).to.equal(6);\n(0, chai_1.expect)(z.rem(\"5a600e13\")).to.equal(11);\n(0, chai_1.expect)(z.rem(\"5a600e14\")).to.equal(14);\n(0, chai_1.expect)(z.rem(\"5a600e15\")).to.equal(19);\n(0, chai_1.expect)(z.rem(\"5a600e16\")).to.equal(3);\n(0, chai_1.expect)(z.rem(\"5a600e17\")).to.equal(12);\n(0, chai_1.expect)(z.length).to.equal(3);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ]\n]);",
                       "err": {},
-                      "uuid": "c517e4af-879e-4a34-8a4e-76bc25c88d6f",
-                      "parentUUID": "767de97e-f304-42ac-86bd-852cf02d5183",
+                      "uuid": "8fb1ee2f-a5ad-4ae8-b500-c2374730fec9",
+                      "parentUUID": "3eee015b-afb8-4cf4-98ab-9433a1676331",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "6f320ebe-43a9-46ec-952b-30df60b6e5dc",
-                    "c517e4af-879e-4a34-8a4e-76bc25c88d6f"
+                    "a765a724-d4b4-4a5c-b8ce-8c1a76d188f7",
+                    "8fb1ee2f-a5ad-4ae8-b500-c2374730fec9"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1944,7 +2034,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "7dc949da-efa9-4ade-a861-a7a7dcde976f",
+                  "uuid": "e1e7d099-7b4a-435b-ab72-ba6552f33db9",
                   "title": "#remRangeByScore",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -1964,8 +2054,8 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.remRangeByScore(4, 14)).to.equal(5);\n(0, chai_1.expect)(z).to.have.length(4);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "0957537b-0967-44b3-95ca-97565ce768c1",
-                      "parentUUID": "7dc949da-efa9-4ade-a861-a7a7dcde976f",
+                      "uuid": "a5801214-bcd9-4b37-a61b-e961d46f519c",
+                      "parentUUID": "e1e7d099-7b4a-435b-ab72-ba6552f33db9",
                       "isHook": false,
                       "skipped": false
                     },
@@ -1982,16 +2072,16 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.remRangeByScore(3, 19)).to.equal(9);\n(0, chai_1.expect)(z).to.have.length(0);\n(0, chai_1.expect)(z.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "bfbf0d52-686d-4143-bb2c-2f02ddb54779",
-                      "parentUUID": "7dc949da-efa9-4ade-a861-a7a7dcde976f",
+                      "uuid": "054285a3-6f00-4577-8f6d-172686fd893d",
+                      "parentUUID": "e1e7d099-7b4a-435b-ab72-ba6552f33db9",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "0957537b-0967-44b3-95ca-97565ce768c1",
-                    "bfbf0d52-686d-4143-bb2c-2f02ddb54779"
+                    "a5801214-bcd9-4b37-a61b-e961d46f519c",
+                    "054285a3-6f00-4577-8f6d-172686fd893d"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2002,7 +2092,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "c99e2c6f-f681-467b-a935-72c54dadc9b5",
+                  "uuid": "b2c95401-46b0-4b34-aa19-00877ece6fea",
                   "title": "#remRangeByRank",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2022,8 +2112,8 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.remRangeByRank(1, 6)).to.equal(5);\n(0, chai_1.expect)(z).to.have.length(4);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "223305d8-c9a4-4236-9ce3-c416b1124a1f",
-                      "parentUUID": "c99e2c6f-f681-467b-a935-72c54dadc9b5",
+                      "uuid": "fd3c0e6f-f772-4b2e-83ce-350fc3f5fdd4",
+                      "parentUUID": "b2c95401-46b0-4b34-aa19-00877ece6fea",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2040,16 +2130,16 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(z.remRangeByRank(0, 9)).to.equal(9);\n(0, chai_1.expect)(z).to.have.length(0);\n(0, chai_1.expect)(z.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "1990f014-d2d6-4bbf-bb31-21e72c30aca7",
-                      "parentUUID": "c99e2c6f-f681-467b-a935-72c54dadc9b5",
+                      "uuid": "d9574017-6cd4-4389-ad5f-237c342fd900",
+                      "parentUUID": "b2c95401-46b0-4b34-aa19-00877ece6fea",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "223305d8-c9a4-4236-9ce3-c416b1124a1f",
-                    "1990f014-d2d6-4bbf-bb31-21e72c30aca7"
+                    "fd3c0e6f-f772-4b2e-83ce-350fc3f5fdd4",
+                    "d9574017-6cd4-4389-ad5f-237c342fd900"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2060,7 +2150,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "78208a9b-b72c-4c3b-94b9-d395a13fe665",
+                  "uuid": "484f3818-82b5-40dd-8121-2510e5f2707e",
                   "title": "#values",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2080,15 +2170,15 @@
                       "context": null,
                       "code": "const z = new Z();\nz.add(\"first\", -1);\nz.add(\"third\", 5);\nz.add(\"second\", 3);\n(0, chai_1.expect)(z.values()).to.eql([\n    -1,\n    3,\n    5\n]);",
                       "err": {},
-                      "uuid": "5a66f995-a6fc-4550-b276-ee36aca3d4aa",
-                      "parentUUID": "78208a9b-b72c-4c3b-94b9-d395a13fe665",
+                      "uuid": "f0055b2e-cf6b-41c5-98bd-a11858779a38",
+                      "parentUUID": "484f3818-82b5-40dd-8121-2510e5f2707e",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "5a66f995-a6fc-4550-b276-ee36aca3d4aa"
+                    "f0055b2e-cf6b-41c5-98bd-a11858779a38"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2099,7 +2189,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "bd9877e0-20e3-4109-95ee-56b8ebd89ae4",
+                  "uuid": "4ea00826-03e2-4fec-b9c0-0ca0c6359688",
                   "title": "unique",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2119,8 +2209,8 @@
                       "context": null,
                       "code": "const z = new Z({ \"unique\": true });\nassert.equal(z.keys().length, 0, \"Expected an empty SortedSet\");\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(() => {\n    z.add(\"5a600e19\", 11);\n}).to.throw(/unique/);\n// Quick exit test\n(0, chai_1.expect)(() => {\n    z.add(\"5a600dff\", z._head.next[z._level - 1].next.value);\n}).to.throw(/unique/);\n// This test ensures the key < key check doesn't come into play\n(0, chai_1.expect)(() => {\n    z.add(\"5a600dff\", 11);\n}).to.throw(/unique/);\n(0, chai_1.expect)(() => {\n    z.add(\"5a600e18\", 10);\n}).to.not.throw();\n(0, chai_1.expect)(z).to.have.length(9);\n(0, chai_1.expect)(z.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e13\",\n        11\n    ],\n    [\n        \"5a600e17\",\n        12\n    ],\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "e411fc2b-ee0e-48e5-9b7d-36372bb6168b",
-                      "parentUUID": "bd9877e0-20e3-4109-95ee-56b8ebd89ae4",
+                      "uuid": "65102b6a-3b1d-45a2-984d-13c236634e9b",
+                      "parentUUID": "4ea00826-03e2-4fec-b9c0-0ca0c6359688",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2137,16 +2227,16 @@
                       "context": null,
                       "code": "const z = new Z({ \"unique\": true });\nz.add(\"5a600e10\", 16);\nz.add(\"5a600e11\", 6);\nz.add(\"5a600e12\", 17);\nz.add(\"5a600e13\", 11);\nz.add(\"5a600e14\", 14);\nz.add(\"5a600e15\", 19);\nz.add(\"5a600e16\", 3);\nz.add(\"5a600e17\", 12);\nz.add(\"5a600e18\", 10);\n(0, chai_1.expect)(() => {\n    z.add(\"5a600e13\", 14);\n}).to.throw(/unique/);\n(0, chai_1.expect)(z).to.have.length(9);\n(0, chai_1.expect)(z.score(\"5a600e13\")).to.equal(11);",
                       "err": {},
-                      "uuid": "31eae884-a18d-43fc-a98e-0397cb173d7d",
-                      "parentUUID": "bd9877e0-20e3-4109-95ee-56b8ebd89ae4",
+                      "uuid": "d38926ac-bbaf-4b14-b53d-1641a30b1409",
+                      "parentUUID": "4ea00826-03e2-4fec-b9c0-0ca0c6359688",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "e411fc2b-ee0e-48e5-9b7d-36372bb6168b",
-                    "31eae884-a18d-43fc-a98e-0397cb173d7d"
+                    "65102b6a-3b1d-45a2-984d-13c236634e9b",
+                    "d38926ac-bbaf-4b14-b53d-1641a30b1409"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2158,18 +2248,18 @@
                 }
               ],
               "passes": [
-                "5c778952-aae7-4d10-b3a6-812b8c61a2a3"
+                "4cd0b173-5532-4881-ab43-3fb2344dee69"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 2,
+              "duration": 1,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "e0a0b04b-4549-461d-b1e2-10052ded6e3d",
+              "uuid": "76e1fd76-498d-4513-8d25-ed140ff12131",
               "title": "skip map rewrite",
               "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
               "file": "/test/resp/data/sorted-set.test.ts",
@@ -2189,15 +2279,15 @@
                   "context": null,
                   "code": "const ss = new sorted_set_1.SortedSet();\n(0, chai_1.expect)(ss).to.have.length(0);\n(0, chai_1.expect)(ss.toArray()).to.eql([]);\n(0, chai_1.expect)(ss.range()).to.eql([]);\n(0, chai_1.expect)(ss.rangeByScore()).to.eql([]);\n/*\n * Expect(() => {\n *   Ss.add('__proto__', 14);\n * }).to.throw();\n */\nss.add(\"5a600e16\", 8);\nss.add(\"5a600e17\", 9);\n(0, chai_1.expect)(ss.add(\"5a600e18\", 10)).to.equal(null);\n(0, chai_1.expect)(ss.add(\"5a600e17\", 12)).to.equal(9);\n(0, chai_1.expect)(ss).to.have.length(3);\n(0, chai_1.expect)(ss.toArray()).to.eql([\n    \"5a600e16\",\n    \"5a600e18\",\n    \"5a600e17\"\n]);\n(0, chai_1.expect)(ss.toArray()).to.eql(ss.range(0, -1));\n(0, chai_1.expect)(ss.toArray()).to.eql(ss.rangeByScore());\n(0, chai_1.expect)(ss.has(\"5a600e16\")).to.be.ok;\n(0, chai_1.expect)(ss.has(\"5a600e17\")).to.be.ok;\n(0, chai_1.expect)(ss.has(\"5a600e18\")).to.be.ok;\n(0, chai_1.expect)(ss.has(\"5a600e19\")).to.not.be.ok;\n(0, chai_1.expect)(ss.score(\"5a600e16\")).to.equal(8);\n(0, chai_1.expect)(ss.score(\"5a600e17\")).to.equal(12);\n(0, chai_1.expect)(ss.score(\"5a600e18\")).to.equal(10);\n(0, chai_1.expect)(ss.score(\"5a600e19\")).to.equal(null);\n(0, chai_1.expect)(ss.rem(\"5a600e16\")).to.equal(8);\n(0, chai_1.expect)(ss).to.have.length(2);\n(0, chai_1.expect)(ss.rem(\"5a600e16\")).to.equal(null);\n(0, chai_1.expect)(ss).to.have.length(2);\n(0, chai_1.expect)(ss.has(\"5a600e16\")).to.not.be.ok;\n(0, chai_1.expect)(ss.toArray()).to.eql([\n    \"5a600e18\",\n    \"5a600e17\"\n]);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).\n    to.eql(ss.range(0, -1, { \"withScores\": true }));\n(0, chai_1.expect)(ss.toArray()).to.eql(ss.rangeByScore());\nss.add(\"5a600e16\", 10);\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\n(0, chai_1.expect)(ss).to.have.length(9);\n// No change, so should be O(1)\nss.add(\"5a600e17\", 12);\n(0, chai_1.expect)(ss.rank(\"5a600e17\")).to.equal(4);\n(0, chai_1.expect)(ss).to.have.length(9);\n(0, chai_1.expect)(ss.toArray()).to.eql([\n    \"5a600e16\",\n    \"5a600e11\",\n    \"5a600e18\",\n    \"5a600e13\",\n    \"5a600e17\",\n    \"5a600e14\",\n    \"5a600e10\",\n    \"5a600e12\",\n    \"5a600e15\"\n]);\n(0, chai_1.expect)(ss.toArray()).to.eql(ss.range(0, -1));\n(0, chai_1.expect)(ss.toArray()).to.eql(ss.rangeByScore());\n(0, chai_1.expect)(ss.rangeByScore(14, 16, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ]\n]);",
                   "err": {},
-                  "uuid": "73633a5d-65fc-4c5b-9790-e239560066a3",
-                  "parentUUID": "e0a0b04b-4549-461d-b1e2-10052ded6e3d",
+                  "uuid": "7b212cd6-4209-42ab-9141-f499bba795dc",
+                  "parentUUID": "76e1fd76-498d-4513-8d25-ed140ff12131",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [
                 {
-                  "uuid": "45679908-4519-4c38-aa53-173ee78c27da",
+                  "uuid": "eb6cf96f-fa9f-4a56-963e-ef55a801f25d",
                   "title": "#add",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2217,15 +2307,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.add(\"5a600e14\", null)).to.equal(14);\n(0, chai_1.expect)(ss.add(\"5a600e19\", null)).to.equal(null);\n(0, chai_1.expect)(ss).to.have.length(8);",
                       "err": {},
-                      "uuid": "18b1726e-fccc-4c02-b8f8-1b2cc7dbb6dd",
-                      "parentUUID": "45679908-4519-4c38-aa53-173ee78c27da",
+                      "uuid": "b190454f-e753-43ad-b92f-38efafa6994c",
+                      "parentUUID": "eb6cf96f-fa9f-4a56-963e-ef55a801f25d",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "18b1726e-fccc-4c02-b8f8-1b2cc7dbb6dd"
+                    "b190454f-e753-43ad-b92f-38efafa6994c"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2236,7 +2326,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "f08e4858-79ad-42c1-9313-ddc716d87d46",
+                  "uuid": "6189666e-816c-43aa-bb63-b6214004065e",
                   "title": "#empty",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2256,15 +2346,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\nss.empty();\n(0, chai_1.expect)(ss).to.have.length(0);\n(0, chai_1.expect)(ss.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "b0887293-f518-448d-ac8d-3fe004aca7a0",
-                      "parentUUID": "f08e4858-79ad-42c1-9313-ddc716d87d46",
+                      "uuid": "daa3a6e4-dd33-467e-b428-502350fb6c31",
+                      "parentUUID": "6189666e-816c-43aa-bb63-b6214004065e",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "b0887293-f518-448d-ac8d-3fe004aca7a0"
+                    "daa3a6e4-dd33-467e-b428-502350fb6c31"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2275,7 +2365,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "8b048a36-7c69-4cdf-86e4-19d8ffd1fa12",
+                  "uuid": "77ab7b0b-cac6-41c6-bb7e-8ce25a8ba46a",
                   "title": "#incrBy(increment, key)",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2286,7 +2376,7 @@
                       "title": "should increase rank",
                       "fullTitle": "sorted-set test skip map rewrite #incrBy(increment, key) should increase rank",
                       "timedOut": false,
-                      "duration": 1,
+                      "duration": 0,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2295,8 +2385,8 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"first\", 1);\nss.add(\"second\", 2);\nss.add(\"third\", 3);\nss.add(\"fourth\", 4);\n(0, chai_1.expect)(ss.incrBy(2, \"first\")).to.equal(3);\n(0, chai_1.expect)(ss.rank(\"first\")).to.equal(1);",
                       "err": {},
-                      "uuid": "aa082d06-4edb-44e9-b08a-d2888d291daa",
-                      "parentUUID": "8b048a36-7c69-4cdf-86e4-19d8ffd1fa12",
+                      "uuid": "a222d050-5d8f-41c2-b3a9-60803789910b",
+                      "parentUUID": "77ab7b0b-cac6-41c6-bb7e-8ce25a8ba46a",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2313,27 +2403,27 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"first\", 1);\nss.incrBy(2, \"second\");\n(0, chai_1.expect)(ss.card()).to.equal(2);\n(0, chai_1.expect)(ss.rank(\"second\")).to.equal(1);",
                       "err": {},
-                      "uuid": "c953dd65-d4c0-4995-a38f-076e29df9e6f",
-                      "parentUUID": "8b048a36-7c69-4cdf-86e4-19d8ffd1fa12",
+                      "uuid": "bf23b940-4906-472b-bb0f-0e2087c966dc",
+                      "parentUUID": "77ab7b0b-cac6-41c6-bb7e-8ce25a8ba46a",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "aa082d06-4edb-44e9-b08a-d2888d291daa",
-                    "c953dd65-d4c0-4995-a38f-076e29df9e6f"
+                    "a222d050-5d8f-41c2-b3a9-60803789910b",
+                    "bf23b940-4906-472b-bb0f-0e2087c966dc"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 1,
+                  "duration": 0,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "03e22b7c-12f1-4b9c-bbfa-81672eb9dea3",
+                  "uuid": "3b6cbcff-1bab-436b-b6c2-21965c91de5a",
                   "title": "#keys",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2353,15 +2443,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.keys()).to.eql([\n    \"5a600e16\",\n    \"5a600e11\",\n    \"5a600e18\",\n    \"5a600e13\",\n    \"5a600e17\",\n    \"5a600e14\",\n    \"5a600e10\",\n    \"5a600e12\",\n    \"5a600e15\"\n]);",
                       "err": {},
-                      "uuid": "7f60e53e-fb4e-4e40-9a97-bca83df3c20a",
-                      "parentUUID": "03e22b7c-12f1-4b9c-bbfa-81672eb9dea3",
+                      "uuid": "956cb528-f031-4535-a0ab-0f39547f4162",
+                      "parentUUID": "3b6cbcff-1bab-436b-b6c2-21965c91de5a",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "7f60e53e-fb4e-4e40-9a97-bca83df3c20a"
+                    "956cb528-f031-4535-a0ab-0f39547f4162"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2372,7 +2462,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "46b1a317-ba3b-4390-8178-43f9699debf9",
+                  "uuid": "6d324bb3-b210-4c57-9a4a-37c370d9c624",
                   "title": "#rangeByScore",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2392,15 +2482,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.rangeByScore(14, null, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);\n(0, chai_1.expect)(ss.rangeByScore(null, 10, { \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ]\n]);\n(0, chai_1.expect)(ss.rangeByScore(-Infinity, Infinity)).to.eql(ss.toArray());\n(0, chai_1.expect)(ss.rangeByScore(null, null)).to.eql(ss.toArray());",
                       "err": {},
-                      "uuid": "60f37152-d7fa-4991-94cd-81391653938d",
-                      "parentUUID": "46b1a317-ba3b-4390-8178-43f9699debf9",
+                      "uuid": "4b00e28d-ad44-4415-a69a-19d75d4fe227",
+                      "parentUUID": "6d324bb3-b210-4c57-9a4a-37c370d9c624",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "60f37152-d7fa-4991-94cd-81391653938d"
+                    "4b00e28d-ad44-4415-a69a-19d75d4fe227"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2411,7 +2501,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "ac688e1f-dff5-4e11-acb2-c98c01f87bc2",
+                  "uuid": "c4fdccc2-d99e-4600-b667-26d7fc298cfb",
                   "title": "#count",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2431,15 +2521,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\n(0, chai_1.expect)(ss.count()).to.equal(0);\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\nss.add(\"5a600e19\", 14);\nss.add(\"5a600f00\", 30.0);\nss.add(\"5a600f01\", 30.5);\nss.add(\"5a600f02\", 31.0);\nss.add(\"5a600f03\", 31.5);\nss.add(\"5a600f04\", 32.0);\nss.add(\"5a600f05\", 32.0);\nss.add(\"5a600f06\", 32.0);\n(0, chai_1.expect)(ss.count()).to.eql(ss.rangeByScore().length);\n(0, chai_1.expect)(ss.count(8)).to.eql(ss.rangeByScore(8).length);\n(0, chai_1.expect)(ss.count(3, 7)).to.eql(ss.rangeByScore(3, 7).length);\n(0, chai_1.expect)(ss.count(5, 14)).to.eql(ss.rangeByScore(5, 14).length);\n(0, chai_1.expect)(ss.count(5, 5)).to.eql(ss.rangeByScore(5, 5).length);\n(0, chai_1.expect)(ss.count(5, 0)).to.eql(ss.rangeByScore(5, 0).length);\n(0, chai_1.expect)(ss.count(30, 32)).to.eql(ss.rangeByScore(30, 32).length);\n(0, chai_1.expect)(ss.count(40)).to.eql(ss.rangeByScore(40).length);",
                       "err": {},
-                      "uuid": "3537f81f-a8eb-4084-82f7-60ed269d5406",
-                      "parentUUID": "ac688e1f-dff5-4e11-acb2-c98c01f87bc2",
+                      "uuid": "8c8016d7-cc1b-40ad-b920-576ca71f3fe5",
+                      "parentUUID": "c4fdccc2-d99e-4600-b667-26d7fc298cfb",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "3537f81f-a8eb-4084-82f7-60ed269d5406"
+                    "8c8016d7-cc1b-40ad-b920-576ca71f3fe5"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2450,7 +2540,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "c0cff126-4da1-465e-ab13-ec44897e0c2c",
+                  "uuid": "9d45ec5a-101e-4866-87fd-45142733d00f",
                   "title": "#range",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2470,8 +2560,8 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"first\", 1);\nss.add(\"second\", 2);\nss.add(\"third\", 3);\nss.add(\"fourth\", 4);\nconst array = [\n    \"first\",\n    \"second\",\n    \"third\",\n    \"fourth\"\n];\n(0, chai_1.expect)(ss.range()).to.eql(array);\n(0, chai_1.expect)(ss.range(2)).to.eql(array.slice(2));\n(0, chai_1.expect)(ss.range(8)).to.eql(array.slice(8));\n(0, chai_1.expect)(ss.range(0, 2)).to.eql(array.slice(0, 3));\n(0, chai_1.expect)(ss.range(-1)).to.eql([\"fourth\"]);\n(0, chai_1.expect)(ss.range(-4)).to.eql(array);\n(0, chai_1.expect)(ss.range(-4, -2)).to.eql(array.slice(0, 3));\n(0, chai_1.expect)(ss.range(-4, ss.length + 1000)).\n    to.eql(array.slice(-4, ss.length + 1000));",
                       "err": {},
-                      "uuid": "69df0827-1d41-4087-8463-457d1ec58cec",
-                      "parentUUID": "c0cff126-4da1-465e-ab13-ec44897e0c2c",
+                      "uuid": "b36cc1cf-1c49-4973-b267-1a32b0347b6d",
+                      "parentUUID": "9d45ec5a-101e-4866-87fd-45142733d00f",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2488,16 +2578,16 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"first\", 1);\nss.add(\"second\", 2);\n(0, chai_1.expect)(ss.range(0, 0, { \"withScores\": true })).\n    to.eql([\n    [\n        \"first\",\n        1\n    ]\n]);",
                       "err": {},
-                      "uuid": "6a46f10c-09ff-4173-9fbf-9a3d1ff50ed8",
-                      "parentUUID": "c0cff126-4da1-465e-ab13-ec44897e0c2c",
+                      "uuid": "213c4ae9-3b14-433d-a06f-40e1f756b055",
+                      "parentUUID": "9d45ec5a-101e-4866-87fd-45142733d00f",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "69df0827-1d41-4087-8463-457d1ec58cec",
-                    "6a46f10c-09ff-4173-9fbf-9a3d1ff50ed8"
+                    "b36cc1cf-1c49-4973-b267-1a32b0347b6d",
+                    "213c4ae9-3b14-433d-a06f-40e1f756b055"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2508,7 +2598,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "3feaaea9-ffde-41af-bc77-6b8f3bd36b1f",
+                  "uuid": "8896474a-6c9d-4236-bd45-101450fc9edc",
                   "title": "#intersect",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2528,8 +2618,8 @@
                       "context": null,
                       "code": "const a = new sorted_set_1.SortedSet(), b = new sorted_set_1.SortedSet();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\n(0, chai_1.expect)(sorted_set_1.SortedSet.intersect(a, b)).to.eql([\n    \"5a600e10\",\n    \"5a600e14\",\n    \"5a600e17\",\n    \"5a600e19\",\n    \"5a600e1c\",\n    \"5a600e15\",\n    \"5a600e1b\"\n]);\n(0, chai_1.expect)(sorted_set_1.SortedSet.intersect(b, a)).to.eql([\n    \"5a600e1b\",\n    \"5a600e14\",\n    \"5a600e1c\",\n    \"5a600e15\",\n    \"5a600e19\",\n    \"5a600e10\",\n    \"5a600e17\"\n]);",
                       "err": {},
-                      "uuid": "ab8f5103-cd8a-46a7-b89a-6f91eefddde2",
-                      "parentUUID": "3feaaea9-ffde-41af-bc77-6b8f3bd36b1f",
+                      "uuid": "436d1af3-6ae5-4357-a9fa-85ed6657280f",
+                      "parentUUID": "8896474a-6c9d-4236-bd45-101450fc9edc",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2546,8 +2636,8 @@
                       "context": null,
                       "code": "const a = new sorted_set_1.SortedSet(), b = new sorted_set_1.SortedSet(), c = new sorted_set_1.SortedSet();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\nc.add(\"5a600e10\", 7);\nc.add(\"5a600e12\", 20);\nc.add(\"5a600e13\", 9);\nc.add(\"5a600e14\", 19);\nc.add(\"5a600e16\", 19);\nc.add(\"5a600e17\", 1);\nc.add(\"5a600e18\", 18);\nc.add(\"5a600e1a\", 6);\nc.add(\"5a600e1c\", 15);\nc.add(\"5a600e1f\", 4);\n(0, chai_1.expect)(sorted_set_1.SortedSet.intersect(c, a, b)).to.eql([\n    \"5a600e10\",\n    \"5a600e14\",\n    \"5a600e17\",\n    \"5a600e1c\"\n]);\n// Expect(SortedSet.intersect(c, a, b)).to.eql(c.intersect(a, b));",
                       "err": {},
-                      "uuid": "5e92816a-448c-4895-bdb0-843d52d32594",
-                      "parentUUID": "3feaaea9-ffde-41af-bc77-6b8f3bd36b1f",
+                      "uuid": "42bca508-09f3-4b0c-a7cb-33307717fe27",
+                      "parentUUID": "8896474a-6c9d-4236-bd45-101450fc9edc",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2555,7 +2645,7 @@
                       "title": "should intersect four sets",
                       "fullTitle": "sorted-set test skip map rewrite #intersect should intersect four sets",
                       "timedOut": false,
-                      "duration": 1,
+                      "duration": 0,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2564,28 +2654,28 @@
                       "context": null,
                       "code": "const a = new sorted_set_1.SortedSet(), b = new sorted_set_1.SortedSet(), c = new sorted_set_1.SortedSet(), d = new sorted_set_1.SortedSet();\na.add(\"5a600e10\", 16);\na.add(\"5a600e12\", 10);\na.add(\"5a600e14\", 9);\na.add(\"5a600e15\", 14);\na.add(\"5a600e17\", 20);\na.add(\"5a600e18\", 13);\na.add(\"5a600e19\", 15);\na.add(\"5a600e1a\", 19);\na.add(\"5a600e1b\", 7);\na.add(\"5a600e1c\", 13);\na.add(\"5a600e1e\", 10);\nb.add(\"5a600e10\", 0);\nb.add(\"5a600e11\", 15);\nb.add(\"5a600e13\", 5);\nb.add(\"5a600e14\", 3);\nb.add(\"5a600e15\", 14);\nb.add(\"5a600e17\", 12);\nb.add(\"5a600e19\", 12);\nb.add(\"5a600e1b\", 16);\nb.add(\"5a600e1c\", 12);\nb.add(\"5a600e1d\", 17);\nb.add(\"5a600e1f\", 3);\nc.add(\"5a600e10\", 7);\nc.add(\"5a600e12\", 20);\nc.add(\"5a600e13\", 9);\nc.add(\"5a600e14\", 19);\nc.add(\"5a600e16\", 19);\nc.add(\"5a600e17\", 1);\nc.add(\"5a600e18\", 18);\nc.add(\"5a600e1a\", 6);\nc.add(\"5a600e1c\", 15);\nc.add(\"5a600e1f\", 4);\nd.add(\"5a600e1c\", 400);\nd.add(\"5a600e17\", 500);\nd.add(\"5a600e1f\", 600);\nd.add(\"5a600e20\", 700);\n(0, chai_1.expect)(sorted_set_1.SortedSet.intersect(d, c, a, b)).to.eql([\n    \"5a600e17\",\n    \"5a600e1c\"\n]);\n// Expect(SortedSet.intersect(d, c, a, b)).to.eql(d.intersect(c, a, b));",
                       "err": {},
-                      "uuid": "1a587249-5eff-4fcb-94dd-5f24747e9451",
-                      "parentUUID": "3feaaea9-ffde-41af-bc77-6b8f3bd36b1f",
+                      "uuid": "63b2b3bb-2146-4b7f-bda6-52805a10d196",
+                      "parentUUID": "8896474a-6c9d-4236-bd45-101450fc9edc",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "ab8f5103-cd8a-46a7-b89a-6f91eefddde2",
-                    "5e92816a-448c-4895-bdb0-843d52d32594",
-                    "1a587249-5eff-4fcb-94dd-5f24747e9451"
+                    "436d1af3-6ae5-4357-a9fa-85ed6657280f",
+                    "42bca508-09f3-4b0c-a7cb-33307717fe27",
+                    "63b2b3bb-2146-4b7f-bda6-52805a10d196"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 1,
+                  "duration": 0,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "fcc01206-85c1-4581-a96e-c12aa95b9edf",
+                  "uuid": "f19d98c9-3b15-4d55-9876-ca6b74470e3b",
                   "title": "#rank",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2605,15 +2695,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.rank(\"5a600e12\")).to.equal(7);\n(0, chai_1.expect)(ss.rank(\"5a600e13\")).to.equal(3);\n(0, chai_1.expect)(ss.rank(\"5a600e16\")).to.equal(0);\n(0, chai_1.expect)(ss.rank(\"5a600e15\")).to.equal(8);\n(0, chai_1.expect)(ss.rank(\"not in set\")).to.equal(null);",
                       "err": {},
-                      "uuid": "f285aa80-a3cb-40a9-a320-24e9b6576a65",
-                      "parentUUID": "fcc01206-85c1-4581-a96e-c12aa95b9edf",
+                      "uuid": "f5d97b13-f65e-4bf2-a3d2-eaa11a89c210",
+                      "parentUUID": "f19d98c9-3b15-4d55-9876-ca6b74470e3b",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "f285aa80-a3cb-40a9-a320-24e9b6576a65"
+                    "f5d97b13-f65e-4bf2-a3d2-eaa11a89c210"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2624,7 +2714,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "4a442ed2-bbbf-4065-ad64-9c79f324bfe8",
+                  "uuid": "f26b40b0-135a-4460-b9a6-33df69e0f034",
                   "title": "#rem",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2644,8 +2734,8 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.rem(\"5a600e15\")).to.equal(19);\n(0, chai_1.expect)(ss).to.have.length(8);\n(0, chai_1.expect)(ss.rem(\"5a600e16\")).to.equal(3);\n(0, chai_1.expect)(ss).to.have.length(7);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e13\",\n        11\n    ],\n    [\n        \"5a600e17\",\n        12\n    ],\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ]\n]);",
                       "err": {},
-                      "uuid": "5fa58c4e-cc5d-4cef-b0b5-d5cca9adbc07",
-                      "parentUUID": "4a442ed2-bbbf-4065-ad64-9c79f324bfe8",
+                      "uuid": "10f9b256-b564-4454-b2d2-ee9f120e5f9c",
+                      "parentUUID": "f26b40b0-135a-4460-b9a6-33df69e0f034",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2662,27 +2752,27 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.rem(\"5a600e11\")).to.equal(6);\n(0, chai_1.expect)(ss.rem(\"5a600e13\")).to.equal(11);\n(0, chai_1.expect)(ss.rem(\"5a600e14\")).to.equal(14);\n(0, chai_1.expect)(ss.rem(\"5a600e15\")).to.equal(19);\n(0, chai_1.expect)(ss.rem(\"5a600e16\")).to.equal(3);\n(0, chai_1.expect)(ss.rem(\"5a600e17\")).to.equal(12);\n(0, chai_1.expect)(ss.length).to.equal(3);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ]\n]);",
                       "err": {},
-                      "uuid": "3ee43ea9-a2f3-4996-9444-f4f2183ddfd3",
-                      "parentUUID": "4a442ed2-bbbf-4065-ad64-9c79f324bfe8",
+                      "uuid": "783ad12b-8608-4895-bbb8-0a687ea38593",
+                      "parentUUID": "f26b40b0-135a-4460-b9a6-33df69e0f034",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "5fa58c4e-cc5d-4cef-b0b5-d5cca9adbc07",
-                    "3ee43ea9-a2f3-4996-9444-f4f2183ddfd3"
+                    "10f9b256-b564-4454-b2d2-ee9f120e5f9c",
+                    "783ad12b-8608-4895-bbb8-0a687ea38593"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 1,
+                  "duration": 0,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "007fe2b0-1ba4-425d-b6ff-d5cfed4260aa",
+                  "uuid": "51148258-0381-441a-843e-8e679017211b",
                   "title": "#remRangeByScore",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2702,8 +2792,8 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.remRangeByScore(4, 14)).to.equal(5);\n(0, chai_1.expect)(ss).to.have.length(4);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "f88ee250-cea9-4417-8de0-e430a4faac98",
-                      "parentUUID": "007fe2b0-1ba4-425d-b6ff-d5cfed4260aa",
+                      "uuid": "4ef2ce22-166d-42f7-a993-8911346a3ab8",
+                      "parentUUID": "51148258-0381-441a-843e-8e679017211b",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2720,16 +2810,16 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.remRangeByScore(3, 19)).to.equal(9);\n(0, chai_1.expect)(ss).to.have.length(0);\n(0, chai_1.expect)(ss.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "3ee7a30a-93a6-4c78-a0ae-0491bb69a3b4",
-                      "parentUUID": "007fe2b0-1ba4-425d-b6ff-d5cfed4260aa",
+                      "uuid": "4d7dd09b-960d-4fa8-9322-7cfcd3c9f8e9",
+                      "parentUUID": "51148258-0381-441a-843e-8e679017211b",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "f88ee250-cea9-4417-8de0-e430a4faac98",
-                    "3ee7a30a-93a6-4c78-a0ae-0491bb69a3b4"
+                    "4ef2ce22-166d-42f7-a993-8911346a3ab8",
+                    "4d7dd09b-960d-4fa8-9322-7cfcd3c9f8e9"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2740,7 +2830,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "e143d9e9-d684-4d95-b8af-d0f9771a3427",
+                  "uuid": "d5290df5-63ac-4ee4-9900-4303a28fb856",
                   "title": "#remRangeByRank",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2751,7 +2841,7 @@
                       "title": "should strip out a slice of elements",
                       "fullTitle": "sorted-set test skip map rewrite #remRangeByRank should strip out a slice of elements",
                       "timedOut": false,
-                      "duration": 1,
+                      "duration": 0,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2760,8 +2850,8 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.remRangeByRank(1, 6)).to.equal(5);\n(0, chai_1.expect)(ss).to.have.length(4);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "005bbe85-e118-403a-a224-19d5c50ecb98",
-                      "parentUUID": "e143d9e9-d684-4d95-b8af-d0f9771a3427",
+                      "uuid": "1bcd9c26-0f66-4e61-96ea-ccc7d41e79e5",
+                      "parentUUID": "d5290df5-63ac-4ee4-9900-4303a28fb856",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2769,7 +2859,7 @@
                       "title": "should strip out all elements",
                       "fullTitle": "sorted-set test skip map rewrite #remRangeByRank should strip out all elements",
                       "timedOut": false,
-                      "duration": 0,
+                      "duration": 1,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2778,16 +2868,16 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(ss.remRangeByRank(0, 9)).to.equal(9);\n(0, chai_1.expect)(ss).to.have.length(0);\n(0, chai_1.expect)(ss.toArray()).to.eql([]);",
                       "err": {},
-                      "uuid": "22c2e46c-4359-4cd2-9871-6fea443950dd",
-                      "parentUUID": "e143d9e9-d684-4d95-b8af-d0f9771a3427",
+                      "uuid": "3675a089-fa3e-45b0-9fcd-332f37391fe8",
+                      "parentUUID": "d5290df5-63ac-4ee4-9900-4303a28fb856",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "005bbe85-e118-403a-a224-19d5c50ecb98",
-                    "22c2e46c-4359-4cd2-9871-6fea443950dd"
+                    "1bcd9c26-0f66-4e61-96ea-ccc7d41e79e5",
+                    "3675a089-fa3e-45b0-9fcd-332f37391fe8"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2798,7 +2888,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "09724ec4-948c-43aa-a392-b542134eb129",
+                  "uuid": "873e3bf4-1c1e-47e2-8b9a-cd16f71a4239",
                   "title": "#values",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2818,15 +2908,15 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet();\nss.add(\"first\", -1);\nss.add(\"third\", 5);\nss.add(\"second\", 3);\n(0, chai_1.expect)(ss.values()).to.eql([\n    -1,\n    3,\n    5\n]);",
                       "err": {},
-                      "uuid": "b6cd6280-ba18-4b8b-8e23-6d07c450615b",
-                      "parentUUID": "09724ec4-948c-43aa-a392-b542134eb129",
+                      "uuid": "fa519328-59de-4680-bd2c-1b87351e0915",
+                      "parentUUID": "873e3bf4-1c1e-47e2-8b9a-cd16f71a4239",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "b6cd6280-ba18-4b8b-8e23-6d07c450615b"
+                    "fa519328-59de-4680-bd2c-1b87351e0915"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2837,7 +2927,7 @@
                   "_timeout": 2000
                 },
                 {
-                  "uuid": "b23db7ab-4e8d-445e-b042-199e73a99fb6",
+                  "uuid": "62a6d120-1c7d-4854-9dab-132ffab1f4f2",
                   "title": "unique rewrite",
                   "fullFile": "/home/lane/git/unit-redis-ness/test/resp/data/sorted-set.test.ts",
                   "file": "/test/resp/data/sorted-set.test.ts",
@@ -2848,7 +2938,7 @@
                       "title": "should ensure values are unique",
                       "fullTitle": "sorted-set test skip map rewrite unique rewrite should ensure values are unique",
                       "timedOut": false,
-                      "duration": 1,
+                      "duration": 0,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2857,8 +2947,8 @@
                       "context": null,
                       "code": "const options = { \"unique\": true }, ss = new sorted_set_1.SortedSet(options);\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(() => {\n    ss.add(\"5a600e19\", 11);\n}).to.throw(/unique/);\n// Quick exit test\n(0, chai_1.expect)(() => {\n    ss.add(\"5a600dff\", ss._head.next[ss._level - 1].next.value);\n}).to.throw(/unique/);\n// This test ensures the key < key check doesn't come into play\n(0, chai_1.expect)(() => {\n    ss.add(\"5a600dff\", 11);\n}).to.throw(/unique/);\n(0, chai_1.expect)(() => {\n    ss.add(\"5a600e18\", 10);\n}).to.not.throw();\n(0, chai_1.expect)(ss).to.have.length(9);\n(0, chai_1.expect)(ss.toArray({ \"withScores\": true })).to.eql([\n    [\n        \"5a600e16\",\n        3\n    ],\n    [\n        \"5a600e11\",\n        6\n    ],\n    [\n        \"5a600e18\",\n        10\n    ],\n    [\n        \"5a600e13\",\n        11\n    ],\n    [\n        \"5a600e17\",\n        12\n    ],\n    [\n        \"5a600e14\",\n        14\n    ],\n    [\n        \"5a600e10\",\n        16\n    ],\n    [\n        \"5a600e12\",\n        17\n    ],\n    [\n        \"5a600e15\",\n        19\n    ]\n]);",
                       "err": {},
-                      "uuid": "a94473f4-eb6b-4004-bfe7-d8c89a0bc96b",
-                      "parentUUID": "b23db7ab-4e8d-445e-b042-199e73a99fb6",
+                      "uuid": "31ff0223-3f20-4bf8-bdc2-574aad177740",
+                      "parentUUID": "62a6d120-1c7d-4854-9dab-132ffab1f4f2",
                       "isHook": false,
                       "skipped": false
                     },
@@ -2866,7 +2956,7 @@
                       "title": "should revert keys if constraint broken during update",
                       "fullTitle": "sorted-set test skip map rewrite unique rewrite should revert keys if constraint broken during update",
                       "timedOut": false,
-                      "duration": 0,
+                      "duration": 1,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2875,16 +2965,16 @@
                       "context": null,
                       "code": "const ss = new sorted_set_1.SortedSet({ \"unique\": true });\nss.add(\"5a600e10\", 16);\nss.add(\"5a600e11\", 6);\nss.add(\"5a600e12\", 17);\nss.add(\"5a600e13\", 11);\nss.add(\"5a600e14\", 14);\nss.add(\"5a600e15\", 19);\nss.add(\"5a600e16\", 3);\nss.add(\"5a600e17\", 12);\nss.add(\"5a600e18\", 10);\n(0, chai_1.expect)(() => {\n    ss.add(\"5a600e13\", 14);\n}).to.throw(/unique/);\n(0, chai_1.expect)(ss).to.have.length(9);\n(0, chai_1.expect)(ss.score(\"5a600e13\")).to.equal(11);",
                       "err": {},
-                      "uuid": "6df0a86d-d997-42d9-8611-2de94d5413a3",
-                      "parentUUID": "b23db7ab-4e8d-445e-b042-199e73a99fb6",
+                      "uuid": "cf454d50-86aa-4883-ad71-bfecb38e4ec0",
+                      "parentUUID": "62a6d120-1c7d-4854-9dab-132ffab1f4f2",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "a94473f4-eb6b-4004-bfe7-d8c89a0bc96b",
-                    "6df0a86d-d997-42d9-8611-2de94d5413a3"
+                    "31ff0223-3f20-4bf8-bdc2-574aad177740",
+                    "cf454d50-86aa-4883-ad71-bfecb38e4ec0"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2896,7 +2986,7 @@
                 }
               ],
               "passes": [
-                "73633a5d-65fc-4c5b-9790-e239560066a3"
+                "7b212cd6-4209-42ab-9141-f499bba795dc"
               ],
               "failures": [],
               "pending": [],
@@ -2908,27 +2998,27 @@
             }
           ],
           "passes": [
-            "79a1d257-8219-4e1e-967c-768d123802c3",
-            "16c32d76-0e4d-4df3-a509-24eadc9daad3",
-            "82c47cee-c575-4e2a-b7f3-b4475bd00b20",
-            "3c1ed4ec-abcb-4472-bf14-ed25403871de",
-            "23430a08-e4de-47dc-91d3-6aa14d75206d",
-            "9ae72ccb-56fc-473b-b529-eb573871b562",
-            "c1b62127-6856-45b0-a70d-e6dc0cd5025e",
-            "9a470130-5082-4e21-b492-c0b1c1c2adf0"
+            "e6fc4af3-e75a-4fe4-9d22-0969578ac27f",
+            "307ca885-a3f6-4a16-952a-f8c1675908fa",
+            "cdb1df6d-1cbd-4f0b-be44-32e7afeaec23",
+            "76c4aba4-5186-489d-80ec-b65a94d76385",
+            "16f3f0d3-4172-4977-872d-1234c310160f",
+            "286fe1dd-266e-4ef0-99e6-d23e85d19d18",
+            "c655611e-13d0-47e1-aa84-05591a41b184",
+            "750ed855-b242-42d0-bdb8-3732bb494a80"
           ],
           "failures": [],
           "pending": [
-            "ac27fc1d-3098-499e-9aca-0a5566a2844b"
+            "3122d47f-f7c1-4fea-9e89-5dfea2b6d821"
           ],
           "skipped": [],
-          "duration": 2,
+          "duration": 1,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
         },
         {
-          "uuid": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+          "uuid": "5b8883fb-4028-414d-8fef-ca8169ee6987",
           "title": "lua-bit test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/lua/lua-bit.test.ts",
           "file": "/test/lua/lua-bit.test.ts",
@@ -2946,8 +3036,8 @@
               "context": null,
               "code": "respServer = new resp_server_1.RespServer();\nrespServer.on(\"ready\", () => __awaiter(void 0, void 0, void 0, function* () {\n    yield (0, common_test_1.sendCommand)(client, [\"flushall\"]);\n    yield (0, common_test_1.sendCommand)(client, [\n        \"select\",\n        \"0\"\n    ]);\n    yield (0, common_test_1.sendCommand)(client, [\n        \"script\",\n        \"flush\"\n    ]);\n    done();\n}));\nrespServer.start();",
               "err": {},
-              "uuid": "762f0dc7-b1d6-4d13-8f99-05bb8cad98d3",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "287c7768-a3de-4a85-b6ac-9dcfd05b1a0b",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": true,
               "skipped": false
             },
@@ -2964,8 +3054,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "54ee57f6-34ca-4a03-a21b-e1258d340162",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "967691ab-49e7-4ccf-b4ea-8994ba6afe53",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": true,
               "skipped": false
             }
@@ -2984,8 +3074,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        yield respServer.stop();\n    })",
               "err": {},
-              "uuid": "bf7579a5-9d9a-4186-8ba6-5baaf4e63f99",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "05aa49c7-57ac-4593-af7e-3e51f69018f4",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": true,
               "skipped": false
             },
@@ -3002,8 +3092,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "fca2a6a6-a1d8-4fc5-b8d3-7577b18e6b7b",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "f142e552-1db1-4937-830f-6fe631364b15",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": true,
               "skipped": false
             }
@@ -3022,32 +3112,14 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.band(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(1);\n    })",
               "err": {},
-              "uuid": "ad41c0e5-c0a3-4d38-8a74-27d7ea0fe898",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "be588129-417b-40f0-b999-8c7689f28a5d",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             },
             {
               "title": "should leverage the LUA bit library for bit OR op",
               "fullTitle": "lua-bit test should leverage the LUA bit library for bit OR op",
-              "timedOut": false,
-              "duration": 3,
-              "state": "passed",
-              "speed": "fast",
-              "pass": true,
-              "fail": false,
-              "pending": false,
-              "context": null,
-              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.bor(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(5);\n    })",
-              "err": {},
-              "uuid": "a5d9d99f-98f2-4605-8526-28d504d00575",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
-              "isHook": false,
-              "skipped": false
-            },
-            {
-              "title": "should leverage the LUA bit library for bit XOR op",
-              "fullTitle": "lua-bit test should leverage the LUA bit library for bit XOR op",
               "timedOut": false,
               "duration": 2,
               "state": "passed",
@@ -3056,10 +3128,28 @@
               "fail": false,
               "pending": false,
               "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.bor(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(5);\n    })",
+              "err": {},
+              "uuid": "58a4105b-dc5a-480d-ac05-b2cf8b47d8d9",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should leverage the LUA bit library for bit XOR op",
+              "fullTitle": "lua-bit test should leverage the LUA bit library for bit XOR op",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.bxor(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(4);\n    })",
               "err": {},
-              "uuid": "ad147ad3-4965-44ed-a693-c45d78f7a69d",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "b916554b-7928-412e-bd12-5a02d098144f",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             },
@@ -3076,8 +3166,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.bnot(5) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(-6);\n    })",
               "err": {},
-              "uuid": "e1aae424-5f2e-4433-9a11-112d8e569c74",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "e1af1fd3-23b1-460e-9696-c450248abfdf",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             },
@@ -3094,8 +3184,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.lshift(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(10);\n    })",
               "err": {},
-              "uuid": "4f601d8c-0752-40a6-9537-bbd5ee624c72",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "5395e4cb-1e20-4722-9491-baaf26db8930",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             },
@@ -3112,8 +3202,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        let response = yield (0, common_test_1.sendCommand)(new net.Socket(), [\n            \"info\",\n            \"server\"\n        ]);\n        // Only run this test if this is unit-redis-ness\n        if (!(/redis_version:5/gim).test(response)) {\n            response = yield (0, common_test_1.sendCommand)(client, [\n                \"eval\",\n                \"local val = bit.rshift(-5, 1) return val \",\n                \"0\"\n            ]);\n            (0, chai_1.expect)(response).to.equal(-3);\n        }\n    })",
               "err": {},
-              "uuid": "4834f76e-ebcf-4cfe-86b8-011114c6a621",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "a8c5b52e-ed6e-4451-9411-f5d9a57328ca",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             },
@@ -3130,32 +3220,32 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        response = yield (0, common_test_1.sendCommand)(client, [\n            \"eval\",\n            \"local val = bit.arshift(5, 1) return val \",\n            \"0\"\n        ]);\n        (0, chai_1.expect)(response).to.equal(2);\n    })",
               "err": {},
-              "uuid": "bc7ccddf-610a-4ada-bb97-f016459a7cfb",
-              "parentUUID": "9ed422e9-27f9-4cb8-bd01-df0b52dcba22",
+              "uuid": "c7a28105-70f7-45f7-b0b6-b49605da5bad",
+              "parentUUID": "5b8883fb-4028-414d-8fef-ca8169ee6987",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "ad41c0e5-c0a3-4d38-8a74-27d7ea0fe898",
-            "a5d9d99f-98f2-4605-8526-28d504d00575",
-            "ad147ad3-4965-44ed-a693-c45d78f7a69d",
-            "e1aae424-5f2e-4433-9a11-112d8e569c74",
-            "4f601d8c-0752-40a6-9537-bbd5ee624c72",
-            "4834f76e-ebcf-4cfe-86b8-011114c6a621",
-            "bc7ccddf-610a-4ada-bb97-f016459a7cfb"
+            "be588129-417b-40f0-b999-8c7689f28a5d",
+            "58a4105b-dc5a-480d-ac05-b2cf8b47d8d9",
+            "b916554b-7928-412e-bd12-5a02d098144f",
+            "e1af1fd3-23b1-460e-9696-c450248abfdf",
+            "5395e4cb-1e20-4722-9491-baaf26db8930",
+            "a8c5b52e-ed6e-4451-9411-f5d9a57328ca",
+            "c7a28105-70f7-45f7-b0b6-b49605da5bad"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 17,
+          "duration": 15,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
         },
         {
-          "uuid": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+          "uuid": "b49d743a-632c-455b-bb97-e762d0f01963",
           "title": "dictionary test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/dictionary.test.ts",
           "file": "/test/dictionary.test.ts",
@@ -3173,8 +3263,8 @@
               "context": null,
               "code": "dictionary = new dictionary_1.Dictionary();\nsinon.createSandbox();",
               "err": {},
-              "uuid": "b3461d04-b130-44bf-b158-3911946e3c7f",
-              "parentUUID": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+              "uuid": "ffd31acf-604a-4d62-89bd-f0da4cd6859c",
+              "parentUUID": "b49d743a-632c-455b-bb97-e762d0f01963",
               "isHook": true,
               "skipped": false
             }
@@ -3193,8 +3283,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n    })",
               "err": {},
-              "uuid": "871d5afe-73bb-4850-89a2-908dcfb8a6f3",
-              "parentUUID": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+              "uuid": "6ec9204c-6637-460d-88f9-3cc6a14906a7",
+              "parentUUID": "b49d743a-632c-455b-bb97-e762d0f01963",
               "isHook": true,
               "skipped": false
             },
@@ -3211,8 +3301,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "51d39a8f-ba9e-4dc5-b01f-25a714cd7436",
-              "parentUUID": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+              "uuid": "a0f8fd3e-0917-47f1-9a8b-fd5cf73798bd",
+              "parentUUID": "b49d743a-632c-455b-bb97-e762d0f01963",
               "isHook": true,
               "skipped": false
             }
@@ -3231,8 +3321,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        (0, chai_1.expect)(dictionary.constructor.name).to.equal(\"Dictionary\");\n    })",
               "err": {},
-              "uuid": "f50e4628-ca48-4665-b7fa-aad8fbc26371",
-              "parentUUID": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+              "uuid": "326eefb0-a8d8-4c5f-bb86-af2cb0643053",
+              "parentUUID": "b49d743a-632c-455b-bb97-e762d0f01963",
               "isHook": false,
               "skipped": false
             },
@@ -3240,7 +3330,7 @@
               "title": "should implement basic put/get/remove/size/clear/contains/exists/keys/values functionality",
               "fullTitle": "dictionary test should implement basic put/get/remove/size/clear/contains/exists/keys/values functionality",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -3249,27 +3339,27 @@
               "context": null,
               "code": "dictionary.put(\"item\", \"one\");\n(0, chai_1.expect)(dictionary.exists(\"item\")).to.equal(true);\n(0, chai_1.expect)(dictionary.exists(\"one\")).to.equal(false);\n(0, chai_1.expect)(dictionary.get(\"item\")).to.equal(\"one\");\n(0, chai_1.expect)(dictionary.size()).to.equal(1);\n(0, chai_1.expect)(dictionary.contains(\"one\")).to.equal(true);\n(0, chai_1.expect)(dictionary.keys().length).to.equal(1);\n(0, chai_1.expect)(dictionary.values().length).to.equal(1);\ndictionary.put(\"item\", \"two\");\n(0, chai_1.expect)(dictionary.get(\"item\")).to.equal(\"two\");\ndictionary.put(\"one\", { \"embedded\": true });\ndictionary.remove(\"three\");\n(0, chai_1.expect)(dictionary.size()).to.equal(2);\nlet foundTwo = false;\nfor (const each of dictionary) {\n    if (!foundTwo) {\n        (0, chai_1.expect)(each).to.equal(\"two\");\n        foundTwo = true;\n    }\n    else {\n        (0, chai_1.expect)(each).to.eql({ \"embedded\": true });\n    }\n}\ndictionary.remove(\"item\");\n(0, chai_1.expect)(dictionary.size()).to.equal(1);\ndictionary.clear();\n(0, chai_1.expect)(dictionary.size()).to.equal(0);",
               "err": {},
-              "uuid": "f46d1304-2f44-4f7a-9a3c-49fd334e6136",
-              "parentUUID": "b5e45114-a555-4ab9-b00f-7747200e6ac4",
+              "uuid": "b59aebf9-f24d-4a49-bc5c-3d8923db0e6d",
+              "parentUUID": "b49d743a-632c-455b-bb97-e762d0f01963",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "f50e4628-ca48-4665-b7fa-aad8fbc26371",
-            "f46d1304-2f44-4f7a-9a3c-49fd334e6136"
+            "326eefb0-a8d8-4c5f-bb86-af2cb0643053",
+            "b59aebf9-f24d-4a49-bc5c-3d8923db0e6d"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1,
+          "duration": 0,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
         },
         {
-          "uuid": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+          "uuid": "f3f67e49-930c-4d5c-a75a-e73410114e67",
           "title": "logger test",
           "fullFile": "/home/lane/git/unit-redis-ness/test/logger.test.ts",
           "file": "/test/logger.test.ts",
@@ -3287,8 +3377,8 @@
               "context": null,
               "code": "sinon.createSandbox();",
               "err": {},
-              "uuid": "6af67890-cbde-4a49-baed-598f8c193146",
-              "parentUUID": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+              "uuid": "c300265f-29c9-4c09-9644-ff57b8e0a61e",
+              "parentUUID": "f3f67e49-930c-4d5c-a75a-e73410114e67",
               "isHook": true,
               "skipped": false
             }
@@ -3307,8 +3397,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n    })",
               "err": {},
-              "uuid": "00cdd88f-a872-4b4f-b4b6-3a388efac801",
-              "parentUUID": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+              "uuid": "9c3b15fc-98ef-4f8a-bd73-3f217276f365",
+              "parentUUID": "f3f67e49-930c-4d5c-a75a-e73410114e67",
               "isHook": true,
               "skipped": false
             },
@@ -3325,8 +3415,8 @@
               "context": null,
               "code": "sinon.restore();",
               "err": {},
-              "uuid": "b06eb88c-7b34-4dfa-8ec1-124e84c28f6c",
-              "parentUUID": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+              "uuid": "9a3247a5-b4d2-41c1-92b2-94939013fc34",
+              "parentUUID": "f3f67e49-930c-4d5c-a75a-e73410114e67",
               "isHook": true,
               "skipped": false
             }
@@ -3345,8 +3435,8 @@
               "context": null,
               "code": "__awaiter(void 0, void 0, void 0, function* () {\n        logger = new logger_1.Logger(module.id);\n        (0, chai_1.expect)(logger.constructor.name).to.equal(\"Logger\");\n        logger.info(\"This is an info message\");\n        logger.warn(\"This is a warning message\");\n        logger.debug(\"This is an invisible debug message\");\n    })",
               "err": {},
-              "uuid": "c878cc90-c13f-416c-8d5a-ba1c89f4da11",
-              "parentUUID": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+              "uuid": "81352c71-523c-477d-91c2-bd95a03c755e",
+              "parentUUID": "f3f67e49-930c-4d5c-a75a-e73410114e67",
               "isHook": false,
               "skipped": false
             },
@@ -3363,16 +3453,16 @@
               "context": null,
               "code": "(0, chai_1.expect)(() => {\n    logger = new logger_1.Logger(\"\");\n}).to.throw();",
               "err": {},
-              "uuid": "1ce11eef-9034-41f6-b436-169e05836ef1",
-              "parentUUID": "8ac6976a-48f7-4da0-afce-53c4109787bc",
+              "uuid": "58e23136-8e88-44f0-9961-9af9809204b0",
+              "parentUUID": "f3f67e49-930c-4d5c-a75a-e73410114e67",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "c878cc90-c13f-416c-8d5a-ba1c89f4da11",
-            "1ce11eef-9034-41f6-b436-169e05836ef1"
+            "81352c71-523c-477d-91c2-bd95a03c755e",
+            "58e23136-8e88-44f0-9961-9af9809204b0"
           ],
           "failures": [],
           "pending": [],
