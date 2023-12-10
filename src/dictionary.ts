@@ -21,21 +21,18 @@ export class Dictionary<K, T> implements Iterable<any> {
      */
     public [Symbol.iterator]() {
         let pointer: number = 0;
-        const { items } = this;
+        const items: any = this.items;
         return {
-
             /**
              * @hidden
              */
             next(): IteratorResult<any> {
                 if (pointer < Object.keys(items).length) {
-                    pointer += 1;
                     return {
                         "done": false,
-                        "value": items[Object.keys(items)[pointer]]
+                        "value": items[Object.keys(items)[pointer++]]
                     };
                 }
-
                 return {
                     "done": true,
                     "value": null
@@ -43,7 +40,6 @@ export class Dictionary<K, T> implements Iterable<any> {
             }
         };
     }
-
 
     /**
      * Remove all elements - reset to empty
@@ -54,16 +50,14 @@ export class Dictionary<K, T> implements Iterable<any> {
         });
     }
 
-
     /**
      * Check if an item exists - by value
      * @param value The item required
      * @returns
      */
-    public contains(value: string): boolean {
+    public contains(value: any): boolean {
         return this.values().indexOf(value) !== -1;
     }
-
 
     /**
      * Check if a key exists
@@ -71,9 +65,8 @@ export class Dictionary<K, T> implements Iterable<any> {
      * @returns
      */
     public exists(key: string): boolean {
-        return Boolean(this.items[key]);
+        return !!this.items[key];
     }
-
 
     /**
      * Get an item by key
@@ -84,7 +77,6 @@ export class Dictionary<K, T> implements Iterable<any> {
         return this.items[key];
     }
 
-
     /**
      * The array of keys in the store
      * @returns
@@ -92,7 +84,6 @@ export class Dictionary<K, T> implements Iterable<any> {
     public keys(): string[] {
         return Object.keys(this.items);
     }
-
 
     /**
      * Put a new key/value pair
@@ -105,7 +96,6 @@ export class Dictionary<K, T> implements Iterable<any> {
         this.items[key] = value;
         return value;
     }
-
 
     /**
      * Remove an item by key
@@ -120,7 +110,6 @@ export class Dictionary<K, T> implements Iterable<any> {
         return item;
     }
 
-
     /**
      * Report the number of keys in the store
      * @returns
@@ -128,7 +117,6 @@ export class Dictionary<K, T> implements Iterable<any> {
     public size(): number {
         return Object.keys(this.items).length;
     }
-
 
     /**
      * The array of values
