@@ -1,4 +1,3 @@
-import { maxParams, minParams, name } from "../../../decorators";
 import { Database } from "../../data/database";
 import { IRequest } from "../../../server/request";
 import { IRespCommand } from "../resp-command";
@@ -14,10 +13,13 @@ import { RedisToken } from "../../protocol/redis-token";
  * The time-complexity for this operation is O(N), N being the number of keys in all existing
  * databases.
  */
-@maxParams(0)
-@minParams(0)
-@name("flushall")
 export class FlushAllCommand extends IRespCommand {
+    public maxParams = 0
+
+    public minParams = 0
+
+    public name = "flushall"
+
     private logger: Logger = new Logger(module.id);
 
     public execSync(request: IRequest, db: Database): RedisToken {

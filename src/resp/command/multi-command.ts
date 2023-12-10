@@ -1,5 +1,3 @@
-import { maxParams, minParams, name } from "../../decorators";
-
 import { Database } from "../data/database";
 import { Logger } from "../../logger";
 import { RedisToken } from "../protocol/redis-token";
@@ -11,14 +9,17 @@ import { IRespCommand } from "./resp-command";
  * ### MULTI
  *
  * Marks the start of a transaction block. Subsequent commands will be queued for atomic
- * execution using [EXEC]{@link ExecCommand}.
+ * execution using {@link resp/command/exec-command.ExecCommand | EXEC}.
  * ### Return value
  * Simple string reply: always OK.
  */
-@minParams(0)
-@maxParams(0)
-@name("multi")
 export class MultiCommand extends IRespCommand {
+    public minParams = 0
+
+    public maxParams = 0
+
+    public name = "multi"
+
     private logger: Logger = new Logger(module.id);
 
     public execSync(request: IRequest, db: Database): RedisToken {

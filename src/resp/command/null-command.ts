@@ -3,10 +3,10 @@ import { IRequest } from "../../server/request";
 import { IRespCommand } from "./resp-command";
 import { RedisToken } from "../protocol/redis-token";
 
-import { name } from "../../decorators";
 
-@name("null")
 export class NullCommand extends IRespCommand {
+    public name = "null"
+
     public execSync(request: IRequest): RedisToken {
         request.getSession().setError();
         let params: string = "";

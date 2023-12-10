@@ -1,11 +1,10 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -40,50 +39,54 @@ import {IRespCommand} from "../resp-command";
  * redis>
  * ```
  */
-@DbDataType(DataType.SET)
-@maxParams(-1)
-@minParams(2)
-@name("srem")
 export class SRemCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
+    public DbDataType = DataType.SET
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const key: string = request.getParam(0),
-          dbKey: DatabaseValue = db.get(key);
-      if (!dbKey) {
-          this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
-          return RedisToken.integer(0);
-      }
+    public maxParams = -1
 
-      let results: number = 0;
-      for (let index = 1; index < request.getParams().length; index++) {
-          const member = request.getParam(index);
-          this.logger.debug(`Checking key ${key} for member ${member}`);
-          if (dbKey.getSet().has(member)) {
-              this.logger.debug(`Removing member ${member} from key ${key}`);
-              dbKey.getSet().delete(member);
-              ++results;
-          }
-      }
-      if (results > 0) {
-          if (dbKey.getSet().size > 0) {
-              this.logger.debug(
-                  `Saving updated set ${key} as %s`,
-                  dbKey.getSet()
-              );
-              db.put(
-                  key,
-                  dbKey
-              );
-          } else {
-              this.logger.debug(`Removing empty set ${key}`);
-              db.remove(key);
-          }
-      }
-      return RedisToken.integer(results);
-  }
+    public minParams = 2
+
+    public name = "srem"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const key: string = request.getParam(0),
+            dbKey: DatabaseValue = db.get(key);
+        if (!dbKey) {
+            this.logger.debug(`Key ${key} does not exist.  Returning ZERO`);
+            return RedisToken.integer(0);
+        }
+
+        let results: number = 0;
+        for (let index = 1; index < request.getParams().length; index++) {
+            const member = request.getParam(index);
+            this.logger.debug(`Checking key ${key} for member ${member}`);
+            if (dbKey.getSet().has(member)) {
+                this.logger.debug(`Removing member ${member} from key ${key}`);
+                dbKey.getSet().delete(member);
+                ++results;
+            }
+        }
+        if (results > 0) {
+            if (dbKey.getSet().size > 0) {
+                this.logger.debug(
+                    `Saving updated set ${key} as %s`,
+                    ...dbKey.getSet()
+                );
+                db.put(
+                    key,
+                    dbKey
+                );
+            } else {
+                this.logger.debug(`Removing empty set ${key}`);
+                db.remove(key);
+            }
+        }
+        return RedisToken.integer(results);
+    }
 }

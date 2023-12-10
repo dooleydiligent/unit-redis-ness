@@ -16,17 +16,17 @@ const fengari = require("fengari"),
  * ### Available since 2.6.0.
  * ### SCRIPT LOAD script
  * Load a script into the scripts cache, without executing it. After the specified command
- * is loaded into the script cache it will be callable using [EVALSHA]{@EvalshaComamnd} with
+ * is loaded into the script cache it will be callable using (not implemented) EvalshaComamnd | EVALSHA with
  * the correct SHA1 digest of the script, exactly like after the first successful invocation
  * of EVAL.
  *
- * The script is guaranteed to stay in the script cache forever (unless [SCRIPT FLUSH]{@link ScriptCommand}
+ * The script is guaranteed to stay in the script cache forever (unless {@link ScriptCommand | SCRIPT FLUSH}
  * is called).
  * **NOTE: unit-redis-ness does not persist the script thru restarts**
  *
  * The command works in the same way even if the script was already present in the script cache.
  *
- * Please refer to the [EVAL]{@link EvalCommand} documentation for detailed information about
+ * Please refer to the (not implemented) EvalCommand | EVAL documentation for detailed information about
  * Redis Lua scripting.
  *
  * ### Return value
@@ -65,7 +65,7 @@ export class ScriptCommand extends IRespCommand {
   public execSync(request: IRequest, db: Database): RedisToken {
       this.logger.debug(
           `${request.getCommand()}.execute(%s)`,
-          request.getParams()
+          ...request.getParams()
       );
       let sha1: string | null;
       switch (request.getCommand().toLowerCase()) {
@@ -469,7 +469,7 @@ export class ScriptCommand extends IRespCommand {
               }
               this.logger.debug(
                   "The complete table is %j",
-                  values
+                  `${values}`
               );
               results.unshift(RedisToken.array(values));
               break;

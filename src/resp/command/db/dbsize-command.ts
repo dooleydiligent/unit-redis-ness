@@ -1,9 +1,8 @@
-import { maxParams, minParams, name } from "../../../decorators";
-import {Database} from "../../data/database";
-import {IRequest} from "../../../server/request";
-import {IRespCommand} from "../resp-command";
-import {Logger} from "../../../logger";
-import {RedisToken} from "../../protocol/redis-token";
+import { Database } from "../../data/database";
+import { IRequest } from "../../../server/request";
+import { IRespCommand } from "../resp-command";
+import { Logger } from "../../../logger";
+import { RedisToken } from "../../protocol/redis-token";
 
 /**
  * Available since 1.0.0.
@@ -16,10 +15,13 @@ import {RedisToken} from "../../protocol/redis-token";
  *
  * Integer reply
  */
-@maxParams(0)
-@minParams(0)
-@name("dbsize")
 export class DBSizeCommand extends IRespCommand {
+  public maxParams = 0
+
+  public minParams = 0
+
+  public name = "dbsize"
+
   private logger: Logger = new Logger(module.id);
 
   public execSync(request: IRequest, db: Database): RedisToken {

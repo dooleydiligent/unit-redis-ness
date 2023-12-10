@@ -1,11 +1,10 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -16,16 +15,19 @@ import {IRespCommand} from "../resp-command";
  * ### Return value
  * Bulk string reply: the random key, or nil when the database is empty.
  */
-@maxParams(0)
-@minParams(0)
-@name("randomkey")
 export class RandomKeyCommand extends IRespCommand {
+  public maxParams = 0
+
+  public minParams = 0
+
+  public name = "randomkey"
+
   private logger: Logger = new Logger(module.id);
 
   public execSync(request: IRequest, db: Database): RedisToken {
       this.logger.debug(
           `${request.getCommand()}.execute(%s)`,
-          request.getParams()
+          ...request.getParams()
       );
       this.logger.debug(`There are ${db.keys().length} keys in the database`);
       const randomNumber: number = Math.floor(Math.random() * db.keys().length);

@@ -1,5 +1,4 @@
 import * as util from "util";
-import { dbDataType, maxParams, minParams, name } from "../../../decorators";
 import { Logger } from "../../../logger";
 import { IRequest } from "../../../server/request";
 import { DataType } from "../../data/data-type";
@@ -36,13 +35,13 @@ interface IParameters {
  * Note that XX or NX can be specified multiple times without change in behavior
  */
 export class SetCommand extends IRespCommand {
-    dbDataType = DataType.STRING
+    public dbDataType = DataType.STRING
 
-    maxParams = 6
+    public maxParams = 6
 
-    minParams = 2
+    public minParams = 2
 
-    name = "set"
+    public name = "set"
 
     private logger: Logger = new Logger(module.id);
 

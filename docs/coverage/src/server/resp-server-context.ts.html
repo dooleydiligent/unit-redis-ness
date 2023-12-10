@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>33/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>9/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">73.8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>31/42</span>
             </div>
         
             
@@ -54,8 +54,14 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -166,87 +172,75 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,9 +248,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,120 +272,267 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as crypto from 'crypto';</span>
-<span class="cstat-no" title="statement not covered" >import { EventEmitter } from 'events';</span>
-import * as net from 'net';
-<span class="cstat-no" title="statement not covered" >import { Dictionary } from '../dictionary';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../logger';</span>
-import { IRespCommand } from '../resp/command/resp-command';
-<span class="cstat-no" title="statement not covered" >import { Database } from '../resp/data/database';</span>
-import { CommandSuite } from '../resp/processor/command-suite';
-import { IServerContext } from './server-context';
-import { Session } from './session';
-<span class="cstat-no" title="statement not covered" >export class R</span>espServerContext extends EventEmitter implements IServerContext {
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  private <span class="cstat-no" title="statement not covered" >clients: Dictionary&lt;string, net.Socket&gt; = new Dictionary&lt;string, net.Socket&gt;();</span>
-  private <span class="cstat-no" title="statement not covered" >state: Dictionary&lt;string, string&gt; = new Dictionary&lt;string, string&gt;();</span>
-  private <span class="cstat-no" title="statement not covered" >databases: Dictionary&lt;string, Database&gt; = new Dictionary&lt;string, Database&gt;();</span>
-  private <span class="cstat-no" title="statement not covered" >scripts: Dictionary&lt;string, string&gt; = new Dictionary&lt;string, string&gt;();</span>
-  /**
-   * Instantiate the server contect.
-   * Database ZERO is instantiated by default.  Others will be dynamically added.
-   * @param host The host or IP that we're listening to
-   * @param port The port we're listening to
-   * @param commands An empty command suite
-   */
-<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" >h</span>ost: string,</span> private <span class="cstat-no" title="statement not covered" >port: number,</span> private <span class="cstat-no" title="statement not covered" >commands: CommandSuite)</span> {
-<span class="cstat-no" title="statement not covered" >    super();</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.warn(`REDIS_PORT is ${process.env.REDIS_PORT}`);</span>
-<span class="cstat-no" title="statement not covered" >    this.databases.put('_0', new Database());</span>
-  }
-  public <span class="fstat-no" title="function not covered" >publish(</span>channel: string, message: string): number {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`publish "${message}" to channel "${channel}"`);</span>
-<span class="cstat-no" title="statement not covered" >    this.emit(channel, { channel, message});</span>
-<span class="cstat-no" title="statement not covered" >    return this.listenerCount(channel);</span>
-  }
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as crypto from "crypto";
+import * as net from "net";
 &nbsp;
-  public <span class="fstat-no" title="function not covered" >getHost(</span>): string {
-<span class="cstat-no" title="statement not covered" >    return this.host;</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getPort(</span>): number {
-<span class="cstat-no" title="statement not covered" >    return this.port;</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getClients(</span>): Dictionary&lt;string, Session&gt; {
-<span class="cstat-no" title="statement not covered" >    return this.clients;</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getClientCount(</span>): number {
-<span class="cstat-no" title="statement not covered" >    return Object.keys(this.clients).length;</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getCommand(</span>name: string): IRespCommand {
-<span class="cstat-no" title="statement not covered" >    return this.commands.getCommand(name);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getValue(</span>key: string): any {
-<span class="cstat-no" title="statement not covered" >    return this.state.get(key);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >putValue(</span>key: string, value: any): void {
-<span class="cstat-no" title="statement not covered" >    this.state.put(key, value);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >removeValue(</span>key: string) {
-<span class="cstat-no" title="statement not covered" >    this.state.remove(key);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >addClient(</span>clientId: string, client: Session): void {
-<span class="cstat-no" title="statement not covered" >    this.clients.put(clientId, client);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >removeClient(</span>clientId: string): void {
-<span class="cstat-no" title="statement not covered" >    this.clients.remove(clientId);</span>
-  }
-  /**
-   * The limit of 16 databases is enforced in the {@link SelectCommand}
-   * @param id ordinal db number
-   */
-  public <span class="fstat-no" title="function not covered" >getDatabase(</span>id: number): Database {
-    let db = <span class="cstat-no" title="statement not covered" >this.databases.get(`_${id}`);</span>
-<span class="cstat-no" title="statement not covered" >    if (!db) {</span>
-<span class="cstat-no" title="statement not covered" >      db = this.databases.put(`_${id}`, new Database());</span>
+import { CommandSuite } from "../resp/processor/command-suite";
+import { Database } from "../resp/data/database";
+import { Dictionary } from "../dictionary";
+import { EventEmitter } from "events";
+import { Logger } from "../logger";
+import { IRespCommand } from "../resp/command/resp-command";
+import { IServerContext } from "./server-context";
+import { Session } from "./session";
+export class RespServerContext extends EventEmitter implements IServerContext {
+    private logger: Logger = new Logger(module.id);
+&nbsp;
+    private clients: Dictionary&lt;string, net.Socket&gt; = new Dictionary&lt;string, net.Socket&gt;();
+&nbsp;
+    private state: Dictionary&lt;string, string&gt; = new Dictionary&lt;string, string&gt;();
+&nbsp;
+    private databases: Dictionary&lt;string, Database&gt; = new Dictionary&lt;string, Database&gt;();
+&nbsp;
+    private scripts: Dictionary&lt;string, string&gt; = new Dictionary&lt;string, string&gt;();
+&nbsp;
+&nbsp;
+    /**
+     * Instantiate the server contect.
+     * Database ZERO is instantiated by default.  Others will be dynamically added.
+     * @param host The host or IP that we're listening to
+     * @param port The port we're listening to
+     * @param commands An empty command suite
+     */
+    constructor(private host: string, private port: number, private commands: CommandSuite) {
+        super();
+        this.logger.warn(`REDIS_PORT is ${process.env.REDIS_PORT}`);
+        this.databases.put(
+            "_0",
+            new Database()
+        );
     }
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`getDatabase _${id}`);</span>
-<span class="cstat-no" title="statement not covered" >    return this.databases.get(`_${id}`);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >getString(</span>sha1: string): string {
-<span class="cstat-no" title="statement not covered" >    return this.scripts.get(sha1);</span>
-  }
-  public <span class="fstat-no" title="function not covered" >flush(</span>): void {
-<span class="cstat-no" title="statement not covered" >    this.scripts.clear();</span>
-  }
-  /**
-   * Calculate and return the sha1 of code.  Store the code
-   * using sha1 as the key.
-   * @param code lua code script
-   */
-  public <span class="fstat-no" title="function not covered" >setScript(</span>code: string): string {
-    const hash: any = <span class="cstat-no" title="statement not covered" >crypto.createHash('sha1');</span>
-<span class="cstat-no" title="statement not covered" >    hash.update(code);</span>
-    const key: string = <span class="cstat-no" title="statement not covered" >hash.digest('hex');</span>
-<span class="cstat-no" title="statement not covered" >    this.scripts.put(key, code);</span>
-<span class="cstat-no" title="statement not covered" >    return key;</span>
-  }
-  /**
-   * Retrieve the lua script identified by the sha1
-   * @param sha1 previously calculated sha1
-   */
-  public <span class="fstat-no" title="function not covered" >getScript(</span>sha1: string): string {
-<span class="cstat-no" title="statement not covered" >    return this.scripts.get(sha1);</span>
-  }
-  /**
-   * Check if a script exists
-   * @param sha1 sha1 of the script
-   */
-  public <span class="fstat-no" title="function not covered" >scriptExists(</span>sha1: string): boolean {
-<span class="cstat-no" title="statement not covered" >    return this.scripts.exists(sha1);</span>
-  }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >publish(</span>channel: string, message: string): number {
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`publish "${message}" to channel "${channel}"`);</span>
+<span class="cstat-no" title="statement not covered" >        this.emit(</span>
+            channel,
+            {
+                channel,
+                message
+            }
+        );
+<span class="cstat-no" title="statement not covered" >        return this.listenerCount(channel);</span>
+    }
+&nbsp;
+    public getHost(): string {
+        return this.host;
+    }
+&nbsp;
+    public getPort(): number {
+        return this.port;
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >getClients(</span>): Dictionary&lt;string, Session&gt; {
+<span class="cstat-no" title="statement not covered" >        return this.clients;</span>
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >getClientCount(</span>): number {
+<span class="cstat-no" title="statement not covered" >        return Object.keys(this.clients).length;</span>
+    }
+&nbsp;
+    public getCommand(name: string): IRespCommand {
+        return this.commands.getCommand(name);
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >getValue(</span>key: string): any {
+<span class="cstat-no" title="statement not covered" >        return this.state.get(key);</span>
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >putValue(</span>key: string, value: any): void {
+<span class="cstat-no" title="statement not covered" >        this.state.put(</span>
+            key,
+            value
+        );
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >removeValue(</span>key: string) {
+<span class="cstat-no" title="statement not covered" >        this.state.remove(key);</span>
+    }
+&nbsp;
+    public addClient(clientId: string, client: Session): void {
+        this.clients.put(
+            clientId,
+            client
+        );
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >removeClient(</span>clientId: string): void {
+<span class="cstat-no" title="statement not covered" >        this.clients.remove(clientId);</span>
+    }
+&nbsp;
+&nbsp;
+    /**
+     * The limit of 16 databases is enforced in the {@link resp/command/db/select-command.SelectCommand | SELECT}
+     * @param id ordinal db number
+     */
+    public getDatabase(id: number): Database {
+        let db = this.databases.get(`_${id}`);
+        if (!db) {
+            db = this.databases.put(
+                `_${id}`,
+                new Database()
+            );
+        }
+        this.logger.debug(`getDatabase _${id}`);
+        return this.databases.get(`_${id}`);
+    }
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >getString(</span>sha1: string): string {
+<span class="cstat-no" title="statement not covered" >        return this.scripts.get(sha1);</span>
+    }
+&nbsp;
+    public flush(): void {
+        this.scripts.clear();
+    }
+&nbsp;
+&nbsp;
+    /**
+     * Calculate and return the sha1 of code.  Store the code
+     * using sha1 as the key.
+     * @param code lua code script
+     */
+    public setScript(code: string): string {
+        const hash: any = crypto.createHash("sha1");
+        hash.update(code);
+        const key: string = hash.digest("hex");
+        this.scripts.put(
+            key,
+            code
+        );
+        return key;
+    }
+&nbsp;
+&nbsp;
+    /**
+     * Retrieve the lua script identified by the sha1
+     * @param sha1 previously calculated sha1
+     */
+    public getScript(sha1: string): string {
+        return this.scripts.get(sha1);
+    }
+&nbsp;
+&nbsp;
+    /**
+     * Check if a script exists
+     * @param sha1 sha1 of the script
+     */
+    public <span class="fstat-no" title="function not covered" >scriptExists(</span>sha1: string): boolean {
+<span class="cstat-no" title="statement not covered" >        return this.scripts.exists(sha1);</span>
+    }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -390,10 +540,9 @@ import { Session } from './session';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 09 2023 07:39:48 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-10T15:25:10.150Z
             </div>
-        </div>
         <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {

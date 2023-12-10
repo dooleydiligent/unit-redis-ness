@@ -1,11 +1,10 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 2.0.0.
@@ -30,32 +29,36 @@ import {IRespCommand} from "../resp-command";
  * redis>
  * ```
  */
-@DbDataType(DataType.HASH)
-@maxParams(1)
-@minParams(1)
-@name("hgetall")
 export class HgetallCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
+    public DbDataType = DataType.HASH
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const key: string = request.getParam(0);
-      this.logger.debug(`Getting HASH ${key}`);
-      const item: DatabaseValue = db.get(key),
-          results: RedisToken[] = [];
-      if (!item) {
-          this.logger.debug(`HASH ${key} not found`);
-          results.push(RedisToken.nullString());
-      } else {
-          const hash = item.getHash();
-          for (const field of Object.keys(hash)) {
-              results.push(RedisToken.string(field));
-              results.push(RedisToken.string(hash[field]));
-          }
-      }
-      return RedisToken.array(results);
-  }
+    public maxParams = 1
+
+    public minParams = 1
+
+    public name = "hgetall"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const key: string = request.getParam(0);
+        this.logger.debug(`Getting HASH ${key}`);
+        const item: DatabaseValue = db.get(key),
+            results: RedisToken[] = [];
+        if (!item) {
+            this.logger.debug(`HASH ${key} not found`);
+            results.push(RedisToken.nullString());
+        } else {
+            const hash = item.getHash();
+            for (const field of Object.keys(hash)) {
+                results.push(RedisToken.string(field));
+                results.push(RedisToken.string(hash[field]));
+            }
+        }
+        return RedisToken.array(results);
+    }
 }

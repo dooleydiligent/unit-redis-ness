@@ -1,11 +1,10 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -18,27 +17,31 @@ import {IRespCommand} from "../resp-command";
  * ### Return value
  * Integer reply: the length of the list at key.
  */
-@DbDataType(DataType.LIST)
-@maxParams(1)
-@minParams(1)
-@name("llen")
 export class LLenCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
+    public DbDataType = DataType.LIST
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const key: string = request.getParam(0),
-          list: DatabaseValue = db.get(key);
-      this.logger.debug(`Getting list "${key}"`);
-      if (!list) {
-          this.logger.debug(`LIST ${key} does not exist.  Returning 0`);
-          return RedisToken.integer(0);
-      }
+    public maxParams = 1
 
-      this.logger.debug(`Returning list size ${list.getList().length}`);
-      return RedisToken.integer(list.getList().length);
-  }
+    public minParams = 1
+
+    public name = "llen"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const key: string = request.getParam(0),
+            list: DatabaseValue = db.get(key);
+        this.logger.debug(`Getting list "${key}"`);
+        if (!list) {
+            this.logger.debug(`LIST ${key} does not exist.  Returning 0`);
+            return RedisToken.integer(0);
+        }
+
+        this.logger.debug(`Returning list size ${list.getList().length}`);
+        return RedisToken.integer(list.getList().length);
+    }
 }

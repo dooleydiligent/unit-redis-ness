@@ -1,11 +1,10 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -44,39 +43,43 @@ import {IRespCommand} from "../resp-command";
  * redis>
  * ```
  */
-@DbDataType(DataType.SET)
-@maxParams(-1)
-@minParams(1)
-@name("sdiff")
 export class SDiffCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
+    public DbDataType = DataType.SET
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const result: RedisToken[] = [],
-          skey: string = request.getParam(0);
-      if (db.exists(skey)) {
-          const dbKey: DatabaseValue = db.get(skey),
-              diffset: Set<any> = new Set();
-          for (let index = 1; index < request.getParams().length; index++) {
-              const dbDiff: DatabaseValue = db.get(request.getParam(index));
-              if (dbDiff && dbDiff.getType() === DataType.SET) {
-                  dbDiff.getSet().forEach((element) => {
-                      if (!diffset.has(element)) {
-                          diffset.add(element);
-                      }
-                  });
-              }
-          }
-          dbKey.getSet().forEach((element) => {
-              if (!diffset.has(element)) {
-                  result.push(RedisToken.string(element));
-              }
-          });
-      }
-      return RedisToken.array(result);
-  }
+    public maxParams = -1
+
+    public minParams = 1
+
+    public name = "sdiff"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const result: RedisToken[] = [],
+            skey: string = request.getParam(0);
+        if (db.exists(skey)) {
+            const dbKey: DatabaseValue = db.get(skey),
+                diffset: Set<any> = new Set();
+            for (let index = 1; index < request.getParams().length; index++) {
+                const dbDiff: DatabaseValue = db.get(request.getParam(index));
+                if (dbDiff && dbDiff.getType() === DataType.SET) {
+                    dbDiff.getSet().forEach((element) => {
+                        if (!diffset.has(element)) {
+                            diffset.add(element);
+                        }
+                    });
+                }
+            }
+            dbKey.getSet().forEach((element) => {
+                if (!diffset.has(element)) {
+                    result.push(RedisToken.string(element));
+                }
+            });
+        }
+        return RedisToken.array(result);
+    }
 }

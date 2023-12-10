@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>8/34</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>8/34</span>
             </div>
         
             
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line low'></div>
     <pre><table class="coverage">
@@ -129,20 +135,16 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,33 +161,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -195,25 +189,45 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { MaxParams, MinParams, Name } from '../../../decorators';</span>
-<span class="cstat-no" title="statement not covered" >import { Logger } from '../../../logger';</span>
-import { IRequest } from '../../../server/request';
-import { Database } from '../../data/database';
-import { DatabaseValue } from '../../data/database-value';
-<span class="cstat-no" title="statement not covered" >import { RedisToken } from '../../protocol/redis-token';</span>
-<span class="cstat-no" title="statement not covered" >import { IRespCommand } from '../resp-command';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
+&nbsp;
 /**
  * Available since 1.0.0.
  *
  * MOVE key db
  *
- * Move key from the currently selected database (see {@link SelectCommand}**[SELECT]**) to the specified destination
+ * Move key from the currently selected database (see {@link resp/command/db/select-command.SelectCommand | SELECT}) to the specified destination
  * database. When key already exists in the destination database, or it does not exist in the
  * source database, it does nothing. It is possible to use MOVE as a locking primitive because
  * of this.
@@ -228,50 +242,54 @@ import { DatabaseValue } from '../../data/database-value';
  * 0 if key was not moved.
  */
 &nbsp;
-@MaxParams(2)
-@MinParams(2)
-@Name('move')
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >M</span>oveCommand </span>extends IRespCommand {</span></span>
-  private <span class="cstat-no" title="statement not covered" >logger: Logger = new Logger(module.id);</span>
-  public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`${request.getCommand()}.execute(%s)`, request.getParams());</span>
-    let response = <span class="cstat-no" title="statement not covered" >0;</span>
-    const currentDb: number = <span class="cstat-no" title="statement not covered" >request.getSession().getCurrentDb();</span>
-    const key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0);</span>
+export class MoveCommand extends IRespCommand {
+    public maxParams = 2
 &nbsp;
-    const newDbIndex: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
-<span class="cstat-no" title="statement not covered" >    this.logger.debug(`Target DB is ${newDbIndex}`);</span>
-    const targetDb = <span class="cstat-no" title="statement not covered" >Number(newDbIndex);</span>
-<span class="cstat-no" title="statement not covered" >    if (isNaN(targetDb) || targetDb &lt; 0 || targetDb &gt; 15) {</span>
-<span class="cstat-no" title="statement not covered" >      this.logger.debug(`Target DB is invalid`);</span>
-<span class="cstat-no" title="statement not covered" >      return (RedisToken.error(`ERR index out of range`));</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      if (targetDb === currentDb) {</span>
-<span class="cstat-no" title="statement not covered" >        return (RedisToken.error(`ERR source and destination objects are the same`));</span>
-      } else {
+    public minParams = 2
+&nbsp;
+    public name = "move"
+&nbsp;
+    private logger: Logger = new Logger(module.id);
+&nbsp;
+    public <span class="fstat-no" title="function not covered" >execSync(</span>request: IRequest, db: Database): RedisToken {
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(</span>
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        let response = <span class="cstat-no" title="statement not covered" >0;</span>
+        const currentDb: number = <span class="cstat-no" title="statement not covered" >request.getSession().getCurrentDb(),</span>
+            key: string = <span class="cstat-no" title="statement not covered" >request.getParam(0),</span>
+&nbsp;
+            newDbIndex: string = <span class="cstat-no" title="statement not covered" >request.getParam(1);</span>
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`Target DB is ${newDbIndex}`);</span>
+        const targetDb = <span class="cstat-no" title="statement not covered" >Number(newDbIndex);</span>
+<span class="cstat-no" title="statement not covered" >        if (isNaN(targetDb) || targetDb &lt; 0 || targetDb &gt; 15) {</span>
+<span class="cstat-no" title="statement not covered" >            this.logger.debug("Target DB is invalid");</span>
+<span class="cstat-no" title="statement not covered" >            return RedisToken.error("ERR index out of range");</span>
+        } else <span class="cstat-no" title="statement not covered" >if (targetDb === currentDb) {</span>
+<span class="cstat-no" title="statement not covered" >            return RedisToken.error("ERR source and destination objects are the same");</span>
+        }
         const dbValue: DatabaseValue = <span class="cstat-no" title="statement not covered" >db.get(key);</span>
 <span class="cstat-no" title="statement not covered" >        if (!dbValue) {</span>
-<span class="cstat-no" title="statement not covered" >          this.logger.debug(</span>
-            `key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}
+<span class="cstat-no" title="statement not covered" >            this.logger.debug(`key ${key} does not exist in the current database ${request.getSession().getCurrentDb()}</span>
             `);
-<span class="cstat-no" title="statement not covered" >          return (RedisToken.integer(response));</span>
-        } else {
-          const newDb: Database = <span class="cstat-no" title="statement not covered" >request.getServerContext().getDatabase(targetDb);</span>
-          const targetExists: boolean = <span class="cstat-no" title="statement not covered" >newDb.exists(key);</span>
-<span class="cstat-no" title="statement not covered" >          if (targetExists) {</span>
-<span class="cstat-no" title="statement not covered" >            this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);</span>
-<span class="cstat-no" title="statement not covered" >            return (RedisToken.integer(0));</span>
-          } else {
-<span class="cstat-no" title="statement not covered" >            newDb.put(key, dbValue);</span>
-<span class="cstat-no" title="statement not covered" >            db.remove(key);</span>
-<span class="cstat-no" title="statement not covered" >            response = 1;</span>
-<span class="cstat-no" title="statement not covered" >            this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);</span>
-<span class="cstat-no" title="statement not covered" >            return (RedisToken.integer(response));</span>
-          }
+<span class="cstat-no" title="statement not covered" >            return RedisToken.integer(response);</span>
         }
-      }
+        const newDb: Database = <span class="cstat-no" title="statement not covered" >request.getServerContext().getDatabase(targetDb),</span>
+            targetExists: boolean = <span class="cstat-no" title="statement not covered" >newDb.exists(key);</span>
+<span class="cstat-no" title="statement not covered" >        if (targetExists) {</span>
+<span class="cstat-no" title="statement not covered" >            this.logger.debug(`Key ${key} already exists in db ${targetDb}.  Nothing doing`);</span>
+<span class="cstat-no" title="statement not covered" >            return RedisToken.integer(0);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        newDb.put(</span>
+            key,
+            dbValue
+        );
+<span class="cstat-no" title="statement not covered" >        db.remove(key);</span>
+<span class="cstat-no" title="statement not covered" >        response = 1;</span>
+<span class="cstat-no" title="statement not covered" >        this.logger.debug(`${request.getCommand()}.execute: moved ${key} to ${targetDb}`);</span>
+<span class="cstat-no" title="statement not covered" >        return RedisToken.integer(response);</span>
     }
-  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -279,10 +297,9 @@ import { DatabaseValue } from '../../data/database-value';
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 09 2023 07:39:48 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-10T15:25:10.150Z
             </div>
-        </div>
         <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {

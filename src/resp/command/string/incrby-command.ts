@@ -17,7 +17,7 @@ import { IRespCommand } from "../resp-command";
  * of the wrong type or contains a string that can not be represented as integer. This
  * operation is limited to 53 bit signed integers.
  *
- * See {@link IncrCommand} for extra information on increment/decrement operations.
+ * See {@link resp/command/string/incr-command.IncrCommand | INCR} for extra information on increment/decrement operations.
  *
  * Return value
  * Integer reply: the value of key after the decrement

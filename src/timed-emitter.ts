@@ -2,7 +2,7 @@ import {EventEmitter} from "events";
 import {Logger} from "./logger";
 
 /**
- * Setup a blocking wait.  Used in B(locking)* commands, such as [BRPOP]{@link BRPopCommand}.
+ * Setup a blocking wait.  Used in B(locking)* commands, such as [[BRPOP]][[BRPopCommand]].
  *
  * Unlike redis, which allows an infinite wait when timoutSeconds is ZERO, **unit-redis-ness**
  * allows only for a maximum of about 24.85 days

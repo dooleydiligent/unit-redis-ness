@@ -97,7 +97,7 @@ export class RespServerContext extends EventEmitter implements IServerContext {
 
 
     /**
-     * The limit of 16 databases is enforced in the {@link SelectCommand}
+     * The limit of 16 databases is enforced in the {@link resp/command/db/select-command.SelectCommand | SELECT}
      * @param id ordinal db number
      */
     public getDatabase(id: number): Database {

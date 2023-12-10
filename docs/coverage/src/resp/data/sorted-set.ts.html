@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">0.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/396</span>
+                <span class='fraction'>2/396</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">0.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/392</span>
+                <span class='fraction'>2/392</span>
             </div>
         
             
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line low'></div>
     <pre><table class="coverage">
@@ -930,7 +936,152 @@
 <a name='L871'></a><a href='#L871'>871</a>
 <a name='L872'></a><a href='#L872'>872</a>
 <a name='L873'></a><a href='#L873'>873</a>
-<a name='L874'></a><a href='#L874'>874</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L874'></a><a href='#L874'>874</a>
+<a name='L875'></a><a href='#L875'>875</a>
+<a name='L876'></a><a href='#L876'>876</a>
+<a name='L877'></a><a href='#L877'>877</a>
+<a name='L878'></a><a href='#L878'>878</a>
+<a name='L879'></a><a href='#L879'>879</a>
+<a name='L880'></a><a href='#L880'>880</a>
+<a name='L881'></a><a href='#L881'>881</a>
+<a name='L882'></a><a href='#L882'>882</a>
+<a name='L883'></a><a href='#L883'>883</a>
+<a name='L884'></a><a href='#L884'>884</a>
+<a name='L885'></a><a href='#L885'>885</a>
+<a name='L886'></a><a href='#L886'>886</a>
+<a name='L887'></a><a href='#L887'>887</a>
+<a name='L888'></a><a href='#L888'>888</a>
+<a name='L889'></a><a href='#L889'>889</a>
+<a name='L890'></a><a href='#L890'>890</a>
+<a name='L891'></a><a href='#L891'>891</a>
+<a name='L892'></a><a href='#L892'>892</a>
+<a name='L893'></a><a href='#L893'>893</a>
+<a name='L894'></a><a href='#L894'>894</a>
+<a name='L895'></a><a href='#L895'>895</a>
+<a name='L896'></a><a href='#L896'>896</a>
+<a name='L897'></a><a href='#L897'>897</a>
+<a name='L898'></a><a href='#L898'>898</a>
+<a name='L899'></a><a href='#L899'>899</a>
+<a name='L900'></a><a href='#L900'>900</a>
+<a name='L901'></a><a href='#L901'>901</a>
+<a name='L902'></a><a href='#L902'>902</a>
+<a name='L903'></a><a href='#L903'>903</a>
+<a name='L904'></a><a href='#L904'>904</a>
+<a name='L905'></a><a href='#L905'>905</a>
+<a name='L906'></a><a href='#L906'>906</a>
+<a name='L907'></a><a href='#L907'>907</a>
+<a name='L908'></a><a href='#L908'>908</a>
+<a name='L909'></a><a href='#L909'>909</a>
+<a name='L910'></a><a href='#L910'>910</a>
+<a name='L911'></a><a href='#L911'>911</a>
+<a name='L912'></a><a href='#L912'>912</a>
+<a name='L913'></a><a href='#L913'>913</a>
+<a name='L914'></a><a href='#L914'>914</a>
+<a name='L915'></a><a href='#L915'>915</a>
+<a name='L916'></a><a href='#L916'>916</a>
+<a name='L917'></a><a href='#L917'>917</a>
+<a name='L918'></a><a href='#L918'>918</a>
+<a name='L919'></a><a href='#L919'>919</a>
+<a name='L920'></a><a href='#L920'>920</a>
+<a name='L921'></a><a href='#L921'>921</a>
+<a name='L922'></a><a href='#L922'>922</a>
+<a name='L923'></a><a href='#L923'>923</a>
+<a name='L924'></a><a href='#L924'>924</a>
+<a name='L925'></a><a href='#L925'>925</a>
+<a name='L926'></a><a href='#L926'>926</a>
+<a name='L927'></a><a href='#L927'>927</a>
+<a name='L928'></a><a href='#L928'>928</a>
+<a name='L929'></a><a href='#L929'>929</a>
+<a name='L930'></a><a href='#L930'>930</a>
+<a name='L931'></a><a href='#L931'>931</a>
+<a name='L932'></a><a href='#L932'>932</a>
+<a name='L933'></a><a href='#L933'>933</a>
+<a name='L934'></a><a href='#L934'>934</a>
+<a name='L935'></a><a href='#L935'>935</a>
+<a name='L936'></a><a href='#L936'>936</a>
+<a name='L937'></a><a href='#L937'>937</a>
+<a name='L938'></a><a href='#L938'>938</a>
+<a name='L939'></a><a href='#L939'>939</a>
+<a name='L940'></a><a href='#L940'>940</a>
+<a name='L941'></a><a href='#L941'>941</a>
+<a name='L942'></a><a href='#L942'>942</a>
+<a name='L943'></a><a href='#L943'>943</a>
+<a name='L944'></a><a href='#L944'>944</a>
+<a name='L945'></a><a href='#L945'>945</a>
+<a name='L946'></a><a href='#L946'>946</a>
+<a name='L947'></a><a href='#L947'>947</a>
+<a name='L948'></a><a href='#L948'>948</a>
+<a name='L949'></a><a href='#L949'>949</a>
+<a name='L950'></a><a href='#L950'>950</a>
+<a name='L951'></a><a href='#L951'>951</a>
+<a name='L952'></a><a href='#L952'>952</a>
+<a name='L953'></a><a href='#L953'>953</a>
+<a name='L954'></a><a href='#L954'>954</a>
+<a name='L955'></a><a href='#L955'>955</a>
+<a name='L956'></a><a href='#L956'>956</a>
+<a name='L957'></a><a href='#L957'>957</a>
+<a name='L958'></a><a href='#L958'>958</a>
+<a name='L959'></a><a href='#L959'>959</a>
+<a name='L960'></a><a href='#L960'>960</a>
+<a name='L961'></a><a href='#L961'>961</a>
+<a name='L962'></a><a href='#L962'>962</a>
+<a name='L963'></a><a href='#L963'>963</a>
+<a name='L964'></a><a href='#L964'>964</a>
+<a name='L965'></a><a href='#L965'>965</a>
+<a name='L966'></a><a href='#L966'>966</a>
+<a name='L967'></a><a href='#L967'>967</a>
+<a name='L968'></a><a href='#L968'>968</a>
+<a name='L969'></a><a href='#L969'>969</a>
+<a name='L970'></a><a href='#L970'>970</a>
+<a name='L971'></a><a href='#L971'>971</a>
+<a name='L972'></a><a href='#L972'>972</a>
+<a name='L973'></a><a href='#L973'>973</a>
+<a name='L974'></a><a href='#L974'>974</a>
+<a name='L975'></a><a href='#L975'>975</a>
+<a name='L976'></a><a href='#L976'>976</a>
+<a name='L977'></a><a href='#L977'>977</a>
+<a name='L978'></a><a href='#L978'>978</a>
+<a name='L979'></a><a href='#L979'>979</a>
+<a name='L980'></a><a href='#L980'>980</a>
+<a name='L981'></a><a href='#L981'>981</a>
+<a name='L982'></a><a href='#L982'>982</a>
+<a name='L983'></a><a href='#L983'>983</a>
+<a name='L984'></a><a href='#L984'>984</a>
+<a name='L985'></a><a href='#L985'>985</a>
+<a name='L986'></a><a href='#L986'>986</a>
+<a name='L987'></a><a href='#L987'>987</a>
+<a name='L988'></a><a href='#L988'>988</a>
+<a name='L989'></a><a href='#L989'>989</a>
+<a name='L990'></a><a href='#L990'>990</a>
+<a name='L991'></a><a href='#L991'>991</a>
+<a name='L992'></a><a href='#L992'>992</a>
+<a name='L993'></a><a href='#L993'>993</a>
+<a name='L994'></a><a href='#L994'>994</a>
+<a name='L995'></a><a href='#L995'>995</a>
+<a name='L996'></a><a href='#L996'>996</a>
+<a name='L997'></a><a href='#L997'>997</a>
+<a name='L998'></a><a href='#L998'>998</a>
+<a name='L999'></a><a href='#L999'>999</a>
+<a name='L1000'></a><a href='#L1000'>1000</a>
+<a name='L1001'></a><a href='#L1001'>1001</a>
+<a name='L1002'></a><a href='#L1002'>1002</a>
+<a name='L1003'></a><a href='#L1003'>1003</a>
+<a name='L1004'></a><a href='#L1004'>1004</a>
+<a name='L1005'></a><a href='#L1005'>1005</a>
+<a name='L1006'></a><a href='#L1006'>1006</a>
+<a name='L1007'></a><a href='#L1007'>1007</a>
+<a name='L1008'></a><a href='#L1008'>1008</a>
+<a name='L1009'></a><a href='#L1009'>1009</a>
+<a name='L1010'></a><a href='#L1010'>1010</a>
+<a name='L1011'></a><a href='#L1011'>1011</a>
+<a name='L1012'></a><a href='#L1012'>1012</a>
+<a name='L1013'></a><a href='#L1013'>1013</a>
+<a name='L1014'></a><a href='#L1014'>1014</a>
+<a name='L1015'></a><a href='#L1015'>1015</a>
+<a name='L1016'></a><a href='#L1016'>1016</a>
+<a name='L1017'></a><a href='#L1017'>1017</a>
+<a name='L1018'></a><a href='#L1018'>1018</a>
+<a name='L1019'></a><a href='#L1019'>1019</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -941,6 +1092,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -958,7 +1116,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -981,15 +1139,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1050,15 +1216,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1071,8 +1252,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1092,6 +1275,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1103,18 +1288,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1124,10 +1321,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1180,10 +1382,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1193,11 +1400,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1216,14 +1428,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1257,6 +1476,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1265,8 +1486,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1295,14 +1519,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1323,6 +1554,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1359,25 +1592,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1385,6 +1617,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1396,6 +1629,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1418,6 +1652,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1427,13 +1662,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1446,6 +1686,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1456,8 +1697,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1497,6 +1741,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1513,6 +1760,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1548,6 +1797,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1561,22 +1813,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1587,6 +1853,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1604,6 +1871,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1652,6 +1922,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1660,6 +1931,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1677,8 +1949,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1687,6 +1966,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1724,8 +2005,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1735,6 +2023,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1767,6 +2057,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1796,33 +2089,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import * as assert from 'assert';</span>
-import * as util from 'util';
-// A rewrite of https://www.npmjs.com/package/redis-sorted-set
-// tslint:disable:no-conditional-assignment
-// tslint:disable:max-classes-per-file
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as assert from "assert";
+import * as util from "util";
 &nbsp;
-// value is score, sorted
-// key is obj, unique
+/*
+ * A rewrite of https://www.npmjs.com/package/redis-sorted-set
+ * tslint:disable:no-conditional-assignment
+ * tslint:disable:max-classes-per-file
+ */
+&nbsp;
+/*
+ * Value is score, sorted
+ * key is obj, unique
+ */
 class Node {
   public next: any[];
+&nbsp;
   public prev: any;
+&nbsp;
 <span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >l</span>evel: number,</span> public <span class="cstat-no" title="statement not covered" >key: any,</span> public <span class="cstat-no" title="statement not covered" >value: number)</span> {
-<span class="cstat-no" title="statement not covered" >    this.next = new Array(this.level);</span>
-<span class="cstat-no" title="statement not covered" >    this.prev = null;</span>
+<span class="cstat-no" title="statement not covered" >      this.next = new Array(this.level);</span>
+<span class="cstat-no" title="statement not covered" >      this.prev = null;</span>
   }
 }
 &nbsp;
 class Level {
-<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >n</span>ext: Node,</span> public <span class="cstat-no" title="statement not covered" >span: number)</span> {
-  }
+<span class="fstat-no" title="function not covered" >    constructor(public <span class="cstat-no" title="statement not covered" >n</span>ext: Node,</span> public <span class="cstat-no" title="statement not covered" >span: number)</span> {
+    }
 }
 &nbsp;
 /**
@@ -1831,177 +2134,221 @@ class Level {
  * Largely unchanged
  *
  */
-<span class="cstat-no" title="statement not covered" >export class S</span>ortedSet implements Iterable&lt;SortedSet&gt; {
-  public <span class="fstat-no" title="function not covered" >static </span>intersect(...nodes: any[]): Node[] {
-    let result: Node[] = <span class="cstat-no" title="statement not covered" >[];</span>
-    let node: Node;
-    let lookup: any;
-    let x: number;
-    let i: number;
-    let j: number;
-    let n: number;
-<span class="cstat-no" title="statement not covered" >    if (!nodes.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-<span class="cstat-no" title="statement not covered" >    for (i = nodes.length - 1; i &gt;= 0; i--) {</span>
-<span class="cstat-no" title="statement not covered" >      if (!nodes[i].length) { // abort</span>
-<span class="cstat-no" title="statement not covered" >        return [];</span>
-      }
-<span class="cstat-no" title="statement not covered" >      nodes[i] = nodes[i]._head.next[0].next;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (nodes.length === 1) {</span>
-<span class="cstat-no" title="statement not covered" >      return nodes[0].toArray({ field: 'key' });</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (nodes.length === 2) {</span>
-<span class="cstat-no" title="statement not covered" >      return SortedSet.binaryIntersect(nodes[0], nodes[1]);</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (nodes.length === 3) {</span>
-<span class="cstat-no" title="statement not covered" >      return SortedSet.ternaryIntersect(nodes[0], nodes[1], nodes[2]);</span>
-    }
-    /*
-      return nodes[0].length &lt;= nodes[1].length ?
-      binaryIntersect(nodes[0], nodes[1]) :
-      binaryIntersect(nodes[1], nodes[0]);
-    */
-<span class="cstat-no" title="statement not covered" >    lookup = Object.create(null);</span>
-<span class="cstat-no" title="statement not covered" >    for (node = nodes.shift(); node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      lookup[node.key] = 0;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    for (i = 0, n = nodes.length - 1; i &lt; n; i++) {</span>
-<span class="cstat-no" title="statement not covered" >      x = 0;</span>
-<span class="cstat-no" title="statement not covered" >      j = i + 1;</span>
-<span class="cstat-no" title="statement not covered" >      for (node = nodes[i]; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >        if (lookup[node.key] === i) {</span>
-<span class="cstat-no" title="statement not covered" >          lookup[node.key] = j;</span>
-<span class="cstat-no" title="statement not covered" >          x++;</span>
+export class SortedSet implements Iterable&lt;SortedSet&gt; {
+    public <span class="fstat-no" title="function not covered" >static </span>intersect(...nodes: any[]): Node[] {
+        let result: Node[] = <span class="cstat-no" title="statement not covered" >[],</span>
+            node: Node,
+            lookup: any,
+            x: number,
+            i: number,
+            j: number,
+            n: number;
+<span class="cstat-no" title="statement not covered" >        if (!nodes.length) {</span>
+<span class="cstat-no" title="statement not covered" >            return [];</span>
         }
-      }
-<span class="cstat-no" title="statement not covered" >      if (!x) { // useful?</span>
-<span class="cstat-no" title="statement not covered" >        return [];</span>
-      }
-    }
-<span class="cstat-no" title="statement not covered" >    result = [];</span>
-<span class="cstat-no" title="statement not covered" >    for (node = nodes[i]; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      if (lookup[node.key] === i) {</span>
-<span class="cstat-no" title="statement not covered" >        result.push(node.key);</span>
-      }
-    }
-<span class="cstat-no" title="statement not covered" >    return result;</span>
-  }
+<span class="cstat-no" title="statement not covered" >        for (i = nodes.length - 1; i &gt;= 0; i--) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!nodes[i].length) { // Abort</span>
+<span class="cstat-no" title="statement not covered" >                return [];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            nodes[i] = nodes[i]._head.next[0].next;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (nodes.length === 1) {</span>
+<span class="cstat-no" title="statement not covered" >            return nodes[0].toArray({"field": "key"});</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (nodes.length === 2) {</span>
+<span class="cstat-no" title="statement not covered" >            return SortedSet.binaryIntersect(</span>
+                nodes[0],
+                nodes[1]
+            );
+        }
+<span class="cstat-no" title="statement not covered" >        if (nodes.length === 3) {</span>
+<span class="cstat-no" title="statement not covered" >            return SortedSet.ternaryIntersect(</span>
+                nodes[0],
+                nodes[1],
+                nodes[2]
+            );
+        }
 &nbsp;
-  private <span class="fstat-no" title="function not covered" >static </span>binaryIntersect(a: Node, b: Node): Node[] {
-    const lookup: any = <span class="cstat-no" title="statement not covered" >Object.create(null);</span>
-    const result: Node[] = <span class="cstat-no" title="statement not covered" >[];</span>
-<span class="cstat-no" title="statement not covered" >    for (; a; a = a.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      lookup[a.key] = true;</span>
+        /*
+         *Return nodes[0].length &lt;= nodes[1].length ?
+         *binaryIntersect(nodes[0], nodes[1]) :
+         *binaryIntersect(nodes[1], nodes[0]);
+         */
+<span class="cstat-no" title="statement not covered" >        lookup = Object.create(null);</span>
+<span class="cstat-no" title="statement not covered" >        for (node = nodes.shift(); node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            lookup[node.key] = 0;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        for (i = 0, n = nodes.length - 1; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >            x = 0;</span>
+<span class="cstat-no" title="statement not covered" >            j = i + 1;</span>
+<span class="cstat-no" title="statement not covered" >            for (node = nodes[i]; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >                if (lookup[node.key] === i) {</span>
+<span class="cstat-no" title="statement not covered" >                    lookup[node.key] = j;</span>
+<span class="cstat-no" title="statement not covered" >                    x++;</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            if (!x) { // Useful?</span>
+<span class="cstat-no" title="statement not covered" >                return [];</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        result = [];</span>
+<span class="cstat-no" title="statement not covered" >        for (node = nodes[i]; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            if (lookup[node.key] === i) {</span>
+<span class="cstat-no" title="statement not covered" >                result.push(node.key);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
     }
-<span class="cstat-no" title="statement not covered" >    for (; b; b = b.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      if (lookup[b.key]) {</span>
-<span class="cstat-no" title="statement not covered" >        result.push(b.key);</span>
-      }
-    }
-<span class="cstat-no" title="statement not covered" >    return result;</span>
-  }
 &nbsp;
-  private <span class="fstat-no" title="function not covered" >static </span>ternaryIntersect(a: Node, b: Node, c: Node): Node[] {
-    const lookup: any = <span class="cstat-no" title="statement not covered" >Object.create(null);</span>
-    const result: Node[] = <span class="cstat-no" title="statement not covered" >[];</span>
-<span class="cstat-no" title="statement not covered" >    for (; a; a = a.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      lookup[a.key] = 0;</span>
+    private <span class="fstat-no" title="function not covered" >static </span>binaryIntersect(a: Node, b: Node): Node[] {
+        const lookup: any = <span class="cstat-no" title="statement not covered" >Object.create(null),</span>
+            result: Node[] = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >        for (; a; a = a.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            lookup[a.key] = true;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        for (; b; b = b.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            if (lookup[b.key]) {</span>
+<span class="cstat-no" title="statement not covered" >                result.push(b.key);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
     }
-<span class="cstat-no" title="statement not covered" >    for (; b; b = b.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      if (lookup[b.key] === 0) {</span>
-<span class="cstat-no" title="statement not covered" >        lookup[b.key] = 1;</span>
-      }
+&nbsp;
+    private <span class="fstat-no" title="function not covered" >static </span>ternaryIntersect(a: Node, b: Node, c: Node): Node[] {
+        const lookup: any = <span class="cstat-no" title="statement not covered" >Object.create(null),</span>
+            result: Node[] = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >        for (; a; a = a.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            lookup[a.key] = 0;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        for (; b; b = b.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            if (lookup[b.key] === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                lookup[b.key] = 1;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        for (; c; c = c.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >            if (lookup[c.key] === 1) {</span>
+<span class="cstat-no" title="statement not covered" >                result.push(c.key);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
     }
-<span class="cstat-no" title="statement not covered" >    for (; c; c = c.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      if (lookup[c.key] === 1) {</span>
-<span class="cstat-no" title="statement not covered" >        result.push(c.key);</span>
-      }
-    }
-<span class="cstat-no" title="statement not covered" >    return result;</span>
-  }
 &nbsp;
   public <span class="cstat-no" title="statement not covered" >length: number = 0;</span>
+&nbsp;
   public <span class="cstat-no" title="statement not covered" >_unique: boolean = false;</span>
-  // NOTE: These two are initialized only to get around Typescript's aggressive checking
-  // for initialization.  They are also made public to satisfy the unit tests.
-  public <span class="cstat-no" title="statement not covered" >_head: Node = new Node(0, null, 0);</span>
-  public <span class="cstat-no" title="statement not covered" >_tail: Node = new Node(0, null, 0);</span>
+&nbsp;
+  /*
+   * NOTE: These two are initialized only to get around Typescript's aggressive checking
+   * for initialization.  They are also made public to satisfy the unit tests.
+   */
+  public <span class="cstat-no" title="statement not covered" >_head: Node = new Node(</span>
+      0,
+      null,
+      0
+  );
+&nbsp;
+  public <span class="cstat-no" title="statement not covered" >_tail: Node = new Node(</span>
+      0,
+      null,
+      0
+  );
+&nbsp;
   public <span class="cstat-no" title="statement not covered" >_level: number = 1;</span>
+&nbsp;
   private _map: any;
 &nbsp;
-<span class="fstat-no" title="function not covered" >  constructor(o</span>ptions: any = <span class="branch-0 cbranch-no" title="branch not covered" >{ unique: false })</span> {
-<span class="cstat-no" title="statement not covered" >    this._unique = !!options.unique;</span>
-<span class="cstat-no" title="statement not covered" >    this.empty();</span>
+<span class="fstat-no" title="function not covered" >  constructor(o</span>ptions: any = <span class="branch-0 cbranch-no" title="branch not covered" >{"unique": false})</span> {
+<span class="cstat-no" title="statement not covered" >      this._unique = Boolean(options.unique);</span>
+<span class="cstat-no" title="statement not covered" >      this.empty();</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >[S</span>ymbol.iterator]() {
-    let pointer: number = <span class="cstat-no" title="statement not covered" >0;</span>
-    const items: any = <span class="cstat-no" title="statement not covered" >this._map;</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
-      /**
-       * @hidden
-       */
-<span class="fstat-no" title="function not covered" >      next(</span>): IteratorResult&lt;any&gt; {
-<span class="cstat-no" title="statement not covered" >        if (pointer &lt; Object.keys(items).length) {</span>
-<span class="cstat-no" title="statement not covered" >          return {</span>
-            done: false,
-            value: items[Object.keys(items)[pointer++]]
-          };
-        } else {
-<span class="cstat-no" title="statement not covered" >          return {</span>
-            done: true,
-            value: null
-          };
-        }
-      }
-    };
+      let pointer: number = <span class="cstat-no" title="statement not covered" >0;</span>
+      const items: any = <span class="cstat-no" title="statement not covered" >this._map;</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+&nbsp;
+          /**
+           * @hidden
+           */
+<span class="fstat-no" title="function not covered" >          next(</span>): IteratorResult&lt;any&gt; {
+<span class="cstat-no" title="statement not covered" >              if (pointer &lt; Object.keys(items).length) {</span>
+<span class="cstat-no" title="statement not covered" >                  return {</span>
+                      "done": false,
+                      "value": items[Object.keys(items)[pointer++]]
+                  };
+              }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              return {</span>
+                  "done": true,
+                  "value": null
+              };
+          }
+      };
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >add(</span>key: string, value?: number | null): any {
-    let current;
-    // if (key === '__proto__') {
-    //   throw new Error('invalid key __proto__');
-    // }
+      let current;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (value == null || value === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      return this.rem(key);</span>
-    }
+      /*
+       * If (key === '__proto__') {
+       *   Throw new Error('invalid key __proto__');
+       * }
+       */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    current = this._map[key];</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (current !== undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      if (value === current) {</span>
-<span class="cstat-no" title="statement not covered" >        return current;</span>
+<span class="cstat-no" title="statement not covered" >      if (value == null || value === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >          return this.rem(key);</span>
       }
-<span class="cstat-no" title="statement not covered" >      this._remove(key, current);</span>
-    }
 &nbsp;
-    const node = <span class="cstat-no" title="statement not covered" >this._insert(key, value);</span>
-<span class="cstat-no" title="statement not covered" >    if (!node) {</span>
-<span class="cstat-no" title="statement not covered" >      if (current === undefined || this._insert(key, current)) {</span>
-        // TODO: can we defer _remove until after insert?
-<span class="cstat-no" title="statement not covered" >        throw new Error('unique constraint violated');</span>
+<span class="cstat-no" title="statement not covered" >      current = this._map[key];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (current !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >          if (value === current) {</span>
+<span class="cstat-no" title="statement not covered" >              return current;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          this._remove(</span>
+              key,
+              current
+          );
       }
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this._map[key] = value;</span>
-<span class="cstat-no" title="statement not covered" >    return current === undefined ? null : current;</span>
+      const node = <span class="cstat-no" title="statement not covered" >this._insert(</span>
+          key,
+          value
+      );
+<span class="cstat-no" title="statement not covered" >      if (!node) {</span>
+<span class="cstat-no" title="statement not covered" >          if (current === undefined || this._insert(</span>
+              key,
+              current
+          )) {
+              // TODO: can we defer _remove until after insert?
+<span class="cstat-no" title="statement not covered" >              throw new Error("unique constraint violated");</span>
+          }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      this._map[key] = value;</span>
+<span class="cstat-no" title="statement not covered" >      return current === undefined</span>
+          ? null
+          : current;
   }
+&nbsp;
   public <span class="fstat-no" title="function not covered" >addAll(</span>sortedSet: SortedSet): void {
-<span class="cstat-no" title="statement not covered" >    for (const key of sortedSet.keys()) {</span>
-      const value = <span class="cstat-no" title="statement not covered" >sortedSet.get(key);</span>
-<span class="cstat-no" title="statement not covered" >      this.add(key, value);</span>
-    }
+<span class="cstat-no" title="statement not covered" >      for (const key of sortedSet.keys()) {</span>
+          const value = <span class="cstat-no" title="statement not covered" >sortedSet.get(key);</span>
+<span class="cstat-no" title="statement not covered" >          this.add(</span>
+              key,
+              value
+          );
+      }
   }
+&nbsp;
   public <span class="fstat-no" title="function not covered" >card(</span>): number {
-    // Returns the sorted set cardinality (number of elements)
-<span class="cstat-no" title="statement not covered" >    if (this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return this.length;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return 0;</span>
+      // Returns the sorted set cardinality (number of elements)
+<span class="cstat-no" title="statement not covered" >      if (this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return this.length;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return 0;</span>
   }
+&nbsp;
   /**
    * Return the number of elements with a score between
    * min and max scores.  Inclusive.
@@ -2010,670 +2357,764 @@ class Level {
    */
 &nbsp;
   public <span class="fstat-no" title="function not covered" >count(</span>min?: number, max?: number): number {
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (min == null) {</span>
-<span class="cstat-no" title="statement not covered" >      min = -Infinity;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (max == null) {</span>
-<span class="cstat-no" title="statement not covered" >      max = Infinity;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (min &lt;= this._head.next[0].next.value &amp;&amp; max &gt;= this._tail.value) {</span>
-<span class="cstat-no" title="statement not covered" >      return this.length;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (max &lt; min || min &gt; this._tail.value || max &lt; this._head.next[0].next.value) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-&nbsp;
-    let i;
-    let node = <span class="cstat-no" title="statement not covered" >this._first(min);</span>
-    let count = <span class="cstat-no" title="statement not covered" >0;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!node) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = node.next.length - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while (node.next[i].next &amp;&amp; node.next[i].next.value &lt;= max) {</span>
-<span class="cstat-no" title="statement not covered" >        count += node.next[i].span;</span>
-<span class="cstat-no" title="statement not covered" >        node = node.next[i].next;</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
       }
-    }
 &nbsp;
-    // feels hacky and error prone
-<span class="cstat-no" title="statement not covered" >    return count &amp;&amp; count + 1;</span>
+<span class="cstat-no" title="statement not covered" >      if (min == null) {</span>
+<span class="cstat-no" title="statement not covered" >          min = -Infinity;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (max == null) {</span>
+<span class="cstat-no" title="statement not covered" >          max = Infinity;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (min &lt;= this._head.next[0].next.value &amp;&amp; max &gt;= this._tail.value) {</span>
+<span class="cstat-no" title="statement not covered" >          return this.length;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (max &lt; min || min &gt; this._tail.value || max &lt; this._head.next[0].next.value) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
+      }
+&nbsp;
+      let i,
+          node = <span class="cstat-no" title="statement not covered" >this._first(min),</span>
+          count = <span class="cstat-no" title="statement not covered" >0;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (!node) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (i = node.next.length - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while (node.next[i].next &amp;&amp; node.next[i].next.value &lt;= max) {</span>
+<span class="cstat-no" title="statement not covered" >              count += node.next[i].span;</span>
+<span class="cstat-no" title="statement not covered" >              node = node.next[i].next;</span>
+          }
+      }
+&nbsp;
+      // Feels hacky and error prone
+<span class="cstat-no" title="statement not covered" >      return count &amp;&amp; count + 1;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >del(</span>key: string): number {
-    // Alias for .rem
-<span class="cstat-no" title="statement not covered" >    return this.rem(key);</span>
+      // Alias for .rem
+<span class="cstat-no" title="statement not covered" >      return this.rem(key);</span>
   }
-  public <span class="fstat-no" title="function not covered" >empty(</span>): void {
-<span class="cstat-no" title="statement not covered" >    this.length = 0;</span>
-<span class="cstat-no" title="statement not covered" >    this._level = 1;</span>
-<span class="cstat-no" title="statement not covered" >    this._map = Object.create(null);</span>
-<span class="cstat-no" title="statement not covered" >    this._head = new Node(32, null, 0);</span>
-<span class="cstat-no" title="statement not covered" >    this._tail = null as any as Node;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; 32; i += 1) {</span>
-      // hrm
-<span class="cstat-no" title="statement not covered" >      this._head.next[i] = new Level(null as any as Node, 0);</span>
-    }
+  public <span class="fstat-no" title="function not covered" >empty(</span>): void {
+<span class="cstat-no" title="statement not covered" >      this.length = 0;</span>
+<span class="cstat-no" title="statement not covered" >      this._level = 1;</span>
+<span class="cstat-no" title="statement not covered" >      this._map = Object.create(null);</span>
+<span class="cstat-no" title="statement not covered" >      this._head = new Node(</span>
+          32,
+          null,
+          0
+      );
+<span class="cstat-no" title="statement not covered" >      this._tail = null as any as Node;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; 32; i += 1) {</span>
+          // Hrm
+<span class="cstat-no" title="statement not covered" >          this._head.next[i] = new Level(</span>
+null as any as Node,
+0
+          );
+      }
   }
+&nbsp;
   public <span class="fstat-no" title="function not covered" >get(</span>key: string): number {
-    // Alias for
-<span class="cstat-no" title="statement not covered" >    return this.score(key);</span>
+      // Alias for
+<span class="cstat-no" title="statement not covered" >      return this.score(key);</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >has(</span>key: string): boolean {
-<span class="cstat-no" title="statement not covered" >    return this._map[key] !== undefined;</span>
+<span class="cstat-no" title="statement not covered" >      return this._map[key] !== undefined;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >incrBy(</span>increment: number, key: string): number {
-    // Increases the score of the member specified by key.
-    // If member does not exist, a new member is created with
-    // the increment as its score.
-    //
-    // Parameters:
-    //   increment
-    //     number
-    //   key
-    //     string
-    //
-    // Return
-    //   number, the new score of the member
-    //
-    // TODO: Shortcut, could optimize to half
+      /*
+       * Increases the score of the member specified by key.
+       * If member does not exist, a new member is created with
+       * The increment as its score.
+       *
+       * Parameters:
+       *   Increment
+       *     Number
+       *   Key
+       *     String
+       *
+       * Return
+       *   Number, the new score of the member
+       *
+       * TODO: Shortcut, could optimize to half
+       */
 &nbsp;
-    const score = <span class="cstat-no" title="statement not covered" >this.score(key);</span>
+      const score = <span class="cstat-no" title="statement not covered" >this.score(key);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (score) {</span>
-<span class="cstat-no" title="statement not covered" >      this.add(key, score + increment);</span>
-<span class="cstat-no" title="statement not covered" >      return score + increment;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      if (score) {</span>
+<span class="cstat-no" title="statement not covered" >          this.add(</span>
+              key,
+              score + increment
+          );
+<span class="cstat-no" title="statement not covered" >          return score + increment;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.add(key, increment);</span>
-<span class="cstat-no" title="statement not covered" >    return increment;</span>
+<span class="cstat-no" title="statement not covered" >      this.add(</span>
+          key,
+          increment
+      );
+<span class="cstat-no" title="statement not covered" >      return increment;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >keys(</span>): string[] {
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
+      }
 &nbsp;
-    let i;
-    const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
-    let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
+      let i;
+      const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
+      let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = 0; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      array[i] = node.key;</span>
-<span class="cstat-no" title="statement not covered" >      i += 1;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      for (i = 0; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >          array[i] = node.key;</span>
+<span class="cstat-no" title="statement not covered" >          i += 1;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return array;</span>
+<span class="cstat-no" title="statement not covered" >      return array;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >range(</span>start?: number, stop?: number, options?: any): Node[] {
-    // Parameters:
-    //   start
-    //     inclusive
-    //   stop
-    //     inclusive
-    //   options (optional)
-    //     withScores (optional, default to false)
-    //
-    // Return:
-    //   an array
-    let result;
+      /*
+       * Parameters:
+       *   Start
+       *     Inclusive
+       *   Stop
+       *     Inclusive
+       *   Options (optional)
+       *     WithScores (optional, default to false)
+       *
+       * Return:
+       *   An array
+       */
+      let result;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (this.length === 0) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (start == null) {</span>
-<span class="cstat-no" title="statement not covered" >      start = 0;</span>
-    } else <span class="cstat-no" title="statement not covered" >if (start &lt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      start = Math.max(this.length + start, 0);</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (stop == null) {</span>
-<span class="cstat-no" title="statement not covered" >      stop = this.length - 1;</span>
-    } else <span class="cstat-no" title="statement not covered" >if (stop &lt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      stop = this.length + stop;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (start &gt; stop || start &gt;= this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (stop &gt;= this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      stop = this.length - 1;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (typeof options !== 'object') {</span>
-<span class="cstat-no" title="statement not covered" >      options = {</span>
-        withScores: false,
-      };
-    }
-&nbsp;
-    let i = <span class="cstat-no" title="statement not covered" >0;</span>
-    let length = <span class="cstat-no" title="statement not covered" >stop - start + 1;</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      result = new Array(length);</span>
-    } catch (e) {
-      // console.log('start', start);
-      // console.log('stop', stop);
-      // console.log('Invalid length', length);
-<span class="cstat-no" title="statement not covered" >      throw e;</span>
-    }
-&nbsp;
-    let node = <span class="cstat-no" title="statement not covered" >start &gt; 0 ? this._get(start) : this._head.next[0].next;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (options.withScores) {</span>
-<span class="cstat-no" title="statement not covered" >      for (; length--; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >        result[i] = [node.key, node.value];</span>
-<span class="cstat-no" title="statement not covered" >        i += 1;</span>
+<span class="cstat-no" title="statement not covered" >      if (this.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
       }
-    } else {
-<span class="cstat-no" title="statement not covered" >      for (; length--; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >        result[i] = node.key;</span>
-<span class="cstat-no" title="statement not covered" >        i += 1;</span>
-      }
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return result;</span>
+<span class="cstat-no" title="statement not covered" >      if (start == null) {</span>
+<span class="cstat-no" title="statement not covered" >          start = 0;</span>
+      } else <span class="cstat-no" title="statement not covered" >if (start &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          start = Math.max(</span>
+              this.length + start,
+              0
+          );
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (stop == null) {</span>
+<span class="cstat-no" title="statement not covered" >          stop = this.length - 1;</span>
+      } else <span class="cstat-no" title="statement not covered" >if (stop &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          stop = this.length + stop;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (start &gt; stop || start &gt;= this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (stop &gt;= this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          stop = this.length - 1;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (typeof options !== "object") {</span>
+<span class="cstat-no" title="statement not covered" >          options = {</span>
+              "withScores": false
+          };
+      }
+&nbsp;
+      let i = <span class="cstat-no" title="statement not covered" >0,</span>
+          length = <span class="cstat-no" title="statement not covered" >stop - start + 1;</span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+<span class="cstat-no" title="statement not covered" >          result = new Array(length);</span>
+      } catch (e) {
+          /*
+           * Console.log('start', start);
+           * console.log('stop', stop);
+           * console.log('Invalid length', length);
+           */
+<span class="cstat-no" title="statement not covered" >          throw e;</span>
+      }
+&nbsp;
+      let node = <span class="cstat-no" title="statement not covered" >start &gt; 0</span>
+          ? this._get(start)
+          : this._head.next[0].next;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (options.withScores) {</span>
+<span class="cstat-no" title="statement not covered" >          for (; length--; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >              result[i] = [</span>
+                  node.key,
+                  node.value
+              ];
+<span class="cstat-no" title="statement not covered" >              i += 1;</span>
+          }
+      } else {
+<span class="cstat-no" title="statement not covered" >          for (; length--; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >              result[i] = node.key;</span>
+<span class="cstat-no" title="statement not covered" >              i += 1;</span>
+          }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return result;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >rangeByScore(</span>min?: number | null, max?: number | null, options?: any): Node[] {
-    // Return members with score within inclusive range [min, max].
-    //
-    // Parameters:
-    //   min (number)
-    //   max (number)
-    //   options (object, optional)
-    //     withScores (bool, optional, default false)
-    const maxExclusive: boolean = <span class="cstat-no" title="statement not covered" >options &amp;&amp; !!options.maxExclusive;</span>
-    const minExclusive: boolean = <span class="cstat-no" title="statement not covered" >options &amp;&amp; !!options.minExclusive;</span>
+      /*
+       * Return members with score within inclusive range [min, max].
+       *
+       * Parameters:
+       *   Min (number)
+       *   Max (number)
+       *   Options (object, optional)
+       *     WithScores (bool, optional, default false)
+       */
+      const maxExclusive: boolean = <span class="cstat-no" title="statement not covered" >options &amp;&amp; Boolean(options.maxExclusive),</span>
+          minExclusive: boolean = <span class="cstat-no" title="statement not covered" >options &amp;&amp; Boolean(options.minExclusive);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (typeof options !== 'object') {</span>
-<span class="cstat-no" title="statement not covered" >      options = {</span>
-        withScores: false,
-      };
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (min == null) {</span>
-<span class="cstat-no" title="statement not covered" >      min = -Infinity;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (max == null) {</span>
-<span class="cstat-no" title="statement not covered" >      max = Infinity;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!minExclusive &amp;&amp; min &lt;= this._head.next[0].next.value &amp;&amp; !maxExclusive &amp;&amp; max &gt;= this._tail.value) {</span>
-<span class="cstat-no" title="statement not covered" >      return this.toArray({ withScores: options.withScores });</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (max &lt; min || min &gt; this._tail.value || max &lt; this._head.next[0].next.value) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-&nbsp;
-    let node = <span class="cstat-no" title="statement not covered" >this._first(min);</span>
-    const result = <span class="cstat-no" title="statement not covered" >[];</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (options.withScores) {</span>
-<span class="cstat-no" title="statement not covered" >      for (; node &amp;&amp; node.value &lt;= max; node = node.next[0].next) {</span>
-        let pushit: boolean = <span class="cstat-no" title="statement not covered" >true;</span>
-<span class="cstat-no" title="statement not covered" >        if (minExclusive &amp;&amp; node.value === min) {</span>
-<span class="cstat-no" title="statement not covered" >          pushit = false;</span>
-        } else {
-<span class="cstat-no" title="statement not covered" >          if (maxExclusive &amp;&amp; node.value === max) {</span>
-<span class="cstat-no" title="statement not covered" >            pushit = false;</span>
-          }
-        }
-<span class="cstat-no" title="statement not covered" >        if (pushit) {</span>
-<span class="cstat-no" title="statement not covered" >          result.push([node.key, node.value]);</span>
-        }
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
       }
-    } else {
-<span class="cstat-no" title="statement not covered" >      for (; node &amp;&amp; node.value &lt;= max; node = node.next[0].next) {</span>
-        let pushit: boolean = <span class="cstat-no" title="statement not covered" >true;</span>
-<span class="cstat-no" title="statement not covered" >        if (minExclusive &amp;&amp; node.value === min) {</span>
-<span class="cstat-no" title="statement not covered" >          pushit = false;</span>
-        } else {
-<span class="cstat-no" title="statement not covered" >          if (maxExclusive &amp;&amp; node.value === max) {</span>
-<span class="cstat-no" title="statement not covered" >            pushit = false;</span>
-          }
-        }
-<span class="cstat-no" title="statement not covered" >        if (pushit) {</span>
-<span class="cstat-no" title="statement not covered" >          result.push(node.key);</span>
-        }
-      }
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return result;</span>
+<span class="cstat-no" title="statement not covered" >      if (typeof options !== "object") {</span>
+<span class="cstat-no" title="statement not covered" >          options = {</span>
+              "withScores": false
+          };
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (min == null) {</span>
+<span class="cstat-no" title="statement not covered" >          min = -Infinity;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (max == null) {</span>
+<span class="cstat-no" title="statement not covered" >          max = Infinity;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (!minExclusive &amp;&amp; min &lt;= this._head.next[0].next.value &amp;&amp; !maxExclusive &amp;&amp; max &gt;= this._tail.value) {</span>
+<span class="cstat-no" title="statement not covered" >          return this.toArray({"withScores": options.withScores});</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (max &lt; min || min &gt; this._tail.value || max &lt; this._head.next[0].next.value) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
+      }
+&nbsp;
+      let node = <span class="cstat-no" title="statement not covered" >this._first(min);</span>
+      const result = <span class="cstat-no" title="statement not covered" >[];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (options.withScores) {</span>
+<span class="cstat-no" title="statement not covered" >          for (; node &amp;&amp; node.value &lt;= max; node = node.next[0].next) {</span>
+              let pushit: boolean = <span class="cstat-no" title="statement not covered" >true;</span>
+<span class="cstat-no" title="statement not covered" >              if (minExclusive &amp;&amp; node.value === min) {</span>
+<span class="cstat-no" title="statement not covered" >                  pushit = false;</span>
+              } else <span class="cstat-no" title="statement not covered" >if (maxExclusive &amp;&amp; node.value === max) {</span>
+<span class="cstat-no" title="statement not covered" >                  pushit = false;</span>
+              }
+<span class="cstat-no" title="statement not covered" >              if (pushit) {</span>
+<span class="cstat-no" title="statement not covered" >                  result.push([</span>
+                      node.key,
+                      node.value
+                  ]);
+              }
+          }
+      } else {
+<span class="cstat-no" title="statement not covered" >          for (; node &amp;&amp; node.value &lt;= max; node = node.next[0].next) {</span>
+              let pushit: boolean = <span class="cstat-no" title="statement not covered" >true;</span>
+<span class="cstat-no" title="statement not covered" >              if (minExclusive &amp;&amp; node.value === min) {</span>
+<span class="cstat-no" title="statement not covered" >                  pushit = false;</span>
+              } else <span class="cstat-no" title="statement not covered" >if (maxExclusive &amp;&amp; node.value === max) {</span>
+<span class="cstat-no" title="statement not covered" >                  pushit = false;</span>
+              }
+<span class="cstat-no" title="statement not covered" >              if (pushit) {</span>
+<span class="cstat-no" title="statement not covered" >                  result.push(node.key);</span>
+              }
+          }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return result;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >rank(</span>key: string): number {
-    // Rank of key, ordered by value.
-    //
-    // Return
-    //   integer
-    //     if member exists
-    //  null
-    //     if member does not exist
+      /*
+       * Rank of key, ordered by value.
+       *
+       * Return
+       *   Integer
+       *     If member exists
+       *  Null
+       *     If member does not exist
+       */
 &nbsp;
-    const value = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
+      const value = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (value === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      if (value === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >          return null as any as number;</span>
+      }
+&nbsp;
+      let i,
+          node = <span class="cstat-no" title="statement not covered" >this._head,</span>
+          next = <span class="cstat-no" title="statement not covered" >null,</span>
+          rank = <span class="cstat-no" title="statement not covered" >-1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while ((next = node.next[i].next) &amp;&amp; (next.value &lt; value || next.value === value &amp;&amp; next.key &lt;= key)) {</span>
+<span class="cstat-no" title="statement not covered" >              rank += node.next[i].span;</span>
+<span class="cstat-no" title="statement not covered" >              node = next;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (node.key &amp;&amp; node.key === key) {</span>
+<span class="cstat-no" title="statement not covered" >              return rank;</span>
+          }
+      }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      return null as any as number;</span>
-    }
-&nbsp;
-    let i;
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    let next = <span class="cstat-no" title="statement not covered" >null;</span>
-    let rank = <span class="cstat-no" title="statement not covered" >-1;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while ((next = node.next[i].next) &amp;&amp; (next.value &lt; value || (next.value === value &amp;&amp; next.key &lt;= key))) {</span>
-<span class="cstat-no" title="statement not covered" >        rank += node.next[i].span;</span>
-<span class="cstat-no" title="statement not covered" >        node = next;</span>
-      }
-<span class="cstat-no" title="statement not covered" >      if (node.key &amp;&amp; node.key === key) {</span>
-<span class="cstat-no" title="statement not covered" >        return rank;</span>
-      }
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return null as any as number;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >rem(</span>key: string): number {
-    // Remove single member by key.
-    //
-    // Return
-    //   value of the removed key
-    //   or null if key does not exist.
+      /*
+       * Remove single member by key.
+       *
+       * Return
+       *   Value of the removed key
+       *   Or null if key does not exist.
+       */
 &nbsp;
-    const value = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
-<span class="cstat-no" title="statement not covered" >    if (value !== undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      this._remove(key, value);</span>
-<span class="cstat-no" title="statement not covered" >      delete this._map[key];</span>
-<span class="cstat-no" title="statement not covered" >      return value;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return null as any as number;</span>
+      const value = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
+<span class="cstat-no" title="statement not covered" >      if (value !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >          this._remove(</span>
+              key,
+              value
+          );
+<span class="cstat-no" title="statement not covered" >          delete this._map[key];</span>
+<span class="cstat-no" title="statement not covered" >          return value;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return null as any as number;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >remRangeByRank(</span>start: number, end: number): number {
-    // Parameters:
-    //   start
-    //     inclusive
-    //   end
-    //     exclusive
-    //
-    // Return
-    //   positive integer, the number of removed keys.
+      /*
+       * Parameters:
+       *   Start
+       *     Inclusive
+       *   End
+       *     Exclusive
+       *
+       * Return
+       *   Positive integer, the number of removed keys.
+       */
 &nbsp;
-    const len = <span class="cstat-no" title="statement not covered" >this.length;</span>
+      const len = <span class="cstat-no" title="statement not covered" >this.length;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!len) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (start == null) {</span>
-<span class="cstat-no" title="statement not covered" >      start = 0;</span>
-    } else <span class="cstat-no" title="statement not covered" >if (start &lt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      start = Math.max(len + start, 0);</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (end == null) {</span>
-<span class="cstat-no" title="statement not covered" >      end = len;</span>
-    } else <span class="cstat-no" title="statement not covered" >if (end &lt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      end = len + end;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (start &gt; end || start &gt;= len) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (end &gt; len) {</span>
-<span class="cstat-no" title="statement not covered" >      end = len;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (start === 0 &amp;&amp; end === len) {</span>
-<span class="cstat-no" title="statement not covered" >      this.empty();</span>
-<span class="cstat-no" title="statement not covered" >      return len;</span>
-    }
-&nbsp;
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
-    let i: number;
-    let next;
-    let traversed = <span class="cstat-no" title="statement not covered" >-1;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while ((next = node.next[i].next) &amp;&amp; (traversed + node.next[i].span) &lt; start) {</span>
-<span class="cstat-no" title="statement not covered" >        traversed += node.next[i].span;</span>
-<span class="cstat-no" title="statement not covered" >        node = next;</span>
+<span class="cstat-no" title="statement not covered" >      if (!len) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
       }
-<span class="cstat-no" title="statement not covered" >      update[i] = node;</span>
-    }
 &nbsp;
-    let removed = <span class="cstat-no" title="statement not covered" >0;</span>
-<span class="cstat-no" title="statement not covered" >    traversed += 1;</span>
-<span class="cstat-no" title="statement not covered" >    node = node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >      if (start == null) {</span>
+<span class="cstat-no" title="statement not covered" >          start = 0;</span>
+      } else <span class="cstat-no" title="statement not covered" >if (start &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          start = Math.max(</span>
+              len + start,
+              0
+          );
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    while (node &amp;&amp; traversed &lt; end) {</span>
-<span class="cstat-no" title="statement not covered" >      next = node.next[0].next;</span>
-<span class="cstat-no" title="statement not covered" >      this._removeNode(node, update);</span>
-<span class="cstat-no" title="statement not covered" >      delete this._map[node.key];</span>
-<span class="cstat-no" title="statement not covered" >      removed += 1;</span>
+<span class="cstat-no" title="statement not covered" >      if (end == null) {</span>
+<span class="cstat-no" title="statement not covered" >          end = len;</span>
+      } else <span class="cstat-no" title="statement not covered" >if (end &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          end = len + end;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (start &gt; end || start &gt;= len) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (end &gt; len) {</span>
+<span class="cstat-no" title="statement not covered" >          end = len;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (start === 0 &amp;&amp; end === len) {</span>
+<span class="cstat-no" title="statement not covered" >          this.empty();</span>
+<span class="cstat-no" title="statement not covered" >          return len;</span>
+      }
+&nbsp;
+      let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
+      const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
+      let i: number,
+          next,
+          traversed = <span class="cstat-no" title="statement not covered" >-1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while ((next = node.next[i].next) &amp;&amp; traversed + node.next[i].span &lt; start) {</span>
+<span class="cstat-no" title="statement not covered" >              traversed += node.next[i].span;</span>
+<span class="cstat-no" title="statement not covered" >              node = next;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          update[i] = node;</span>
+      }
+&nbsp;
+      let removed = <span class="cstat-no" title="statement not covered" >0;</span>
 <span class="cstat-no" title="statement not covered" >      traversed += 1;</span>
-<span class="cstat-no" title="statement not covered" >      node = next;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      node = node.next[0].next;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.length -= removed;</span>
-<span class="cstat-no" title="statement not covered" >    return removed;</span>
+<span class="cstat-no" title="statement not covered" >      while (node &amp;&amp; traversed &lt; end) {</span>
+<span class="cstat-no" title="statement not covered" >          next = node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >          this._removeNode(</span>
+              node,
+              update
+          );
+<span class="cstat-no" title="statement not covered" >          delete this._map[node.key];</span>
+<span class="cstat-no" title="statement not covered" >          removed += 1;</span>
+<span class="cstat-no" title="statement not covered" >          traversed += 1;</span>
+<span class="cstat-no" title="statement not covered" >          node = next;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      this.length -= removed;</span>
+<span class="cstat-no" title="statement not covered" >      return removed;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >remRangeByScore(</span>min: number, max: number): number {
-    // Remove members with value between min and max (inclusive).
-    //
-    // Return
-    //   positive integer, the number of removed elements.
+      /*
+       * Remove members with value between min and max (inclusive).
+       *
+       * Return
+       *   Positive integer, the number of removed elements.
+       */
 &nbsp;
-    let removed = <span class="cstat-no" title="statement not covered" >0;</span>
+      let removed = <span class="cstat-no" title="statement not covered" >0;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (min == null) {</span>
-<span class="cstat-no" title="statement not covered" >      min = -Infinity;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (max == null) {</span>
-<span class="cstat-no" title="statement not covered" >      max = Infinity;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (min &lt;= this._head.next[0].next.value &amp;&amp; max &gt;= this._tail.value) {</span>
-<span class="cstat-no" title="statement not covered" >      removed = this.length;</span>
-<span class="cstat-no" title="statement not covered" >      this.empty();</span>
-<span class="cstat-no" title="statement not covered" >      return removed;</span>
-    }
-&nbsp;
-    let next;
-    let i;
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while ((next = node.next[i].next) &amp;&amp; next.value &lt; min) {</span>
-<span class="cstat-no" title="statement not covered" >        node = next;</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return 0;</span>
       }
-<span class="cstat-no" title="statement not covered" >      update[i] = node;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    node = node.next[0].next;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    while (node &amp;&amp; node.value &lt;= max) {</span>
-<span class="cstat-no" title="statement not covered" >      next = node.next[0].next;</span>
-<span class="cstat-no" title="statement not covered" >      this._removeNode(node, update);</span>
-<span class="cstat-no" title="statement not covered" >      delete this._map[node.key];</span>
-<span class="cstat-no" title="statement not covered" >      removed += 1;</span>
-<span class="cstat-no" title="statement not covered" >      node = next;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      if (min == null) {</span>
+<span class="cstat-no" title="statement not covered" >          min = -Infinity;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (max == null) {</span>
+<span class="cstat-no" title="statement not covered" >          max = Infinity;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.length -= removed;</span>
-<span class="cstat-no" title="statement not covered" >    return removed;</span>
+<span class="cstat-no" title="statement not covered" >      if (min &lt;= this._head.next[0].next.value &amp;&amp; max &gt;= this._tail.value) {</span>
+<span class="cstat-no" title="statement not covered" >          removed = this.length;</span>
+<span class="cstat-no" title="statement not covered" >          this.empty();</span>
+<span class="cstat-no" title="statement not covered" >          return removed;</span>
+      }
+&nbsp;
+      let next,
+          i,
+          node = <span class="cstat-no" title="statement not covered" >this._head;</span>
+      const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while ((next = node.next[i].next) &amp;&amp; next.value &lt; min) {</span>
+<span class="cstat-no" title="statement not covered" >              node = next;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          update[i] = node;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      node = node.next[0].next;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      while (node &amp;&amp; node.value &lt;= max) {</span>
+<span class="cstat-no" title="statement not covered" >          next = node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >          this._removeNode(</span>
+              node,
+              update
+          );
+<span class="cstat-no" title="statement not covered" >          delete this._map[node.key];</span>
+<span class="cstat-no" title="statement not covered" >          removed += 1;</span>
+<span class="cstat-no" title="statement not covered" >          node = next;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      this.length -= removed;</span>
+<span class="cstat-no" title="statement not covered" >      return removed;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >score(</span>key: string): number {
-    // Return
-    //   number, the score of member in the sorted set.
-    //   null, if member does not exist in the sorted set.
-    const score = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
-<span class="cstat-no" title="statement not covered" >    return score === undefined ? null : score;</span>
+      /*
+       * Return
+       *   Number, the score of member in the sorted set.
+       *   Null, if member does not exist in the sorted set.
+       */
+      const score = <span class="cstat-no" title="statement not covered" >this._map[key];</span>
+<span class="cstat-no" title="statement not covered" >      return score === undefined</span>
+          ? null
+          : score;
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >set(</span>key: string, value: number): number {
-    // Alias for
-<span class="cstat-no" title="statement not covered" >    return this.add(key, value);</span>
+      // Alias for
+<span class="cstat-no" title="statement not covered" >      return this.add(</span>
+          key,
+          value
+      );
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >slice(</span>start: number, end: number, options?: any): Node[] {
-    // Almost alias for range. Only difference is that
-    // the end is exclusive i.e. not included in the range.
-<span class="cstat-no" title="statement not covered" >    if (typeof end === 'number' &amp;&amp; end !== 0) {</span>
-<span class="cstat-no" title="statement not covered" >      end -= 1;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return this.range(start, end, options);</span>
+      /*
+       * Almost alias for range. Only difference is that
+       * The end is exclusive i.e. not included in the range.
+       */
+<span class="cstat-no" title="statement not covered" >      if (typeof end === "number" &amp;&amp; end !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >          end -= 1;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return this.range(</span>
+          start,
+          end,
+          options
+      );
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >toArray(</span>options?: any): Node[] {
-    // The whole set, ordered from smallest to largest.
-    //
-    // Parameters
-    //   options (optional)
-    //     withScores (optional, default false)
-    //       bool
+      /*
+       * The whole set, ordered from smallest to largest.
+       *
+       * Parameters
+       *   Options (optional)
+       *     WithScores (optional, default false)
+       *       Bool
+       */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (typeof options !== 'object') {</span>
-<span class="cstat-no" title="statement not covered" >      options = {</span>
-        withScores: false,
-      };
-    }
-&nbsp;
-    let i;
-    const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
-    let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (options.withScores) {</span>
-<span class="cstat-no" title="statement not covered" >      for (i = 0; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >        array[i] = [node.key, node.value];</span>
-<span class="cstat-no" title="statement not covered" >        i += 1;</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
       }
-    } else {
-<span class="cstat-no" title="statement not covered" >      for (i = 0; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >        array[i] = node.key;</span>
-<span class="cstat-no" title="statement not covered" >        i += 1;</span>
-      }
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return array;</span>
+<span class="cstat-no" title="statement not covered" >      if (typeof options !== "object") {</span>
+<span class="cstat-no" title="statement not covered" >          options = {</span>
+              "withScores": false
+          };
+      }
+&nbsp;
+      let i;
+      const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
+      let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (options.withScores) {</span>
+<span class="cstat-no" title="statement not covered" >          for (i = 0; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >              array[i] = [</span>
+                  node.key,
+                  node.value
+              ];
+<span class="cstat-no" title="statement not covered" >              i += 1;</span>
+          }
+      } else {
+<span class="cstat-no" title="statement not covered" >          for (i = 0; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >              array[i] = node.key;</span>
+<span class="cstat-no" title="statement not covered" >              i += 1;</span>
+          }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return array;</span>
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >values(</span>): number[] {
-    // Return values as an array, the smallest value first.
+      // Return values as an array, the smallest value first.
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!this.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return [];</span>
-    }
+<span class="cstat-no" title="statement not covered" >      if (!this.length) {</span>
+<span class="cstat-no" title="statement not covered" >          return [];</span>
+      }
 &nbsp;
-    let i;
-    const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
-    let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
+      let i;
+      const array = <span class="cstat-no" title="statement not covered" >new Array(this.length);</span>
+      let node = <span class="cstat-no" title="statement not covered" >this._head.next[0].next;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = 0; node; node = node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      array[i] = node.value;</span>
-<span class="cstat-no" title="statement not covered" >      i += 1;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      for (i = 0; node; node = node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >          array[i] = node.value;</span>
+<span class="cstat-no" title="statement not covered" >          i += 1;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return array;</span>
+<span class="cstat-no" title="statement not covered" >      return array;</span>
   }
 &nbsp;
   private <span class="fstat-no" title="function not covered" >_first(</span>min: number): Node {
-    let next;
-    let node = <span class="cstat-no" title="statement not covered" >this._tail;</span>
+      let next,
+          node = <span class="cstat-no" title="statement not covered" >this._tail;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!node || node.value &lt; min) {</span>
-<span class="cstat-no" title="statement not covered" >      return null as any as Node;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    node = this._head;</span>
-    let i: number;
-<span class="cstat-no" title="statement not covered" >    for (next = null, i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while ((next = node.next[i].next) &amp;&amp; next.value &lt; min) {</span>
-<span class="cstat-no" title="statement not covered" >        node = next;</span>
+<span class="cstat-no" title="statement not covered" >      if (!node || node.value &lt; min) {</span>
+<span class="cstat-no" title="statement not covered" >          return null as any as Node;</span>
       }
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >      node = this._head;</span>
+      let i: number;
+<span class="cstat-no" title="statement not covered" >      for (next = null, i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while ((next = node.next[i].next) &amp;&amp; next.value &lt; min) {</span>
+<span class="cstat-no" title="statement not covered" >              node = next;</span>
+          }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return node.next[0].next;</span>
   }
 &nbsp;
   private <span class="fstat-no" title="function not covered" >_get(</span>index: number): Node {
-    // Find and return the node at index.
-    // Return null if not found.
-    //
-    // TODO: optimize when index is less than log(N) from the end
-    let i;
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    let distance = <span class="cstat-no" title="statement not covered" >-1;</span>
+      /*
+       * Find and return the node at index.
+       * Return null if not found.
+       *
+       * TODO: optimize when index is less than log(N) from the end
+       */
+      let i,
+          node = <span class="cstat-no" title="statement not covered" >this._head,</span>
+          distance = <span class="cstat-no" title="statement not covered" >-1;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while (node.next[i].next &amp;&amp; (distance + node.next[i].span) &lt;= index) {</span>
-<span class="cstat-no" title="statement not covered" >        distance += node.next[i].span;</span>
-<span class="cstat-no" title="statement not covered" >        node = node.next[i].next;</span>
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while (node.next[i].next &amp;&amp; distance + node.next[i].span &lt;= index) {</span>
+<span class="cstat-no" title="statement not covered" >              distance += node.next[i].span;</span>
+<span class="cstat-no" title="statement not covered" >              node = node.next[i].next;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (distance === index) {</span>
+<span class="cstat-no" title="statement not covered" >              return node;</span>
+          }
       }
-<span class="cstat-no" title="statement not covered" >      if (distance === index) {</span>
-<span class="cstat-no" title="statement not covered" >        return node;</span>
-      }
-    }
-<span class="cstat-no" title="statement not covered" >    return null as any as Node;</span>
+<span class="cstat-no" title="statement not covered" >      return null as any as Node;</span>
   }
 &nbsp;
   private <span class="fstat-no" title="function not covered" >_insert(</span>key: string, value: number): any {
-<span class="cstat-no" title="statement not covered" >    assert.notEqual(value, undefined, 'Value is unexpectedly undefined');</span>
-    // precondition: does not already have key
-    // in unique mode, returns null if the value already exists
-    const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
-    const rank = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    let next = <span class="cstat-no" title="statement not covered" >null;</span>
-    let i;
+<span class="cstat-no" title="statement not covered" >      assert.notEqual(</span>
+          value,
+          undefined,
+          "Value is unexpectedly undefined"
+      );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      rank[i] = (i === (this._level - 1) ? 0 : rank[i + 1]);</span>
-      // TODO: optimize some more?
-<span class="cstat-no" title="statement not covered" >      if (node) {</span>
-<span class="cstat-no" title="statement not covered" >        while ((next = node.next[i].next) &amp;&amp; next.value &lt;= value) {</span>
-<span class="cstat-no" title="statement not covered" >          if (next.value === value) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this._unique) {</span>
-<span class="cstat-no" title="statement not covered" >              return null;</span>
-            }
-<span class="cstat-no" title="statement not covered" >            if (next.key &gt;= key) {</span>
-<span class="cstat-no" title="statement not covered" >              break;</span>
-            }
+      /*
+       * Precondition: does not already have key
+       * In unique mode, returns null if the value already exists
+       */
+      const update = <span class="cstat-no" title="statement not covered" >new Array(32),</span>
+          rank = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
+      let node = <span class="cstat-no" title="statement not covered" >this._head,</span>
+          next = <span class="cstat-no" title="statement not covered" >null,</span>
+          i;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          rank[i] = i === this._level - 1</span>
+              ? 0
+              : rank[i + 1];
+          // TODO: optimize some more?
+<span class="cstat-no" title="statement not covered" >          if (node) {</span>
+<span class="cstat-no" title="statement not covered" >              while ((next = node.next[i].next) &amp;&amp; next.value &lt;= value) {</span>
+<span class="cstat-no" title="statement not covered" >                  if (next.value === value) {</span>
+<span class="cstat-no" title="statement not covered" >                      if (this._unique) {</span>
+<span class="cstat-no" title="statement not covered" >                          return null;</span>
+                      }
+<span class="cstat-no" title="statement not covered" >                      if (next.key &gt;= key) {</span>
+<span class="cstat-no" title="statement not covered" >                          break;</span>
+                      }
+                  }
+<span class="cstat-no" title="statement not covered" >                  rank[i] += node.next[i].span;</span>
+<span class="cstat-no" title="statement not covered" >                  node = next;</span>
+              }
           }
-<span class="cstat-no" title="statement not covered" >          rank[i] += node.next[i].span;</span>
-<span class="cstat-no" title="statement not covered" >          node = next;</span>
-        }
+<span class="cstat-no" title="statement not covered" >          if (this._unique &amp;&amp; node.value === value) {</span>
+<span class="cstat-no" title="statement not covered" >              return null as any as Node;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          update[i] = node;</span>
       }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      if (this._unique &amp;&amp; node.value === value) {</span>
-<span class="cstat-no" title="statement not covered" >        return null as any as Node;</span>
+<span class="cstat-no" title="statement not covered" >          return null as any as Node;</span>
       }
-<span class="cstat-no" title="statement not covered" >      update[i] = node;</span>
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (this._unique &amp;&amp; node.value === value) {</span>
-<span class="cstat-no" title="statement not covered" >      return null as any as Node;</span>
-    }
-&nbsp;
-    const level = <span class="cstat-no" title="statement not covered" >this.randomLevel();</span>
-<span class="cstat-no" title="statement not covered" >    if (level &gt; this._level) {</span>
-      // TODO: optimize
-<span class="cstat-no" title="statement not covered" >      for (i = this._level; i &lt; level; i += 1) {</span>
-<span class="cstat-no" title="statement not covered" >        rank[i] = 0;</span>
-<span class="cstat-no" title="statement not covered" >        update[i] = this._head;</span>
-<span class="cstat-no" title="statement not covered" >        update[i].next[i].span = this.length;</span>
+      const level = <span class="cstat-no" title="statement not covered" >this.randomLevel();</span>
+<span class="cstat-no" title="statement not covered" >      if (level &gt; this._level) {</span>
+          // TODO: optimize
+<span class="cstat-no" title="statement not covered" >          for (i = this._level; i &lt; level; i += 1) {</span>
+<span class="cstat-no" title="statement not covered" >              rank[i] = 0;</span>
+<span class="cstat-no" title="statement not covered" >              update[i] = this._head;</span>
+<span class="cstat-no" title="statement not covered" >              update[i].next[i].span = this.length;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          this._level = level;</span>
       }
-<span class="cstat-no" title="statement not covered" >      this._level = level;</span>
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    node = new Node(level, key, value);</span>
-<span class="cstat-no" title="statement not covered" >    for (i = 0; i &lt; level; i += 1) {</span>
-<span class="cstat-no" title="statement not covered" >      node.next[i] = new Level(update[i].next[i].next, update[i].next[i].span - (rank[0] - rank[i]));</span>
-<span class="cstat-no" title="statement not covered" >      update[i].next[i].next = node;</span>
-<span class="cstat-no" title="statement not covered" >      update[i].next[i].span = (rank[0] - rank[i]) + 1;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      node = new Node(</span>
+          level,
+          key,
+          value
+      );
+<span class="cstat-no" title="statement not covered" >      for (i = 0; i &lt; level; i += 1) {</span>
+<span class="cstat-no" title="statement not covered" >          node.next[i] = new Level(</span>
+              update[i].next[i].next,
+              update[i].next[i].span - (rank[0] - rank[i])
+          );
+<span class="cstat-no" title="statement not covered" >          update[i].next[i].next = node;</span>
+<span class="cstat-no" title="statement not covered" >          update[i].next[i].span = rank[0] - rank[i] + 1;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = level; i &lt; this._level; i += 1) {</span>
-<span class="cstat-no" title="statement not covered" >      update[i].next[i].span++;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      for (i = level; i &lt; this._level; i += 1) {</span>
+<span class="cstat-no" title="statement not covered" >          update[i].next[i].span++;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    node.prev = (update[0] === this._head) ? null : update[0];</span>
-<span class="cstat-no" title="statement not covered" >    if (node.next[0].next) {</span>
-<span class="cstat-no" title="statement not covered" >      node.next[0].next.prev = node;</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      this._tail = node;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      node.prev = update[0] === this._head</span>
+          ? null
+          : update[0];
+<span class="cstat-no" title="statement not covered" >      if (node.next[0].next) {</span>
+<span class="cstat-no" title="statement not covered" >          node.next[0].next.prev = node;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >          this._tail = node;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.length += 1;</span>
-<span class="cstat-no" title="statement not covered" >    return node;</span>
+<span class="cstat-no" title="statement not covered" >      this.length += 1;</span>
+<span class="cstat-no" title="statement not covered" >      return node;</span>
   }
 &nbsp;
   private <span class="fstat-no" title="function not covered" >_remove(</span>key: string, value: number): void {
-    // Z.prototype._remove = function (key, value) {
-    const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
-    let node = <span class="cstat-no" title="statement not covered" >this._head;</span>
-    let i: number;
-    let next: Node;
+      // Z.prototype._remove = function (key, value) {
+      const update = <span class="cstat-no" title="statement not covered" >new Array(32);</span>
+      let node = <span class="cstat-no" title="statement not covered" >this._head,</span>
+          i: number,
+          next: Node;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
-<span class="cstat-no" title="statement not covered" >      while ((next = node.next[i].next) &amp;&amp; (next.value &lt; value || (next.value === value &amp;&amp; next.key &lt; key))) {</span>
-<span class="cstat-no" title="statement not covered" >        node = next;</span>
+<span class="cstat-no" title="statement not covered" >      for (i = this._level - 1; i &gt;= 0; i -= 1) {</span>
+<span class="cstat-no" title="statement not covered" >          while ((next = node.next[i].next) &amp;&amp; (next.value &lt; value || next.value === value &amp;&amp; next.key &lt; key)) {</span>
+<span class="cstat-no" title="statement not covered" >              node = next;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          update[i] = node;</span>
       }
-<span class="cstat-no" title="statement not covered" >      update[i] = node;</span>
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    node = node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >      node = node.next[0].next;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!node || value !== node.value || node.key !== key) {</span>
-<span class="cstat-no" title="statement not covered" >      return; </span>// false;
-    }
+<span class="cstat-no" title="statement not covered" >      if (!node || value !== node.value || node.key !== key) {</span>
+<span class="cstat-no" title="statement not covered" >          return; </span>// False;
+      }
 &nbsp;
-    // delete
-<span class="cstat-no" title="statement not covered" >    this._removeNode(node, update);</span>
-<span class="cstat-no" title="statement not covered" >    this.length -= 1;</span>
+      // Delete
+<span class="cstat-no" title="statement not covered" >      this._removeNode(</span>
+          node,
+          update
+      );
+<span class="cstat-no" title="statement not covered" >      this.length -= 1;</span>
   }
 &nbsp;
   private <span class="fstat-no" title="function not covered" >_removeNode(</span>node: Node, update: Node[]): void {
-    // Z.prototype._removeNode = function (node, update) {
-    let next = <span class="cstat-no" title="statement not covered" >null;</span>
-    let i = <span class="cstat-no" title="statement not covered" >0;</span>
-    const n = <span class="cstat-no" title="statement not covered" >this._level;</span>
+      // Z.prototype._removeNode = function (node, update) {
+      let i = <span class="cstat-no" title="statement not covered" >0,</span>
+          next = <span class="cstat-no" title="statement not covered" >null;</span>
+      const n = <span class="cstat-no" title="statement not covered" >this._level;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (; i &lt; n; i += 1) {</span>
-<span class="cstat-no" title="statement not covered" >      if (update[i].next[i].next === node) {</span>
-<span class="cstat-no" title="statement not covered" >        update[i].next[i].span += node.next[i].span - 1;</span>
-<span class="cstat-no" title="statement not covered" >        update[i].next[i].next = node.next[i].next;</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        update[i].next[i].span -= 1;</span>
+<span class="cstat-no" title="statement not covered" >      for (; i &lt; n; i += 1) {</span>
+<span class="cstat-no" title="statement not covered" >          if (update[i].next[i].next === node) {</span>
+<span class="cstat-no" title="statement not covered" >              update[i].next[i].span += node.next[i].span - 1;</span>
+<span class="cstat-no" title="statement not covered" >              update[i].next[i].next = node.next[i].next;</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >              update[i].next[i].span -= 1;</span>
+          }
       }
-    }
-<span class="cstat-no" title="statement not covered" >    next = node.next[0].next;</span>
-<span class="cstat-no" title="statement not covered" >    if (next) {</span>
-<span class="cstat-no" title="statement not covered" >      next.prev = node.prev;</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      this._tail = node.prev;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      next = node.next[0].next;</span>
+<span class="cstat-no" title="statement not covered" >      if (next) {</span>
+<span class="cstat-no" title="statement not covered" >          next.prev = node.prev;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >          this._tail = node.prev;</span>
+      }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    while (this._level &gt; 1 &amp;&amp; !this._head.next[this._level - 1].next) {</span>
-<span class="cstat-no" title="statement not covered" >      this._level -= 1;</span>
-    }
+<span class="cstat-no" title="statement not covered" >      while (this._level &gt; 1 &amp;&amp; !this._head.next[this._level - 1].next) {</span>
+<span class="cstat-no" title="statement not covered" >          this._level -= 1;</span>
+      }
   }
+&nbsp;
   private <span class="fstat-no" title="function not covered" >randomLevel(</span>): number {
-    let level = <span class="cstat-no" title="statement not covered" >1;</span>
-<span class="cstat-no" title="statement not covered" >    while (Math.random() &lt; (1 / Math.E)) {</span>
-<span class="cstat-no" title="statement not covered" >      level += 1;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return level &lt; 32 ? level : 32;</span>
+      let level = <span class="cstat-no" title="statement not covered" >1;</span>
+<span class="cstat-no" title="statement not covered" >      while (Math.random() &lt; 1 / Math.E) {</span>
+<span class="cstat-no" title="statement not covered" >          level += 1;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return level &lt; 32</span>
+          ? level
+          : 32;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -2682,10 +3123,9 @@ class Level {
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 09 2023 07:39:48 GMT-0500 (Eastern Standard Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-12-10T15:25:10.150Z
             </div>
-        </div>
         <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {

@@ -1,12 +1,11 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {SortedSet} from "../../data/sorted-set";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { SortedSet } from "../../data/sorted-set";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * Available since 2.0.0.
@@ -26,39 +25,43 @@ import {IRespCommand} from "../resp-command";
  * **Return value**<br>
  * Integer reply: the number of elements in the specified score range.
  */
-@DbDataType(DataType.ZSET)
-@maxParams(3)
-@minParams(3)
-@name("zcount")
 export class ZCountCommand extends IRespCommand {
-  private DEFAULT_ERROR = "ERR min or max is not a float";
+    public DbDataType = DataType.ZSET
 
-  private logger: Logger = new Logger(module.id);
+    public maxParams = 3
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const skey: string = request.getParam(0),
-          sMin: string = request.getParam(1),
-          sMax: string = request.getParam(2);
-      if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
-          return RedisToken.error(this.DEFAULT_ERROR);
-      }
+    public minParams = 3
 
-      let result: number = 0;
-      const dbKey: DatabaseValue = db.getOrDefault(
-          skey,
-          new DatabaseValue(
-              DataType.ZSET,
-              new SortedSet()
-          )
-      );
-      result = dbKey.getSortedSet().count(
-          Number(sMin),
-          Number(sMax)
-      );
-      return RedisToken.integer(result);
-  }
+    public name = "zcount"
+
+    private DEFAULT_ERROR = "ERR min or max is not a float";
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const skey: string = request.getParam(0),
+            sMin: string = request.getParam(1),
+            sMax: string = request.getParam(2);
+        if (isNaN(Number(sMin)) || isNaN(Number(sMax))) {
+            return RedisToken.error(this.DEFAULT_ERROR);
+        }
+
+        let result: number = 0;
+        const dbKey: DatabaseValue = db.getOrDefault(
+            skey,
+            new DatabaseValue(
+                DataType.ZSET,
+                new SortedSet()
+            )
+        );
+        result = dbKey.getSortedSet().count(
+            Number(sMin),
+            Number(sMax)
+        );
+        return RedisToken.integer(result);
+    }
 }

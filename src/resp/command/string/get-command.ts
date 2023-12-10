@@ -1,15 +1,9 @@
-import {DbDataType, MaxParams, MinParams, Name} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
-
-@DbDataType(DataType.STRING)
-@maxParams(1)
-@minParams(1)
-@name("get")
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -21,6 +15,14 @@ import {IRespCommand} from "../resp-command";
  * because GET only handles string values
  */
 export class GetCommand extends IRespCommand {
+  public DbDataType = DataType.STRING
+
+  public maxParams = 1
+
+  public minParams = 1
+
+  public name = "get"
+
   private logger: Logger = new Logger(module.id);
 
   public execSync(request: IRequest, db: Database): RedisToken {

@@ -1,4 +1,3 @@
-import {DbDataType} from "../../../decorators";
 import {Logger} from "../../../logger";
 import {IRequest} from "../../../server/request";
 import {DataType} from "../../data/data-type";
@@ -15,7 +14,7 @@ import {IRespCommand} from "../resp-command";
  * Returns the members of the set resulting from the intersection of all the given sets.
  *
  * ### SINTERSTORE destination key [key...]
- * This command is equal to [SINTER]{@link SinterCommand}, but instead of returning the
+ * This command is equal to {@link resp/command/set/sinter-command.SInterCommand | SINTER}, but instead of returning the
  * resulting set, it is stored in destination.
  *
  * If destination already exists, it is overwritten
@@ -68,7 +67,7 @@ export class SInterCommand extends IRespCommand {
   public execSync(request: IRequest, db: Database): RedisToken {
       this.logger.debug(
           `${request.getCommand()}.execute(%s)`,
-          request.getParams()
+          ...request.getParams()
       );
       switch (request.getCommand().toLowerCase()) {
       case "sinterstore":
@@ -78,7 +77,7 @@ export class SInterCommand extends IRespCommand {
           );
           this.logger.debug(
               "sinterstore result is %s",
-              result
+              `${result}`
           );
           return result;
           break;
@@ -131,7 +130,7 @@ export class SInterCommand extends IRespCommand {
   private intersection(start: number, request: IRequest, db: Database): RedisToken[] {
       this.logger.debug(
           `intersection start: ${start}, params: "%s"`,
-          request.getParams()
+          ...request.getParams()
       );
       const result: RedisToken[] = [],
           skey: string = request.getParam(start);
@@ -150,7 +149,7 @@ export class SInterCommand extends IRespCommand {
           } else {
               this.logger.debug(
                   "dbInter is %s",
-                  dbInter
+                  dbInter.getString()
               );
               if (!dbInter) {
                   return [];
@@ -162,7 +161,7 @@ export class SInterCommand extends IRespCommand {
       }
       this.logger.debug(
           "dbKey is %s",
-          dbKey
+          dbKey.getString()
       );
       dbKey.getSet().forEach((element) => {
           let candidate: any = null;

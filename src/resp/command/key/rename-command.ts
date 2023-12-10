@@ -1,10 +1,9 @@
-import { maxParams, minParams, name } from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {Database} from "../../data/database";
-import {DatabaseValue} from "../../data/database-value";
-import {RedisToken} from "../../protocol/redis-token";
-import {IRespCommand} from "../resp-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { Database } from "../../data/database";
+import { DatabaseValue } from "../../data/database-value";
+import { RedisToken } from "../../protocol/redis-token";
+import { IRespCommand } from "../resp-command";
 
 /**
  * ### Available since 1.0.0.
@@ -24,30 +23,33 @@ import {IRespCommand} from "../resp-command";
  * <= 3.2.0: Before Redis 3.2.0, an error is returned if source and destination names are the same.
  */
 
-@maxParams(2)
-@minParams(2)
-@name("rename")
 export class RenameCommand extends IRespCommand {
-  private logger: Logger = new Logger(module.id);
+    public maxParams = 2
 
-  public execSync(request: IRequest, db: Database): RedisToken {
-      this.logger.debug(
-          `${request.getCommand()}.execute(%s)`,
-          request.getParams()
-      );
-      const oldKey: string = request.getParam(0),
-          newKey: string = request.getParam(1),
-          dbValue: DatabaseValue = db.get(oldKey);
-      if (!dbValue) {
-          this.logger.debug(`key ${oldKey} does not exist`);
-          return RedisToken.error("ERR no such key");
-      }
+    public minParams = 2
 
-      db.rename(
-          oldKey,
-          newKey
-      );
-      this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
-      return RedisToken.responseOk();
-  }
+    public name = "rename"
+
+    private logger: Logger = new Logger(module.id);
+
+    public execSync(request: IRequest, db: Database): RedisToken {
+        this.logger.debug(
+            `${request.getCommand()}.execute(%s)`,
+            ...request.getParams()
+        );
+        const oldKey: string = request.getParam(0),
+            newKey: string = request.getParam(1),
+            dbValue: DatabaseValue = db.get(oldKey);
+        if (!dbValue) {
+            this.logger.debug(`key ${oldKey} does not exist`);
+            return RedisToken.error("ERR no such key");
+        }
+
+        db.rename(
+            oldKey,
+            newKey
+        );
+        this.logger.debug(`${request.getCommand()}.execute name set to ${newKey}`);
+        return RedisToken.responseOk();
+    }
 }

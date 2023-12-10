@@ -1,6 +1,3 @@
-import {fail} from "assert";
-import * as path from "path";
-import * as fs from "fs";
 import {expect} from "chai";
 import "mocha";
 import * as net from "net";
@@ -14,8 +11,6 @@ describe(
         let respServer: RespServer,
             client: net.Socket = new net.Socket(),
             response: any;
-        const code: string = "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]",
-            sha1: string = "a42059b356c875f0717db19a51f6aaca9ae659ea";
         before((done) => {
             respServer = new RespServer();
             respServer.on(

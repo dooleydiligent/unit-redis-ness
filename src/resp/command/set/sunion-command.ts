@@ -61,7 +61,7 @@ export class SUnionCommand extends IRespCommand {
   public execSync(request: IRequest, db: Database): RedisToken {
       this.logger.debug(
           `${request.getCommand()}.execute(%s)`,
-          request.getParams()
+          ...request.getParams()
       );
       switch (request.getCommand().toLowerCase()) {
       case "sunionstore":

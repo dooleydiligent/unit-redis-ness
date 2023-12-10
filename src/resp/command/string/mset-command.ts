@@ -1,4 +1,3 @@
-import { maxParams, minParams, name } from "../../../decorators";
 import {Logger} from "../../../logger";
 import {IRequest} from "../../../server/request";
 import {DataType} from "../../data/data-type";
@@ -11,7 +10,7 @@ import {IRespCommand} from "../resp-command";
  * ### Available since 1.0.1.
  * ### MSET key value [key value ...]
  * Sets the given keys to their respective values. MSET replaces existing values with new
- * values, just as regular [SET]{@link SetCommand}. See [MSETNX]{@lint MSetNxCommand} if you
+ * values, just as regular {@link resp/command/string/set-command.SetCommand | SET}. See (not implemented) MSetNxCommand | MSETNX if you
  * don't want to overwrite existing values.
  *
  * MSET is atomic, so all given keys are set at once. It is not possible for clients to see
@@ -21,11 +20,11 @@ import {IRespCommand} from "../resp-command";
  * Simple string reply: always OK since MSET can't fail.
  */
 export class MsetCommand extends IRespCommand {
-  maxParams = -1
+  public maxParams = -1
 
-  minParams = 2
+  public minParams = 2
 
-  name = "mset"
+  public name = "mset"
 
   private logger: Logger = new Logger(module.id);
 

@@ -1,7 +1,6 @@
 import { Database } from "../data/database";
 import { IRequest } from "../../server/request";
 import { ICmdReq } from "../../server/session";
-import { blocking } from "../../decorators";
 import { Logger } from "../../logger";
 import { IRespCommand } from "./resp-command";
 import { RedisToken } from "../protocol/redis-token";
@@ -12,18 +11,22 @@ import { RedisToken } from "../protocol/redis-token";
  * Executes all previously queued commands in a transaction and restores the connection state
  * to normal.
  *
- * When using [WATCH]{@link WatchCommand}, EXEC will execute commands only if the watched keys were not modified,
+ * When using [WATCH]{public link WatchCommand}, EXEC will execute commands only if the watched keys were not modified,
  * allowing for a check-and-set mechanism.
  * ### Return value
  * Array reply: each element being the reply to each of the commands in the atomic transaction.
  *
- * When using [WATCH]{@link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
+ * When using [WATCH]{public link WatchCommand}, EXEC can return a Null reply if the execution was aborted.
  */
-@blocking(true)
-@minParams(0)
-@maxParams(0)
-@name("exec")
 export class ExecCommand extends IRespCommand {
+    public blocking = true
+
+    public minParams = 0
+
+    public maxParams = 0
+
+    public name = "exec"
+
     private logger: Logger = new Logger(module.id);
 
     public execSync(request: IRequest, db: Database): RedisToken {

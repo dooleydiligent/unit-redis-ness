@@ -1,11 +1,10 @@
-import {Blocking, DbDataType} from "../../../decorators";
-import {Logger} from "../../../logger";
-import {IRequest} from "../../../server/request";
-import {TimedEmitter} from "../../../timed-emitter";
-import {DataType} from "../../data/data-type";
-import {Database} from "../../data/database";
-import {RedisToken} from "../../protocol/redis-token";
-import {LPopCommand} from "./lpop-command";
+import { Logger } from "../../../logger";
+import { IRequest } from "../../../server/request";
+import { TimedEmitter } from "../../../timed-emitter";
+import { DataType } from "../../data/data-type";
+import { Database } from "../../data/database";
+import { RedisToken } from "../../protocol/redis-token";
+import { LPopCommand } from "./lpop-command";
 
 /**
  * ### Available since 2.0.0.
@@ -41,98 +40,100 @@ import {LPopCommand} from "./lpop-command";
  * The timeout argument is interpreted as an integer value specifying the maximum number of
  * seconds to block. A timeout of zero can be used to block indefinitely.
  */
-@Blocking(true)
-@DbDataType(DataType.LIST)
 export class BLPopCommand extends LPopCommand {
-  protected logger: Logger;
+    public Blocking = true
 
-  constructor(maxParams: number, minParams: number, name: string) {
-      super();
-      this.constructor.prototype.maxParams = maxParams;
-      this.constructor.prototype.minParams = minParams;
-      this.constructor.prototype.name = name;
-      this.logger = new Logger(module.id);
-  }
+    public DbDataType = DataType.LIST
 
-  public execSync(request: IRequest, db: Database): Promise<RedisToken> {
-      return new Promise((resolve) => {
-          this.logger.debug(
-              `${request.getCommand()}.execute(%s)`,
-              request.getParams()
-          );
-          const timeout: string = request.getParam(request.getParams().length - 1),
-              // Check all source keys first
-              results: RedisToken[] = [];
-          for (let index = 0; index < request.getParams().length - 1; index++) {
-              const key = request.getParam(index),
-                  result = this.process(
-                      request,
-                      db,
-                      key
-                  );
-              if (result !== RedisToken.nullString()) {
-                  results.push(RedisToken.string(key));
-                  results.push(result);
-                  break;
-              }
-          }
-          if (results.length > 0) {
-              resolve(RedisToken.array(results));
-          } else {
-              const eventNames: string[] = [],
-                  eventCallbacks: any = {};
-              for (let index = 0; index < request.getParams().length - 1; index++) {
-                  const key = request.getParam(index);
-                  eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
-                  eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
-                  eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
-                  eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
-              }
-              const timedEvent: TimedEmitter = new TimedEmitter(
-                  Number(timeout),
-                  eventNames,
-                  request.getServerContext()
-              );
-              timedEvent.on(
-                  "timeout",
-                  () => {
-                      this.logger.debug("Timeout");
-                      this.removeListeners(
-                          timedEvent,
-                          eventCallbacks
-                      );
-                      resolve(RedisToken.nullString());
-                  }
-              );
-              for (const eventName of eventNames) {
-                  this.logger.debug(`Adding listener for ${eventName}`);
-                  eventCallbacks[eventName] = () => {
-                      const keyName: string = `${eventName.split(" ")[1]}`,
-                          callresults: RedisToken[] = [RedisToken.string(keyName)];
-                      callresults.push(this.process(
-                          request,
-                          db,
-                          keyName
-                      ));
-                      resolve(RedisToken.array(callresults));
-                  };
-                  timedEvent.on(
-                      eventName,
-                      eventCallbacks[eventName]
-                  );
-              }
-              //        Resolve(RedisToken.array(results));
-          }
-      });
-  }
+    protected logger: Logger;
 
-  private removeListeners(timedEvent: TimedEmitter, events: any) {
-      for (const eName of Object.keys(events)) {
-          this.logger.debug(`Removing listener for ${eName}`);
-          timedEvent.off(
-              eName,
-              events[eName]
-          );
-      }
-  }
+    constructor(maxParams: number, minParams: number, name: string) {
+        super();
+        this.constructor.prototype.maxParams = maxParams;
+        this.constructor.prototype.minParams = minParams;
+        this.constructor.prototype.name = name;
+        this.logger = new Logger(module.id);
+    }
+
+    public execSync(request: IRequest, db: Database): Promise<RedisToken> {
+        return new Promise((resolve) => {
+            this.logger.debug(
+                `${request.getCommand()}.execute(%s)`,
+                ...request.getParams()
+            );
+            const timeout: string = request.getParam(request.getParams().length - 1),
+                // Check all source keys first
+                results: RedisToken[] = [];
+            for (let index = 0; index < request.getParams().length - 1; index++) {
+                const key = request.getParam(index),
+                    result = this.process(
+                        request,
+                        db,
+                        key
+                    );
+                if (result !== RedisToken.nullString()) {
+                    results.push(RedisToken.string(key));
+                    results.push(result);
+                    break;
+                }
+            }
+            if (results.length > 0) {
+                resolve(RedisToken.array(results));
+            } else {
+                const eventNames: string[] = [],
+                    eventCallbacks: any = {};
+                for (let index = 0; index < request.getParams().length - 1; index++) {
+                    const key = request.getParam(index);
+                    eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lpush ${key}`);
+                    eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:rpush ${key}`);
+                    eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:linsert ${key}`);
+                    eventNames.push(`__keyevent@${request.getSession().getCurrentDb()}__:lset ${key}`);
+                }
+                const timedEvent: TimedEmitter = new TimedEmitter(
+                    Number(timeout),
+                    eventNames,
+                    request.getServerContext()
+                );
+                timedEvent.on(
+                    "timeout",
+                    () => {
+                        this.logger.debug("Timeout");
+                        this.removeListeners(
+                            timedEvent,
+                            eventCallbacks
+                        );
+                        resolve(RedisToken.nullString());
+                    }
+                );
+                for (const eventName of eventNames) {
+                    this.logger.debug(`Adding listener for ${eventName}`);
+                    eventCallbacks[eventName] = () => {
+                        const keyName: string = `${eventName.split(" ")[1]}`,
+                            callresults: RedisToken[] = [RedisToken.string(keyName)];
+                        callresults.push(this.process(
+                            request,
+                            db,
+                            keyName
+                        ));
+                        resolve(RedisToken.array(callresults));
+                    };
+                    timedEvent.on(
+                        eventName,
+                        eventCallbacks[eventName]
+                    );
+                }
+                //        Resolve(RedisToken.array(results));
+            }
+        });
+    }
+
+    private removeListeners(timedEvent: TimedEmitter, events: any) {
+        for (const eName of Object.keys(events)) {
+            this.logger.debug(`Removing listener for ${eName}`);
+            timedEvent.off(
+                eName,
+                events[eName]
+            );
+        }
+    }
 }

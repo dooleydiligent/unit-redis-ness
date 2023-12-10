@@ -18,11 +18,11 @@
   "scripts": {
     "build": "npm run clean && npm run lint && npm run doc && npm run makeindex && node_modules/.bin/changelog all -m >CHANGELOG.raw && npm test && tsc -p .",
     "clean": "rm -rf ${npm_package_name}-${npm_package_version}.tgz dist doc coverage .nyc_output test-unit-redis-ness/node_modules docs/*/*",
-    "doc": "typedoc --out docs/doc --theme minimal --tsconfig ./tsconfig.json --hideGenerator --exclude **/*.test.ts src node_modules/@types/node && cp -R images ./docs/doc/images",
-    "makeindex": "cp index.html docs/index.html",
-    "lint": "eslint . --fix",
+    "doc": "typedoc --out docs/doc --theme default --tsconfig ./tsconfig.json --hideGenerator --plugin typedoc-plugin-missing-exports && cp -R images ./docs/doc/images",
+    "makeindex": "cp index.html images/dooley.gif docs/",
+    "lint": "eslint .",
     "start": "node -e 'const s = require(\"./dist/server/resp-server\");const c=new s.RespServer();c.start();'",
-    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs/mochawesome --recursive --exit test",
+    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter=mochawesome --reporter-options reportDir=docs/mochawesome --recursive --exit test/**/*.ts",
     "prepack": "npm run clean && npm run build && npm run doc && npm test"
   },
   "repository": {
@@ -47,6 +47,7 @@
     "npm": ">=8.19.4"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/assert": "^1.5.10",
     "@types/chai": "^4.3.11",
     "@types/deep-equal": "^1.0.4",
@@ -69,16 +70,17 @@
     "source-map-support": "^0.5.21",
     "ts-node": "^8.10.2",
     "typedoc": "^0.25.4",
+    "typedoc-plugin-missing-exports": "^2.1.0",
     "typescript": "^5.3.3"
   },
   "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
     "include": [
-      "src"
+      "src/**/*.ts",
+      "test/**/*.ts"
     ],
-    "exclude": [
-      "test"
-    ],
+    "check-coverage": true,
     "extension": [
       ".ts"
     ],
