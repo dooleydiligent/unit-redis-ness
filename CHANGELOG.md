@@ -1,3 +1,14 @@
+1.0.13 / 2023-12-10
+===================
+  * Update to node 16.20.2
+  * Update to typescript 5.3.3
+  * Update to typedoc 0.25.4
+  * Remove decorators since the spec has changed
+
+1.0.12 / 2020-12-09
+===================
+  * Validating the pipeline
+
 1.0.11 / 2020-01-22
 ===================
 
